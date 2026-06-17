@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0a0c11}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(120,150,180,0.2);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes btBlink{0%,100%{opacity:1}50%{opacity:.4}}
+  @keyframes btSpin{to{transform:rotate(360deg)}}
+  @keyframes btTick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .btmono{font-family:'IBM Plex Mono',monospace}
+  input.bt-inj::placeholder{color:rgba(220,200,235,0.45)}
+</style>
+</helmet>
+<div data-screen-label="Brass Tacks" style="height:100vh; overflow:hidden; color:#e4e8ef; font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; background:radial-gradient(1100px 520px at 50% -8%, rgba(70,120,170,0.14), transparent 60%), radial-gradient(800px 600px at 104% 116%, rgba(255,93,177,0.08), transparent 55%), linear-gradient(180deg,#0c0e14,#0a0b10);">
+
+  <header style="flex:0 0 54px; display:flex; align-items:center; gap:14px; padding:0 16px; border-bottom:1px solid rgba(120,150,180,0.16); background:rgba(16,19,26,0.72);">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="24" height="24" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="#ffce5a" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#e4e8ef" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#46c8ff" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff5db1" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff554d" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.13em; font-size:13.5px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:20px; background:rgba(120,150,180,0.22);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13px;">Brass Tacks</span>
+      <span class="btmono" style="font-size:10px; color:rgba(170,190,215,0.55);">the joke on top · the facts one tap down</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="btmono" style="display:flex; align-items:center; gap:7px; font-size:10px; color:rgba(180,200,222,0.62);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(120,150,180,0.18); border-radius:6px; background:rgba(22,27,36,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:#ffb84d;"></span>6 feeds · mock wire</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(120,150,180,0.18); border-radius:6px; background:rgba(22,27,36,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:#46e08a;box-shadow:0 0 7px #46e08a;"></span>100% satire-labeled</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(120,150,180,0.18); border-radius:6px; background:rgba(22,27,36,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:{{ engine.dot }};"></span>{{ engine.label }}</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px; padding:4px 10px 4px 6px; border-radius:20px; background:rgba(255,206,90,0.1); border:1px solid rgba(255,206,90,0.3);">
+      <div style="width:24px; height:24px; border-radius:50%; background:linear-gradient(135deg,#ffce5a,#ff5db1); flex:0 0 auto;"></div>
+      <div style="display:flex; flex-direction:column; line-height:1.1;"><span style="font-size:10.5px; font-weight:600;">The Desk</span><span class="btmono" style="font-size:8.5px; color:rgba(180,200,222,0.5);">punches up · sources down</span></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="brass-tacks"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:9px; padding:11px 13px; overflow:hidden;">
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.025); border:1px solid rgba(120,150,180,0.18); border-radius:13px; padding:9px 13px;">
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:7px;">
+            <span class="btmono" style="font-size:9px; letter-spacing:0.12em; color:rgba(170,190,215,0.5);">EDIT LENS</span>
+            <span class="btmono" style="font-size:9px; color:rgba(170,190,215,0.4);">tone only — each story stops where punching down would start</span>
+          </div>
+          <div style="display:flex; gap:5px;">
+            <sc-for list="{{ spice.stops }}" as="sp" hint-placeholder-count="5">
+              <div onClick="{{ sp.onSelect }}" style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; cursor:pointer; background:{{ sp.bg }}; border:1px solid {{ sp.border }};">
+                <div style="font-size:11px; font-weight:600; color:{{ sp.txt }};">{{ sp.name }}</div>
+                <div class="btmono" style="font-size:7.5px; color:rgba(190,205,225,0.5); margin-top:1px;">{{ sp.desc }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="width:1px; height:48px; background:rgba(120,150,180,0.2);"></div>
+        <div onClick="{{ onToggleLive }}" style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+          <span style="width:34px; height:18px; border-radius:9px; background:{{ live.bg }}; position:relative;"><span style="position:absolute; top:2px; left:{{ live.knob }}; width:14px; height:14px; border-radius:50%; background:#fff;"></span></span>
+          <span class="btmono" style="font-size:8px; color:{{ live.txt }};">Live Desk</span>
+        </div>
+        <div onClick="{{ onReroll }}" style="display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; padding:8px 14px; border-radius:10px; background:linear-gradient(135deg,#ffce5a,#ff5db1); color:#15110a;">
+          <span style="font-size:14px; line-height:1; animation:{{ rerollAnim }};">⟳</span>
+          <span style="font-size:10px; font-weight:600;">{{ rerollLabel }}</span>
+        </div>
+      </section>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:9px; background:rgba(255,93,177,0.05); border:1px solid rgba(255,93,177,0.22); border-radius:11px; padding:8px 11px;">
+        <span class="btmono" style="flex:0 0 auto; font-size:9px; color:#ff8fcb; letter-spacing:0.1em; font-weight:600;">INJECT</span>
+        <input class="bt-inj" value="{{ injectText }}" onChange="{{ onInjectInput }}" onKeyDown="{{ onInjectKey }}" placeholder="paste a headline or a link — the Desk will roll it through the current lens" style="flex:1; min-width:0; background:rgba(0,0,0,0.32); border:1px solid rgba(255,93,177,0.25); border-radius:8px; padding:7px 11px; color:#e4e8ef; font-size:12px; outline:none;" />
+        <span onClick="{{ onInject }}" style="flex:0 0 auto; font-size:11px; font-weight:600; color:#15110a; background:linear-gradient(135deg,#ffce5a,#ff5db1); padding:7px 14px; border-radius:8px; cursor:pointer;">Roll it ⟳</span>
+        <span class="btmono" style="flex:0 0 auto; font-size:8px; color:rgba(255,160,210,0.6);">unverified · flagged · capped at Dark</span>
+      </section>
+
+      <section style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:9px; padding-right:2px;">
+        <sc-for list="{{ wire }}" as="st" hint-placeholder-count="6">
+          <div onClick="{{ st.onSelect }}" style="display:flex; gap:0; border-radius:13px; border:1px solid {{ st.border }}; background:{{ st.bg }}; cursor:pointer; overflow:hidden;">
+            <div style="flex:0 0 42%; padding:12px 13px; background:rgba(70,120,170,0.05); border-right:1px solid rgba(120,150,180,0.14);">
+              <div style="display:flex; align-items:center; gap:7px; margin-bottom:8px;">
+                <span class="btmono" style="font-size:8px; font-weight:600; padding:2px 7px; border-radius:5px; background:rgba(120,150,180,0.14); color:rgba(190,205,225,0.75);">{{ st.beat }}</span>
+                <span class="btmono" style="font-size:8px; font-weight:600; padding:2px 7px; border-radius:5px; background:{{ st.verBg }}; color:{{ st.verColor }};">{{ st.verification }}</span>
+              </div>
+              <div style="font-size:13.5px; line-height:1.35; font-weight:500; color:rgba(218,228,240,0.92);">{{ st.straight }}</div>
+              <div class="btmono" style="font-size:9px; color:rgba(170,190,215,0.5); margin-top:8px;">{{ st.corro }} · the wire</div>
+            </div>
+            <div style="flex:1; min-width:0; padding:12px 14px; position:relative;">
+              <div style="display:flex; align-items:center; gap:7px; margin-bottom:8px;">
+                <span class="btmono" style="font-size:8px; font-weight:700; padding:2px 7px; border-radius:5px; background:rgba(255,93,177,0.16); color:#ff8fcb; letter-spacing:0.06em;">▲ SATIRE</span>
+                <span class="btmono" style="font-size:8.5px; color:{{ st.tierColor }};">{{ st.tierName }} lens</span>
+                <sc-if value="{{ st.capped }}" hint-placeholder-val="{{ false }}"><span class="btmono" style="font-size:8px; color:#ffb84d;">🔒 capped — aims up</span></sc-if>
+                <div style="flex:1;"></div>
+                <span class="btmono" style="font-size:8px; color:rgba(170,190,215,0.4);">not a claim</span>
+              </div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; line-height:1.22; font-weight:600; color:#fbeef6;">{{ st.snark }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+
+      <footer style="flex:0 0 38px; border:1px solid rgba(120,150,180,0.16); border-radius:10px; background:rgba(16,19,26,0.6); overflow:hidden; display:flex; align-items:center;">
+        <span class="btmono" style="flex:0 0 auto; font-size:8.5px; font-weight:600; padding:0 11px; color:#46c8ff; letter-spacing:0.08em; border-right:1px solid rgba(120,150,180,0.16); height:100%; display:flex; align-items:center;">RAW WIRE</span>
+        <div style="flex:1; overflow:hidden; position:relative;">
+          <div style="display:flex; align-items:center; gap:28px; white-space:nowrap; padding-left:14px; {{ ticker.anim }}">
+            <sc-for list="{{ ticker.items }}" as="tk" hint-placeholder-count="8">
+              <span class="btmono" style="font-size:9.5px; color:rgba(195,210,230,0.7);"><span style="color:rgba(170,190,215,0.4);">●</span> {{ tk }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <span class="btmono" style="flex:0 0 auto; font-size:8px; padding:0 11px; color:rgba(170,190,215,0.42); border-left:1px solid rgba(120,150,180,0.16); height:100%; display:flex; align-items:center;">neutral · snark is a layer on top</span>
+      </footer>
+    </main>
+
+    <aside style="flex:0 0 384px; display:flex; flex-direction:column; border-left:1px solid rgba(120,150,180,0.16); background:rgba(16,19,26,0.5); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:13px 16px 12px; border-bottom:1px solid rgba(120,150,180,0.16); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Brass tacks</span>
+          <span class="btmono" style="font-size:8.5px; font-weight:600; padding:2px 7px; border-radius:5px; background:{{ sel.verBg }}; color:{{ sel.verColor }};">{{ sel.verification }}</span>
+          <div style="flex:1;"></div>
+          <span class="btmono" style="font-size:8.5px; color:rgba(170,190,215,0.5);">{{ sel.beat }}</span>
+        </div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:15px;">
+
+        <div style="background:rgba(70,120,170,0.06); border:1px solid rgba(70,200,255,0.22); border-radius:11px; padding:11px 12px;">
+          <div class="btmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(150,200,255,0.6); margin-bottom:6px;">THE STRAIGHT READ · UNCHANGED BY ANY LENS</div>
+          <div style="font-size:12.5px; line-height:1.55; color:rgba(228,232,239,0.92);">{{ sel.read }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:9px;">
+            <span class="btmono" style="font-size:9px; color:rgba(170,190,215,0.5);">corroboration</span>
+            <div style="flex:1; height:5px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }};"></div></div>
+            <span class="btmono" style="font-size:10px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:9px; padding:9px 11px; border-radius:10px; background:rgba(255,93,177,0.06); border:1px solid rgba(255,93,177,0.28);">
+          <span style="font-size:13px; flex:0 0 auto;">▲</span>
+          <span style="font-size:11px; line-height:1.5; color:rgba(232,222,240,0.82);">The headline on the right is <b style="color:#ff8fcb;">satire</b> — commentary, not a report. The fact above is the report. Brass Tacks never lets the joke wear the newscaster's voice.</span>
+        </div>
+
+        <div>
+          <div class="btmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(170,190,215,0.5); margin-bottom:8px;">SOURCES &amp; CORROBORATION</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ sel.sources }}" as="src" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.22); border:1px solid rgba(120,150,180,0.14); border-radius:9px;">
+                <span class="btmono" style="flex:0 0 auto; font-size:8px; font-weight:600; padding:2px 5px; border-radius:4px; background:{{ src.stampBg }}; color:{{ src.stampColor }};">{{ src.stamp }}</span>
+                <span class="btmono" style="flex:1; min-width:0; font-size:10px; color:rgba(218,228,240,0.78); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.feed }}</span>
+                <span class="btmono" style="font-size:9px; color:{{ src.agreeColor }};">{{ src.agree }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,85,77,0.06); border:1px solid rgba(255,85,77,0.32); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff554d;"></span><span class="btmono" style="font-size:10px; font-weight:600;">{{ sel.contradiction.title }}</span></div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(218,228,240,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }}; margin-top:2px;">{{ sel.contradiction.a.val }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(218,228,240,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }}; margin-top:2px;">{{ sel.contradiction.b.val }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(218,228,240,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div class="btmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(170,190,215,0.5); margin-bottom:8px;">SAME FACT, EVERY LENS</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <sc-for list="{{ sel.ladder }}" as="ld" hint-placeholder-count="5">
+              <div onClick="{{ ld.onSelect }}" style="display:flex; align-items:flex-start; gap:9px; padding:6px 10px; border-radius:8px; cursor:{{ ld.cursor }}; background:{{ ld.bg }}; border:1px solid {{ ld.border }}; opacity:{{ ld.op }};">
+                <span style="width:8px; height:8px; border-radius:50%; background:{{ ld.color }}; flex:0 0 auto; margin-top:3px;"></span>
+                <span class="btmono" style="font-size:9px; font-weight:600; flex:0 0 52px; color:{{ ld.nameColor }}; margin-top:1px;">{{ ld.name }}</span>
+                <span style="flex:1; min-width:0; font-size:10px; line-height:1.4; color:rgba(220,228,242,0.74); font-style:italic;">{{ ld.sample }}</span>
+                <sc-if value="{{ ld.locked }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px;">🔒</span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:{{ sel.govBg }}; border:1px solid {{ sel.govBorder }}; border-radius:11px; padding:11px 12px;">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;"><span style="width:8px; height:8px; border-radius:2px; background:{{ sel.govColor }};"></span><span class="btmono" style="font-size:9.5px; font-weight:600; color:{{ sel.govColor }};">WHERE THE DESK STOPS</span></div>
+          <div style="font-size:11px; line-height:1.5; color:rgba(220,228,242,0.8);">{{ sel.govNote }}</div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.26); border:1px solid rgba(120,150,180,0.16); border-radius:11px; padding:11px 12px;">
+          <div class="btmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(170,190,215,0.5); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div class="btmono" style="display:flex; flex-direction:column; gap:5px; font-size:10px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(170,190,215,0.45);">story</span><span style="color:#46c8ff;">{{ sel.storyId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(170,190,215,0.45);">truth.mode</span><span>PRJ · wit lens</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(170,190,215,0.45);">derived_from</span><span>{{ sel.corro }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(170,190,215,0.45);">skinnable</span><span style="color:#ff5db1;">tone only</span></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(210,220,236,0.5); margin-top:9px; line-height:1.45;">A satirical projection over sourced records. Bend the tone all you like; the fact, the feeds, and the count do not move.</div>
+          <span style="display:block; text-align:center; font-size:11.5px; font-weight:600; color:#15110a; background:linear-gradient(135deg,#ffce5a,#46c8ff); padding:9px; border-radius:8px; margin-top:11px; cursor:pointer;">Open source feeds</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.TIERS=[{n:1,name:'Wholesome',desc:'gentle',color:'#46e08a'},{n:2,name:'Dry',desc:'deadpan',color:'#cde06a'},{n:3,name:'Spicy',desc:'sardonic',color:'#ffb84d'},{n:4,name:'Dark',desc:'pointed',color:'#ff8a3a'},{n:5,name:'Gallows',desc:'bleak',color:'#ff554d'}];
+    this.STORIES={
+      tech_ceo:{ beat:'TECH', cap:5, target:'power', verification:'VERIFIED', corro:'3 sources', conf:0.9,
+        straight:'Tech CEO touts AI job creation on the day of 4,000 layoffs',
+        read:'A major tech firm announced ~4,000 layoffs hours after its CEO said AI would "create more jobs than it replaces." Three outlets corroborate; the layoff figure is from the company filing.',
+        sources:[{stamp:'EXT',feed:'Wire Service A',agree:'agrees'},{stamp:'EXT',feed:'Business Desk B',agree:'agrees'},{stamp:'DOC',feed:'Company filing',agree:'primary'}],
+        gov:'Target is the executive and the spin — fair game all the way to Gallows. The 4,000 people are never the punchline; the man with the slide deck is.',
+        tiers:{1:[{s:'CEO stays upbeat on jobs; 4,000 of them get a head start on the upbeat'}],
+          2:[{s:'AI will create jobs, says man personally subtracting 4,000 of them'}],
+          3:[{s:'CEO discovers infinite job growth using the one weird trick of firing 4,000 people first'}],
+          4:[{s:'"AI creates jobs," says CEO, gesturing warmly at the 4,000 he just freed up for personal growth'}],
+          5:[{s:'Visionary unveils a bold future that has jobs in it and, regrettably, not you'}]} },
+      gov_budget:{ beat:'POLITICS', cap:5, target:'system', verification:'VERIFIED', corro:'2 sources + record', conf:0.85,
+        straight:'City council passes annual budget after 11-hour session',
+        read:'The council approved the budget at roughly 2 a.m. after an 11-hour meeting. Two local outlets and the official minutes confirm the timeline.',
+        sources:[{stamp:'EXT',feed:'Local Outlet C',agree:'agrees'},{stamp:'SYS',feed:'Official minutes',agree:'primary'}],
+        gov:'Aim is the process and the theater of it. No victims here, just procedure — full range.',
+        tiers:{1:[{s:'Council works late to pass the budget; democracy keeps banker\u2019s hours after all'}],
+          2:[{s:'Council spends 11 hours approving how to spend; the irony spends nothing'}],
+          3:[{s:'Democracy works — it just takes 11 hours and everyone\u2019s remaining will to live'}],
+          4:[{s:'Budget passes at 2 a.m., a time chosen so no one could witness the joy'}],
+          5:[{s:'After 11 hours the council achieves both a budget and the heat-death of civic enthusiasm'}]} },
+      climate_heat:{ beat:'WORLD', cap:4, target:'system', verification:'VERIFIED', corro:'3 sources', conf:0.88,
+        straight:'Region logs third consecutive record-hot summer',
+        read:'Meteorological data shows a third straight record summer. Corroborated by the national weather service and two science desks.',
+        sources:[{stamp:'DOC',feed:'Weather service',agree:'primary'},{stamp:'EXT',feed:'Science Desk D',agree:'agrees'},{stamp:'EXT',feed:'Science Desk E',agree:'agrees'}],
+        gov:'Capped at Dark. The heat is hurting people, so the joke aims at the inaction and the meetings about whether it\u2019s real — never at anyone enduring it.',
+        tiers:{1:[{s:'Region warm again; officials warmly note their concern'}],
+          2:[{s:'Record heat for a third year; officials record their concern and file it carefully'}],
+          3:[{s:'Third record summer; the response remains a strongly-worded thermostat'}],
+          4:[{s:'Planet runs a fever for the third summer straight; the doctors are still in a meeting about whether fevers are real'}]} },
+      factory:{ beat:'WORLD', cap:2, target:'tragedy', verification:'VERIFIED', corro:'2 sources + regulator', conf:0.84,
+        straight:'Factory collapse injures dozens; safety inspection was 14 months overdue',
+        read:'A factory collapse injured dozens of workers. Records show the last safety inspection was overdue by 14 months. Verified by two outlets and a regulator statement.',
+        sources:[{stamp:'EXT',feed:'Wire Service A',agree:'agrees'},{stamp:'DOC',feed:'Regulator statement',agree:'primary'}],
+        gov:'Hard-capped at Dry. The people hurt here are not the joke, ever. The Desk aims only at the 14-month-late inspection and whoever signed off on skipping it. Above Dry the only target left is the victims — so the Desk stops.',
+        tiers:{1:[{s:'Workers hurt as building gives out; the overdue inspection sends its regards'}],
+          2:[{s:'Safety inspection was 14 months late; the building, unfortunately, was on time'}]} },
+      rumor:{ beat:'BUSINESS', cap:3, target:'system', verification:'UNVERIFIED', corro:'1 source', conf:0.32,
+        straight:'Single report claims merger talks; both companies decline to comment',
+        read:'One outlet reports possible merger talks. There is no corroboration, and both companies declined to comment. Treat as unverified.',
+        sources:[{stamp:'EXT',feed:'Outlet F',agree:'sole source'}],
+        gov:'Unverified — single source. The snark is clearly a joke about a rumor, not a report of a fact. Capped at Spicy so the comedy can\u2019t quietly launder a rumor into a headline.',
+        tiers:{1:[{s:'Two firms possibly talking, per one outlet and a strong feeling'}],
+          2:[{s:'Companies "in talks," according to one guy and a vibe'}],
+          3:[{s:'Merger rumor achieves the evidentiary standing of a horoscope'}]} },
+      crowd:{ beat:'POLITICS', cap:3, target:'system', verification:'DISPUTED', corro:'2 sources disagree', conf:0.4,
+        straight:'Officials and organizers dispute crowd size by 5×',
+        read:'Officials estimate ~20,000; organizers claim ~100,000. There was no independent count. The sources directly disagree.',
+        sources:[{stamp:'EXT',feed:'Officials',agree:'20k'},{stamp:'EXT',feed:'Organizers',agree:'100k'}],
+        contradiction:{title:'DISPUTED · 5\u00d7 GAP',a:{label:'Officials',val:'~20,000',color:'#46c8ff'},b:{label:'Organizers',val:'~100,000',color:'#ffce5a'},note:'Two sources, one event, a five-fold gap, and no independent count. The Desk reports the disagreement; it does not pick a winner to make a cleaner joke.'},
+        gov:'Disputed, no independent count. Capped at Spicy. The joke targets the absurdity of the gap, not either claimant — and the contradiction stays on the table.',
+        tiers:{1:[{s:'Crowd estimated at either 20,000 or 100,000; everyone agrees it was a number'}],
+          2:[{s:'Turnout was 20,000 or 100,000; math remains undefeated and entirely unconsulted'}],
+          3:[{s:'Two sources, one crowd, a 5\u00d7 disagreement — pick your reality, because they did'}]} },
+      phone:{ beat:'TECH', cap:5, target:'absurd', verification:'VERIFIED', corro:'3 sources', conf:0.86,
+        straight:'Study finds adults check phones 144 times daily',
+        read:'A peer-reviewed study reports an average of 144 daily phone checks. Corroborated by the journal and two science desks.',
+        sources:[{stamp:'DOC',feed:'Peer-reviewed journal',agree:'primary'},{stamp:'EXT',feed:'Science Desk D',agree:'agrees'},{stamp:'EXT',feed:'Science Desk E',agree:'agrees'}],
+        gov:'Pure human folly, no victims — full range. The Desk is allowed to include itself in the joke, and does.',
+        tiers:{1:[{s:'Adults check phones 144 times a day; researchers confirmed it by checking theirs'}],
+          2:[{s:'We check our phones 144 times a day, mostly to see if checking them worked'}],
+          3:[{s:'Humanity logs 144 daily attempts to refresh its way out of the present moment'}],
+          4:[{s:'144 checks a day: a species frantically pulling a lever that dispenses other people\u2019s lives'}],
+          5:[{s:'Study confirms we check our phones 144 times a day, looking mainly for the will to stop'}]} }
+    };
+    this.ORDER=['tech_ceo','gov_budget','climate_heat','factory','rumor','crowd','phone'];
+    this.BEATS=[{id:'all',label:'All',color:'#ffce5a'},{id:'WORLD',label:'World',color:'#46c8ff'},{id:'POLITICS',label:'Politics',color:'#ff5db1'},{id:'TECH',label:'Tech',color:'#46e08a'},{id:'BUSINESS',label:'Business',color:'#ffb84d'}];
+    this.TICKER=['Council approves budget after 11-hour session','Region logs third record-hot summer','Study: adults check phones 144×/day','Factory collapse injures dozens; inspection overdue','Single outlet reports possible merger talks','Crowd size disputed by officials and organizers','Tech firm announces ~4,000 layoffs'];
+    this.FRAMES={
+      1:['{x} — and honestly, good for everyone involved.','Heartening, if true: {x}.'],
+      2:['{x}. Apparently that is where we are now.','Sources you provided confirm: {x}.'],
+      3:['{x} — a sentence that should not have had to happen.','Breaking: {x}. Nobody surprised, everyone tired.'],
+      4:['{x}, i.e. the system working precisely as designed.','{x} — and that is somehow the optimistic reading.'],
+      5:['{x}. Cause of death: business as usual.','{x} — please hold for the inevitable sequel.']
+    };
+    this.state={ spice:3, variant:0, sel:'tech_ceo', beat:'all', live:false, busy:false, override:null, injectText:'', injected:[], injectN:0 };
+  }
+  tier(n){ return this.TIERS[n-1]; }
+  stampColor(s){ return s==='HUM'?'#f0d8a8': s==='DEV'?'#66c7ff': s==='DOC'?'#ffce5a': s==='SYS'?'#9aa6c0': s==='EXT'?'#46c8ff':'#a879ff'; }
+  verColor(v){ return v==='VERIFIED'?'#46e08a': v==='DISPUTED'?'#ff554d': v==='UNVERIFIED'?'#ff8a3a': v==='SINGLE SOURCE'?'#ffb84d':'#9aa6c0'; }
+  confColor(c){ if(c==null) return '#9aa6c0'; return c>=0.8?'#46e08a': c>=0.6?'#a8d96a': c>=0.4?'#ffb84d':'#ff554d'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  eff(st){ return Math.min(this.state.spice, st.cap); }
+  variants(st,sp){ if(st.generic) return this.genFrames(st.raw,sp); return (st.tiers&&st.tiers[sp])||[{s:'\u2026'}]; }
+  story(id){ return this.state.injected.find(s=>s.id===id)||this.STORIES[id]; }
+  genFrames(raw,sp){ const x=(raw||'').replace(/\s+/g,' ').trim(); const xs=x.length>96?x.slice(0,93)+'\u2026':x; const xl=xs?xs.charAt(0).toLowerCase()+xs.slice(1):'this'; const f=this.FRAMES[Math.min(sp,5)]||this.FRAMES[2]; return f.map(t=>({s:t.replace('{x}',xl)})); }
+  deriveInject(input){ const t=(input||'').trim(); if(!t) return null; let kind='text', source='pasted text', title=t;
+    if(/^(https?:\/\/|www\.)/i.test(t)||/^[\w.-]+\.[a-z]{2,}\//i.test(t)){ kind='link';
+      try{ const u=new URL(/^https?:/i.test(t)?t:'https://'+t); source=u.hostname.replace(/^www\./,''); let seg=(u.pathname.split('/').filter(Boolean).pop())||u.hostname; seg=decodeURIComponent(seg).replace(/\.(html?|php|aspx?)$/i,'').replace(/[-_]+/g,' ').trim(); title=seg||u.hostname; }
+      catch(e){ source='link'; title=t; } }
+    if(title.length>140) title=title.slice(0,140); return {title,kind,source}; }
+  injectStory(){ const d=this.deriveInject(this.state.injectText); if(!d) return; const n=this.state.injectN+1, id='inj_'+n;
+    const story={ id, beat:'YOURS', cap:4, target:'unknown', generic:true, raw:d.title, injected:true,
+      verification:'UNVERIFIED', corro:'0 sources \u2014 you brought this', conf:0.3,
+      straight:d.title, read:'User-injected '+d.kind+'. Not fetched and not corroborated by the Desk. Source: '+d.source+'.',
+      sources:[{stamp:'HUM',feed:d.source+' (you)',agree:'sole \u00b7 unverified'}],
+      gov:'You brought this one in. It is unverified and its target is unknown to the Desk, so it caps at Dark and stays flagged \u2014 the joke can never pose as a sourced report. Paste a corroborating source to lift it.' };
+    this.setState(s=>({ injected:[story].concat(s.injected).slice(0,12), injectN:n, sel:id, variant:0, override:null, injectText:'' }));
+    if(this.state.live) setTimeout(()=>this.rerollLive(),60); }
+
+  doReroll(){ const cs=this.story(this.state.sel); const vlen=this.variants(cs,this.eff(cs)).length;
+    this.setState(s=>({variant:(s.variant+1)%Math.max(1,vlen), override:null})); if(this.state.live) this.rerollLive(); }
+  async rerollLive(){ if(!(window.claude&&window.claude.complete)) return; const st=this.story(this.state.sel), tn=this.tier(this.eff(st)); this.setState({busy:true});
+    try{ const prompt='You write one satirical news headline for a Lightweave projection. FACT (do not change or invent): "'+st.read+'". Tone: '+tn.name+' ('+tn.desc+'). HARD RULES: punch UP at power, systems, spin, and absurdity — never at victims, the injured, or the powerless. No real names. No claim presented as fact. One headline, under 18 words. Reply ONLY JSON: {"headline":"..."}';
+      const out=await window.claude.complete({messages:[{role:'user',content:prompt}]}); const m=out.match(/\{[\s\S]*\}/);
+      if(m){ const j=JSON.parse(m[0]); if(j.headline) this.setState({override:{s:j.headline},busy:false}); else this.setState({busy:false}); } else this.setState({busy:false});
+    }catch(e){ this.setState({busy:false}); } }
+
+  renderVals(){
+    const setSel=id=>()=>this.setState({sel:id, variant:0, override:null});
+    const setSpice=n=>()=>this.setState({spice:n, variant:0, override:null});
+    const navItems=[{label:'Levity Lens'},{label:'Iris'},{label:'Signal Forge'},{label:'Engine Room'},{label:'The Illuminary'},{label:'Brass Tacks',active:true}]
+      .map(n=>({label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,206,90,0.12)':'transparent', bar:n.active?'inset 2px 0 0 #ffce5a':'none', txt:n.active?'#f4eed8':'rgba(190,205,225,0.6)', dot:n.active?'#ffce5a':'rgba(170,190,215,0.35)'}));
+    const counts={}; this.BEATS.forEach(b=>counts[b.id]=0); this.ORDER.forEach(id=>{ counts.all++; const b=this.STORIES[id].beat; if(counts[b]!=null)counts[b]++; });
+    const beatNav=this.BEATS.map(b=>{ const on=this.state.beat===b.id; return {label:b.label, color:b.color, n:counts[b.id]||0, onSelect:()=>this.setState({beat:b.id}), bg:on?this.hexA(b.color,0.1):'transparent', txt:on?'#f0f3f8':'rgba(200,212,228,0.66)'}; });
+    const spiceStops=this.TIERS.map(t=>{ const cur=t.n===this.state.spice; return {name:t.name, desc:t.desc, onSelect:setSpice(t.n), bg:cur?this.hexA(t.color,0.18):'rgba(255,255,255,0.02)', border:cur?t.color:'rgba(120,150,180,0.16)', txt:cur?t.color:'rgba(210,220,236,0.7)'}; });
+    // wire feed
+    const ids=this.state.injected.map(s=>s.id).concat(this.ORDER);
+    const wire=ids.filter(id=>{ const s0=this.story(id); return this.state.beat==='all'||s0.beat===this.state.beat; }).map(id=>{ const st=this.story(id), sp=this.eff(st), tn=this.tier(sp), seld=id===this.state.sel;
+      const vs=this.variants(st,sp); const v=(seld&&this.state.override)?this.state.override:vs[(seld?this.state.variant:0)%vs.length];
+      return { id, beat:st.beat, straight:st.straight, snark:v.s, corro:st.corro, onSelect:setSel(id),
+        verification:st.verification, verColor:this.verColor(st.verification), verBg:this.hexA(this.verColor(st.verification),0.16),
+        tierName:tn.name, tierColor:tn.color, capped:sp<this.state.spice,
+        border:seld?this.hexA('#ffce5a',0.5):'rgba(120,150,180,0.16)', bg:seld?'rgba(255,206,90,0.05)':'rgba(255,255,255,0.018)' }; });
+    // selected detail
+    const st=this.story(this.state.sel), sp=this.eff(st);
+    const sel={ beat:st.beat, read:st.read, conf:st.conf.toFixed(2), confPct:Math.round(st.conf*100)+'%', confColor:this.confColor(st.conf),
+      verification:st.verification, verColor:this.verColor(st.verification), verBg:this.hexA(this.verColor(st.verification),0.16), headerBg:this.hexA(this.verColor(st.verification),0.05),
+      sources:st.sources.map(s=>({ stamp:s.stamp, feed:s.feed, agree:s.agree, stampBg:this.hexA(this.stampColor(s.stamp),0.16), stampColor:this.stampColor(s.stamp), agreeColor: s.agree==='primary'?'#ffce5a': /sole|20k|100k/.test(s.agree)?'#ff8a3a':'#46e08a' })),
+      contradiction:st.contradiction||null,
+      ladder:this.TIERS.map(t=>{ const lk=t.n>st.cap, samp=(st.tiers&&st.tiers[t.n])?st.tiers[t.n][0].s:'\u2014', cur=t.n===sp;
+        return {name:t.name, sample:lk?'— above this story\u2019s ceiling —':samp, color:t.color, locked:lk, cursor:lk?'not-allowed':'pointer', op:lk?0.45:1, onSelect: lk?(()=>{}):setSpice(t.n),
+          bg:cur?this.hexA(t.color,0.12):'rgba(0,0,0,0.2)', border:cur?this.hexA(t.color,0.5):'rgba(120,150,180,0.12)', nameColor:cur?t.color:'rgba(210,220,236,0.7)'}; }),
+      govColor: st.target==='tragedy'?'#ff554d': st.verification==='UNVERIFIED'||st.verification==='DISPUTED'?'#ff8a3a':'#46e08a',
+      govBg:this.hexA(st.target==='tragedy'?'#ff554d':st.verification==='UNVERIFIED'||st.verification==='DISPUTED'?'#ff8a3a':'#46e08a',0.05),
+      govBorder:this.hexA(st.target==='tragedy'?'#ff554d':st.verification==='UNVERIFIED'||st.verification==='DISPUTED'?'#ff8a3a':'#46e08a',0.3),
+      govNote:st.gov, storyId:'story_'+this.state.sel, corro:st.corro };
+    return {
+      navItems, beatNav, wire, sel,
+      spice:{ stops:spiceStops },
+      engine: this.state.live? {label:'live desk',dot:'#46e08a'} : {label:'templates',dot:'#ffce5a'},
+      live:{ bg:this.state.live?'#46e08a':'rgba(255,255,255,0.16)', knob:this.state.live?'18px':'2px', txt:this.state.live?'#46e08a':'rgba(210,220,236,0.5)' },
+      onToggleLive:()=>this.setState(s=>({live:!s.live})),
+      injectText:this.state.injectText,
+      onInjectInput:e=>this.setState({injectText:e.target.value}),
+      onInjectKey:e=>{ if(e.key==='Enter') this.injectStory(); },
+      onInject:()=>this.injectStory(),
+      onReroll:()=>this.doReroll(), rerollLabel:this.state.busy?'writing…':'reroll', rerollAnim:this.state.busy?'btSpin 0.8s linear infinite':'none',
+      ticker:{ items:this.TICKER.concat(this.TICKER), anim:'animation:btTick 34s linear infinite;' }
+    };
+  }
+}
+</script>
+</body>
+</html>

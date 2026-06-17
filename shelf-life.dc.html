@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#090b0e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(217,164,65,0.22);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes slGlow{0%,100%{opacity:.8}50%{opacity:1}}
+  @keyframes slRibbon{0%,100%{opacity:.55}50%{opacity:.9}}
+  @keyframes slBlink{0%,100%{opacity:1}50%{opacity:.4}}
+  @keyframes slDust{0%,100%{opacity:.25}50%{opacity:.5}}
+  .slmono{font-family:'IBM Plex Mono',monospace}
+</style>
+</helmet>
+<div data-screen-label="Shelf Life" style="height:100vh; overflow:hidden; color:#ece3d2; font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; background:radial-gradient(1100px 540px at 50% -8%, rgba(120,80,30,0.16), transparent 62%), linear-gradient(180deg,#0c0e12,#090b0e);">
+
+  <header style="flex:0 0 54px; display:flex; align-items:center; gap:14px; padding:0 16px; border-bottom:1px solid rgba(217,164,65,0.18); background:rgba(20,16,11,0.72);">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="24" height="24" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="#d9a441" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#ece3d2" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#36f2d2" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ffb84d" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff554d" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.13em; font-size:13.5px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:20px; background:rgba(217,164,65,0.22);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13px;">Shelf Life</span>
+      <span class="slmono" style="font-size:10px; color:rgba(217,184,130,0.55);">the lightweave pantry · HOME</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="slmono" style="display:flex; align-items:center; gap:7px; font-size:10px; color:rgba(220,195,150,0.62);">
+      <span style="display:inline-flex; flex-direction:column; gap:1px; padding:4px 9px; border:1px solid rgba(217,164,65,0.18); border-radius:6px; background:rgba(28,20,13,0.6);"><span style="font-size:8px; color:rgba(220,195,150,0.45);">SYSTEM FLUX</span><span style="font-size:11px; color:#ffb84d; font-weight:600;">{{ sys.flux }}</span></span>
+      <span style="display:inline-flex; flex-direction:column; gap:1px; padding:4px 9px; border:1px solid rgba(217,164,65,0.18); border-radius:6px; background:rgba(28,20,13,0.6);"><span style="font-size:8px; color:rgba(220,195,150,0.45);">PANTRY BALANCE</span><span style="font-size:11px; color:#36f2d2; font-weight:600;">{{ sys.balance }}</span></span>
+      <span style="display:inline-flex; flex-direction:column; gap:1px; padding:4px 9px; border:1px solid rgba(217,164,65,0.18); border-radius:6px; background:rgba(28,20,13,0.6);"><span style="font-size:8px; color:rgba(220,195,150,0.45);">SOURCE INTEGRITY</span><span style="font-size:11px; color:#46e08a; font-weight:600;">{{ sys.integrity }}</span></span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px; padding:4px 10px 4px 6px; border-radius:20px; background:rgba(168,121,255,0.1); border:1px solid rgba(168,121,255,0.28);">
+      <div style="width:24px; height:24px; border-radius:50%; background:linear-gradient(135deg,#a879ff,#ff72b6); flex:0 0 auto;"></div>
+      <div style="display:flex; flex-direction:column; line-height:1.1;"><span style="font-size:10.5px; font-weight:600;">The Shelf Critic</span><span class="slmono" style="font-size:8.5px; color:rgba(220,195,150,0.5);">on duty · has notes</span></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="shelf-life"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:9px; padding:11px 13px; overflow:hidden;">
+      <section style="flex:1; min-height:0; position:relative; border:1px solid rgba(217,164,65,0.18); border-radius:14px; overflow:hidden; background:radial-gradient(70% 120% at 50% -10%, rgba(217,164,65,0.08), transparent 60%), linear-gradient(180deg,#1a120c,#120d09);">
+        <div style="position:absolute; inset:0;">{{ wallSvg }}</div>
+        <div style="position:absolute; left:13px; top:10px; display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(235,220,190,0.7);">Shelf map</span>
+          <span class="slmono" style="font-size:9px; color:rgba(217,184,130,0.45);">fill = stock · seal = verification · dust = coverage gap</span>
+        </div>
+        <div style="position:absolute; right:13px; top:10px; padding:4px 10px; border-radius:7px; background:rgba(168,121,255,0.1); border:1px solid rgba(168,121,255,0.26); max-width:340px;">
+          <span class="slmono" style="font-size:9.5px; color:rgba(220,200,255,0.85); font-style:italic;">“{{ critic }}”</span>
+        </div>
+      </section>
+
+      <section style="flex:0 0 158px; position:relative; border:1px solid rgba(217,164,65,0.18); border-radius:14px; overflow:hidden; background:linear-gradient(180deg,#140f0b,#0f0b08);">
+        <div style="position:absolute; inset:0;">{{ counterSvg }}</div>
+        <div style="position:absolute; left:13px; top:9px; display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(235,220,190,0.7);">Meal &amp; glucose storyboard</span>
+          <span class="slmono" style="font-size:9px; color:rgba(217,184,130,0.42);">today · observation only — never dosing advice</span>
+        </div>
+        <div style="position:absolute; right:13px; top:9px; display:flex; align-items:center; gap:9px;">
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:8.5px; color:rgba(220,205,180,0.55);"><span style="width:14px; height:3px; border-radius:2px; background:#ffb84d;"></span>glucose</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:8.5px; color:rgba(220,205,180,0.55);"><span style="width:8px; height:8px; border-radius:2px; background:#a879ff;"></span>insulin log</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:8.5px; color:rgba(220,205,180,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#ff72b6;"></span>symptom</span>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 388px; display:flex; flex-direction:column; border-left:1px solid rgba(217,164,65,0.16); background:rgba(20,16,11,0.5); overflow:hidden;">
+
+      <sc-if value="{{ isWatch }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:0 0 auto; padding:13px 16px 12px; border-bottom:1px solid rgba(217,164,65,0.16); background:rgba(255,85,77,0.05);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:9px; height:9px; border-radius:50%; background:#ff554d; box-shadow:0 0 8px #ff554d; animation:slBlink 1.5s ease-in-out infinite;"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Watch Shelf</span>
+            <span class="slmono" style="font-size:9.5px; color:rgba(220,195,150,0.55);">{{ watch.count }} want attention</span>
+          </div>
+          <div class="slmono" style="font-size:10px; color:rgba(220,195,150,0.55); margin-top:6px; font-style:italic;">“{{ watch.quip }}”</div>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:12px 16px 16px; display:flex; flex-direction:column; gap:8px;">
+          <sc-for list="{{ watch.cards }}" as="wc" hint-placeholder-count="6">
+            <div onClick="{{ wc.onSelect }}" style="border-radius:11px; border:1px solid {{ wc.border }}; background:{{ wc.bg }}; padding:11px 12px; cursor:pointer;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <span style="width:9px; height:9px; border-radius:2px; background:{{ wc.sevColor }}; box-shadow:0 0 6px {{ wc.sevColor }}; flex:0 0 auto;"></span>
+                <span style="font-size:12px; font-weight:600; color:#f1e8d6;">{{ wc.title }}</span>
+                <span style="flex:1;"></span>
+                <span class="slmono" style="font-size:8px; font-weight:600; padding:2px 7px; border-radius:5px; background:{{ wc.sevBg }}; color:{{ wc.sevColor }}; white-space:nowrap;">{{ wc.severity }}</span>
+              </div>
+              <div style="font-size:11px; color:rgba(224,210,186,0.78); line-height:1.45;">{{ wc.detail }}</div>
+              <div style="display:flex; align-items:center; gap:7px; margin-top:8px;">
+                <span class="slmono" style="font-size:8.5px; color:rgba(217,184,130,0.5);">{{ wc.kind }}</span>
+                <span style="flex:1;"></span>
+                <span class="slmono" style="font-size:8.5px; color:var(--b,#d9a441);">open label proof →</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProof }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:0 0 auto; padding:12px 16px 12px; border-bottom:1px solid rgba(217,164,65,0.16); background:{{ proof.headerBg }};">
+          <div onClick="{{ onBackWatch }}" class="slmono" style="font-size:9.5px; color:rgba(220,195,150,0.6); cursor:pointer; margin-bottom:8px;">← Watch Shelf</div>
+          <div style="display:flex; align-items:center; gap:9px;">
+            <span style="width:11px; height:11px; border-radius:3px; background:{{ proof.tone }}; box-shadow:0 0 9px {{ proof.tone }};"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0;">{{ proof.name }}</span>
+            <span class="slmono" style="font-size:9px; font-weight:600; padding:2px 8px; border-radius:6px; background:{{ proof.stateBg }}; color:{{ proof.stateColor }};">{{ proof.stateLabel }}</span>
+          </div>
+          <div class="slmono" style="font-size:10px; color:rgba(220,195,150,0.55); margin-top:6px;">Label Proof · {{ proof.shelf }} · {{ proof.resolver }}</div>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+          <div style="background:{{ proof.headerBg }}; border:1px solid {{ proof.softBorder }}; border-radius:11px; padding:11px 12px;">
+            <div class="slmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(217,184,130,0.5); margin-bottom:6px;">WHY THIS JAR GLOWS</div>
+            <div style="font-size:12px; line-height:1.55; color:rgba(236,227,210,0.9);">{{ proof.why }}</div>
+            <div style="font-size:10.5px; color:rgba(220,200,255,0.82); margin-top:8px; font-style:italic;">“{{ proof.quip }}”</div>
+          </div>
+
+          <sc-if value="{{ proof.review }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:9px; padding:10px 11px; border-radius:10px; background:rgba(168,121,255,0.07); border:1px solid rgba(168,121,255,0.32);">
+              <span style="font-size:13px; flex:0 0 auto;">⚕</span>
+              <span style="font-size:11px; line-height:1.5; color:rgba(224,210,240,0.82);">{{ proof.review }}</span>
+            </div>
+          </sc-if>
+
+          <div>
+            <div class="slmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(217,184,130,0.5); margin-bottom:8px;">CONFIDENCE &amp; SOURCE MIX</div>
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:9px;">
+              <span style="font-size:9.5px; color:rgba(217,184,130,0.5);">label crispness</span>
+              <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ proof.confPct }}; background:{{ proof.confColor }}; box-shadow:0 0 8px {{ proof.confColor }};"></div></div>
+              <span class="slmono" style="font-size:11px; color:{{ proof.confColor }};">{{ proof.conf }}</span>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <sc-for list="{{ proof.sourceMix }}" as="sm" hint-placeholder-count="2">
+                <div style="flex:{{ sm.flex }}; text-align:center; padding:5px 4px; border-radius:7px; background:{{ sm.bg }}; border:1px solid {{ sm.border }};"><div class="slmono" style="font-size:9px; font-weight:600; color:{{ sm.color }};">{{ sm.tag }}</div><div class="slmono" style="font-size:8.5px; color:rgba(220,205,180,0.5);">{{ sm.pct }}</div></div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div>
+            <div class="slmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(217,184,130,0.5); margin-bottom:8px;">SOURCE TRACE</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <sc-for list="{{ proof.sources }}" as="src" hint-placeholder-count="3">
+                <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.22); border:1px solid rgba(217,164,65,0.12); border-radius:9px;">
+                  <span class="slmono" style="flex:0 0 auto; font-size:8px; font-weight:600; padding:2px 5px; border-radius:4px; background:{{ src.stampBg }}; color:{{ src.stampColor }};">{{ src.stamp }}</span>
+                  <div style="flex:1; min-width:0;"><div style="font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.label }}</div><div class="slmono" style="font-size:9px; color:rgba(217,184,130,0.42);">{{ src.role }}</div></div>
+                  <span class="slmono" style="font-size:9.5px; color:{{ src.confColor }};">{{ src.conf }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-if value="{{ proof.contradiction }}" hint-placeholder-val="{{ false }}">
+            <div style="background:rgba(255,85,77,0.06); border:1px solid rgba(255,85,77,0.32); border-radius:11px; padding:11px 12px;">
+              <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff554d;"></span><span class="slmono" style="font-size:10px; font-weight:600;">{{ proof.contradiction.title }}</span></div>
+              <div style="display:flex; gap:9px;">
+                <div style="flex:1; border-radius:9px; border:1px solid {{ proof.contradiction.a.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(224,210,186,0.55);">{{ proof.contradiction.a.label }}</div><div style="font-size:13px; font-weight:600; color:{{ proof.contradiction.a.color }}; margin-top:2px;">{{ proof.contradiction.a.val }}</div></div>
+                <div style="flex:1; border-radius:9px; border:1px solid {{ proof.contradiction.b.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(224,210,186,0.55);">{{ proof.contradiction.b.label }}</div><div style="font-size:13px; font-weight:600; color:{{ proof.contradiction.b.color }}; margin-top:2px;">{{ proof.contradiction.b.val }}</div></div>
+              </div>
+              <div style="font-size:10px; color:rgba(224,210,186,0.5); margin-top:8px; line-height:1.45;">{{ proof.contradiction.note }}</div>
+            </div>
+          </sc-if>
+
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(217,164,65,0.12); border-radius:9px; padding:9px 11px;"><div class="slmono" style="font-size:9px; color:rgba(217,184,130,0.4);">TIME WINDOW</div><div style="font-size:11.5px;">{{ proof.window }}</div></div>
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(217,164,65,0.12); border-radius:9px; padding:9px 11px;"><div class="slmono" style="font-size:9px; color:rgba(217,184,130,0.4);">MISSINGNESS</div><div style="font-size:11.5px; color:{{ proof.missColor }};">{{ proof.missing }}</div></div>
+          </div>
+
+          <div style="background:rgba(0,0,0,0.28); border:1px solid rgba(217,164,65,0.14); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+              <span class="slmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(217,184,130,0.5);">BACK LABEL · CANONICAL</span>
+              <span class="slmono" style="font-size:8px; padding:1px 6px; border-radius:4px; background:rgba(54,242,210,0.12); color:#36f2d2;">the law</span>
+              <span style="flex:1;"></span>
+              <span class="slmono" style="font-size:8.5px; color:rgba(217,184,130,0.4);">contract_v1.5</span>
+            </div>
+            <div style="border:1px solid rgba(217,164,65,0.12); border-radius:8px; background:#070808; padding:10px 11px; overflow-x:auto;">{{ proof.json }}</div>
+            <div style="display:flex; gap:7px; margin-top:11px;">
+              <span style="flex:1; text-align:center; font-size:11.5px; font-weight:600; color:#15110a; background:linear-gradient(135deg,#d9a441,#ffb84d); padding:9px; border-radius:8px; cursor:pointer;">{{ proof.cta }}</span>
+              <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(224,210,186,0.8); border:1px solid rgba(217,164,65,0.2); padding:9px 12px; border-radius:8px; cursor:pointer;">Export</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:null };
+    this.PAL={ teal:'#36f2d2', amber:'#ffb84d', red:'#ff554d', blue:'#66c7ff', green:'#46e08a', violet:'#a879ff', magenta:'#ff72b6', brass:'#d9a441', parch:'#f0d8a8', dust:'#71717a' };
+    this.SHELVES=[
+      {id:'breakfast',label:'Breakfast Staples',color:'#36f2d2',plank:150},
+      {id:'rescue',label:'Carbs / Fast Rescue',color:'#ffb84d',plank:282},
+      {id:'meds',label:'Meds & Supplies',color:'#66c7ff',plank:414,locked:true},
+      {id:'symptoms',label:'Symptoms & Notes',color:'#ff72b6',plank:546}
+    ];
+    // slot x positions
+    this.SLOTS=[150,330,510,690,862];
+    this.ITEMS={
+      // breakfast
+      oatmeal:{shelf:'breakfast',slot:0,type:'jar',fill:0.42,tone:'teal',state:'stocked',seal:'self',source:'HUM',resolver:'DELTA_SUM',conf:0.85,life:'Trusted',name:'Oatmeal',unit:'42% jar',
+        why:'Stock is fine and the label is crisp — self-logged, backed by a receipt. The pantry has no complaints, which it finds unsettling.',
+        quip:'Breakfast consistency is apparently where hope goes to negotiate.',
+        sourceMix:[['HUM',70],['DOC',30]], sources:[{stamp:'HUM',label:'Inventory self-log',role:'quantity',conf:0.85},{stamp:'DOC',label:'Receipt · grocery 06-14',role:'restock proof',conf:0.95}],
+        window:'last 30d', missing:'none', json:{record_id:'inv_oatmeal',resolver:'DELTA_SUM',fill_level:0.42,unit:'jar',confidence:0.85,lifecycle:'TRUSTED',source_mix:{HUM:0.7,DOC:0.3},visibility:'team'}, cta:'Open 3 records'},
+      coffee:{shelf:'breakfast',slot:1,type:'jar',fill:0.7,tone:'teal',state:'stocked',seal:'self',source:'HUM',resolver:'DELTA_SUM',conf:0.8,life:'Trusted',name:'Coffee',unit:'70%',
+        why:'Well stocked. Verified by the fact that it keeps disappearing on a believable schedule.', quip:'The one jar nobody lets run out. Telling.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Inventory self-log',role:'quantity',conf:0.80}], window:'30d', missing:'none',
+        json:{record_id:'inv_coffee',resolver:'DELTA_SUM',fill_level:0.70,confidence:0.80,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      eggs:{shelf:'breakfast',slot:2,type:'can',fill:0.28,tone:'amber',state:'low',seal:'doc',source:'DOC',resolver:'DELTA_SUM',conf:0.78,life:'Trusted',name:'Eggs',unit:'low · 3 left',
+        why:'Running low — fill is down to roughly three, drawn from receipt minus logged use. Restock pressure rising.', quip:'Three eggs is either a snack or a decision. Pick one.',
+        sourceMix:[['DOC',60],['HUM',40]], sources:[{stamp:'DOC',label:'Receipt · dozen 06-08',role:'restock',conf:0.95},{stamp:'HUM',label:'Meal logs · usage',role:'drawdown',conf:0.7}],
+        window:'14d', missing:'none', json:{record_id:'inv_eggs',resolver:'DELTA_SUM',fill_level:0.28,flags:['LOW_STOCK'],confidence:0.78,lifecycle:'TRUSTED'}, cta:'Open 4 records'},
+      yogurt:{shelf:'breakfast',slot:3,type:'jar',fill:0.15,tone:'amber',state:'expiring',seal:'device',source:'DEV',resolver:'LATEST',conf:0.72,life:'Trusted',name:'Yogurt',unit:'expires 2d',
+        why:'Low and curling — the expiration ribbon says two days. Device-tagged on import, so the date is trustworthy even if the yogurt is not.', quip:'The ribbon is curling. So is the yogurt, probably.',
+        sourceMix:[['DEV',100]], sources:[{stamp:'DEV',label:'Barcode import · 06-12',role:'expiry',conf:0.92}], window:'7d', missing:'none',
+        json:{record_id:'inv_yogurt',resolver:'LATEST',expiration_state:'SOON',fill_level:0.15,confidence:0.72,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      bread:{shelf:'breakfast',slot:4,type:'jar',fill:0.5,tone:'amber',state:'expiring',seal:'self',source:'HUM',resolver:'LATEST',conf:0.6,life:'Trusted',name:'Bread',unit:'expires 2d',
+        why:'Half a loaf, two days on the ribbon. The date is self-estimated, so the label is a little soft — confidence held at 0.60.', quip:'Schrödinger\u2019s loaf: fine until the exact moment you want toast.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Self note · "bakery Sat"',role:'expiry est.',conf:0.6}], window:'7d', missing:'expiry is estimated, not on a label',
+        json:{record_id:'inv_bread',resolver:'LATEST',expiration_state:'SOON',expiry_source:'estimated',confidence:0.60,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      // rescue
+      glucose_tabs:{shelf:'rescue',slot:0,type:'jar',fill:0.25,tone:'amber',state:'low',seal:'device',source:'DEV',resolver:'DELTA_SUM',conf:0.88,life:'Trusted',name:'Glucose tabs',unit:'low',
+        why:'Fast-rescue supply running low. Device-counted, so the number is solid. Worth a restock before it matters.', quip:'The one shelf where "I\u2019ll get more later" has a vote it should not have.',
+        sourceMix:[['DEV',100]], sources:[{stamp:'DEV',label:'Dispenser count',role:'quantity',conf:0.88}], window:'30d', missing:'none',
+        json:{record_id:'inv_gtabs',resolver:'DELTA_SUM',fill_level:0.25,flags:['LOW_STOCK','RESCUE_SUPPLY'],confidence:0.88,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      juice:{shelf:'rescue',slot:1,type:'can',fill:0.6,tone:'amber',state:'stocked',seal:'doc',source:'DOC',resolver:'DELTA_SUM',conf:0.8,life:'Trusted',name:'Juice',unit:'60%',
+        why:'Stocked and dated. Nothing to see here, which is the pantry\u2019s favorite kind of record.', quip:'Boring. The shelf approves of boring.',
+        sourceMix:[['DOC',100]], sources:[{stamp:'DOC',label:'Receipt 06-14',role:'restock',conf:0.9}], window:'30d', missing:'none',
+        json:{record_id:'inv_juice',resolver:'DELTA_SUM',fill_level:0.60,confidence:0.80,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      crackers:{shelf:'rescue',slot:2,type:'jar',fill:0.8,tone:'teal',state:'stocked',seal:'self',source:'HUM',resolver:'DELTA_SUM',conf:0.75,life:'Trusted',name:'Crackers',unit:'80%',
+        why:'Well stocked. Frequently nominated for dinner, which the symptom shelf has opinions about.', quip:'Crackers are not dinner. The shelf has logged your heroic attempts to disagree.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Inventory self-log',role:'quantity',conf:0.75}], window:'30d', missing:'none',
+        json:{record_id:'inv_crackers',resolver:'DELTA_SUM',fill_level:0.80,confidence:0.75,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      rice:{shelf:'rescue',slot:3,type:'jar',fill:0.92,tone:'teal',state:'stocked',seal:'self',source:'HUM',resolver:'DELTA_SUM',conf:0.7,life:'Trusted',name:'Rice',unit:'92%',
+        why:'Nearly full. Eternal. Will outlive several other shelves and most resolutions.', quip:'The rice is fine. The rice is always fine.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Inventory self-log',role:'quantity',conf:0.70}], window:'90d', missing:'none',
+        json:{record_id:'inv_rice',resolver:'DELTA_SUM',fill_level:0.92,confidence:0.70,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      honey:{shelf:'rescue',slot:4,type:'jar',fill:0.4,tone:'amber',state:'stocked',seal:'self',source:'HUM',resolver:'DELTA_SUM',conf:0.68,life:'Trusted',name:'Honey',unit:'40%',
+        why:'Mid stock, immortal shelf-life. The label is soft because nobody has counted it since the receipt.', quip:'Honey never expires. It just judges you slowly.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Estimate',role:'quantity',conf:0.68}], window:'180d', missing:'count is stale',
+        json:{record_id:'inv_honey',resolver:'DELTA_SUM',fill_level:0.40,confidence:0.68,lifecycle:'TRUSTED'}, cta:'Open 1 record'},
+      // meds (locked)
+      test_strips:{shelf:'meds',slot:0,type:'jar',fill:0.05,tone:'red',state:'critical',seal:'device',source:'DEV',resolver:'DELTA_SUM',conf:0.93,life:'Trusted',name:'Test strips',unit:'1 left',locked:true,
+        why:'Critical. One strip left by device count. This is the loud kind of empty — a rescue/measurement supply at the bottom of the jar.', quip:'Low stock: test strips. High stock: denial. Only one of these is actionable.',
+        review:'Supply-level only. Lightweave does not advise testing frequency — that is between you and a professional.',
+        sourceMix:[['DEV',100]], sources:[{stamp:'DEV',label:'Meter strip count',role:'quantity',conf:0.93}], window:'14d', missing:'none',
+        json:{record_id:'inv_strips',resolver:'DELTA_SUM',fill_level:0.05,flags:['CRITICAL_LOW','MEDICAL_SUPPLY'],confidence:0.93,lifecycle:'TRUSTED',visibility:'private'}, cta:'Open 2 records'},
+      insulin:{shelf:'meds',slot:1,type:'lockbox',fill:0.0,tone:'violet',state:'review',seal:'reviewed',source:'DOC',resolver:'LATEST_VERIFIED',conf:0.7,life:'Trusted',name:'Insulin schedule',unit:'locked · review',locked:true,
+        why:'A LATEST_VERIFIED record behind locked glass — its content stays sealed on shared views. The schedule\u2019s source is stale, so it is flagged for review, not silently trusted.', quip:'The lockbox does not do jokes. The lockbox does dates.',
+        review:'Medication schedule. Observation only — Lightweave never recommends dosing. A stale source is flagged; a verified record will not be overwritten by self-report.',
+        sourceMix:[['DOC',100]], sources:[{stamp:'DOC',label:'Pharmacy schedule (stale)',role:'verified record',conf:0.7}], window:'last verified 41d ago', missing:'fresh confirmation',
+        json:{record_id:'med_insulin_sched',resolver:'LATEST_VERIFIED',lifecycle:'TRUSTED',action_gate:'PROPOSE_ONLY',source:'DOC',verification:'REV',flags:['SOURCE_STALE'],visibility:'private'}, cta:'Request review'},
+      lancets:{shelf:'meds',slot:2,type:'jar',fill:0.6,tone:'blue',state:'stocked',seal:'device',source:'DEV',resolver:'DELTA_SUM',conf:0.85,life:'Trusted',name:'Lancets',unit:'60%',locked:true,
+        why:'Adequate supply, device-counted, locked glass on shared views. Quietly fine.', quip:'Stocked. Sealed. Minding its own business, unlike the test strips.',
+        sourceMix:[['DEV',100]], sources:[{stamp:'DEV',label:'Supply count',role:'quantity',conf:0.85}], window:'30d', missing:'none',
+        json:{record_id:'inv_lancets',resolver:'DELTA_SUM',fill_level:0.60,confidence:0.85,lifecycle:'TRUSTED',visibility:'private'}, cta:'Open 1 record'},
+      wipes:{shelf:'meds',slot:3,type:'can',fill:0.5,tone:'blue',state:'stocked',seal:'self',source:'HUM',resolver:'DELTA_SUM',conf:0.7,life:'Trusted',name:'Alcohol wipes',unit:'50%',locked:true,
+        why:'Half a box, self-counted. Boring supply, locked glass. The shelf likes it that way.', quip:'Nobody writes songs about wipes. The pantry counts them anyway.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Estimate',role:'quantity',conf:0.7}], window:'30d', missing:'none',
+        json:{record_id:'inv_wipes',resolver:'DELTA_SUM',fill_level:0.50,confidence:0.70,lifecycle:'TRUSTED',visibility:'private'}, cta:'Open 1 record'},
+      dinner_gap:{shelf:'meds',slot:4,type:'gap',fill:0,tone:'dust',state:'gap',seal:'none',source:'—',resolver:'—',conf:null,life:'Coverage gap',name:'Dinner logs',unit:'no records',
+        why:'A dust outline where a jar should be. No dinner logs for three days — the shelf is not psychic, and it is mildly annoyed. The gap is shown, never filled with a guess.', quip:'No dinner log, no symptom log, big glucose flag. The shelf is connecting dots it was not given.',
+        sourceMix:[], sources:[], window:'last 3d', missing:'3 expected dinner logs',
+        json:{record_id:'gap_dinner_logs',coverage_gap:true,expected:'meal_log',missing_days:3,confidence:null}, cta:'Add records'},
+      // symptoms
+      fatigue:{shelf:'symptoms',slot:0,type:'bottle',fill:0.5,tone:'magenta',state:'interpreted',seal:'self',source:'HUM',resolver:'MANUAL',conf:0.6,life:'Interpreted',name:'Fatigue',unit:'observed',
+        why:'A symptom bottle, self-reported. Interpreted, not measured — the label is handwriting, so the seal stays soft. Rough mornings have been clustering.', quip:'The fatigue bottle refills itself. Rude.',
+        review:'Observation only — symptom self-reports. Worth a professional\u2019s eyes if the pattern holds.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Symptom notes · 6 mornings',role:'self-report',conf:0.6}], window:'21d', missing:'no device corroboration',
+        json:{record_id:'sym_fatigue',resolver:'MANUAL',truth_mode:'INF',lifecycle:'INTERPRETED',action_gate:'PROPOSE_ONLY',source:'HUM',verification:'SLF'}, cta:'Open 6 records'},
+      nausea:{shelf:'symptoms',slot:1,type:'bottle',fill:0.2,tone:'magenta',state:'observed',seal:'self',source:'HUM',resolver:'MANUAL',conf:0.55,life:'Observed',name:'Nausea',unit:'sticky note',
+        why:'A sticky-note observation — low fill, low frequency, lightly sourced. Logged honestly, not amplified.', quip:'Two entries. Could be nothing. The bottle is keeping the receipts anyway.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Symptom notes · 2',role:'self-report',conf:0.55}], window:'21d', missing:'sparse',
+        json:{record_id:'sym_nausea',resolver:'MANUAL',lifecycle:'OBSERVED',source:'HUM',verification:'SLF',confidence:0.55}, cta:'Open 2 records'},
+      mood:{shelf:'symptoms',slot:2,type:'bottle',fill:0.6,tone:'violet',state:'interpreted',seal:'self',source:'HUM',resolver:'MANUAL',conf:0.62,life:'Interpreted',name:'Mood tonic',unit:'observed',
+        why:'Mood shifts, self-tracked, washed across the storyboard below. Interpreted as a trend, not a fact.', quip:'The mood tonic and the sleep shelf are texting. We do not have that thread yet.',
+        sourceMix:[['HUM',100]], sources:[{stamp:'HUM',label:'Mood notes',role:'self-report',conf:0.62}], window:'21d', missing:'no sleep cross-ref',
+        json:{record_id:'sym_mood',resolver:'MANUAL',lifecycle:'INTERPRETED',source:'HUM',confidence:0.62}, cta:'Open records'},
+      timing_dispute:{shelf:'symptoms',slot:3,type:'bottle',fill:0.4,tone:'red',state:'disputed',seal:'disputed',source:'HUM',resolver:'MANUAL',conf:0.5,life:'Disputed',name:'Meal timing',unit:'two labels',
+        why:'Two labels on one jar. A caregiver note and a self-report disagree on when dinner happened — the split label stays until a human resolves it. The pantry will not pick the prettier timestamp.', quip:'This jar has two labels. One of them is lying, outdated, or from Tuesday.',
+        sourceMix:[['HUM',60],['EXT',40]], sources:[{stamp:'HUM',label:'Self note · "dinner 8pm"',role:'timing A',conf:0.55},{stamp:'EXT',label:'Caregiver note · "6:30"',role:'timing B',conf:0.6}],
+        contradiction:{title:'SPLIT LABEL · TIMING',a:{label:'Self-report',val:'~8:00 PM',color:'#f0d8a8'},b:{label:'Caregiver note',val:'~6:30 PM',color:'#36f2d2'},note:'The two sources disagree by ~90 minutes, which matters for the glucose storyboard. Neither overrides the other; the dispute is preserved for review.'},
+        window:'1d', missing:'no device timestamp to break the tie',
+        json:{record_id:'sym_timing',resolver:'MANUAL',lifecycle:'DISPUTED',contradiction:true,sources:['HUM','EXT'],confidence:0.50}, cta:'Open 2 records'},
+      glucose_pattern:{shelf:'symptoms',slot:4,type:'pattern',fill:0,tone:'amber',state:'pattern',seal:'mixed',source:'DEV',resolver:'MANUAL',conf:0.78,life:'Interpreted',name:'Late meal → glucose flag',unit:'4× / 21d',
+        why:'A pattern bottle, not a jar — the storyboard shows a late meal followed by a high-glucose flag, four times in twenty-one days. Aligned with, not caused by. Bring the graph, not vibes.', quip:'This pattern has survived enough logs to stop being cute.',
+        review:'Observation only — temporal alignment, not causality. Professional review recommended before acting on it.',
+        sourceMix:[['DEV',55],['HUM',45]], sources:[{stamp:'HUM',label:'Meal self-logs · 4 late',role:'antecedent',conf:0.7},{stamp:'DEV',label:'Glucose import · 4 flags',role:'consequent',conf:0.9}],
+        window:'21d', missing:'activity + stress logs absent (possible confounders)',
+        json:{record_id:'pat_late_meal_glucose',truth_mode:'INF',resolver:'MANUAL',lifecycle:'INTERPRETED',action_gate:'PROPOSE_ONLY',confidence:0.78,contraindications:['missing_activity_log','possible_stress_confounder']}, cta:'Open 8 records'}
+    };
+    this.WATCH=[
+      {id:'test_strips',title:'Test strips — 1 left',detail:'Rescue/measurement supply at the bottom of the jar. Device-counted, high confidence.',severity:'BRING RECEIPTS',kind:'low stock · critical'},
+      {id:'glucose_pattern',title:'Late meal → glucose flag',detail:'4 similar sequences in 21 days. Observation only, professional review recommended.',severity:'PROFESSIONAL EYES',kind:'pattern watch'},
+      {id:'timing_dispute',title:'Meal-timing contradiction',detail:'Caregiver note vs self-report disagree by ~90 min. Split label held for review.',severity:'NEEDS REVIEW',kind:'contradiction'},
+      {id:'insulin',title:'Insulin schedule source stale',detail:'Verified record last confirmed 41 days ago. Flagged, not overwritten.',severity:'NEEDS REVIEW',kind:'review'},
+      {id:'dinner_gap',title:'No dinner logs, 3 days',detail:'Expected meal logs missing. Shown as a coverage gap, not guessed at.',severity:'NOTICE',kind:'coverage gap'},
+      {id:'bread',title:'Bread expiring (2 days)',detail:'Half a loaf, self-estimated expiry. Soft label, worth using.',severity:'WORTH WATCHING',kind:'expiring'}
+    ];
+  }
+  P(k){ return this.PAL[k]||'#d9a441'; }
+  sevColor(s){ return s==='NOTICE'?'#71717a': s==='WORTH WATCHING'?'#ffb84d': s==='NEEDS REVIEW'?'#ff9e57': s==='BRING RECEIPTS'?'#ff554d':'#a879ff'; }
+  stateColor(s){ return s==='critical'?'#ff554d': s==='low'?'#ffb84d': s==='expiring'?'#ffb84d': s==='gap'?'#71717a': s==='disputed'?'#ff554d': s==='review'?'#a879ff': s==='pattern'?'#ffb84d': s==='interpreted'?'#ff72b6': s==='observed'?'#ff72b6':'#46e08a'; }
+  stateLabel(s){ return s==='critical'?'CRITICAL': s==='low'?'LOW': s==='expiring'?'EXPIRING': s==='gap'?'COVERAGE GAP': s==='disputed'?'DISPUTED': s==='review'?'NEEDS REVIEW': s==='pattern'?'PATTERN WATCH': s==='interpreted'?'INTERPRETED': s==='observed'?'OBSERVED':'STOCKED'; }
+  stampColor(s){ return s==='HUM'?'#f0d8a8': s==='DEV'?'#66c7ff': s==='DOC'?'#d9a441': s==='EXT'?'#36f2d2': s==='SYS'?'#71717a':'#a879ff'; }
+  confColor(c){ if(c==null) return '#71717a'; return c>=0.85?'#46e08a': c>=0.7?'#a8d96a': c>=0.55?'#ffb84d':'#ff554d'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  drawItem(it){
+    const h=React.createElement, k=[], sx=this.SLOTS[it.slot], plank=this.SHELVES.find(s=>s.id===it.shelf).plank, tone=this.P(it.tone);
+    const sel=this.state.sel===this.idOf(it);
+    const cx=sx, baseY=plank, jw=66, jh=78, topY=baseY-jh;
+    if(it.type==='gap'){
+      k.push(h('rect',{key:'go',x:cx-jw/2,y:topY+8,width:jw,height:jh-8,rx:7,fill:'rgba(40,32,24,0.4)',stroke:this.hexA('#71717a',0.7),strokeWidth:1.6,strokeDasharray:'4 5'}));
+      for(let i=0;i<4;i++) k.push(h('line',{key:'gh'+i,x1:cx-jw*0.35,y1:topY+22+i*12,x2:cx+jw*0.35,y2:topY+22+i*12,stroke:'rgba(113,113,122,0.25)',strokeWidth:1,style:{animation:'slDust 3s ease-in-out infinite'}}));
+      k.push(h('text',{key:'q',x:cx,y:baseY-jh*0.4,fill:'rgba(113,113,122,0.6)',fontSize:20,fontFamily:'IBM Plex Mono',textAnchor:'middle'},'?'));
+    } else if(it.type==='lockbox'){
+      k.push(h('rect',{key:'lb',x:cx-jw/2,y:topY+6,width:jw,height:jh-6,rx:5,fill:'rgba(20,26,34,0.92)',stroke:this.hexA(tone,0.6),strokeWidth:1.6}));
+      for(let i=0;i<5;i++) k.push(h('line',{key:'fr'+i,x1:cx-jw*0.4,y1:topY+16+i*11,x2:cx+jw*0.4,y2:topY+16+i*11,stroke:this.hexA(tone,0.16),strokeWidth:3}));
+      k.push(h('rect',{key:'lk',x:cx-8,y:baseY-jh*0.55,width:16,height:13,rx:2,fill:'#1a120c',stroke:this.P('brass'),strokeWidth:1.4}));
+      k.push(h('path',{key:'lka',d:'M '+(cx-5)+' '+(baseY-jh*0.55)+' V '+(baseY-jh*0.55-5)+' a5 5 0 0 1 10 0 V '+(baseY-jh*0.55),fill:'none',stroke:this.P('brass'),strokeWidth:1.4}));
+    } else {
+      const isCan=it.type==='can', isBottle=it.type==='bottle', isPat=it.type==='pattern';
+      const bw = isBottle?jw*0.66 : jw;
+      // glow
+      k.push(h('ellipse',{key:'gl',cx:cx,cy:baseY-jh*0.4,rx:bw*0.8,ry:jh*0.6,fill:this.hexA(tone, 0.06+0.14*(it.fill||0.4)),style:it.state==='critical'?{animation:'slBlink 1.1s ease-in-out infinite'}:undefined}));
+      if(isBottle){
+        k.push(h('rect',{key:'neck',x:cx-6,y:topY+4,width:12,height:14,rx:2,fill:this.hexA(tone,0.25),stroke:this.hexA(tone,0.5),strokeWidth:1}));
+        k.push(h('path',{key:'body',d:'M '+(cx-bw/2)+' '+(topY+30)+' Q '+(cx-bw/2)+' '+(topY+18)+' '+(cx-6)+' '+(topY+18)+' L '+(cx+6)+' '+(topY+18)+' Q '+(cx+bw/2)+' '+(topY+18)+' '+(cx+bw/2)+' '+(topY+30)+' L '+(cx+bw/2)+' '+(baseY-4)+' Q '+(cx+bw/2)+' '+baseY+' '+(cx+bw/2-6)+' '+baseY+' L '+(cx-bw/2+6)+' '+baseY+' Q '+(cx-bw/2)+' '+baseY+' '+(cx-bw/2)+' '+(baseY-4)+' Z',fill:'rgba(30,22,18,0.7)',stroke:this.hexA(tone,0.55),strokeWidth:1.4}));
+        const fy=baseY-4-(baseY-topY-34)*(it.fill||0.3);
+        k.push(h('rect',{key:'fill',x:cx-bw/2+2,y:fy,width:bw-4,height:baseY-4-fy,fill:this.hexA(tone,0.5)}));
+      } else {
+        // jar / can body
+        k.push(h('rect',{key:'body',x:cx-bw/2,y:topY+14,width:bw,height:jh-14,rx:isCan?3:9,fill:'rgba(28,22,16,0.66)',stroke:this.hexA(tone,0.5),strokeWidth:1.4}));
+        // fill
+        const inH=(jh-14-6), fy=baseY-3-inH*(it.fill||0), fh=inH*(it.fill||0);
+        k.push(h('rect',{key:'fill',x:cx-bw/2+2,y:fy,width:bw-4,height:fh,rx:isCan?2:6,fill:this.hexA(tone,0.55)}));
+        k.push(h('rect',{key:'fillhi',x:cx-bw/2+2,y:fy,width:bw-4,height:Math.min(5,fh),fill:this.hexA('#ffffff',0.25)}));
+        // lid
+        k.push(h(isCan?'ellipse':'rect',isCan?{key:'lid',cx:cx,cy:topY+14,rx:bw/2,ry:5,fill:this.P('brass'),opacity:0.8}:{key:'lid',x:cx-bw/2-2,y:topY+8,width:bw+4,height:10,rx:3,fill:this.hexA(this.P('brass'),0.85)}));
+      }
+      // label (parchment), crispness by conf
+      const lc=0.35+0.55*(it.conf||0.6);
+      k.push(h('rect',{key:'lab',x:cx-bw/2+3,y:baseY-jh*0.52,width:bw-6,height:20,rx:2,fill:this.hexA(this.P('parch'),lc),stroke:this.hexA('#3a2a18',0.4),strokeWidth:0.5}));
+      // barcode strip on label
+      for(let i=0;i<7;i++) k.push(h('line',{key:'bc'+i,x1:cx-bw/2+7+i*2.4,y1:baseY-jh*0.52+13,x2:cx-bw/2+7+i*2.4,y2:baseY-jh*0.52+18,stroke:this.hexA('#2a1d10',0.5+0.4*(i%2)),strokeWidth:1}));
+      // seal / source stamp
+      if(it.seal==='disputed'){
+        k.push(h('rect',{key:'l2',x:cx-bw/2+5,y:baseY-jh*0.52-6,width:(bw-10)/2,height:9,rx:1,fill:this.hexA('#f0d8a8',0.6),transform:'rotate(-6 '+cx+' '+baseY+')'}));
+        k.push(h('rect',{key:'l3',x:cx+1,y:baseY-jh*0.52-3,width:(bw-10)/2,height:9,rx:1,fill:this.hexA('#36f2d2',0.5),transform:'rotate(5 '+cx+' '+baseY+')'}));
+      } else {
+        k.push(h('circle',{key:'seal',cx:cx+bw/2-7,cy:baseY-jh*0.52-3,r:5,fill:this.hexA(this.stampColor(it.source),0.85),stroke:'#1a120c',strokeWidth:0.8}));
+        k.push(h('text',{key:'st',x:cx+bw/2-7,y:baseY-jh*0.52-1,fill:'#15110a',fontSize:4.5,fontFamily:'IBM Plex Mono',fontWeight:600,textAnchor:'middle'},it.source[0]));
+      }
+      // expiration ribbon
+      if(it.state==='expiring'){ k.push(h('path',{key:'rib',d:'M '+(cx-bw/2)+' '+(topY+6)+' q 8 8 16 0 q 8 -8 16 0 q 8 8 16 0',fill:'none',stroke:this.P('amber'),strokeWidth:2.4,strokeLinecap:'round',style:{animation:'slRibbon 2.5s ease-in-out infinite'}})); }
+      // low/critical badge
+      if(it.state==='low'||it.state==='critical'){ const bc2=it.state==='critical'?this.P('red'):this.P('amber'); k.push(h('circle',{key:'lo',cx:cx-bw/2+4,cy:topY+18,r:6,fill:bc2,opacity:0.9})); k.push(h('text',{key:'lt',x:cx-bw/2+4,y:topY+20.5,fill:'#15110a',fontSize:7,fontWeight:700,textAnchor:'middle',fontFamily:'IBM Plex Sans'},'!')); }
+    }
+    // selection ring
+    if(sel){ k.push(h('rect',{key:'sel',x:cx-jw/2-5,y:topY-3,width:jw+10,height:jh+8,rx:9,fill:'none',stroke:this.P('brass'),strokeWidth:2})); }
+    // name
+    k.push(h('text',{key:'nm',x:cx,y:baseY+15,fill:sel?'#f6edda':'rgba(224,210,186,0.78)',fontSize:9.5,fontWeight:600,fontFamily:'IBM Plex Sans',textAnchor:'middle'},it.name));
+    k.push(h('text',{key:'un',x:cx,y:baseY+26,fill:this.hexA(this.stateColor(it.state),0.95),fontSize:7.5,fontFamily:'IBM Plex Mono',textAnchor:'middle'},it.unit));
+    return h('g',{key:'it'+this.idOf(it),onClick:()=>this.setState({sel:this.idOf(it)}),style:{cursor:'pointer'}},k);
+  }
+  idOf(it){ return Object.keys(this.ITEMS).find(k=>this.ITEMS[k]===it); }
+
+  buildWall(){
+    const h=React.createElement, R=[];
+    // shelves (walnut planks) + category tags
+    this.SHELVES.forEach((s,i)=>{
+      R.push(h('rect',{key:'pl'+i,x:40,y:s.plank+2,width:920,height:11,rx:2,fill:'#261a12',stroke:'rgba(0,0,0,0.4)',strokeWidth:1}));
+      R.push(h('rect',{key:'plhi'+i,x:40,y:s.plank+2,width:920,height:3,fill:this.hexA('#d9a441',0.18)}));
+      R.push(h('rect',{key:'plfr'+i,x:40,y:s.plank+13,width:920,height:5,fill:'rgba(0,0,0,0.35)'}));
+      R.push(h('text',{key:'cat'+i,x:48,y:s.plank-this.SHELVES[i].plank+s.plank-64,fill:this.hexA(s.color,0.7),fontSize:9,fontFamily:'IBM Plex Mono',fontWeight:600,letterSpacing:'0.08em'},s.label.toUpperCase()));
+      if(s.locked) R.push(h('text',{key:'lk'+i,x:48+s.label.length*5.6+10,y:s.plank-64,fill:'rgba(168,121,255,0.7)',fontSize:9,fontFamily:'IBM Plex Mono'},'🔒'));
+    });
+    // items
+    Object.keys(this.ITEMS).forEach(id=>R.push(this.drawItem(this.ITEMS[id])));
+    return h('svg',{viewBox:'0 0 1000 600',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  buildCounter(){
+    const h=React.createElement, R=[], W=1000, H=150;
+    // counter surface
+    R.push(h('rect',{key:'cs',x:0,y:H-26,width:W,height:26,fill:'#1c130c'}));
+    R.push(h('rect',{key:'csh',x:0,y:H-26,width:W,height:3,fill:this.hexA('#d9a441',0.2)}));
+    // glucose ribbon
+    const pts=[[40,86],[150,80],[260,92],[370,70],[470,58],[560,40],[640,52],[740,82],[840,88],[940,84]];
+    let d='M '+pts[0][0]+' '+pts[0][1]; for(let i=1;i<pts.length;i++){ const a=pts[i-1],b=pts[i]; d+=' Q '+((a[0]+b[0])/2)+' '+a[1]+' '+b[0]+' '+b[1]; }
+    R.push(h('path',{key:'rib',d:d,fill:'none',stroke:this.P('amber'),strokeWidth:2.6,strokeLinecap:'round',style:{animation:'slRibbon 3s ease-in-out infinite'}}));
+    R.push(h('path',{key:'ribg',d:d,fill:'none',stroke:this.P('amber'),strokeWidth:8,opacity:0.12}));
+    // spike marker (high flag) near late dinner
+    R.push(h('circle',{key:'spk',cx:560,cy:40,r:7,fill:'none',stroke:this.P('red'),strokeWidth:2,style:{animation:'slBlink 1.4s ease-in-out infinite'}}));
+    R.push(h('text',{key:'spkt',x:560,y:26,fill:this.P('red'),fontSize:9,fontFamily:'IBM Plex Mono',textAnchor:'middle'},'high flag'));
+    // meal cards (plates)
+    [[150,'08:10','breakfast'],[370,'13:00','lunch'],[505,'20:05','late dinner']].forEach((m,i)=>{
+      R.push(h('circle',{key:'pl'+i,cx:m[0],cy:H-44,r:11,fill:'#2a1d12',stroke:this.hexA('#d9a441',0.5),strokeWidth:1.4}));
+      R.push(h('circle',{key:'pli'+i,cx:m[0],cy:H-44,r:5,fill:this.hexA(i===2?'#ff554d':'#36f2d2',0.6)}));
+      R.push(h('text',{key:'plt'+i,x:m[0],y:H-12,fill:'rgba(224,210,186,0.7)',fontSize:8,fontFamily:'IBM Plex Mono',textAnchor:'middle'},m[1]));
+    });
+    // insulin ticks (violet)
+    [220,420,520].forEach((x,i)=>R.push(h('line',{key:'in'+i,x1:x,y1:H-58,x2:x,y2:H-32,stroke:this.P('violet'),strokeWidth:2.4})));
+    // symptom flag (magenta)
+    R.push(h('path',{key:'sf',d:'M 600 '+(H-58)+' l 0 26 m 0 -26 l 14 5 l -14 6',fill:'none',stroke:this.P('magenta'),strokeWidth:1.8}));
+    // pattern-watch highlight (late meal -> spike), clickable
+    R.push(h('rect',{key:'pw',x:485,y:18,width:120,height:H-40,rx:8,fill:this.hexA('#ff554d',0.05),stroke:this.hexA('#ff554d',0.4),strokeWidth:1.2,strokeDasharray:'4 4',onClick:()=>this.setState({sel:'glucose_pattern'}),style:{cursor:'pointer'}}));
+    R.push(h('text',{key:'pwt',x:545,y:H-4,fill:this.hexA('#ff8a84',0.9),fontSize:8,fontFamily:'IBM Plex Mono',textAnchor:'middle',onClick:()=>this.setState({sel:'glucose_pattern'}),style:{cursor:'pointer'}},'pattern watch ›'));
+    return h('svg',{viewBox:'0 0 1000 150',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  buildJson(obj){
+    const h=React.createElement; const s=JSON.stringify(obj,null,2); const out=[]; let li=0;
+    const re=/("(?:\\.|[^"\\])*")(\s*:)?|\b(true|false|null)\b|(-?\d+\.?\d*)/g; let last=0,m;
+    const push=(t,c)=>out.push(h('span',{key:li++,style:c?{color:c}:undefined},t));
+    while((m=re.exec(s))){ if(m.index>last) push(s.slice(last,m.index),'rgba(200,180,140,0.55)');
+      if(m[1]!==undefined){ if(m[2]!==undefined){ push(m[1],'#d9a441'); push(m[2],'rgba(200,180,140,0.55)'); } else push(m[1],'#46e08a'); }
+      else if(m[3]!==undefined) push(m[3],'#a879ff'); else if(m[4]!==undefined) push(m[4],'#ffb84d');
+      last=re.lastIndex; }
+    if(last<s.length) push(s.slice(last),'rgba(200,180,140,0.55)');
+    return h('pre',{style:{margin:0,fontFamily:"'IBM Plex Mono',monospace",fontSize:'10px',lineHeight:1.6,whiteSpace:'pre',color:'rgba(200,180,140,0.55)'}},out);
+  }
+
+  renderVals(){
+    const setSel=id=>()=>this.setState({sel:id});
+    const navItems=[
+      {label:'Lumen Apothecary'},{label:'Lantern Desk'},{label:'Iris'},{label:'Engine Room'},{label:'The Illuminary'},{label:'Shelf Life',active:true}
+    ].map(n=>({ label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(217,164,65,0.12)':'transparent', bar:n.active?'inset 2px 0 0 #d9a441':'none', txt:n.active?'#f4ead6':'rgba(220,205,180,0.6)', dot:n.active?'#d9a441':'rgba(217,184,130,0.35)' }));
+    const counts={}; this.SHELVES.forEach(s=>counts[s.id]=0); Object.keys(this.ITEMS).forEach(id=>{ const sh=this.ITEMS[id].shelf; if(counts[sh]!=null)counts[sh]++; });
+    const shelfNav=this.SHELVES.map(s=>({ label:s.label, color:s.color, locked:!!s.locked, n:counts[s.id] }));
+    const legend=[
+      {label:'stocked · sealed',sw:this.hexA('#36f2d2',0.6),rim:'#d9a441'},
+      {label:'low / critical',sw:this.hexA('#ff554d',0.6),rim:'#ff554d'},
+      {label:'expiring (ribbon)',sw:this.hexA('#ffb84d',0.6),rim:'#ffb84d'},
+      {label:'disputed (split label)',sw:'linear-gradient(90deg,#f0d8a8,#36f2d2)',rim:'#ff554d'},
+      {label:'coverage gap (dust)',sw:'rgba(40,32,24,0.5)',rim:'#71717a'}
+    ];
+    const watchCards=this.WATCH.map(w=>{ const sc=this.sevColor(w.severity), it=this.ITEMS[w.id], seld=this.state.sel===w.id;
+      return { title:w.title, detail:w.detail, severity:w.severity, kind:w.kind, sevColor:sc, sevBg:this.hexA(sc,0.16),
+        border:seld?sc:'rgba(217,164,65,0.16)', bg:seld?this.hexA(sc,0.08):'rgba(28,20,13,0.55)', onSelect:setSel(w.id) }; });
+    // proof
+    const isWatch=this.state.sel==null; let proof=null;
+    if(!isWatch){ const it=this.ITEMS[this.state.sel]||this.ITEMS.oatmeal, tone=this.P(it.tone), sc=this.stateColor(it.state), shelf=this.SHELVES.find(s=>s.id===it.shelf);
+      const mixTotal=(it.sourceMix||[]).reduce((a,b)=>a+b[1],0)||1;
+      proof={ name:it.name, tone, shelf:shelf?shelf.label:'', resolver:it.resolver,
+        stateLabel:this.stateLabel(it.state), stateColor:sc, stateBg:this.hexA(sc,0.16), headerBg:this.hexA(it.state==='critical'||it.state==='disputed'?'#ff554d':tone,0.05), softBorder:this.hexA(tone,0.24),
+        why:it.why, quip:it.quip, review:it.review||null,
+        conf: it.conf==null?'—':it.conf.toFixed(2), confPct: it.conf==null?'0%':Math.round(it.conf*100)+'%', confColor:this.confColor(it.conf),
+        sourceMix:(it.sourceMix||[]).map(s=>({ tag:s[0], pct:s[1]+'%', flex:s[1], color:this.stampColor(s[0]), bg:this.hexA(this.stampColor(s[0]),0.1), border:this.hexA(this.stampColor(s[0]),0.3) })),
+        sources:(it.sources||[]).map(s=>({ stamp:s.stamp, label:s.label, role:s.role, conf:s.conf.toFixed(2), confColor:this.confColor(s.conf), stampBg:this.hexA(this.stampColor(s.stamp),0.16), stampColor:this.stampColor(s.stamp) })),
+        contradiction:it.contradiction||null, window:it.window, missing:it.missing, missColor: (it.missing&&it.missing!=='none')?'#ffb84d':'#46e08a',
+        json:this.buildJson(it.json), cta:it.cta }; }
+    const critic = 'Inventory says you have oatmeal. Symptom logs say breakfast got weird anyway. Fascinating little crime scene.';
+    return {
+      sys:{ flux:'0.34', balance:'0.62', integrity:'0.81' },
+      navItems, shelfNav, legend, critic,
+      wallSvg:this.buildWall(), counterSvg:this.buildCounter(),
+      isWatch, isProof:!isWatch,
+      watch:{ count:this.WATCH.length, quip:'Six things want your attention. Two of them actually deserve it.', cards:watchCards },
+      onBackWatch:()=>this.setState({sel:null}), proof: proof||{ json:'' }
+    };
+  }
+}
+</script>
+</body>
+</html>

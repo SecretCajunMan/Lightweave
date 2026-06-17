@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0d0b11}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,235,210,0.14);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwBreathe{0%,100%{opacity:.5}50%{opacity:.82}}
+  @keyframes lwFlicker{0%,100%{opacity:.9}9%{opacity:.45}18%{opacity:.82}27%{opacity:.4}44%{opacity:.78}61%{opacity:.5}78%{opacity:.88}}
+  @keyframes lwSmoke{0%{opacity:0;transform:translateY(2px) scaleX(1)}30%{opacity:.5}100%{opacity:0;transform:translateY(-16px) scaleX(1.5)}}
+  @keyframes lwEmber{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-2px);opacity:1}}
+  textarea.lwj{background:transparent;border:none;outline:none;color:rgba(245,240,232,0.9);font-family:'IBM Plex Sans',sans-serif;font-size:13px;line-height:1.6;width:100%;resize:none;}
+  textarea.lwj::placeholder{color:rgba(245,240,232,0.32)}
+</style>
+</helmet>
+<div data-screen-label="Lantern Desk" style="height:100vh; overflow:hidden; color:rgba(245,240,232,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 14% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 112% 120%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,235,210,0.08); background:rgba(255,235,210,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><rect x="9" y="8" width="10" height="13" rx="4" fill="none" stroke="var(--accent)" stroke-width="1.5"></rect><line x1="14" y1="4" x2="14" y2="8" stroke="var(--accent)" stroke-width="1.3"></line><circle cx="14" cy="14.5" r="3" fill="var(--accent)" opacity="0.85"></circle><line x1="11" y1="21" x2="17" y2="21" stroke="var(--accent)" stroke-width="1.5"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,235,210,0.14);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Lantern Desk</span>
+      <span style="font-size:10.5px; color:rgba(245,240,232,0.42);">Projection · Layer 1 · daily home</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(245,240,232,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,235,210,0.1); border-radius:7px; background:rgba(255,235,210,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>4 lanterns steady</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,200,120,0.22); border-radius:7px; background:rgba(255,190,110,0.05); color:#f0c285;"><span style="width:6px;height:6px;border-radius:50%;background:#f0b15c;box-shadow:0 0 7px #f0b15c;"></span>2 flickering · gently look</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,235,210,0.1); border-radius:7px; background:rgba(255,235,210,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#7fd9a0;box-shadow:0 0 7px #7fd9a0;"></span>ledger read-only</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,235,210,0.14);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(245,240,232,0.42); font-family:'IBM Plex Mono',monospace;">DESK · Mon Jun 16 · 7:32</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="lantern-desk"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:14px 16px; overflow-y:auto;">
+
+      <section style="flex:0 0 auto; position:relative; border:1px solid rgba(255,235,210,0.09); border-radius:16px; padding:16px 18px; background:radial-gradient(120% 200% at 88% -40%, {{ briefGlow }}, transparent 60%), rgba(255,235,210,0.03); overflow:hidden;">
+        <div style="display:flex; align-items:flex-start; gap:15px;">
+          <div style="flex:0 0 auto; width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; background:rgba(255,235,210,0.05); border:1px solid rgba(255,235,210,0.1);">
+            <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="var(--accent)" opacity="0.9"></circle><g stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" opacity="0.7"><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="5" y1="5" x2="7" y2="7"></line><line x1="17" y1="17" x2="19" y2="19"></line><line x1="19" y1="5" x2="17" y2="7"></line><line x1="7" y1="17" x2="5" y2="19"></line></g></svg>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600;">{{ brief.greeting }}</span>
+              <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; color:rgba(245,240,232,0.4); padding:2px 7px; border-radius:5px; background:rgba(255,235,210,0.04);">as of {{ brief.asOf }}</span>
+            </div>
+            <div style="font-size:13.5px; line-height:1.6; color:rgba(245,240,232,0.82); max-width:760px; text-wrap:pretty;">{{ brief.body }}</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:10px; font-size:10px; color:rgba(245,240,232,0.42);">
+              <svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="rgba(245,240,232,0.45)" stroke-width="1"></rect><path d="M4 5 V3.6 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(245,240,232,0.45)" stroke-width="1"></path></svg>
+              <span>This is a reading of the ledger, not a record. Tap any lantern to see what's beneath it.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:0 0 auto;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:9px;">
+          <span style="font-size:10px; letter-spacing:0.16em; color:rgba(245,240,232,0.4);">YOUR LANTERNS</span>
+          <span style="font-size:10px; color:rgba(245,240,232,0.38);">bright is steady · a flicker wants a look · haze means thin or unsettled data</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+          <sc-for list="{{ lanterns }}" as="l" hint-placeholder-count="6">
+            <div onClick="{{ l.onSelect }}" style="cursor:pointer; border-radius:14px; padding:11px 11px 13px; background:{{ l.cardBg }}; border:1px solid {{ l.cardBorder }};">
+              <div style="height:78px; display:flex; align-items:center; justify-content:center;">{{ l.lanternSvg }}</div>
+              <div style="display:flex; align-items:center; gap:6px; margin-top:6px;">
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ l.domain }}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px; margin-top:4px;">
+                <span style="width:6px; height:6px; border-radius:50%; background:{{ l.stateColor }}; box-shadow:0 0 6px {{ l.stateColor }};"></span>
+                <span style="font-size:10px; color:{{ l.stateColor }};">{{ l.word }}</span>
+              </div>
+              <div style="font-size:10px; line-height:1.4; color:rgba(245,240,232,0.55); margin-top:6px; min-height:28px; text-wrap:pretty;">{{ l.read }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:12px;">
+
+        <div style="flex:1.25; min-width:0; display:flex; flex-direction:column; background:rgba(255,235,210,0.025); border:1px solid rgba(255,235,210,0.08); border-radius:14px; padding:13px 15px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:11px;">
+            <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.4" fill="none" stroke="var(--accent2)" stroke-width="1.2"></circle><path d="M7 4 V7 L9 8.4" fill="none" stroke="var(--accent2)" stroke-width="1.2" stroke-linecap="round"></path></svg>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600;">Today, gently</span>
+            <span style="font-size:10px; color:rgba(245,240,232,0.4);">a few soft obligations · nothing is overdue</span>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:9px;">
+            <sc-for list="{{ obligations }}" as="ob" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:11px; background:rgba(255,235,210,0.02); border:1px solid rgba(255,235,210,0.07);">
+                <div style="flex:0 0 auto; width:34px; text-align:center;">
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ ob.color }};">{{ ob.time }}</div>
+                  <div style="font-size:8px; color:rgba(245,240,232,0.4); margin-top:1px;">{{ ob.ampm }}</div>
+                </div>
+                <div style="flex:0 0 auto; width:2px; align-self:stretch; border-radius:2px; background:{{ ob.color }}; box-shadow:0 0 6px {{ ob.color }};"></div>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:13px; font-weight:500; color:rgba(245,240,232,0.9);">{{ ob.title }}</div>
+                  <div style="font-size:10.5px; color:rgba(245,240,232,0.5); margin-top:2px;">{{ ob.sub }}</div>
+                </div>
+                <sc-if value="{{ ob.review }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:0 0 auto; font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:rgba(255,190,110,0.12); color:#f0c285;">wants a look</span>
+                </sc-if>
+                <span onClick="{{ ob.onOpen }}" style="flex:0 0 auto; font-size:11px; color:rgba(245,240,232,0.7); border:1px solid rgba(255,235,210,0.14); padding:6px 11px; border-radius:8px; cursor:pointer;">open proof</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:12px;">
+          <div style="flex:0 0 auto; background:rgba(255,235,210,0.025); border:1px solid rgba(255,235,210,0.08); border-radius:14px; padding:13px 15px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+              <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5 C7 5, 11 5, 11 8 a4 4 0 0 1 -8 0 C3 5, 7 5, 7 1.5 Z" fill="none" stroke="var(--accent)" stroke-width="1.1"></path></svg>
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600;">Gentle nudges</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <sc-for list="{{ nudges }}" as="ng" hint-placeholder-count="3">
+                <div style="display:flex; gap:10px; align-items:flex-start;">
+                  <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ ng.color }}; box-shadow:0 0 6px {{ ng.color }}; margin-top:5px;"></span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:12px; line-height:1.5; color:rgba(245,240,232,0.78); text-wrap:pretty;">{{ ng.text }}</div>
+                    <div style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(245,240,232,0.4); margin-top:2px;">{{ ng.basis }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-if value="{{ showRibbons }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:1; min-height:0; background:rgba(255,235,210,0.025); border:1px solid rgba(255,235,210,0.08); border-radius:14px; padding:13px 15px; display:flex; flex-direction:column;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:11px;">
+                <svg width="14" height="14" viewBox="0 0 14 14"><path d="M1.5 9 Q4 4, 7 7 T12.5 5" fill="none" stroke="var(--accent2)" stroke-width="1.2" stroke-linecap="round"></path></svg>
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600;">Soft trends</span>
+                <span style="font-size:10px; color:rgba(245,240,232,0.4);">last 14 days</span>
+              </div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:11px; justify-content:center;">
+                <sc-for list="{{ ribbons }}" as="rb" hint-placeholder-count="2">
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="flex:0 0 96px;">
+                      <div style="font-size:11.5px; font-weight:500; color:rgba(245,240,232,0.82);">{{ rb.label }}</div>
+                      <div style="font-size:9.5px; color:{{ rb.color }};">{{ rb.word }}</div>
+                    </div>
+                    <div style="flex:1; height:34px; min-width:0;">{{ rb.svg }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,235,210,0.08); background:rgba(255,235,210,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 14px; border-bottom:1px solid rgba(255,235,210,0.08); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="width:11px; height:11px; border-radius:3px; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px;">{{ sel.domain }}</span>
+          <span style="font-size:9.5px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.stateBg }}; color:{{ sel.stateColor }};">{{ sel.word }}</span>
+        </div>
+        <div style="font-size:12.5px; line-height:1.55; color:rgba(245,240,232,0.82); margin-top:9px; text-wrap:pretty;">{{ sel.read }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:14px;">
+
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.18); border:1px solid rgba(255,235,210,0.08); border-radius:10px; padding:9px 10px;">
+            <div style="font-size:9px; color:rgba(245,240,232,0.42);">HOW LIT</div>
+            <div style="display:flex; align-items:baseline; gap:6px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.confColor }};">{{ sel.confWord }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(245,240,232,0.5);">conf {{ sel.conf }}</span></div>
+          </div>
+          <div style="flex:1; background:rgba(0,0,0,0.18); border:1px solid rgba(255,235,210,0.08); border-radius:10px; padding:9px 10px;">
+            <div style="font-size:9px; color:rgba(245,240,232,0.42);">LIFECYCLE</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</div>
+          </div>
+          <div style="flex:1; background:rgba(0,0,0,0.18); border:1px solid rgba(255,235,210,0.08); border-radius:10px; padding:9px 10px;">
+            <div style="font-size:9px; color:rgba(245,240,232,0.42);">FRESHNESS</div>
+            <div style="font-size:11.5px; font-weight:500; color:rgba(245,240,232,0.85);">{{ sel.fresh }}</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(245,240,232,0.4); margin-bottom:7px;">WHY THE LANTERN READS THIS WAY</div>
+          <div style="font-size:12px; line-height:1.55; color:rgba(245,240,232,0.72); text-wrap:pretty;">{{ sel.oneLine }}</div>
+        </div>
+
+        <sc-if value="{{ proofClosed }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,235,210,0.025); border:1px dashed rgba(255,235,210,0.16); border-radius:12px; padding:14px; text-align:center;">
+            <div style="font-size:11px; color:rgba(245,240,232,0.55); margin-bottom:10px; line-height:1.5;">The full source trace, contradictions, and canonical record link are kept quiet — one tap away.</div>
+            <span onClick="{{ onOpenProof }}" style="display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600; color:#0d0b11; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px 16px; border-radius:9px; cursor:pointer;">
+              <svg width="13" height="13" viewBox="0 0 14 14"><rect x="3" y="6.5" width="8" height="6" rx="1.2" fill="none" stroke="#0d0b11" stroke-width="1.3"></rect><path d="M4.5 6.5 V4.6 a2.5 2.5 0 0 1 5 0 V6.5" fill="none" stroke="#0d0b11" stroke-width="1.3"></path></svg>
+              Open proof
+            </span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ proofOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <span style="font-size:10px; letter-spacing:0.13em; color:var(--accent); display:inline-flex; align-items:center; gap:7px;"><svg width="12" height="12" viewBox="0 0 14 14"><rect x="3" y="6.5" width="8" height="6" rx="1.2" fill="none" stroke="var(--accent)" stroke-width="1.3"></rect><path d="M4.5 6.5 V5.2 h5 V6.5" fill="none" stroke="var(--accent)" stroke-width="1.3"></path></svg>CANONICAL PROOF · OPEN</span>
+              <span onClick="{{ onCloseProof }}" style="font-size:10.5px; color:rgba(245,240,232,0.55); cursor:pointer;">tuck away</span>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(245,240,232,0.4); margin-bottom:8px;">SOURCE TRACE · PROVENANCE</div>
+              <div style="position:relative; padding-left:6px;">
+                <sc-for list="{{ sel.trace }}" as="tr" hint-placeholder-count="4">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:11px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ tr.dot }}; border:2px solid #0e0c12; box-shadow:0 0 7px {{ tr.dot }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,235,210,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11.5px; color:rgba(245,240,232,0.82);">{{ tr.label }}</div><div style="font-size:9.5px; color:rgba(245,240,232,0.42); font-family:'IBM Plex Mono',monospace;">{{ tr.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+              <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,235,210,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(245,240,232,0.4);">TIME WINDOW</div><div style="font-size:12px;">{{ sel.window }}</div></div>
+              <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,235,210,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(245,240,232,0.4);">RESOLVER</div><div style="font-size:11px; font-family:'IBM Plex Mono',monospace;">{{ sel.resolver }}</div></div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(245,240,232,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="4">
+                  <div style="display:flex; gap:9px; align-items:flex-start;">
+                    <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                    <span style="font-size:11.5px; line-height:1.5; color:rgba(245,240,232,0.72);">{{ step }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ true }}">
+              <div style="background:rgba(255,138,122,0.06); border:1px solid rgba(255,138,122,0.3); border-radius:12px; padding:12px 13px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+                  <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><circle cx="6" cy="6" r="4.4" fill="#ffd9a0"></circle><circle cx="7.6" cy="4.8" r="4.4" fill="#0e0c12" stroke="#ff8a7a" stroke-width="0.8"></circle></svg>
+                  <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ sel.contradiction.title }}</span>
+                </div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(245,240,232,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(245,240,232,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(245,240,232,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(245,240,232,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10.5px; color:rgba(245,240,232,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,235,210,0.09); border-radius:11px; padding:12px 13px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(245,240,232,0.4); margin-bottom:9px;">CANONICAL RECORD LINK</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(245,240,232,0.45);">pattern</span><span style="color:{{ sel.color }};">{{ sel.patternId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(245,240,232,0.45);">truth.mode</span><span>{{ sel.truthMode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(245,240,232,0.45);">visibility</span><span>{{ sel.visibility }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(245,240,232,0.45);">records</span><span>{{ sel.records }} canonical</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:rgba(245,240,232,0.85); border:1px solid rgba(255,235,210,0.14); padding:9px; border-radius:8px; cursor:pointer;">Open {{ sel.records }} records</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(245,240,232,0.8); border:1px solid rgba(255,235,210,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Ledger view</span>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="margin-top:auto; background:rgba(255,235,210,0.025); border:1px solid rgba(255,235,210,0.09); border-radius:13px; padding:13px 14px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+            <svg width="13" height="13" viewBox="0 0 14 14"><path d="M3 2 H11 V12 L7 9.5 L3 12 Z" fill="none" stroke="var(--accent)" stroke-width="1.1"></path></svg>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">Tonight's line</span>
+            <span style="flex:1;"></span>
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(245,240,232,0.42); display:inline-flex; align-items:center; gap:5px;"><span style="width:6px; height:6px; border-radius:50%; background:#7fd9a0;"></span>private</span>
+          </div>
+          <textarea class="lwj" rows="3" value="{{ journal }}" onChange="{{ onJournal }}" placeholder="A quiet line for the desk — how the day actually felt…"></textarea>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:9px;">
+            <span style="font-size:9.5px; color:rgba(245,240,232,0.42); line-height:1.4; flex:1;">Stays on your desk. Never becomes a record unless you promote it.</span>
+            <span style="flex:0 0 auto; font-size:11px; font-weight:600; color:#0d0b11; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:7px 14px; border-radius:8px; cursor:pointer;">Keep</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 116px; border-top:1px solid rgba(255,235,210,0.08); background:rgba(255,235,210,0.02); padding:12px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:9px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(245,240,232,0.62);">The day ahead</span>
+        <span style="font-size:10px; color:rgba(245,240,232,0.38);">soft markers, not alarms</span>
+        <div style="flex:1;"></div>
+        <span style="font-size:10px; color:rgba(245,240,232,0.45);">dawn</span>
+        <span style="font-size:10px; color:rgba(245,240,232,0.45); margin-left:auto;">dusk</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(110,140,255,0.06), rgba(245,180,90,0.05) 55%, rgba(155,110,200,0.08)); border:1px solid rgba(255,235,210,0.07);">
+        <div style="position:absolute; top:0; bottom:0; left:{{ nowLeft }}; width:2px; background:rgba(255,255,255,0.5); box-shadow:0 0 8px rgba(255,255,255,0.6);"></div>
+        <div style="position:absolute; top:-7px; left:{{ nowLeft }}; transform:translateX(-50%); font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(255,255,255,0.6);">now</div>
+        <sc-for list="{{ dayMarks }}" as="dm" hint-placeholder-count="4">
+          <div style="position:absolute; top:0; bottom:0; left:{{ dm.left }}; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; width:120px;">
+            <div style="font-size:9px; color:rgba(245,240,232,0.62); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:120px; text-align:center; margin-bottom:3px;">{{ dm.title }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ dm.color }}; box-shadow:0 0 8px {{ dm.color }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(245,240,232,0.42); margin-top:3px;">{{ dm.time }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 270px; display:flex; align-items:center; gap:10px; background:rgba(127,217,160,0.05); border:1px solid rgba(127,217,160,0.2); border-radius:11px; padding:11px 13px;">
+      <svg width="18" height="18" viewBox="0 0 18 18" style="flex:0 0 auto;"><circle cx="9" cy="9" r="7" fill="none" stroke="#7fd9a0" stroke-width="1.3"></circle><path d="M6 9 L8 11 L12 6.5" fill="none" stroke="#7fd9a0" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div style="font-size:10.5px; line-height:1.5; color:rgba(245,240,232,0.66);"><span style="color:#7fd9a0; font-weight:600;">Read-only · nothing written without you.</span> The desk read <span style="font-family:'IBM Plex Mono',monospace;">{{ readCount }}</span> canonical records this morning and changed none.</div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dusk&quot;,&quot;hearth&quot;,&quot;grove&quot;],&quot;default&quot;:&quot;dusk&quot;,&quot;tsType&quot;:&quot;'dusk' | 'hearth' | 'grove'&quot;},&quot;lanternMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showRibbons&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.LANTERNS = {
+      sleep:{ domain:'Sleep & rest', color:'#9b8cff', state:'steady', conf:0.81, lifecycle:'Confirmed', fresh:'this morning', records:14, patternId:'pat_lm_204', resolver:'HIGHEST_CONF', truthMode:'PAT · pattern', visibility:'Private', window:'May 18 – Jun 15',
+        read:'Resting well. Long nights are still feeding your best mornings.',
+        oneLine:'Fourteen records pair 7h+ nights with longer next-day focus — consistent, two sources, no recent conflict.',
+        reasoning:['Band and journal agree across 14 nights.','Effect is steady and recent — the lantern holds bright.','Confidence 0.81, the most stable of your lanterns.'],
+        trace:[{label:'Domains · Sleep, Focus',meta:'2 source domains',dot:'#9b8cff'},{label:'14 canonical records',meta:'band · timer · journal',dot:'#6fb6ff'},{label:'Resolver · HIGHEST_CONF',meta:'no override',dot:'#7fd9a0'}],
+        contradiction:null },
+      focus:{ domain:'Focus', color:'#6fb6ff', state:'steady', conf:0.7, lifecycle:'Confirmed', fresh:'yesterday', records:12, patternId:'pat_fo_133', resolver:'HIGHEST_CONF', truthMode:'PAT · pattern', visibility:'Private', window:'May 22 – Jun 15',
+        read:'Holding. Your deep blocks land most often after a calm start.',
+        oneLine:'Focus blocks cluster on mornings that follow good sleep and a quiet inbox — well-covered by timer records.',
+        reasoning:['Timer records back most focus claims directly.','Strongest after 7h+ sleep, echoing the Sleep lantern.','Confidence 0.70 — steady, device-measured.'],
+        trace:[{label:'Domain · Focus',meta:'1 source domain',dot:'#6fb6ff'},{label:'12 canonical records',meta:'timer · calendar',dot:'#6fb6ff'},{label:'Resolver · HIGHEST_CONF',meta:'no override',dot:'#7fd9a0'}],
+        contradiction:null },
+      movement:{ domain:'Movement', color:'#6fd0a0', state:'steady', conf:0.72, lifecycle:'Confirmed', fresh:'this morning', records:11, patternId:'pat_gl_118', resolver:'HIGHEST_CONF', truthMode:'PAT · pattern', visibility:'Private', window:'May 20 – Jun 14',
+        read:'Lit and even. Afternoon movement keeps leading to calmer nights.',
+        oneLine:'On active days resting heart rate ran ~4 bpm lower by evening — corroborated by wearable and journal.',
+        reasoning:['Eleven active days pair movement with a lower evening resting HR.','Device-measured on both sides; journal notes agree.','Confidence 0.72 — modest, consistent effect.'],
+        trace:[{label:'Domains · Fitness, Vitals',meta:'2 source domains',dot:'#6fd0a0'},{label:'11 canonical records',meta:'wearable · journal',dot:'#6fb6ff'},{label:'Resolver · HIGHEST_CONF',meta:'no override',dot:'#7fd9a0'}],
+        contradiction:null },
+      finances:{ domain:'Finances', color:'#f5b25a', state:'flicker', conf:0.64, lifecycle:'Watching', fresh:'2 hours ago', records:9, patternId:'pat_sw_077', resolver:'LATEST', truthMode:'PAT · pattern', visibility:'Private', window:'May 16 – Jun 14',
+        read:'Flickering softly. Two late purchases landed overnight — worth a glance.',
+        oneLine:'Discretionary spending still clusters after 11pm — 6 of the last 9 buys were late, though the pattern is cooling.',
+        reasoning:['Nine purchases carry device timestamps; 6 fall after 11pm.','Bank records are high-confidence; the late-hour read leans on device clocks.','Recent weeks trend lower — held at Watching, not Confirmed.','Confidence 0.64 — solid records, single domain, cooling.'],
+        trace:[{label:'Domain · Finances',meta:'1 source domain',dot:'#f5b25a'},{label:'9 canonical records',meta:'bank feed · device clock',dot:'#6fb6ff'},{label:'Resolver · LATEST',meta:'recency-weighted',dot:'#f0a85c'}],
+        contradiction:null },
+      mind:{ domain:'Mind & mood', color:'#ff8a7a', state:'flicker', conf:0.4, lifecycle:'Contested', fresh:'last night', records:9, patternId:'pat_ef_092', resolver:'HIGHEST_CONF', truthMode:'PAT · contested', visibility:'Private', window:'Jun 2 – Jun 16',
+        read:'Flickering. Two sleep sources disagree, so the mood read is unsettled.',
+        oneLine:'A sleep→mood pattern is contested — self-report and band differ on 2 of 9 nights, so the lantern will not steady.',
+        reasoning:['Two records eclipse each other on sleep duration for 2 of 9 nights.','The resolver surfaces the conflict rather than picking a winner.','The disputed pairs weaken the pattern instead of being dropped.','Confidence 0.40 — the honest read is unsettled.'],
+        trace:[{label:'Domains · Sleep, Mood',meta:'2 source domains',dot:'#ff8a7a'},{label:'9 canonical records',meta:'band vs self disagree',dot:'#f0a85c'},{label:'Resolver · HIGHEST_CONF',meta:'conflict held, not dropped',dot:'#ff8a7a'}],
+        contradiction:{ title:'TWO SOURCES DISAGREE · 2 OF 9 NIGHTS', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#f0a85c'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#6fb6ff'}, note:'The desk keeps the conflict visible and lets the lantern flicker. A calmer skin will not resolve what the ledger cannot.' } },
+      connection:{ domain:'Connection', color:'#e89ac8', state:'hazy', conf:0.38, lifecycle:'Uncertain', fresh:'5 days ago', records:3, patternId:'pat_od_041', resolver:'LATEST', truthMode:'PAT · low coverage', visibility:'Private', window:'May 24 – Jun 13',
+        read:'Hazy and low. Only three social records this month — too thin to read.',
+        oneLine:'Social contact may lift next-day mood, but just 3 records exist in 30 days — shown as a dim lantern, never asserted.',
+        reasoning:['Only three social records fall inside the window.','Too sparse to claim a relationship — the haze is honest, not decorative.','The desk will not brighten a lantern it cannot see.','Confidence 0.38 — uncertainty, plainly.'],
+        trace:[{label:'Domains · Relationships, Mood',meta:'2 source domains',dot:'#e89ac8'},{label:'3 canonical records',meta:'sparse · journal · self',dot:'#c9a6c0'},{label:'Resolver · LATEST',meta:'low coverage flagged',dot:'#c9a6c0'}],
+        contradiction:null }
+    };
+    this.ORDER = ['sleep','focus','movement','finances','mind','connection'];
+    this.state = { sel:'finances', proofOpen:false, journal:'' };
+  }
+
+  themes = {
+    dusk:   { accent:'#f5b25a', accent2:'#6fd0c0', base:'#0d0b11', bg1:'rgba(245,180,90,0.12)', bg2:'rgba(120,150,255,0.08)', glow:'rgba(245,180,90,0.3)', briefGlow:'rgba(245,180,90,0.16)' },
+    hearth: { accent:'#ff9a5c', accent2:'#ffd08a', base:'#100b0c', bg1:'rgba(255,140,80,0.14)', bg2:'rgba(180,90,120,0.09)', glow:'rgba(255,140,80,0.3)', briefGlow:'rgba(255,150,90,0.18)' },
+    grove:  { accent:'#a8d26a', accent2:'#f0c878', base:'#0c0f0b', bg1:'rgba(150,200,110,0.12)', bg2:'rgba(240,200,120,0.08)', glow:'rgba(168,210,106,0.3)', briefGlow:'rgba(168,210,106,0.16)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.dusk; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confWord(c){ return c>=0.7?'Well-lit': c>=0.55?'Soft': c>=0.45?'Dim':'Hazy'; }
+  confColor(c){ return c>=0.7?'#7fd9a0': c>=0.55?'#e8c77a': c>=0.45?'#f0a85c':'#ff8a7a'; }
+  lifeColor(l){ return l==='Confirmed'?'#7fd9a0': l==='Watching'?'#e8c77a': l==='Contested'?'#ff8a7a':'#c9a6c0'; }
+  stateColor(s){ return s==='steady'?'#7fd9a0': s==='flicker'?'#f0c285':'#c9a6c0'; }
+  stateWord(s){ return s==='steady'?'Steady glow': s==='flicker'?'Flickering · look':'Hazy · thin data'; }
+
+  buildLantern(l){
+    const h=React.createElement, motion=this.props.lanternMotion!==false, col=l.color, st=l.state;
+    const flameOp = st==='steady'?0.95: st==='flicker'?0.85:0.4;
+    const haloOp = st==='steady'?0.5: st==='flicker'?0.42:0.16;
+    const flameAnim = motion ? (st==='steady'?'lwBreathe 4s ease-in-out infinite': st==='flicker'?'lwFlicker 2.2s ease-in-out infinite':'lwBreathe 6s ease-in-out infinite') : 'none';
+    const haloAnim = motion ? (st==='flicker'?'lwFlicker 2.2s ease-in-out infinite':'lwBreathe 4.5s ease-in-out infinite') : 'none';
+    const R=[];
+    R.push(h('defs',{key:'d'},h('filter',{id:'lg'+l.key,x:'-120%',y:'-120%',width:'340%',height:'340%'},h('feGaussianBlur',{stdDeviation:'3'}))));
+    // halo
+    R.push(h('circle',{key:'halo',cx:42,cy:58,r:30,fill:this.hexA(col,0.5),opacity:haloOp,filter:'url(#lg'+l.key+')',style:{transformOrigin:'42px 58px',animation:haloAnim}}));
+    // hanger
+    R.push(h('circle',{key:'ring',cx:42,cy:7,r:4,fill:'none',stroke:'rgba(245,240,232,0.4)',strokeWidth:1.4}));
+    R.push(h('line',{key:'bar',x1:42,y1:11,x2:42,y2:20,stroke:'rgba(245,240,232,0.35)',strokeWidth:1.4}));
+    // cap
+    R.push(h('path',{key:'cap',d:'M30 26 L54 26 L50 20 L34 20 Z',fill:'rgba(245,240,232,0.1)',stroke:'rgba(245,240,232,0.3)',strokeWidth:1}));
+    // body glass
+    R.push(h('rect',{key:'body',x:28,y:26,width:28,height:48,rx:9,fill:this.hexA(col,0.08),stroke:'rgba(245,240,232,0.28)',strokeWidth:1.2}));
+    R.push(h('line',{key:'v1',x1:42,y1:26,x2:42,y2:74,stroke:'rgba(245,240,232,0.12)',strokeWidth:0.8}));
+    // flame
+    R.push(h('ellipse',{key:'flame',cx:42,cy:52,rx:7,ry:10,fill:col,opacity:flameOp,filter:'url(#lg'+l.key+')',style:{transformOrigin:'42px 52px',animation:flameAnim}}));
+    R.push(h('circle',{key:'core',cx:42,cy:53,r:3.4,fill:'#fff6e6',opacity:st==='hazy'?0.4:0.9,style:{transformOrigin:'42px 53px',animation:flameAnim}}));
+    // base
+    R.push(h('path',{key:'base',d:'M32 74 L52 74 L50 80 L34 80 Z',fill:'rgba(245,240,232,0.1)',stroke:'rgba(245,240,232,0.28)',strokeWidth:1}));
+    // smoke if hazy
+    if(st==='hazy'){
+      [38,46].forEach((x,i)=>{ R.push(h('path',{key:'sm'+i,d:'M'+x+' 24 q -3 -6 0 -12 q 3 -6 0 -12',fill:'none',stroke:'rgba(220,210,225,0.5)',strokeWidth:1.4,strokeLinecap:'round',style:{transformOrigin:x+'px 18px',animation:motion?('lwSmoke '+(2.6+i*0.6)+'s ease-out infinite '+(i*0.5)+'s'):'none'},opacity:0})); });
+    }
+    return h('svg',{viewBox:'0 0 84 86',width:'62',height:'64',style:{display:'block',overflow:'visible'}},R);
+  }
+
+  buildRibbon(vals,col){
+    const h=React.createElement, n=vals.length, W=200, Ht=34;
+    const X=i=>i*(W/(n-1)), mn=Math.min(...vals), mx=Math.max(...vals), Y=v=>Ht-4-((v-mn)/(mx-mn||1))*(Ht-10);
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++){ d+=' L '+X(i)+' '+Y(vals[i]); }
+    return h('svg',{viewBox:'0 0 200 34',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('defs',null,h('linearGradient',{id:'rb'+col.replace('#',''),x1:'0',y1:'0',x2:'0',y2:'1'},h('stop',{offset:'0%',stopColor:this.hexA(col,0.28)}),h('stop',{offset:'100%',stopColor:this.hexA(col,0)}))),
+      h('path',{d:d+' L '+X(n-1)+' '+Ht+' L 0 '+Ht+' Z',fill:'url(#rb'+col.replace('#','')+')'}),
+      h('path',{d:d,fill:'none',stroke:col,strokeWidth:1.6,strokeLinecap:'round',strokeLinejoin:'round'}),
+      h('circle',{cx:X(n-1),cy:Y(vals[n-1]),r:2.4,fill:col}));
+  }
+
+  componentDidMount(){ try{ const j=window.localStorage.getItem('lanternDesk.journal'); if(j!=null) this.setState({journal:j}); }catch(e){} }
+  onJournal(e){ const v=e.target.value; this.setState({journal:v}); try{ window.localStorage.setItem('lanternDesk.journal',v); }catch(err){} }
+  select(k){ this.setState({sel:k,proofOpen:false}); }
+
+  renderVals(){
+    const t=this.cur(), L=this.LANTERNS, selKey=this.state.sel, s=L[selKey];
+    const navItems=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Signal Forge','Lantern Desk']
+      .map(l=>{ const on=l==='Lantern Desk'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,235,210,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(245,240,232,0.95)':'rgba(245,240,232,0.6)',dot:on?'var(--accent)':'rgba(245,240,232,0.35)'}; });
+
+    const lanterns=this.ORDER.map(k=>{ const l={...L[k],key:k}, on=k===selKey;
+      return { domain:l.domain, read:l.read, word:this.stateWord(l.state), stateColor:this.stateColor(l.state),
+        lanternSvg:this.buildLantern(l), onSelect:()=>this.select(k),
+        cardBg:on?this.hexA(l.color,0.07):'rgba(255,235,210,0.022)', cardBorder:on?this.hexA(l.color,0.4):'rgba(255,235,210,0.08)' }; });
+
+    const brief={ greeting:'Good morning.', asOf:'6:40am',
+      body:'You slept well and your movement lantern is even — a steady base for the day. Two lanterns are flickering: a couple of late purchases came in overnight, and the sleep–mood read is unsettled because two sources disagree. Nothing here is urgent. When you\u2019re ready, the proof is one tap under each light.' };
+
+    const obligations=[
+      { time:'9:00', ampm:'am', color:L.finances.color, title:'Glance at two late purchases', sub:'Finances lantern is flickering · 6 of 9 recent buys were late', review:true, onOpen:()=>this.select('finances') },
+      { time:'5:00', ampm:'pm', color:L.movement.color, title:'A short walk before dusk', sub:'Movement → calmer evening, seen across 11 days', review:false, onOpen:()=>this.select('movement') },
+      { time:'10:00', ampm:'pm', color:L.mind.color, title:'Leave one line in the journal', sub:'Private to the desk · helps settle the mood read', review:false, onOpen:()=>this.select('mind') },
+      { time:'10:30', ampm:'pm', color:L.sleep.color, title:'Ease toward sleep', sub:'7h+ nights keep feeding your best mornings', review:false, onOpen:()=>this.select('sleep') }
+    ];
+
+    const nudges=[
+      { color:L.movement.color, text:'Last week, an afternoon walk landed you a calmer evening four times out of five.', basis:'pat_gl_118 · conf 0.72' },
+      { color:L.sleep.color, text:'Your brightest focus has followed nights of seven hours or more.', basis:'pat_lm_204 · conf 0.81' },
+      { color:L.connection.color, text:'Connection\u2019s lantern is low — not a nudge to act, just an honest note that the data is thin.', basis:'pat_od_041 · 3 records · conf 0.38' }
+    ];
+
+    const ribbons=[
+      { label:'Sleep', word:'gently rising', color:L.sleep.color, svg:this.buildRibbon([6.2,6.0,6.6,6.4,7.0,6.8,7.2,7.1],L.sleep.color) },
+      { label:'Late spending', word:'cooling', color:L.finances.color, svg:this.buildRibbon([5,4,5,3,4,2,3,2],L.finances.color) }
+    ];
+
+    const dayMarks=obligations.map(o=>{ const hr=parseInt(o.time.split(':')[0],10)%12 + (o.ampm==='pm'?12:0), mn=parseInt(o.time.split(':')[1],10); const t24=hr+mn/60; const left=Math.max(2,Math.min(97,((t24-6)/16)*100)); return { title:o.title, time:o.time+o.ampm, color:o.color, left:left+'%' }; });
+    const nowLeft=(((7+32/60)-6)/16*100)+'%';
+
+    const sel={ domain:s.domain, color:s.color, read:s.read, oneLine:s.oneLine, word:this.stateWord(s.state),
+      stateColor:this.stateColor(s.state), stateBg:this.hexA(this.stateColor(s.state),0.15), headerBg:this.hexA(s.color,0.06),
+      conf:s.conf.toFixed(2), confWord:this.confWord(s.conf), confColor:this.confColor(s.conf),
+      lifecycle:s.lifecycle, lifeColor:this.lifeColor(s.lifecycle), fresh:s.fresh,
+      window:s.window, resolver:s.resolver, reasoning:s.reasoning, trace:s.trace, contradiction:s.contradiction,
+      patternId:s.patternId, truthMode:s.truthMode, visibility:s.visibility, records:s.records };
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, briefGlow:t.briefGlow,
+      navItems, lanterns, brief, obligations, nudges, ribbons, dayMarks, nowLeft, sel,
+      showRibbons:this.props.showRibbons!==false, readCount:46,
+      proofOpen:this.state.proofOpen, proofClosed:!this.state.proofOpen,
+      onOpenProof:()=>this.setState({proofOpen:true}), onCloseProof:()=>this.setState({proofOpen:false}),
+      journal:this.state.journal, onJournal:(e)=>this.onJournal(e)
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<script src="./lw-site.js"></script>
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:#06070e}
+  a{text-decoration:none;color:inherit}
+  ::-webkit-scrollbar{width:11px}
+  ::-webkit-scrollbar-thumb{background:rgba(155,140,255,0.22);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  .hmono{font-family:'IBM Plex Mono',monospace}
+  .hnav a:hover{color:#fff}
+  .hroom{transition:transform .13s ease, border-color .13s ease, background .13s ease}
+  .hroom:hover{transform:translateY(-3px); border-color:rgba(155,140,255,0.5) !important; background:rgba(255,255,255,0.045) !important}
+  .hcta{transition:transform .13s ease, box-shadow .13s ease}
+  .hcta:hover{transform:translateY(-2px)}
+  .hwin{cursor:pointer; transition:transform .14s ease, border-color .14s ease, background .14s ease}
+  .hwin:hover{transform:translateY(-2px); border-color:rgba(57,224,166,0.55) !important; background:rgba(255,255,255,0.05) !important}
+  .hbeam{stroke-dasharray:5 7; animation:hflow 1.1s linear infinite}
+  @keyframes hflow{to{stroke-dashoffset:-24}}
+  @keyframes hdraw{from{opacity:0; transform:translateX(34px)} to{opacity:1; transform:translateX(0)}}
+  @keyframes hfade{from{opacity:0} to{opacity:1}}
+</style>
+</helmet>
+<div data-screen-label="Home" style="height:100vh; overflow-y:auto; color:#e7eaf3; font-family:'IBM Plex Sans',system-ui,sans-serif; --accent:{{ accent }}; --accent2:{{ accent2 }}; background:radial-gradient(1300px 760px at 50% -12%, {{ bg1 }}, transparent 60%), radial-gradient(1100px 820px at 102% 24%, {{ bg2 }}, transparent 55%), radial-gradient(900px 700px at -8% 72%, rgba(255,122,208,0.05), transparent 55%), linear-gradient(180deg,#07080f,#06070e);">
+
+  <div style="position:sticky; top:0; z-index:60; display:flex; align-items:center; gap:16px; padding:0 24px; height:56px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(9,10,17,0.82); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="25" height="25" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#34e1b4" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7ad0" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <span class="hmono" style="font-size:10px; color:rgba(200,205,230,0.45);">/ home</span>
+    <div style="flex:1;"></div>
+    <div class="hnav hmono" style="display:flex; align-items:center; gap:20px; font-size:11px; color:rgba(200,205,230,0.6);">
+      <a href="#proof">see the proof</a><a href="#rules">the rules</a><a href="#rooms">start here</a><a href="{{ prismHref }}">try prism</a><a href="{{ guideHref }}">full guide</a>
+    </div>
+    <a href="{{ prismHref }}" class="hcta" style="display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg,var(--accent),var(--accent2)); padding:8px 15px; border-radius:9px;">Open Prism →</a>
+  </div>
+
+  <!-- HERO + LIVE PRISM -->
+  <section style="max-width:1140px; margin:0 auto; padding:54px 28px 18px; display:grid; grid-template-columns:1fr 0.92fr; gap:46px; align-items:center;">
+    <div style="min-width:320px;">
+      <div class="hmono" style="font-size:11px; letter-spacing:0.22em; color:var(--accent); margin-bottom:18px;">ONE TRUTH · MANY WINDOWS</div>
+      <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:50px; line-height:1.05; margin:0; letter-spacing:-0.015em;">One set of facts. <span style="background:linear-gradient(100deg,#9b8cff,#34e1b4,#ff7ad0); -webkit-background-clip:text; background-clip:text; color:transparent;">As many windows as you like.</span></h1>
+      <div style="margin:22px 0 0; padding:15px 18px; border-radius:13px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.022);">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; line-height:1.4;">Make it beautiful. Make it weird. Make it funny.<br><span style="color:var(--accent2);">Never make it lie.</span></div>
+      </div>
+      <p style="font-size:15.5px; line-height:1.62; color:rgba(220,224,240,0.78); max-width:520px; margin:20px 0 0;">Lightweave keeps the facts of your life in <b style="color:#e7eaf3;">one canonical ledger</b>, then projects them through {{ roomCount }} different windows. Watch one real record below: same value, same confidence, two skins. <b style="color:#e7eaf3;">Click it for the receipts.</b></p>
+      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;">
+        <a href="{{ prismHref }}" class="hcta" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg,var(--accent),var(--accent2)); padding:13px 22px; border-radius:11px; box-shadow:0 10px 30px {{ glow }};">Refract a ledger in Prism →</a>
+        <a href="#rooms" class="hcta" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:rgba(220,224,240,0.9); border:1px solid rgba(255,255,255,0.16); padding:13px 22px; border-radius:11px;">Where do I start?</a>
+      </div>
+      <div class="hmono" style="display:flex; gap:18px; margin-top:24px; font-size:10.5px; color:rgba(200,205,230,0.5); flex-wrap:wrap;">
+        <span>· read-only by design</span><span>· every claim has receipts</span><span>· records edited: 0</span>
+      </div>
+    </div>
+
+    <!-- LIVE PRISM DEMO -->
+    <div id="proof" style="border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:20px; background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.014)); box-shadow:0 24px 60px rgba(0,0,0,0.4);">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+        <span class="hmono" style="font-size:9.5px; letter-spacing:0.16em; color:rgba(200,205,230,0.5);">ONE RECORD IN THE LEDGER</span>
+        <span class="hmono" style="margin-left:auto; font-size:9px; color:rgba(200,205,230,0.4);">{{ heroRec.id }}</span>
+      </div>
+
+      <!-- canonical record -->
+      <div class="hwin" onClick="{{ openDrawer }}" style="border:1px solid rgba(255,255,255,0.12); border-radius:13px; padding:14px 15px; background:rgba(0,0,0,0.28);">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px; color:{{ confColor }}; background:{{ confBg }}; border:1px solid {{ confColor }};"><span style="width:6px;height:6px;border-radius:50%;background:{{ confColor }};box-shadow:0 0 7px {{ confColor }};"></span>{{ confPct }} confidence</span>
+          <span style="font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px; color:{{ lifeColor }}; border:1px solid {{ lifeColor }};">{{ heroRec.lifecycle }}</span>
+          <span class="hmono" style="margin-left:auto; font-size:9.5px; color:rgba(200,205,230,0.5);">{{ heroRec.window }}</span>
+        </div>
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; margin-top:11px;">{{ heroRec.value }}</div>
+        <div style="font-size:12px; color:rgba(216,221,238,0.62); margin-top:4px;">{{ heroRec.subject }}</div>
+      </div>
+
+      <!-- prism splits the beam -->
+      <div style="display:flex; align-items:center; justify-content:center; margin:2px 0 -2px;">{{ prismSvg }}</div>
+
+      <!-- two windows, same fact -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <a href="{{ starHref }}" class="hwin" style="display:block; border:1px solid rgba(255,255,255,0.12); border-radius:13px; padding:13px; background:radial-gradient(120px 80px at 70% 0%, rgba(52,225,180,0.12), transparent 70%), rgba(8,12,18,0.6);" onClick="{{ openDrawer }}">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;">
+            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l1.6 4.3L14 6l-3.4 2.7L11.8 13 8 10.4 4.2 13l1.2-4.3L2 6l4.4-.7z" fill="#34e1b4"></path></svg>
+            <span class="hmono" style="font-size:9px; letter-spacing:0.12em; color:rgba(200,205,230,0.55);">CONSTELLATION RECALL</span>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25;">{{ heroRec.value }}</div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:10px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:{{ confColor }};box-shadow:0 0 7px {{ confColor }};"></span>
+            <span class="hmono" style="font-size:10px; color:{{ confColor }};">{{ confPct }}</span>
+            <span class="hmono" style="font-size:9px; color:rgba(200,205,230,0.4); margin-left:auto;">a bright star</span>
+          </div>
+        </a>
+        <a href="{{ gardenHref }}" class="hwin" style="display:block; border:1px solid rgba(255,255,255,0.12); border-radius:13px; padding:13px; background:radial-gradient(120px 80px at 70% 0%, rgba(95,211,154,0.12), transparent 70%), rgba(8,14,11,0.6);" onClick="{{ openDrawer }}">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;">
+            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 14V7M8 7C8 4.5 6 3 3.5 3 3.5 5.5 5.5 7 8 7zM8 8c0-2 1.6-3.4 3.8-3.4C11.8 6.6 10 8 8 8z" fill="none" stroke="#5fd39a" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span class="hmono" style="font-size:9px; letter-spacing:0.12em; color:rgba(200,205,230,0.55);">VERDANT HARMONICS</span>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25;">{{ heroRec.value }}</div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:10px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:{{ confColor }};box-shadow:0 0 7px {{ confColor }};"></span>
+            <span class="hmono" style="font-size:10px; color:{{ confColor }};">{{ confPct }}</span>
+            <span class="hmono" style="font-size:9px; color:rgba(200,205,230,0.4); margin-left:auto;">a thriving bed</span>
+          </div>
+        </a>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-top:13px;">
+        <div style="font-size:11.5px; line-height:1.45; color:rgba(216,221,238,0.66);">Two skins. <b style="color:#e7eaf3;">Same fact. Same {{ confPct }} confidence.</b> The window changed; the truth didn't.</div>
+        <button onClick="{{ openDrawer }}" class="hcta" style="flex:none; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#0b0d16; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; padding:8px 12px; border-radius:9px; font-weight:600;">open proof ▸</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT -->
+  <section id="what" style="max-width:1140px; margin:0 auto; padding:30px 28px;">
+    <div style="display:flex; gap:18px; flex-wrap:wrap;">
+      <sc-for list="{{ idea }}" as="id" hint-placeholder-count="3">
+        <div style="flex:1; min-width:260px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:22px;">
+          <div style="width:34px; height:34px; border-radius:10px; background:{{ id.bg }}; display:flex; align-items:center; justify-content:center; font-size:17px; margin-bottom:15px;">{{ id.icon }}</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; margin-bottom:9px;">{{ id.t }}</div>
+          <div style="font-size:14px; line-height:1.58; color:rgba(216,221,238,0.76);">{{ id.b }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section id="rules" style="max-width:1140px; margin:0 auto; padding:30px 28px;">
+    <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; margin:0; letter-spacing:-0.01em;">Four rules. No exceptions.</h2>
+      <span class="hmono" style="font-size:11px; color:rgba(200,205,230,0.5);">the reason you can trust a screen this playful</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:13px; margin-top:20px;">
+      <sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
+        <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:15px; padding:20px 21px;">
+          <div style="display:flex; align-items:center; gap:11px; margin-bottom:10px;">
+            <span style="width:10px; height:10px; border-radius:3px; background:{{ r.color }}; box-shadow:0 0 9px {{ r.color }};"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:16.5px; font-weight:600;">{{ r.t }}</span>
+          </div>
+          <div style="font-size:14px; line-height:1.58; color:rgba(216,221,238,0.78);">{{ r.b }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ROOMS — featured 5, then all 41 -->
+  <section id="rooms" style="max-width:1140px; margin:0 auto; padding:34px 28px 20px;">
+    <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; margin:0; letter-spacing:-0.01em;">Start with five.</h2>
+      <span class="hmono" style="font-size:11px; color:rgba(200,205,230,0.5);">one ledger, {{ roomCount }} windows — these five answer the questions people ask first</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:22px;">
+      <sc-for list="{{ featured }}" as="f" hint-placeholder-count="5">
+        <a href="{{ f.href }}" class="hroom" style="display:flex; flex-direction:column; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.1); border-radius:15px; padding:17px;">
+          <div style="width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:{{ f.bg }}; margin-bottom:13px;">{{ f.svg }}</div>
+          <div class="hmono" style="font-size:9px; letter-spacing:0.1em; color:{{ f.color }}; margin-bottom:7px;">{{ f.q }}</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:15.5px; font-weight:600;">{{ f.name }}</div>
+          <div style="font-size:12px; line-height:1.5; color:rgba(216,221,238,0.7); margin-top:7px; flex:1;">{{ f.blurb }}</div>
+          <span class="hmono" style="font-size:10px; color:{{ f.color }}; margin-top:12px;">open →</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex; justify-content:center; margin-top:24px;">
+      <button onClick="{{ toggleAll }}" class="hcta" style="cursor:pointer; display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:500; font-family:'IBM Plex Sans',sans-serif; color:rgba(220,224,240,0.92); border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.02); padding:11px 20px; border-radius:11px;">{{ allLabel }}</button>
+    </div>
+
+    <sc-if value="{{ showAll }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; gap:26px; margin-top:30px; animation:hfade .3s ease;">
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="8">
+          <div>
+            <div style="display:flex; align-items:center; gap:11px; margin-bottom:13px;">
+              <span style="width:12px; height:12px; border-radius:3px; background:{{ g.color }}; box-shadow:0 0 10px {{ g.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600;">{{ g.title }}</span>
+              <span style="font-size:13px; color:rgba(216,221,238,0.5);">{{ g.sub }}</span>
+              <span class="hmono" style="font-size:10px; color:rgba(200,205,230,0.4); margin-left:auto;">{{ g.count }}</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+              <sc-for list="{{ g.rooms }}" as="r" hint-placeholder-count="4">
+                <a href="{{ r.href }}" class="hroom" style="display:block; background:rgba(255,255,255,0.022); border:1px solid rgba(255,255,255,0.09); border-radius:13px; padding:15px 16px;">
+                  <div style="display:flex; align-items:center; gap:9px;">
+                    <span style="width:8px; height:8px; border-radius:2px; background:{{ g.color }}; box-shadow:0 0 7px {{ g.color }};"></span>
+                    <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; flex:1;">{{ r.name }}</span>
+                    <span class="hmono" style="font-size:10px; color:{{ g.color }};">open →</span>
+                  </div>
+                  <div style="font-size:12.5px; line-height:1.5; color:rgba(216,221,238,0.7); margin-top:8px;">{{ r.blurb }}</div>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- CLOSER -->
+  <section style="max-width:1140px; margin:0 auto; padding:24px 28px 70px;">
+    <a href="{{ guideHref }}" class="hroom" style="display:block; background:linear-gradient(135deg, rgba(155,140,255,0.1), rgba(52,225,180,0.06)); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px;">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; margin-bottom:8px;">New here? Read the field guide →</div>
+      <div style="font-size:13.5px; line-height:1.55; color:rgba(216,221,238,0.74); max-width:680px;">The seven words you'll see in every room, how to read any window, and a five-minute tour that makes the whole thing click.</div>
+    </a>
+    <div style="margin-top:22px; display:flex; align-items:center; justify-content:center; gap:12px; padding:16px; border-radius:13px; border:1px solid rgba(255,255,255,0.07); background:rgba(0,0,0,0.18);">
+      <span style="width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent);"></span>
+      <span class="hmono" style="font-size:11px; letter-spacing:0.1em; color:rgba(216,221,238,0.6);">this page is a map, not the territory · nothing written to the ledger · records edited: 0</span>
+      <span style="width:6px; height:6px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2);"></span>
+    </div>
+  </section>
+
+  <!-- PROOF DRAWER -->
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:90; display:flex; justify-content:flex-end;">
+      <div onClick="{{ closeDrawer }}" style="position:absolute; inset:0; background:rgba(4,5,12,0.66); backdrop-filter:blur(3px); animation:hfade .22s ease;"></div>
+      <div style="position:relative; width:440px; max-width:92vw; height:100%; overflow-y:auto; background:linear-gradient(180deg,#0c0e18,#090a12); border-left:1px solid rgba(255,255,255,0.1); box-shadow:-30px 0 70px rgba(0,0,0,0.5); animation:hdraw .26s cubic-bezier(.2,.8,.25,1); padding:22px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <span class="hmono" style="font-size:10px; letter-spacing:0.16em; color:var(--accent);">PROOF DRAWER</span>
+          <span class="hmono" style="font-size:9.5px; color:rgba(200,205,230,0.4);">{{ heroRec.id }}</span>
+          <button onClick="{{ closeDrawer }}" class="hcta" style="margin-left:auto; cursor:pointer; width:28px; height:28px; border-radius:8px; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.03); color:#e7eaf3; font-size:14px;">✕</button>
+        </div>
+
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.25;">{{ heroRec.value }}</div>
+        <div style="font-size:13px; color:rgba(216,221,238,0.66); margin-top:6px;">{{ heroRec.subject }}</div>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:600; padding:4px 10px; border-radius:20px; color:{{ confColor }}; background:{{ confBg }}; border:1px solid {{ confColor }};"><span style="width:6px;height:6px;border-radius:50%;background:{{ confColor }};box-shadow:0 0 7px {{ confColor }};"></span>{{ confPct }} confidence</span>
+          <span style="font-size:11px; font-weight:600; padding:4px 10px; border-radius:20px; color:{{ lifeColor }}; border:1px solid {{ lifeColor }};">{{ heroRec.lifecycle }}</span>
+          <span class="hmono" style="font-size:10px; padding:5px 10px; border-radius:20px; color:rgba(216,221,238,0.7); border:1px solid rgba(255,255,255,0.12);">window {{ heroRec.window }}</span>
+        </div>
+
+        <!-- SOURCE TRACE -->
+        <div class="hmono" style="font-size:9.5px; letter-spacing:0.14em; color:rgba(200,205,230,0.5); margin:22px 0 10px;">SOURCE TRACE</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <sc-for list="{{ heroRec.sources }}" as="s" hint-placeholder-count="2">
+            <div style="display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:11px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.022);">
+              <span class="hmono" style="flex:none; font-size:9px; padding:3px 6px; border-radius:6px; color:#cdd6f5; background:rgba(155,140,255,0.16); border:1px solid rgba(155,140,255,0.3);">{{ s.kind }}</span>
+              <span style="flex:1; font-size:12.5px; color:rgba(231,234,243,0.9);">{{ s.name }}</span>
+              <span class="hmono" style="flex:none; font-size:10px; color:{{ s.intColor }};">{{ s.intPct }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- REASONING PATH -->
+        <div class="hmono" style="font-size:9.5px; letter-spacing:0.14em; color:rgba(200,205,230,0.5); margin:22px 0 10px;">REASONING PATH</div>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <sc-for list="{{ heroRec.reasoning }}" as="step" hint-placeholder-count="3">
+            <div style="display:flex; gap:11px;">
+              <div style="flex:none; display:flex; flex-direction:column; align-items:center;">
+                <span style="width:9px; height:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent); margin-top:5px;"></span>
+                <span style="width:1.5px; flex:1; background:rgba(155,140,255,0.25);"></span>
+              </div>
+              <div style="font-size:12.5px; line-height:1.5; color:rgba(216,221,238,0.82); padding-bottom:13px;">{{ step }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- CONTRADICTION -->
+        <sc-if value="{{ heroRec.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div class="hmono" style="font-size:9.5px; letter-spacing:0.14em; color:rgba(200,205,230,0.5); margin:14px 0 10px;">CONTRADICTION — KEPT, NOT RESOLVED</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px;">
+            <div style="padding:11px 12px; border-radius:11px; border:1px solid {{ heroRec.contradiction.a.color }}; background:rgba(255,255,255,0.02);">
+              <div style="font-size:10.5px; color:rgba(216,221,238,0.6);">{{ heroRec.contradiction.a.label }}</div>
+              <div style="font-size:13px; font-weight:600; margin-top:4px; color:{{ heroRec.contradiction.a.color }};">{{ heroRec.contradiction.a.val }}</div>
+              <div class="hmono" style="font-size:9.5px; color:rgba(200,205,230,0.5); margin-top:3px;">{{ heroRec.contradiction.a.conf }}</div>
+            </div>
+            <div style="padding:11px 12px; border-radius:11px; border:1px solid {{ heroRec.contradiction.b.color }}; background:rgba(255,255,255,0.02);">
+              <div style="font-size:10.5px; color:rgba(216,221,238,0.6);">{{ heroRec.contradiction.b.label }}</div>
+              <div style="font-size:13px; font-weight:600; margin-top:4px; color:{{ heroRec.contradiction.b.color }};">{{ heroRec.contradiction.b.val }}</div>
+              <div class="hmono" style="font-size:9.5px; color:rgba(200,205,230,0.5); margin-top:3px;">{{ heroRec.contradiction.b.conf }}</div>
+            </div>
+          </div>
+          <div style="font-size:11.5px; line-height:1.5; color:rgba(216,221,238,0.66); margin-top:9px;">{{ heroRec.contradiction.note }}</div>
+        </sc-if>
+
+        <!-- RESOLVER META -->
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:20px;">
+          <span class="hmono" style="font-size:9.5px; padding:4px 9px; border-radius:7px; color:rgba(216,221,238,0.7); border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.02);">truthMode {{ heroRec.truthMode }}</span>
+          <span class="hmono" style="font-size:9.5px; padding:4px 9px; border-radius:7px; color:rgba(216,221,238,0.7); border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.02);">resolver {{ heroRec.resolver }}</span>
+          <span class="hmono" style="font-size:9.5px; padding:4px 9px; border-radius:7px; color:rgba(216,221,238,0.7); border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.02);">{{ heroRec.recordsUsed }} records used</span>
+          <span class="hmono" style="font-size:9.5px; padding:4px 9px; border-radius:7px; color:rgba(216,221,238,0.7); border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.02);">{{ heroRec.schema }}</span>
+        </div>
+
+        <!-- CANONICAL LINK -->
+        <a href="{{ canonicalHref }}" class="hcta" style="display:flex; align-items:center; gap:10px; margin-top:20px; padding:14px 16px; border-radius:13px; color:#0b0d16; background:linear-gradient(135deg,var(--accent),var(--accent2)); font-weight:600; font-size:13.5px;">
+          <span style="flex:1;">View canonical record</span>
+          <span class="hmono" style="font-size:11px; opacity:.8;">{{ heroRec.id }} →</span>
+        </a>
+        <div class="hmono" style="text-align:center; font-size:9.5px; color:rgba(200,205,230,0.45); margin-top:12px;">drawer is read-only · records edited: 0</div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:980},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;amethyst&quot;,&quot;cobalt&quot;,&quot;moss&quot;],&quot;default&quot;:&quot;amethyst&quot;,&quot;tsType&quot;:&quot;'amethyst' | 'cobalt' | 'moss'&quot;}}">
+class Component extends DCLogic {
+  state = { drawerOpen:false, showAll:false };
+
+  themes = {
+    amethyst: { accent:'#9b8cff', accent2:'#34e1b4', bg1:'rgba(124,90,255,0.18)', bg2:'rgba(40,200,170,0.09)', glow:'rgba(124,90,255,0.34)' },
+    cobalt:   { accent:'#46c8ff', accent2:'#6fe0c8', bg1:'rgba(40,130,210,0.2)',  bg2:'rgba(40,210,190,0.09)', glow:'rgba(70,200,255,0.34)' },
+    moss:     { accent:'#5fd39a', accent2:'#cfe06a', bg1:'rgba(70,170,100,0.18)', bg2:'rgba(180,205,90,0.09)', glow:'rgba(95,211,154,0.34)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.amethyst; }
+
+  confColorOf(c){ return c>=0.8?'#39e0a6':c>=0.65?'#7fd99a':c>=0.55?'#e8c75a':c>=0.45?'#ff9e57':'#ff6b5e'; }
+  rgba(hex,a){ const n=parseInt(hex.slice(1),16); return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
+
+  // the one real record the hero refracts
+  REC(){ return {
+    id:'rec_appendonly_121',
+    subject:'Append-only law, born from a pop quiz',
+    value:'No silent edits — ever',
+    confidence:0.9, lifecycle:'Confirmed', window:'2026-01-21',
+    sources:[
+      { kind:'DOC', name:'Build log — So You Created a Ledger (01-21)', integrity:0.85 },
+      { kind:'DOC', name:'LW_CORE_CONTRACT_v1_5', integrity:0.9 }
+    ],
+    reasoning:[
+      'A note was quietly scrubbed from the ledger to fool an audit — a deliberate test.',
+      'Watching a record get quietly rewritten is exactly the failure the system must forbid.',
+      'Became a Core Law: rooms read; they never silently write. Corrections append, never overwrite.'
+    ],
+    contradiction:{
+      a:{ label:'What the test did', val:'scrubbed a note', conf:'the exploit', color:'#ff9e57' },
+      b:{ label:'The law it forced', val:'append-only', conf:'the fix', color:'#34e1b4' }
+    },
+    contradictionNote:'The exploit wrote the rule. The prettier, edited version never gets to win — the original always survives.',
+    truthMode:'DRV', resolver:'HIGHEST_CONF', recordsUsed:3, schema:'contract_v1.5'
+  }; }
+
+  GROUPS(){ return [
+    { key:'capture', title:'Get it in',         sub:'capture & keep',                color:'#34e1b4' },
+    { key:'pattern', title:'See the patterns',  sub:'meaning & connection',          color:'#9b8cff' },
+    { key:'trust',   title:'Trust it & fix it', sub:'proof, provenance, repair',     color:'#46c8ff' },
+    { key:'decide',  title:'Decide & plan',     sub:'what-if and forward',           color:'#ffce5a' },
+    { key:'daily',   title:'Live with it',      sub:'daily life, memory & care',     color:'#ff7ad0' },
+    { key:'money',   title:'Money & value',     sub:'what you have, what drains it', color:'#46e08a' },
+    { key:'control', title:'Control & share',   sub:'visibility, authority, people', color:'#7fb0ff' },
+    { key:'fun',     title:'For the joy of it', sub:'the ledger, off the clock',     color:'#ff5db1' }
+  ]; }
+
+  ROOMS(){ return [
+    {slug:'prism',group:'capture',name:'Prism',blurb:'Import a raw ledger and watch it refract into sourced, proof-backed projections.'},
+    {slug:'prism-intake',group:'capture',name:'Prism Intake',blurb:'Drop a note, file or thought and watch it become a sourced record.'},
+    {slug:'delia',group:'capture',name:'Delia',blurb:'The night desk. Say it plain and she keeps it — exactly, nothing added.'},
+    {slug:'rosetta',group:'capture',name:'Rosetta',blurb:'The transmuter — old ledger formats in, current spec out.'},
+    {slug:'constellation-recall',group:'pattern',name:'Constellation Recall',blurb:'Your patterns as a star map; bright stars are strong, red dwarfs are distortions.'},
+    {slug:'resonance-atlas',group:'pattern',name:'Resonance Atlas',blurb:'How your domains push and pull — sleep → mood, work → sleep.'},
+    {slug:'weatherglass-flux',group:'pattern',name:'Weatherglass Flux',blurb:'Your patterns as weather — fronts, pressure, gathering storms.'},
+    {slug:'spectrum-recall',group:'pattern',name:'Spectrum Recall',blurb:'Ask the ledger a question; get sourced, ranked answers back.'},
+    {slug:'dream-cartographer',group:'pattern',name:'Dream Cartographer',blurb:'Your ideas as an explorable atlas, every island charted from real notes.'},
+    {slug:'thread-loom',group:'pattern',name:'Thread Loom',blurb:'Your relationships and connections woven as living threads.'},
+    {slug:'aurora-proof',group:'trust',name:'Aurora Proof',blurb:'Ribbons flow raw sources → records → insight → projection. Show your work.'},
+    {slug:'engine-room',group:'trust',name:'Engine Room',blurb:'Under the hood — watch records validate, transform and render.'},
+    {slug:'distortion-clinic',group:'trust',name:'Distortion Clinic',blurb:'The repair bay where ambiguous data confesses — triaged, never silently edited.'},
+    {slug:'the-case-file',group:'trust',name:'The Case File',blurb:'An evidence-only dossier. The file doesn\u2019t do hunches.'},
+    {slug:'source-aquarium',group:'trust',name:'Source Aquarium',blurb:'Your sources as living creatures in tanks — integrity at a glance.'},
+    {slug:'signal-menagerie',group:'trust',name:'Signal Menagerie',blurb:'The creatures that flag data states — low quality, contradiction, gaps.'},
+    {slug:'signal-forge',group:'decide',name:'Signal Forge',blurb:'What-if simulation — change an input, see outcomes with their confidence.'},
+    {slug:'the-long-game',group:'decide',name:'The Long Game',blurb:'Long-horizon planning across career and network.'},
+    {slug:'archive-mine',group:'decide',name:'Archive Mine',blurb:'Old chats into decisions — ore → gems → ingots → stamped canon.'},
+    {slug:'lantern-desk',group:'daily',name:'Lantern Desk',blurb:'A calm daily home base — today, gently, at a glance.'},
+    {slug:'tide-room',group:'daily',name:'Tide Room',blurb:'Your day\u2019s rhythms as tides coming in and going out.'},
+    {slug:'memory-conservatory',group:'daily',name:'Memory Conservatory',blurb:'Memories as glowing terrariums; reconstructed ones mist over.'},
+    {slug:'the-illuminary',group:'daily',name:'The Illuminary',blurb:'Your year as stained glass — brightness is confidence, redactions are leaded over.'},
+    {slug:'shelf-life',group:'daily',name:'Shelf Life',blurb:'Your pantry as glowing jars — stock, expiry, gaps, plus a glucose storyboard.'},
+    {slug:'lumen-apothecary',group:'daily',name:'Lumen Apothecary',blurb:'Symptoms and patterns on an apothecary shelf — observation only.'},
+    {slug:'carbs-and-consequences',group:'daily',name:'Carbs & Consequences',blurb:'The food-and-body desk — dry, honest, never advice.'},
+    {slug:'the-potting-shed',group:'daily',name:'The Potting Shed',blurb:'The tending bench — habits as care, not compliance.'},
+    {slug:'the-yield-garden',group:'daily',name:'The Yield Garden',blurb:'Goals and habits as a garden — growth shown straight from logged records, never streak points.'},
+    {slug:'verdant-harmonics',group:'daily',name:'Verdant Harmonics',blurb:'Your routines as a living garden kept in harmony. Walk the rows.'},
+    {slug:'ritual-circle',group:'daily',name:'Ritual Circle',blurb:'Your routines drawn as a circle — honored by what you actually logged, not a streak.'},
+    {slug:'mirror-hall',group:'daily',name:'Mirror Hall',blurb:'Your data reflected back — yourself across time and lenses, honestly.'},
+    {slug:'the-counting-house',group:'money',name:'The Counting House',blurb:'Money and finances, every figure sourced and traceable.'},
+    {slug:'lattice-vault',group:'money',name:'Lattice Vault',blurb:'Your high-value canonical records, kept in a vault.'},
+    {slug:'leeches',group:'money',name:'Leeches',blurb:'The quiet drains — subscriptions and creeping costs, each one sourced.'},
+    {slug:'iris',group:'control',name:'Iris',blurb:'The visibility aperture — you decide who sees what, and it shows.'},
+    {slug:'the-governor',group:'control',name:'The Governor',blurb:'The authority regulator — what the system may do on its own.'},
+    {slug:'family-lantern-wall',group:'control',name:'Family Lantern Wall',blurb:'A shared wall for the people you choose, scoped so nothing leaks.'},
+    {slug:'projection-wardrobe',group:'control',name:'Projection Wardrobe',blurb:'Try on themes and lenses — change the look, never the facts.'},
+    {slug:'levity-lens',group:'fun',name:'Levity Lens',blurb:'The meme machine — your records through a bounded humor lens.'},
+    {slug:'brass-tacks',group:'fun',name:'Brass Tacks',blurb:'The snarky news desk — straight fact beside the joke, with a firewall.'},
+    {slug:'bounty-constellarium',group:'fun',name:'Bounty Constellarium',blurb:'Open loops as a reward sky — a bounty is claimed only when a sourced record proves it closed.'}
+  ]; }
+
+  href(slug){ return './' + slug + '.dc.html'; }
+
+  FEATURED(){
+    const h=React.createElement;
+    const star = h('svg',{width:16,height:16,viewBox:'0 0 16 16'},h('path',{d:'M8 1l1.6 4.3L14 6l-3.4 2.7L11.8 13 8 10.4 4.2 13l1.2-4.3L2 6l4.4-.7z',fill:'#34e1b4'}));
+    const prism = h('svg',{width:16,height:16,viewBox:'0 0 16 16'},h('polygon',{points:'8,2 14,13 2,13',fill:'none',stroke:'#9b8cff','strokeWidth':1.4}),h('line',{x1:8,y1:8,x2:14.5,y2:6,stroke:'#34e1b4','strokeWidth':1.1}));
+    const ribbon = h('svg',{width:16,height:16,viewBox:'0 0 16 16'},h('path',{d:'M1 11c3 0 4-6 7-6s4 6 7 6',fill:'none',stroke:'#46c8ff','strokeWidth':1.4,strokeLinecap:'round'}),h('path',{d:'M1 7c3 0 4-4 7-4',fill:'none',stroke:'#9b8cff','strokeWidth':1.1,strokeLinecap:'round'}));
+    const spark = h('svg',{width:16,height:16,viewBox:'0 0 16 16'},h('path',{d:'M8 1v4M8 11v4M1 8h4M11 8h4M3.5 3.5l2.5 2.5M10 10l2.5 2.5',stroke:'#ffce5a','strokeWidth':1.4,strokeLinecap:'round'}));
+    const lantern = h('svg',{width:16,height:16,viewBox:'0 0 16 16'},h('rect',{x:4,y:4,width:8,height:9,rx:2,fill:'none',stroke:'#ff7ad0','strokeWidth':1.3}),h('line',{x1:8,y1:1.5,x2:8,y2:4,stroke:'#ff7ad0','strokeWidth':1.3}),h('circle',{cx:8,cy:8.5,r:1.6,fill:'#ff7ad0'}));
+    return [
+      {slug:'prism', name:'Prism', color:'#9b8cff', bg:'rgba(155,140,255,0.16)', q:'WHAT IS ALL THIS?', blurb:'Import a raw ledger and watch it refract into sourced, proof-backed projections.', svg:prism},
+      {slug:'constellation-recall', name:'Constellation Recall', color:'#34e1b4', bg:'rgba(52,225,180,0.16)', q:'WHAT KEEPS HAPPENING?', blurb:'Your patterns as a star map — bright stars are strong, red dwarfs are distortions.', svg:star},
+      {slug:'aurora-proof', name:'Aurora Proof', color:'#46c8ff', bg:'rgba(70,200,255,0.16)', q:'HOW DO YOU KNOW?', blurb:'Ribbons flow raw sources → records → insight → projection. Show your work.', svg:ribbon},
+      {slug:'signal-forge', name:'Signal Forge', color:'#ffce5a', bg:'rgba(255,206,90,0.16)', q:'WHAT IF I CHANGED THIS?', blurb:'Move one input and watch outcomes shift — each with its own confidence.', svg:spark},
+      {slug:'lantern-desk', name:'Lantern Desk', color:'#ff7ad0', bg:'rgba(255,122,208,0.16)', q:'WHAT DO I NEED TODAY?', blurb:'A calm daily home base — today, gently, at a glance.', svg:lantern}
+    ];
+  }
+
+  prismSvg(){
+    const h=React.createElement, conf=this.confColorOf(this.REC().confidence);
+    return h('svg',{viewBox:'0 0 320 92',width:'100%',height:78,style:{maxWidth:'320px',overflow:'visible'}},
+      h('defs',null,
+        h('filter',{id:'pg',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'1.7'})),
+        h('linearGradient',{id:'pp',x1:'0',y1:'0',x2:'1',y2:'1'},
+          h('stop',{offset:'0%',stopColor:this.cur().accent}),h('stop',{offset:'100%',stopColor:this.cur().accent2}))
+      ),
+      // white beam in (the record, descending)
+      h('line',{x1:160,y1:0,x2:160,y2:34,stroke:'#ffffff','strokeWidth':3.2,strokeLinecap:'round',className:'hbeam',opacity:0.92}),
+      // prism (downward triangle)
+      h('polygon',{points:'144,34 176,34 160,62',fill:'rgba(255,255,255,0.06)',stroke:'url(#pp)','strokeWidth':2,filter:'url(#pg)'}),
+      h('polygon',{points:'144,34 176,34 160,62',fill:'none',stroke:'#ffffff','strokeWidth':0.7,opacity:0.5}),
+      // two refracted beams — SAME confidence colour = same fact
+      h('line',{x1:160,y1:60,x2:64,y2:92,stroke:conf,'strokeWidth':3,strokeLinecap:'round',className:'hbeam',opacity:0.9}),
+      h('line',{x1:160,y1:60,x2:256,y2:92,stroke:conf,'strokeWidth':3,strokeLinecap:'round',className:'hbeam',opacity:0.9})
+    );
+  }
+
+  openDrawer = (e)=>{ if(e&&e.preventDefault) e.preventDefault(); this.setState({drawerOpen:true}); };
+  closeDrawer = (e)=>{ if(e&&e.preventDefault) e.preventDefault(); this.setState({drawerOpen:false}); };
+  toggleAll = ()=>{ this.setState(s=>({showAll:!s.showAll})); };
+
+  renderVals(){
+    const t=this.cur();
+    const r=this.REC();
+    const conf=this.confColorOf(r.confidence);
+    const heroRec={
+      ...r,
+      sources:r.sources.map(s=>({ ...s, intPct:Math.round(s.integrity*100)+'%', intColor:this.confColorOf(s.integrity) })),
+      contradiction:r.contradiction ? { ...r.contradiction, note:r.contradictionNote } : null
+    };
+    const idea=[
+      {t:'The ledger is the truth',b:'Your records — captured once, sourced, dated. This is the book everything reads from. No room gets to rewrite it.',icon:'\u25c8',bg:'rgba(155,140,255,0.18)'},
+      {t:'A room is a window',b:'Each screen projects the same records through a different metaphor. A star map and a pantry can describe the very same fact.',icon:'\u25d1',bg:'rgba(52,225,180,0.18)'},
+      {t:'The view bends, truth doesn\u2019t',b:'Change the theme, the layout, the jokes, the season — the confidence, the sources, and the facts stay exactly put.',icon:'\u2726',bg:'rgba(255,122,208,0.18)'}
+    ];
+    const rules=[
+      {t:'Truth is not skinnable',color:'#9b8cff',b:'Make it a star map. Make it a garden. Make it a meme. A lens can change palette, icons, motion, even the words on screen — but never the confidence, the lifecycle, or who said it. The pretty number never wins by being pretty.'},
+      {t:'Everything shows its work',color:'#34e1b4',b:'Click anything. Every star, jar, storm, thread and punchline opens a proof drawer: source trace, confidence, time window, reasoning, contradictions, and a link to the canonical record. No vibes. No \u201ctrust me.\u201d'},
+      {t:'Nothing is edited behind your back',color:'#ffce5a',b:'Rooms read the ledger; they never silently write to it. Any action that changes state writes an annotation alongside the canon, never over it. You\u2019ll see \u201crecords edited: 0\u201d a lot. We\u2019re not subtle about it.'},
+      {t:'You decide who sees what',color:'#46c8ff',b:'Iris sets who\u2019s allowed to look. The Governor sets what the system may do on its own. Private stays private even inside a joke — the humor rooms refuse to project a sealed record, and they tell you why.'}
+    ];
+    const rooms=this.ROOMS().map(x=>({ ...x, href:this.href(x.slug) }));
+    const groups=this.GROUPS().map(g=>{
+      const gr=rooms.filter(x=>x.group===g.key);
+      return { ...g, rooms:gr, count:gr.length+' room'+(gr.length===1?'':'s') };
+    });
+    const featured=this.FEATURED().map(f=>({ ...f, href:this.href(f.slug) }));
+    return {
+      accent:t.accent, accent2:t.accent2, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      roomCount:rooms.length, prismHref:this.href('prism'), guideHref:'./start-here.dc.html',
+      starHref:this.href('constellation-recall'), gardenHref:this.href('verdant-harmonics'),
+      canonicalHref:this.href('lattice-vault'),
+      heroRec, confColor:conf, confBg:this.rgba(conf,0.14), confPct:Math.round(r.confidence*100)+'%',
+      lifeColor:'#39e0a6',
+      prismSvg:this.prismSvg(), idea, rules, featured, groups,
+      drawerOpen:this.state.drawerOpen, openDrawer:this.openDrawer, closeDrawer:this.closeDrawer,
+      showAll:this.state.showAll, toggleAll:this.toggleAll,
+      allLabel:this.state.showAll ? 'Hide the full library —' : 'Browse all '+rooms.length+' rooms ↓'
+    };
+  }
+}
+</script>
+</body>
+</html>

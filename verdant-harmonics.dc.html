@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#061310}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwFloat{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-6px) rotate(1.2deg)}}
+  @keyframes lwFloatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+  @keyframes lwFlow{to{stroke-dashoffset:-44}}
+  @keyframes lwHover{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes lwMote{0%{transform:translateY(0);opacity:0}18%{opacity:.6}100%{transform:translateY(-86px);opacity:0}}
+  @keyframes lwTwinkle{0%,100%{opacity:.25}50%{opacity:.7}}
+  @keyframes lwPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.1;transform:scale(1.5)}}
+</style>
+</helmet>
+<div data-screen-label="Verdant Harmonics" style="height:100vh; overflow:hidden; color:rgba(232,245,238,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; --glass1:{{ glass1 }}; --glass2:{{ glass2 }}; background:radial-gradient(1100px 640px at 50% -18%, var(--bg1), transparent 60%), radial-gradient(950px 720px at 110% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M14 24 V12" stroke="var(--accent)" stroke-width="1.6" fill="none"></path><path d="M14 16 C9 15 6 11 7 6 C12 6 15 10 14 15" fill="none" stroke="var(--accent2)" stroke-width="1.2"></path><path d="M14 13 C19 12 22 8 21 4 C16 4 13 8 14 13" fill="none" stroke="#FF6FB7" stroke-width="1.1"></path></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Verdant Harmonics</span>
+      <span style="font-size:10.5px; color:rgba(232,245,238,0.42);">Projection · tend your signals · the garden is the story, the cellar is the receipt</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(232,245,238,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39E883;box-shadow:0 0 7px #39E883;"></span>read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(38,240,208,0.3); border-radius:7px; background:rgba(38,240,208,0.08); color:#7af0e0;"><span style="width:6px;height:6px;border-radius:50%;background:#26F0D0;box-shadow:0 0 7px #26F0D0;"></span>season · summer</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">visibility · private</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Gardener</span>
+        <span style="font-size:10px; color:rgba(232,245,238,0.42); font-family:'IBM Plex Mono',monospace;">TEND · Jun 17</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="verdant-harmonics"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(232,245,238,0.42); margin-bottom:4px;">THE GREENHOUSE · 8 DOMAINS · 14-DAY WINDOW</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; color:rgba(232,245,238,0.97);">Mostly blooming — three beds want water.</div>
+          <div style="font-size:11.5px; color:rgba(232,245,238,0.52); margin-top:5px; line-height:1.5;">Sleep and focus are thriving. Nutrition has a dry patch, finances grew a weed where two sources disagree, and mood is misty — too few logs to read.</div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:13px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(232,245,238,0.4);">HARMONY</span>
+            <div style="position:relative; width:46px; height:46px; border-radius:50%; background:conic-gradient(#26F0D0 78%, rgba(255,255,255,0.08) 0); display:flex; align-items:center; justify-content:center;"><div style="width:35px; height:35px; border-radius:50%; background:#08201b; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;">.78</span></div></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(232,245,238,0.4);">THRIVING</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(57,232,131,0.12); border:1px solid rgba(57,232,131,0.3); color:#7fe8a6;">3</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(232,245,238,0.4);">NEED CARE</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,184,77,0.12); border:1px solid rgba(255,184,77,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#FFB84D; box-shadow:0 0 7px #FFB84D;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ffca7a;">3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 56% 48%, rgba(38,240,208,0.07), transparent 55%), linear-gradient(180deg, var(--glass1), var(--glass2) 60%, #04100c);">
+          <div style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(90deg, transparent 0 139px, rgba(255,255,255,0.035) 139px 140px), repeating-linear-gradient(0deg, transparent 0 139px, rgba(255,255,255,0.025) 139px 140px);"></div>
+          <div style="position:absolute; inset:0;">{{ gardenSvg }}</div>
+          <div style="position:absolute; inset:0; pointer-events:none;">
+            <sc-for list="{{ motes }}" as="m" hint-placeholder-count="0">
+              <span style="position:absolute; left:{{ m.left }}; bottom:{{ m.bottom }}; width:{{ m.size }}; height:{{ m.size }}; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 6px {{ m.color }}; animation:lwMote {{ m.dur }} linear infinite; animation-delay:{{ m.delay }};"></span>
+            </sc-for>
+          </div>
+
+          <!-- care queue rail -->
+          <div style="position:absolute; left:12px; top:12px; bottom:12px; width:158px; border-radius:12px; background:rgba(8,22,18,0.66); border:1px solid rgba(255,255,255,0.09); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:flex; flex-direction:column; padding:11px 10px; gap:7px; z-index:6;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 C7 4 9 4.5 9 7 A3 3 0 0 1 3 7 C3 4.5 5 4 6 1 Z" fill="none" stroke="#69B7FF" stroke-width="1"></path></svg>
+              <span style="font-size:9px; letter-spacing:0.12em; color:rgba(232,245,238,0.5);">CARE QUEUE</span>
+            </div>
+            <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+              <sc-for list="{{ careQueue }}" as="c" hint-placeholder-count="4">
+                <div onClick="{{ c.onSelect }}" style="cursor:pointer; padding:8px 9px; border-radius:9px; background:{{ c.bg }}; border:1px solid {{ c.border }};">
+                  <div style="display:flex; align-items:center; gap:5px; margin-bottom:4px;">
+                    <span style="width:6px; height:6px; border-radius:50%; background:{{ c.color }}; box-shadow:0 0 6px {{ c.color }};"></span>
+                    <span style="font-size:9.5px; font-weight:600; color:rgba(232,245,238,0.92);">{{ c.action }}</span>
+                    <sc-if value="{{ c.propose }}" hint-placeholder-val="{{ false }}"><span style="margin-left:auto; font-size:7px; font-family:'IBM Plex Mono',monospace; padding:1px 4px; border-radius:4px; background:rgba(168,121,255,0.16); color:#c4a6ff;">propose</span></sc-if>
+                  </div>
+                  <div style="font-size:9px; color:rgba(232,245,238,0.55); line-height:1.35;">{{ c.why }}</div>
+                  <div style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(232,245,238,0.4); margin-top:4px;">{{ c.meta }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-size:8px; color:rgba(232,245,238,0.4); line-height:1.4; padding-top:2px; border-top:1px solid rgba(255,255,255,0.07);">Care, not compliance. Every task points to records. No shame streaks.</div>
+          </div>
+
+          <!-- domain plants -->
+          <sc-for list="{{ plants }}" as="p" hint-placeholder-count="8">
+            <div onClick="{{ p.onSelect }}" style="position:absolute; left:{{ p.left }}; top:{{ p.top }}; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; cursor:pointer; z-index:{{ p.z }}; opacity:{{ p.op }};">
+              <div style="position:relative; width:70px; height:78px; display:flex; align-items:flex-end; justify-content:center;">
+                <div style="position:absolute; bottom:6px; width:60%; height:14px; border-radius:50%; background:radial-gradient(closest-side, {{ p.halo }}, transparent); pointer-events:none;"></div>
+                <sc-if value="{{ p.dry }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; bottom:4px; width:54%; height:11px; border-radius:50%; border:1px dashed rgba(113,113,122,0.7); background:repeating-linear-gradient(45deg, rgba(113,113,122,0.18) 0 3px, transparent 3px 6px);"></div></sc-if>
+                <div style="width:60px; height:74px; transform-origin:50% 100%; animation:{{ p.anim }};">{{ p.plantEl }}</div>
+                <sc-if value="{{ p.weeds }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; inset:0; pointer-events:none;">{{ p.weedEl }}</div></sc-if>
+                <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; bottom:2px; width:64%; height:16px; border-radius:50%; border:1px solid {{ p.color }}; box-shadow:0 0 12px {{ p.color }};"></span></sc-if>
+              </div>
+              <div style="text-align:center; margin-top:2px;">
+                <div style="display:flex; align-items:center; justify-content:center; gap:5px; padding:3px 8px; border-radius:7px; background:{{ p.chipBg }}; border:1px solid {{ p.chipBorder }};">
+                  <span style="font-size:10px; font-weight:600; color:rgba(232,245,238,0.94); white-space:nowrap;">{{ p.name }}</span>
+                  <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:{{ p.stateColor }};">{{ p.score }}</span>
+                </div>
+                <div style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:{{ p.stateColor }}; margin-top:2px;">{{ p.stateLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+
+          <!-- critters -->
+          <sc-for list="{{ critters }}" as="cr" hint-placeholder-count="4">
+            <div style="position:absolute; left:{{ cr.left }}; top:{{ cr.top }}; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:2px; pointer-events:none; z-index:8;">
+              <div style="width:22px; height:22px; animation:lwHover {{ cr.dur }} ease-in-out infinite;">{{ cr.el }}</div>
+              <span style="font-size:7px; font-family:'IBM Plex Mono',monospace; color:{{ cr.color }}; background:rgba(6,16,12,0.7); padding:1px 4px; border-radius:4px; white-space:nowrap;">{{ cr.label }}</span>
+            </div>
+          </sc-for>
+
+          <div style="position:absolute; right:14px; bottom:11px; display:flex; align-items:center; gap:11px; z-index:6;">
+            <div style="display:flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#39E883;box-shadow:0 0 6px #39E883;"></span><span style="font-size:8.5px; color:rgba(232,245,238,0.5);">thriving</span></div>
+            <div style="display:flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#FFB84D;box-shadow:0 0 6px #FFB84D;"></span><span style="font-size:8.5px; color:rgba(232,245,238,0.5);">needs care</span></div>
+            <div style="display:flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#FF5C4D;box-shadow:0 0 6px #FF5C4D;"></span><span style="font-size:8.5px; color:rgba(232,245,238,0.5);">weed · disputed</span></div>
+            <div style="display:flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#71717A;"></span><span style="font-size:8.5px; color:rgba(232,245,238,0.5);">dry · gap</span></div>
+          </div>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.stateColor }}; box-shadow:0 0 9px {{ sel.stateColor }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.name }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(232,245,238,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">Root Proof · {{ sel.plantType }} · {{ sel.stateLabel }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div style="position:relative; width:58px; height:58px; flex:0 0 auto;">
+                <div style="position:absolute; inset:0; border-radius:50%; background:conic-gradient({{ sel.stateColor }} {{ sel.scorePct }}, rgba(255,255,255,0.08) 0);"></div>
+                <div style="position:absolute; inset:6px; border-radius:50%; background:#0b1a16; display:flex; flex-direction:column; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.stateColor }};">{{ sel.score }}</span><span style="font-size:7px; color:rgba(232,245,238,0.5);">vitality</span></div>
+              </div>
+              <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.meters }}" as="mt" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:9px; color:rgba(232,245,238,0.5); flex:0 0 56px;">{{ mt.label }}</span>
+                    <div style="flex:1; height:5px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ mt.pct }}; background:{{ mt.color }};"></div></div>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:{{ mt.color }};">{{ mt.val }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="font-size:11.5px; color:rgba(232,245,238,0.78); line-height:1.5; padding:10px 12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px;">
+              <span style="font-size:9px; letter-spacing:0.1em; color:rgba(232,245,238,0.42); display:block; margin-bottom:5px;">WHAT CHANGED</span>
+              {{ sel.changed }}
+            </div>
+
+            <sc-if value="{{ sel.healthNote }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:10px; color:rgba(232,245,238,0.62); line-height:1.45; padding:9px 11px; background:rgba(168,121,255,0.06); border:1px solid rgba(168,121,255,0.26); border-radius:10px; display:flex; gap:8px;">
+                <svg width="13" height="13" viewBox="0 0 14 14" style="flex:0 0 auto; margin-top:1px;"><path d="M7 1 L13 12 H1 Z" fill="none" stroke="#c4a6ff" stroke-width="1"></path><line x1="7" y1="5" x2="7" y2="8.5" stroke="#c4a6ff" stroke-width="1"></line><circle cx="7" cy="10.2" r="0.7" fill="#c4a6ff"></circle></svg>
+                <span>{{ sel.healthNote }}</span>
+              </div>
+            </sc-if>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(232,245,238,0.4); margin-bottom:8px;">SOURCE ROOTS</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.sourceMix }}" as="sm" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:9.5px; font-family:'IBM Plex Mono',monospace; color:rgba(232,245,238,0.6); flex:0 0 96px;">{{ sm.label }}</span>
+                    <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sm.pct }}; background:{{ sm.color }};"></div></div>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:{{ sm.color }};">{{ sm.pct }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,92,77,0.05); border:1px solid rgba(255,92,77,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:50%; background:#FF5C4D; box-shadow:0 0 7px #FF5C4D;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#ff8378;">CONTRADICTION ROOTS · WEED</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(232,245,238,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,245,238,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(232,245,238,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,245,238,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(232,245,238,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sel.gap }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(113,113,122,0.08); border:1px dashed rgba(113,113,122,0.5); border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 9 Q4 6 6 9 M6 9 Q8 6 10 9" fill="none" stroke="#9aa6c0" stroke-width="1"></path><circle cx="6" cy="3" r="1.4" fill="none" stroke="#9aa6c0" stroke-width="1"></circle></svg><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#aab2c0;">MISSING WATER · COVERAGE GAP</span></div>
+                <div style="font-size:10.5px; color:rgba(232,245,238,0.66); line-height:1.45;">{{ sel.gap }}</div>
+              </div>
+            </sc-if>
+
+            <div style="font-size:10px; color:rgba(232,245,238,0.55); line-height:1.45; padding:9px 11px; background:rgba(38,240,208,0.04); border:1px solid rgba(38,240,208,0.18); border-radius:9px;">{{ sel.observedInferred }}</div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(232,245,238,0.4); margin-bottom:8px;">SUPPORTING RECORDS</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.supporting }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #0a1612; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(232,245,238,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(232,245,238,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(232,245,238,0.4); margin-bottom:9px;">CANONICAL TRACE · ROOT CELLAR</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,245,238,0.45);">record</span><span style="color:{{ sel.stateColor }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,245,238,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,245,238,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,245,238,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,245,238,0.45);">confidence</span><span style="color:{{ sel.confColor }};">{{ sel.conf }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,245,238,0.45);">visibility</span><span>{{ sel.visibility }}</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#08140f; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">{{ sel.actionLabel }}</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(232,245,238,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Root Cellar</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(232,245,238,0.6);">Seasonal Flux</span>
+        <div style="display:flex; gap:5px;">
+          <sc-for list="{{ seasons }}" as="se" hint-placeholder-count="4">
+            <span style="font-size:9.5px; font-family:'IBM Plex Mono',monospace; padding:3px 9px; border-radius:6px; background:{{ se.bg }}; color:{{ se.txt }}; border:1px solid {{ se.border }};">{{ se.label }}</span>
+          </sc-for>
+        </div>
+        <span style="font-size:10px; color:rgba(232,245,238,0.38);">season is inferred from record clusters — shown as projection, confidence-bound</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(232,245,238,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#39E883;"></span>growth</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(232,245,238,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#FFB84D;"></span>tend</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(57,232,131,0.05), rgba(38,240,208,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ fluxSvg }}</div>
+        <sc-for list="{{ fluxMarks }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:108px;">
+            <div style="font-size:8.5px; color:rgba(232,245,238,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:108px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(232,245,238,0.4); margin-top:3px; white-space:nowrap;">{{ m.when }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(232,245,238,0.66);">TEND THE GARDEN · BUT THE RECEIPTS ARE UNDER THE ROOTS</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;biolume&quot;,&quot;wisteria&quot;,&quot;amber&quot;],&quot;default&quot;:&quot;biolume&quot;,&quot;tsType&quot;:&quot;'biolume' | 'wisteria' | 'amber'&quot;},&quot;motes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'sleep' };
+
+    this.DOMAINS = {
+      sleep:{ name:'Sleep', plantType:'moonvine', arche:'vine', botColor:'#A879FF', x:55, y:16, state:'thriving', score:0.92, conf:0.92, life:'Trusted', health:true,
+        hydration:0.84, bloom:0.9, soil:0.94, critter:'glowbee',
+        changed:'Steadier bedtimes across the window lifted the bloom; device records and two manual notes agree.',
+        healthNote:'Thriving here means the sleep records are clean and consistent \u2014 not a verdict on how rested you feel. Patterns are observation only.',
+        sourceMix:[{label:'DEV device',pct:62},{label:'HUM self',pct:24},{label:'SYS derived',pct:14}],
+        supporting:[{title:'Sleep band nights \u00d79',meta:'device \u00b7 signed',color:'#39E883',radius:'3px'},{title:'Bedtime notes \u00d72',meta:'self \u00b7 corroborating',color:'#69B7FF',radius:'3px'}],
+        observedInferred:'Observed: durations and bedtimes. Inferred: none \u2014 the bloom rests entirely on recorded data.',
+        gap:null, contradiction:null,
+        resolver:'LATEST_VERIFIED', mode:'DAQ \u00b7 OPT', window:'P14D', canonId:'gar_sleep_w24', visibility:'private' },
+
+      movement:{ name:'Movement', plantType:'fern', arche:'fern', botColor:'#39E883', x:34, y:26, state:'stable', score:0.84, conf:0.84, life:'Trusted', health:true,
+        hydration:0.78, bloom:0.8, soil:0.86, critter:'glowbee',
+        changed:'Three independent sources agree on activity this week \u2014 the glowbee is smug about it. Slightly below last week\u2019s peak.',
+        healthNote:'Stable data quality. Movement being lower than last week is a record, not a judgment.',
+        sourceMix:[{label:'DEV device',pct:55},{label:'HUM self',pct:30},{label:'SYS derived',pct:15}],
+        supporting:[{title:'Step counter feed',meta:'device \u00b7 signed',color:'#39E883',radius:'3px'},{title:'Workout logs \u00d73',meta:'app \u00b7 attested',color:'#26F0D0',radius:'3px'}],
+        observedInferred:'Observed: activity counts. Inferred: none. Cross-source agreement raises confidence.',
+        gap:null, contradiction:null,
+        resolver:'LATEST', mode:'DAQ \u00b7 NRM', window:'P14D', canonId:'gar_move_w24', visibility:'private' },
+
+      nutrition:{ name:'Nutrition', plantType:'tree', arche:'tree', botColor:'#FFB84D', x:28, y:50, state:'needs care', score:0.6, conf:0.6, life:'Interpreted', health:true,
+        hydration:0.34, bloom:0.58, soil:0.66, critter:'raincloud', dry:true,
+        changed:'Daytime meals are logged; evenings have gone dry for three days. The tree isn\u2019t wilting \u2014 it\u2019s just under-watered with data.',
+        healthNote:'Low coverage is a data gap, not a finding about eating. Observation only; nothing here is dietary advice.',
+        sourceMix:[{label:'HUM self',pct:74},{label:'DOC receipt',pct:18},{label:'DEV device',pct:8}],
+        supporting:[{title:'Meal logs \u00d711',meta:'self \u00b7 daytime only',color:'#FFB84D',radius:'2px'},{title:'Grocery receipt',meta:'document \u00b7 attested',color:'#26F0D0',radius:'3px'}],
+        observedInferred:'Observed: logged meals. Inferred: nothing \u2014 missing evenings are shown as a gap, never guessed.',
+        gap:'No evening meal logs for 3 days. The dry patch marks the absence rather than assuming you skipped \u2014 could be fine, could be fog. The garden is not guessing.', contradiction:null,
+        resolver:'DELTA_SUM', mode:'DAQ \u00b7 DEG', window:'P14D', canonId:'gar_nutri_w24', visibility:'private' },
+
+      mood:{ name:'Mood', plantType:'blossom', arche:'blossom', botColor:'#FF6FB7', x:34, y:76, state:'misty', score:0.5, conf:0.48, life:'Observed', health:true,
+        hydration:0.4, bloom:0.5, soil:0.52, critter:'murktoad',
+        changed:'Only two mood check-ins this window \u2014 too few to read. The blossom is rendered misty rather than bright, and the murk toad sits nearby.',
+        healthNote:'Mood is health-adjacent and self-reported. With two data points, any confident summary would be invention. Observation only.',
+        sourceMix:[{label:'HUM self',pct:100},{label:'DEV device',pct:0},{label:'SYS derived',pct:0}],
+        supporting:[{title:'Mood check-ins \u00d72',meta:'self \u00b7 no attestation',color:'#FF6FB7',radius:'2px'}],
+        observedInferred:'Observed: two check-ins. Inferred: nothing \u2014 the mist is the honest reading of thin data.',
+        gap:'Sparse inputs: 2 check-ins in 14 days. Low confidence is shown, not hidden; the blossom stays misty until more is logged.', contradiction:null,
+        resolver:'LATEST', mode:'DAQ \u00b7 DEG', window:'P14D', canonId:'gar_mood_w24', visibility:'private' },
+
+      focus:{ name:'Focus', plantType:'starflower', arche:'star', botColor:'#69B7FF', x:76, y:26, state:'thriving', score:0.8, conf:0.81, life:'Trusted', health:false,
+        hydration:0.76, bloom:0.82, soil:0.8, critter:null,
+        changed:'Focus sessions held steady and well-logged \u2014 a clean blue starflower. Session app and calendar agree.',
+        healthNote:null,
+        sourceMix:[{label:'DEV app',pct:58},{label:'SYS calendar',pct:30},{label:'HUM self',pct:12}],
+        supporting:[{title:'Focus sessions \u00d712',meta:'app \u00b7 TLS receipt',color:'#69B7FF',radius:'3px'},{title:'Calendar blocks',meta:'OAuth \u00b7 attested',color:'#26F0D0',radius:'3px'}],
+        observedInferred:'Observed: session counts and durations. Inferred: none.',
+        gap:null, contradiction:null,
+        resolver:'LATEST', mode:'DAQ \u00b7 OPT', window:'P14D', canonId:'gar_focus_w24', visibility:'private' },
+
+      relationships:{ name:'Relationships', plantType:'rose trellis', arche:'trellis', botColor:'#FF6FB7', x:84, y:50, state:'needs care', score:0.68, conf:0.68, life:'Interpreted', health:false,
+        hydration:0.6, bloom:0.66, soil:0.72, critter:'dewmoth',
+        changed:'The trellis is healthy but one vine is loose \u2014 an unanswered thread has sat open past its usual rhythm.',
+        healthNote:null,
+        sourceMix:[{label:'DEV call log',pct:48},{label:'HUM self',pct:34},{label:'SYS derived',pct:18}],
+        supporting:[{title:'Call log',meta:'phone \u00b7 duration-attested',color:'#26F0D0',radius:'3px'},{title:'Open thread',meta:'rit_call_31 \u00b7 overdue',color:'#FFB84D',radius:'2px'}],
+        observedInferred:'Observed: calls and an open obligation. Inferred: that the thread \u201cneeds care\u201d \u2014 a nudge, not a diagnosis.',
+        gap:null, contradiction:null,
+        resolver:'LATEST', mode:'DAQ \u00b7 NRM', window:'P14D', canonId:'gar_rel_w24', visibility:'private' },
+
+      finances:{ name:'Finances', plantType:'coinleaf', arche:'vine', botColor:'#FFE28A', x:55, y:87, state:'disputed', score:0.55, conf:0.55, life:'Disputed', health:false, weeds:true,
+        hydration:0.62, bloom:0.5, soil:0.58, critter:'redcap',
+        changed:'A red weed crept in: the bank feed and a manual note disagree on one transaction. The coinleaf is fine \u2014 the weed is the conflict, not the plant.',
+        healthNote:null,
+        sourceMix:[{label:'DEV bank feed',pct:64},{label:'HUM self',pct:36},{label:'SYS derived',pct:0}],
+        supporting:[{title:'Bank feed',meta:'OAuth \u00b7 provider-attested',color:'#FFE28A',radius:'3px'},{title:'Manual note',meta:'self \u00b7 conflicting',color:'#FF5C4D',radius:'2px'}],
+        observedInferred:'Observed: two records of one transaction. Inferred: nothing \u2014 the conflict is surfaced, not resolved.',
+        gap:null,
+        contradiction:{ a:{label:'Bank feed',val:'$42.10',conf:'conf 0.88',color:'#FFE28A'}, b:{label:'Manual note',val:'$24.10',conf:'conf 0.55',color:'#FF5C4D'}, note:'One transaction, two amounts. The weed stays visible until a verified source settles it \u2014 the garden won\u2019t quietly pick one.' },
+        resolver:'CONFLICT_OPEN', mode:'DAQ \u00b7 DEG', window:'P14D', canonId:'gar_fin_w24', visibility:'private' },
+
+      projects:{ name:'Projects', plantType:'violet lattice', arche:'lattice', botColor:'#A879FF', x:76, y:76, state:'overgrown', score:0.72, conf:0.72, life:'Interpreted', health:false,
+        hydration:0.7, bloom:0.74, soil:0.76, critter:null,
+        changed:'The lattice is climbing fast but overgrown \u2014 overdue obligations are accumulating without resolution. Not dead, just in need of shears.',
+        healthNote:null,
+        sourceMix:[{label:'SYS tasks',pct:58},{label:'HUM self',pct:30},{label:'DOC docs',pct:12}],
+        supporting:[{title:'Task records \u00d78',meta:'normalized',color:'#A879FF',radius:'3px'},{title:'3 overdue',meta:'rit \u00b7 cracks',color:'#FFB84D',radius:'2px'}],
+        observedInferred:'Observed: open and overdue tasks. Inferred: \u201covergrown\u201d as a tending cue \u2014 a prompt to prune, not a failure.',
+        gap:null, contradiction:null,
+        resolver:'LATEST', mode:'DAQ \u00b7 NRM', window:'P14D', canonId:'gar_proj_w24', visibility:'private' }
+    };
+    this.ORDER=['sleep','movement','nutrition','mood','focus','relationships','finances','projects'];
+    this.FOUNTAIN={ x:55, y:50 };
+    this.NAV=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Family Lantern Wall','Bounty Constellarium','Source Aquarium','Ritual Circle','Mirror Hall','Memory Conservatory'];
+
+    this.CARE=[
+      { domain:'nutrition', action:'Water · Nutrition', why:'Evening meal logs missing 3 days', meta:'coverage gap \u00b7 11 records', color:'#FFB84D', propose:true },
+      { domain:'finances', action:'Weed · Finances', why:'Bank feed and note disagree on one charge', meta:'contradiction \u00b7 review', color:'#FF5C4D', propose:false },
+      { domain:'projects', action:'Prune · Projects', why:'Overdue obligations accumulating', meta:'3 overdue \u00b7 tend', color:'#A879FF', propose:false },
+      { domain:'relationships', action:'Reinforce · Relate', why:'An unanswered thread sits open', meta:'1 thread \u00b7 nudge', color:'#FF6FB7', propose:false },
+      { domain:'mood', action:'Check · Mood', why:'Only 2 logs this window', meta:'sparse \u00b7 propose', color:'#FF6FB7', propose:true }
+    ];
+  }
+
+  themes={
+    biolume:  { accent:'#39E883', accent2:'#26F0D0', base:'#061310', bg1:'rgba(38,240,208,0.13)', bg2:'rgba(168,121,255,0.10)', glow:'rgba(57,232,131,0.30)', glass1:'#0a201a', glass2:'#06140f' },
+    wisteria: { accent:'#A879FF', accent2:'#FF6FB7', base:'#0c0814', bg1:'rgba(168,121,255,0.15)', bg2:'rgba(255,111,183,0.10)', glow:'rgba(168,121,255,0.30)', glass1:'#160f24', glass2:'#0e0a18' },
+    amber:    { accent:'#FFB84D', accent2:'#39E883', base:'#0d0c08', bg1:'rgba(255,184,77,0.13)', bg2:'rgba(57,232,131,0.10)', glow:'rgba(255,184,77,0.28)', glass1:'#1c1810', glass2:'#12100a' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.biolume; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#39E883': c>=0.7?'#7fd99a': c>=0.55?'#FFB84D':'#FF5C4D'; }
+  lifeColor(l){ return ({Trusted:'#39E883',Interpreted:'#FFB84D',Observed:'#69B7FF',Disputed:'#FF5C4D'})[l]||'#9aa6c0'; }
+  stateColor(s){ return ({thriving:'#39E883',stable:'#26F0D0',misty:'#8A93A8','needs care':'#FFB84D',overgrown:'#A879FF',disputed:'#FF5C4D'})[s]||'#26F0D0'; }
+  stateLabel(s){ return ({thriving:'thriving',stable:'stable',misty:'misty · low conf','needs care':'needs care',overgrown:'overgrown',disputed:'disputed · weed'})[s]||s; }
+
+  // ---- plant art (decorative) ----
+  plant(arche, col){
+    const h=React.createElement, g=this.hexA(col,0.9), gd=this.hexA(col,0.4), stemC=this.hexA('#39E883',0.7);
+    const els=[]; const glow={filter:'drop-shadow(0 0 4px '+col+')'};
+    if(arche==='vine'){
+      els.push(h('path',{key:'st',d:'M30 74 C26 60 36 52 30 40 C26 32 34 26 30 18',fill:'none',stroke:stemC,strokeWidth:2.4,strokeLinecap:'round'}));
+      [[30,56,1],[30,46,-1],[30,34,1]].forEach((p,i)=>els.push(h('path',{key:'lf'+i,d:'M0 0 Q 10 -3 15 -11 Q 5 -8 0 0 Z',fill:this.hexA('#39E883',0.5),transform:'translate('+p[0]+' '+p[1]+') scale('+p[2]+',1)'})));
+      els.push(h('circle',{key:'fl',cx:30,cy:16,r:6,fill:col,opacity:0.9,style:glow}));
+      els.push(h('circle',{key:'c',cx:30,cy:16,r:2.5,fill:'#fff',opacity:0.85}));
+    } else if(arche==='fern'){
+      els.push(h('path',{key:'st',d:'M30 74 L30 24',fill:'none',stroke:stemC,strokeWidth:2.2}));
+      for(let i=0;i<5;i++){ const y=68-i*10; els.push(h('path',{key:'l'+i,d:'M30 '+y+' q -14 -4 -18 -12',fill:'none',stroke:g,strokeWidth:1.6,opacity:0.7})); els.push(h('path',{key:'r'+i,d:'M30 '+y+' q 14 -4 18 -12',fill:'none',stroke:g,strokeWidth:1.6,opacity:0.7})); }
+      els.push(h('circle',{key:'t',cx:30,cy:22,r:3.4,fill:col,opacity:0.85,style:glow}));
+    } else if(arche==='tree'){
+      els.push(h('path',{key:'st',d:'M30 74 L30 44',fill:'none',stroke:this.hexA('#8a6a3a',0.9),strokeWidth:3}));
+      els.push(h('circle',{key:'can',cx:30,cy:30,r:16,fill:col,opacity:0.22}));
+      els.push(h('circle',{key:'can2',cx:30,cy:30,r:16,fill:'none',stroke:g,strokeWidth:1.4}));
+      [[24,26],[34,24],[30,34],[36,32],[23,33]].forEach((p,i)=>els.push(h('circle',{key:'fr'+i,cx:p[0],cy:p[1],r:2.4,fill:col,opacity:0.9,style:glow})));
+    } else if(arche==='blossom'){
+      els.push(h('path',{key:'st',d:'M30 74 C28 58 32 48 30 36',fill:'none',stroke:stemC,strokeWidth:2.2}));
+      els.push(h('path',{key:'lf',d:'M30 54 q -12 -2 -16 -9 Q 22 49 30 54 Z',fill:this.hexA('#39E883',0.5)}));
+      [[30,30,0],[22,34,0],[38,34,0]].forEach((p,i)=>{ const ps=[]; for(let k=0;k<5;k++){ const a=k/5*Math.PI*2; ps.push(h('ellipse',{key:'p'+i+k,cx:p[0]+Math.cos(a)*4,cy:p[1]+Math.sin(a)*4,rx:2.4,ry:4,fill:col,opacity:0.8,transform:'rotate('+(a*180/Math.PI+90)+' '+(p[0]+Math.cos(a)*4)+' '+(p[1]+Math.sin(a)*4)+')'})); } els.push(h('g',{key:'bl'+i,style:glow},...ps,h('circle',{cx:p[0],cy:p[1],r:1.8,fill:'#fff7e8'}))); });
+    } else if(arche==='star'){
+      els.push(h('path',{key:'st',d:'M30 74 L30 34',fill:'none',stroke:stemC,strokeWidth:2.2}));
+      els.push(h('path',{key:'lf',d:'M30 56 q 12 -2 16 -9 Q 38 51 30 56 Z',fill:this.hexA('#39E883',0.5)}));
+      const ps=[]; for(let k=0;k<5;k++){ const a=k/5*Math.PI*2 - Math.PI/2; ps.push(h('path',{key:'sp'+k,d:'M30 28 L'+(30+Math.cos(a-0.18)*4)+' '+(28+Math.sin(a-0.18)*4)+' L'+(30+Math.cos(a)*11)+' '+(28+Math.sin(a)*11)+' L'+(30+Math.cos(a+0.18)*4)+' '+(28+Math.sin(a+0.18)*4)+' Z',fill:col,opacity:0.85})); }
+      els.push(h('g',{key:'fl',style:glow},...ps,h('circle',{cx:30,cy:28,r:3,fill:'#fff'})));
+    } else if(arche==='trellis'||arche==='lattice'){
+      els.push(h('path',{key:'l1',d:'M20 74 L40 30',stroke:stemC,strokeWidth:1.8,opacity:0.7,fill:'none'}));
+      els.push(h('path',{key:'l2',d:'M40 74 L20 30',stroke:stemC,strokeWidth:1.8,opacity:0.7,fill:'none'}));
+      els.push(h('path',{key:'l3',d:'M30 74 L30 28',stroke:stemC,strokeWidth:1.4,opacity:0.5,fill:'none'}));
+      [[24,46],[36,46],[30,34],[22,58],[38,58]].forEach((p,i)=>els.push(h('circle',{key:'b'+i,cx:p[0],cy:p[1],r:3,fill:col,opacity:0.82,style:glow})));
+    }
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 60 78'},els);
+  }
+  weed(){
+    const h=React.createElement, c='#FF5C4D';
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 60 78'},
+      h('path',{d:'M30 76 C18 64 24 52 14 46 M30 76 C42 62 36 50 46 44 M30 76 C30 60 22 54 24 44',fill:'none',stroke:c,strokeWidth:1.6,opacity:0.8,style:{filter:'drop-shadow(0 0 3px '+c+')'}}),
+      h('circle',{cx:14,cy:46,r:2,fill:c}),h('circle',{cx:46,cy:44,r:2,fill:c}),h('circle',{cx:24,cy:44,r:1.6,fill:c}));
+  }
+  critter(kind){
+    const h=React.createElement;
+    if(kind==='glowbee') return h('svg',{width:'100%',height:'100%',viewBox:'0 0 24 24'},h('ellipse',{cx:12,cy:13,rx:4.5,ry:3.4,fill:'#FFE28A',stroke:'#caa23a',strokeWidth:0.6,style:{filter:'drop-shadow(0 0 4px #FFE28A)'}}),h('path',{d:'M12 11 H 8 M12 13 H 8',stroke:'#3a2e10',strokeWidth:0.8}),h('ellipse',{cx:8.5,cy:9,rx:3,ry:2,fill:'rgba(255,255,255,0.7)'}),h('ellipse',{cx:15.5,cy:9,rx:3,ry:2,fill:'rgba(255,255,255,0.7)'}));
+    if(kind==='murktoad') return h('svg',{width:'100%',height:'100%',viewBox:'0 0 24 24'},h('path',{d:'M5 16 C5 11 9 9 12 9 C15 9 19 11 19 16 C19 18 16 19 12 19 C8 19 5 18 5 16 Z',fill:'#5a6478',style:{filter:'drop-shadow(0 0 4px #8A93A8)'}}),h('circle',{cx:9,cy:11,r:1.6,fill:'#cdd6e0'}),h('circle',{cx:15,cy:11,r:1.6,fill:'#cdd6e0'}),h('circle',{cx:9,cy:11,r:0.7,fill:'#1a1f28'}),h('circle',{cx:15,cy:11,r:0.7,fill:'#1a1f28'}));
+    if(kind==='raincloud') return h('svg',{width:'100%',height:'100%',viewBox:'0 0 24 24'},h('path',{d:'M6 12 C6 9 9 8 11 9 C12 6 17 7 17 11 C19 11 20 13 18 14 H7 C5 14 5 12 6 12 Z',fill:'#7e8aa0',opacity:0.9}),h('path',{d:'M9 16 l-1 3 M13 16 l-1 3 M16 16 l-1 3',stroke:'#69B7FF',strokeWidth:1.2,strokeLinecap:'round'}));
+    if(kind==='redcap') return h('svg',{width:'100%',height:'100%',viewBox:'0 0 24 24'},h('ellipse',{cx:12,cy:13,rx:5,ry:4,fill:'#7a1f1a'}),h('path',{d:'M7 11 A5 4 0 0 1 17 11 Z',fill:'#FF5C4D',style:{filter:'drop-shadow(0 0 4px #FF5C4D)'}}),h('circle',{cx:10,cy:9.5,r:0.9,fill:'#2a0f0c'}),h('circle',{cx:14,cy:9.5,r:0.9,fill:'#2a0f0c'}),h('line',{x1:12,y1:7,x2:12,y2:13,stroke:'#2a0f0c',strokeWidth:0.7}));
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 24 24'},h('ellipse',{cx:12,cy:13,rx:3,ry:4,fill:'#cfe0ff',opacity:0.9}),h('path',{d:'M12 11 C7 8 5 12 7 14 C9 15 11 13 12 12 C13 13 15 15 17 14 C19 12 17 8 12 11 Z',fill:'rgba(207,224,255,0.7)',style:{filter:'drop-shadow(0 0 4px #69B7FF)'}}));
+  }
+  critterColor(kind){ return ({glowbee:'#FFE28A',murktoad:'#9aa6c0',raincloud:'#69B7FF',redcap:'#FF5C4D',dewmoth:'#cfe0ff'})[kind]||'#cfe0ff'; }
+  critterLabel(kind){ return ({glowbee:'sources agree',murktoad:'low source quality',raincloud:'missing inputs',redcap:'contradiction',dewmoth:'gentle reminder'})[kind]||''; }
+
+  buildGarden(selId){
+    const h=React.createElement, D=this.DOMAINS, F=this.FOUNTAIN, R=[], t=this.cur();
+    const fx=F.x*10, fy=F.y*5.6;
+    let s=17; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<54;i++){ R.push(h('circle',{key:'d'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*0.8+0.2).toFixed(2),fill:'#cdeee0',opacity:(rnd()*0.16+0.03).toFixed(2),style:{animation:rnd()>0.6?('lwTwinkle '+(2+rnd()*3).toFixed(1)+'s ease-in-out infinite'):'none'}})); }
+    R.push(h('defs',{key:'def'},h('filter',{id:'fglow',x:'-50%',y:'-50%',width:'200%',height:'200%'},h('feGaussianBlur',{stdDeviation:'4'}))));
+    // channels
+    this.ORDER.forEach((id,i)=>{ const d=D[id], px=d.x*10, py=d.y*5.6, lit=id===selId, col=lit?this.stateColor(d.state):this.hexA(t.accent2,0.5);
+      R.push(h('line',{key:'ch'+i,x1:fx,y1:fy,x2:px,y2:py,stroke:lit?this.stateColor(d.state):this.hexA('#26F0D0',0.32),strokeWidth:lit?2.6:1.6,opacity:lit?0.7:0.3,filter:lit?'url(#fglow)':'none'}));
+      R.push(h('line',{key:'cf'+i,x1:fx,y1:fy,x2:px,y2:py,stroke:lit?'#eafff8':this.hexA('#bfffe8',0.6),strokeWidth:lit?1.2:0.8,opacity:lit?0.85:0.4,strokeDasharray:'2 12',style:{animation:'lwFlow '+(2.2+i*0.2).toFixed(1)+'s linear infinite'}}));
+    });
+    // fountain
+    R.push(h('ellipse',{key:'basin',cx:fx,cy:fy+10,rx:42,ry:13,fill:this.hexA(t.accent2,0.12),stroke:this.hexA(t.accent2,0.4),strokeWidth:1.2}));
+    R.push(h('circle',{key:'fg',cx:fx,cy:fy,r:30,fill:this.hexA(t.accent2,0.10),style:{filter:'url(#fglow)'}}));
+    for(let k=0;k<8;k++){ const a=k/8*Math.PI*2; R.push(h('line',{key:'ray'+k,x1:fx,y1:fy,x2:fx+Math.cos(a)*22,y2:fy+Math.sin(a)*22,stroke:this.hexA('#eafff8',0.4),strokeWidth:1})); }
+    R.push(h('polygon',{key:'prism',points:(fx)+','+(fy-20)+' '+(fx+17)+','+(fy+12)+' '+(fx-17)+','+(fy+12),fill:'none',stroke:'#eafff8',strokeWidth:1.6,style:{filter:'drop-shadow(0 0 6px '+t.accent2+')'}}));
+    R.push(h('polygon',{key:'prism2',points:(fx)+','+(fy-20)+' '+(fx+17)+','+(fy+12)+' '+(fx-17)+','+(fy+12),fill:this.hexA(t.accent2,0.18)}));
+    R.push(h('line',{key:'pin',x1:fx,y1:fy-20,x2:fx,y2:fy+12,stroke:this.hexA('#eafff8',0.5),strokeWidth:0.8}));
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  buildFlux(){
+    const h=React.createElement, vals=[0.3,0.5,0.66,0.6,0.44,0.5], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-v*44;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+  }
+
+  renderVals(){
+    const t=this.cur(), D=this.DOMAINS, selId=this.state.sel, b=D[selId];
+    const pick=id=>()=>this.setState({sel:id});
+
+    const plants=this.ORDER.map(id=>{ const d=D[id], sc=this.stateColor(d.state), seld=id===selId;
+      return { id, name:d.name, left:d.x+'%', top:d.y+'%', plantEl:this.plant(d.arche,d.botColor), weedEl:this.weed(),
+        anim: d.state==='misty'||d.state==='disputed' ? 'lwFloatSlow 7s ease-in-out infinite' : 'lwFloat '+(5+(d.x%3))+'s ease-in-out infinite',
+        z:seld?12:7, op:seld?1:(this.state.sel?0.8:0.95), selected:seld,
+        stateColor:sc, score:d.score.toFixed(2), stateLabel:this.stateLabel(d.state),
+        halo:this.hexA(sc, seld?0.5:0.28), dry:!!d.dry, weeds:!!d.weeds,
+        chipBg:seld?this.hexA(sc,0.16):'rgba(8,22,18,0.72)', chipBorder:seld?sc:'rgba(255,255,255,0.12)',
+        onSelect:pick(id) }; });
+
+    const critters=this.ORDER.filter(id=>D[id].critter).map(id=>{ const d=D[id], k=d.critter;
+      return { left:(d.x+7)+'%', top:(d.y-9)+'%', el:this.critter(k), color:this.critterColor(k), label:this.critterLabel(k), dur:(3+ (d.x%3)*0.4).toFixed(1)+'s' }; });
+
+    const careQueue=this.CARE.map(c=>({ ...c, bg:this.hexA(c.color,0.06), border:this.hexA(c.color,0.28), onSelect:pick(c.domain) }));
+
+    const sc=this.stateColor(b.state);
+    const sel={
+      name:b.name, plantType:b.plantType, stateColor:sc, stateLabel:this.stateLabel(b.state),
+      life:b.life, lifeColor:this.lifeColor(b.life), lifeBg:this.hexA(this.lifeColor(b.life),0.16), headerBg:this.hexA(sc,0.07),
+      score:b.score.toFixed(2), scorePct:Math.round(b.score*100)+'%',
+      meters:[{label:'hydration',val:b.hydration.toFixed(2),pct:Math.round(b.hydration*100)+'%',color:b.hydration<0.5?'#FFB84D':'#26F0D0'},{label:'bloom',val:b.bloom.toFixed(2),pct:Math.round(b.bloom*100)+'%',color:sc},{label:'soil',val:b.soil.toFixed(2),pct:Math.round(b.soil*100)+'%',color:b.soil<0.6?'#FFB84D':'#39E883'}],
+      changed:b.changed, healthNote:b.healthNote||null,
+      sourceMix:b.sourceMix.map(s=>({ label:s.label, pct:s.pct+'%', color: s.label.indexOf('DEV')>=0?'#26F0D0': s.label.indexOf('HUM')>=0?'#FFB84D': s.label.indexOf('DOC')>=0?'#A879FF':'#69B7FF' })),
+      contradiction:b.contradiction||null, gap:b.gap||null, observedInferred:b.observedInferred,
+      supporting:b.supporting,
+      conf:b.conf.toFixed(2), confColor:this.confColor(b.conf),
+      resolver:b.resolver, mode:b.mode, window:b.window, canonId:b.canonId, visibility:b.visibility,
+      actionLabel: b.health ? 'Tend · propose' : 'Tend'
+    };
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Verdant Harmonics'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(232,245,238,0.95)':'rgba(232,245,238,0.6)', dot:active?'var(--accent)':'rgba(232,245,238,0.35)' }; });
+
+    const seasons=[{k:'Spring',on:false},{k:'Summer',on:true},{k:'Autumn',on:false},{k:'Winter',on:false}].map(s=>({ label:s.k, bg:s.on?'rgba(38,240,208,0.16)':'rgba(255,255,255,0.04)', txt:s.on?'#7af0e0':'rgba(232,245,238,0.5)', border:s.on?'rgba(38,240,208,0.4)':'rgba(255,255,255,0.08)' }));
+
+    const motes=[ {left:'30%',bottom:'12%',size:'3px',dur:'9s',delay:'0s',color:'rgba(120,240,200,0.7)'},{left:'48%',bottom:'18%',size:'2px',dur:'11s',delay:'2s',color:'rgba(255,226,138,0.6)'},{left:'62%',bottom:'10%',size:'3px',dur:'10s',delay:'4s',color:'rgba(120,240,200,0.6)'},{left:'74%',bottom:'16%',size:'2px',dur:'12s',delay:'1s',color:'rgba(168,121,255,0.5)'},{left:'40%',bottom:'22%',size:'2px',dur:'10.5s',delay:'3s',color:'rgba(105,183,255,0.55)'} ];
+    const showMotes = this.props.motes===false ? [] : motes;
+
+    const fluxMarks=[
+      {subj:'New routines took',when:'Spring',leftPct:'9%',color:'#39E883',ringColor:'rgba(255,255,255,0.3)',id:'sleep'},
+      {subj:'Focus peaked',when:'early',leftPct:'27%',color:'#69B7FF',ringColor:'rgba(255,255,255,0.3)',id:'focus'},
+      {subj:'Nutrition dried',when:'this wk',leftPct:'45%',color:'#FFB84D',ringColor:'#FFB84D',id:'nutrition'},
+      {subj:'Finance weed',when:'this wk',leftPct:'62%',color:'#FF5C4D',ringColor:'#FF5C4D',id:'finances'},
+      {subj:'Projects overgrew',when:'now',leftPct:'80%',color:'#A879FF',ringColor:'#A879FF',id:'projects'},
+      {subj:'Now · summer',when:'today',leftPct:'94%',color:t.accent,ringColor:'rgba(255,255,255,0.3)',id:'sleep'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, glass1:t.glass1, glass2:t.glass2,
+      gardenSvg:this.buildGarden(selId), fluxSvg:this.buildFlux(),
+      plants, critters, careQueue, sel, navItems, seasons, motes:showMotes, fluxMarks
+    };
+  }
+}
+</script>
+</body>
+</html>

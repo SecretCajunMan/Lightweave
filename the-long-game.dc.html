@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0c0e13}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.14);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwEmber{0%{transform:translateY(8px);opacity:0}30%{opacity:.7}100%{transform:translateY(-26px);opacity:0}}
+  @keyframes lwGlow{0%,100%{opacity:.55}50%{opacity:.95}}
+  @keyframes lwPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:.1;transform:scale(1.6)}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="The Long Game" style="height:100vh; overflow:hidden; color:{{ ink }}; font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 620px at 20% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 110% 120%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid {{ hairline }}; background:{{ headerBg }};">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 22 L10 12 L15 17 L24 5" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="24" cy="5" r="2.2" fill="var(--accent2)"></circle><circle cx="10" cy="12" r="1.7" fill="var(--accent)"></circle><circle cx="15" cy="17" r="1.7" fill="var(--accent)"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:{{ hairline }};"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">The Long Game</span>
+      <span style="font-size:10.5px; color:{{ inkDim }};">Layer 12 · career & network · {{ dirSub }}</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:{{ inkMid }};">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid {{ hairline }}; border-radius:7px; background:{{ pillBg }};"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ owedCount }} follow-ups owed</span>
+      <span style="padding:5px 9px; border:1px solid {{ hairline }}; border-radius:7px; background:{{ pillBg }};">toward {{ goalShort }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid {{ hairline }}; border-radius:7px; background:{{ pillBg }};"><span style="width:6px;height:6px;border-radius:50%;background:#d98a8a;box-shadow:0 0 7px #d98a8a;"></span>relationships · SENSITIVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:{{ hairline }};"></div>
+    <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-long-game"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow-y:auto; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:62px; left:50%; z-index:20; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:{{ toastBg }}; border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:580px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:{{ ink }};">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:12px;">
+        <span style="font-size:10px; letter-spacing:0.16em; color:{{ inkFaint }}; flex:0 0 auto;">DIRECTION</span>
+        <div style="display:flex; gap:6px; background:{{ segTrack }}; border:1px solid {{ hairline }}; border-radius:11px; padding:4px;">
+          <sc-for list="{{ dirChips }}" as="dc" hint-placeholder-count="2">
+            <div onClick="{{ dc.onSelect }}" style="display:flex; flex-direction:column; cursor:pointer; padding:6px 13px; border-radius:8px; background:{{ dc.bg }};">
+              <span style="font-size:12px; font-weight:600; color:{{ dc.txt }};">{{ dc.label }}</span>
+              <span style="font-size:9px; color:{{ dc.subColor }}; font-family:'IBM Plex Mono',monospace;">{{ dc.sub }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="flex:1; min-width:0; font-size:12px; line-height:1.45; color:{{ inkMid }}; font-style:italic; text-wrap:pretty;">{{ dirStatus }}</div>
+      </section>
+
+      <sc-if value="{{ isAtrium }}" hint-placeholder-val="{{ true }}">
+        <section style="flex:1; min-height:330px; position:relative; border:1px solid {{ hairline }}; border-radius:16px; overflow:hidden; background:radial-gradient(110% 90% at 50% 92%, {{ heroGlow }}, transparent 56%), {{ heroBg }};">
+          <div style="position:absolute; inset:0;">{{ atriumSvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:{{ ink }};">The atrium</span>
+            <span style="font-size:10px; color:{{ inkDim }};">your people, standing at the distance the records put them · a dim lantern is one gone quiet · the hearth is you</span>
+          </div>
+          <div style="position:absolute; bottom:11px; left:14px; display:flex; align-items:center; gap:11px; font-size:9.5px; color:{{ inkMid }};">
+            <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px; height:9px; border-radius:50%; background:{{ accent }}; box-shadow:0 0 7px {{ accent }};"></span>warm · recent</span>
+            <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:8px; height:8px; border-radius:50%; background:rgba(150,140,160,0.5);"></span>dim · gone quiet</span>
+            <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px; height:9px; border-radius:50%; border:1.5px solid var(--accent2);"></span>worth rekindling</span>
+          </div>
+        </section>
+        <section style="flex:0 0 auto; display:flex; gap:8px;">
+          <sc-for list="{{ atriumStrip }}" as="st" hint-placeholder-count="6">
+            <div onClick="{{ st.onSelect }}" style="flex:1; min-width:0; cursor:pointer; border-radius:10px; padding:8px 10px; background:{{ st.bg }}; border:1px solid {{ st.border }}; border-left:2px solid {{ st.color }};">
+              <div style="display:flex; align-items:center; gap:6px;"><span style="width:6px; height:6px; border-radius:2px; background:{{ st.color }};"></span><span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:{{ inkFaint }};">{{ st.kind }}</span></div>
+              <div style="font-size:11.5px; font-weight:600; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ st.title }}</div>
+              <div style="font-size:9px; color:{{ st.metaColor }}; margin-top:2px; font-family:'IBM Plex Mono',monospace;">{{ st.meta }}</div>
+            </div>
+          </sc-for>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isWorkbench }}" hint-placeholder-val="{{ false }}">
+        <section style="flex:0 0 auto; border:1px solid {{ hairline }}; border-radius:14px; padding:11px 13px; background:{{ panelBg }};">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 12 L7 7 M9 5 L12 2 M5 9 L8.5 5.5" stroke="var(--accent)" stroke-width="1.3" stroke-linecap="round"></path><circle cx="9.5" cy="4.5" r="2" fill="none" stroke="var(--accent)" stroke-width="1.3"></circle></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">The bench · skills</span><span style="font-size:10px; color:{{ inkDim }};">sharp when practiced · dull when they sit</span></div>
+          <div style="display:flex; gap:8px;">
+            <sc-for list="{{ skillTools }}" as="sk" hint-placeholder-count="5">
+              <div onClick="{{ sk.onSelect }}" style="flex:1; min-width:0; cursor:pointer; border-radius:11px; padding:10px; background:{{ sk.bg }}; border:1px solid {{ sk.border }};">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;"><span style="opacity:{{ sk.iconOpacity }};">{{ sk.icon }}</span><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ sk.trendBg }}; color:{{ sk.trendColor }};">{{ sk.trend }}</span></div>
+                <div style="font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sk.name }}</div>
+                <div style="height:5px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden; margin-top:7px;"><div style="height:100%; width:{{ sk.profPct }}; background:{{ sk.color }};"></div></div>
+                <div style="font-size:8.5px; color:{{ inkFaint }}; margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sk.lastPracticed }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+        <section style="flex:1; min-height:300px; display:flex; gap:11px;">
+          <div style="flex:1.4; min-width:0; border:1px solid {{ hairline }}; border-radius:14px; padding:11px 13px; background:{{ panelBg }}; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;"><svg width="14" height="14" viewBox="0 0 14 14"><line x1="2" y1="7" x2="12" y2="7" stroke="var(--accent)" stroke-width="1.3"></line><path d="M9 4 L12 7 L9 10" fill="none" stroke="var(--accent)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">The pipeline</span><span style="font-size:10px; color:{{ inkDim }};">commissions moving left to right</span></div>
+            <div style="flex:1; display:flex; gap:8px; min-height:0;">
+              <sc-for list="{{ pipelineStages }}" as="ps" hint-placeholder-count="4">
+                <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+                  <div style="font-size:9px; letter-spacing:0.08em; color:{{ inkFaint }}; font-family:'IBM Plex Mono',monospace; padding-bottom:4px; border-bottom:1px solid {{ hairline }};">{{ ps.label }}</div>
+                  <sc-for list="{{ ps.items }}" as="op" hint-placeholder-count="1">
+                    <div onClick="{{ op.onSelect }}" style="cursor:pointer; border-radius:9px; padding:8px 9px; background:{{ op.bg }}; border:1px solid {{ op.border }}; border-top:2px solid {{ op.color }};">
+                      <div style="font-size:10.5px; font-weight:600; line-height:1.3; text-wrap:pretty;">{{ op.title }}</div>
+                      <div style="font-size:8.5px; color:{{ inkFaint }}; margin-top:4px;">{{ op.org }}</div>
+                      <div style="display:flex; align-items:center; gap:5px; margin-top:6px;"><span style="width:5px; height:5px; border-radius:50%; background:{{ op.nextColor }};"></span><span style="font-size:8.5px; color:{{ op.nextColor }}; font-family:'IBM Plex Mono',monospace;">{{ op.next }}</span></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1; min-width:0; border:1px solid {{ hairline }}; border-radius:14px; padding:11px 13px; background:{{ panelBg }}; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="5" cy="5" r="2.4" fill="none" stroke="var(--accent)" stroke-width="1.2"></circle><path d="M1.5 12 C1.5 9, 8.5 9, 8.5 12" fill="none" stroke="var(--accent)" stroke-width="1.2"></path><circle cx="10.5" cy="6" r="1.8" fill="none" stroke="var(--accent2)" stroke-width="1.1"></circle></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">The roster</span></div>
+            <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+              <sc-for list="{{ rosterList }}" as="r" hint-placeholder-count="6">
+                <div onClick="{{ r.onSelect }}" style="cursor:pointer; display:flex; align-items:center; gap:9px; border-radius:9px; padding:8px 9px; background:{{ r.bg }}; border:1px solid {{ r.border }};">
+                  <span style="flex:0 0 auto; width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:600; background:{{ r.avatarBg }}; color:{{ r.color }};">{{ r.initials }}</span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</div>
+                    <div style="display:flex; align-items:center; gap:6px; margin-top:3px;"><div style="flex:1; height:4px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ r.warmthPct }}; background:{{ r.color }};"></div></div><span style="font-size:8px; color:{{ inkFaint }}; font-family:'IBM Plex Mono',monospace;">{{ r.last }}</span></div>
+                  </div>
+                  <sc-if value="{{ r.owed }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto; font-size:8px; font-family:'IBM Plex Mono',monospace; padding:2px 5px; border-radius:4px; background:rgba(240,160,90,0.16); color:#f0b06a;">OWED</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+    </main>
+
+    <aside style="flex:0 0 374px; display:flex; flex-direction:column; border-left:1px solid {{ hairline }}; background:{{ navBg }}; overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 14px; border-bottom:1px solid {{ hairline }}; background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="flex:0 0 auto; width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; background:{{ sel.avatarBg }}; color:{{ sel.color }};">{{ sel.badge }}</span>
+          <div style="min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; line-height:1.2;">{{ sel.title }}</div>
+            <div style="font-size:10.5px; color:{{ inkDim }}; font-family:'IBM Plex Mono',monospace;">{{ sel.subtitle }}</div>
+          </div>
+          <div style="flex:1;"></div>
+          <span style="flex:0 0 auto; font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.statBg }}; color:{{ sel.statColor }};">{{ sel.statLabel }}</span>
+        </div>
+        <div style="background:{{ readBg }}; border-left:2px solid var(--accent); border-radius:0 8px 8px 0; padding:9px 12px; margin-top:11px;">
+          <div style="font-size:9px; letter-spacing:0.13em; color:var(--accent); margin-bottom:4px;">{{ readLabel }}</div>
+          <div style="font-size:12px; line-height:1.55; color:{{ ink }}; font-style:italic; text-wrap:pretty;">{{ sel.read }}</div>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:7px;"><span style="font-size:10px; letter-spacing:0.13em; color:{{ inkFaint }};">{{ sel.meterLabel }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.meterColor }};">{{ sel.meterVal }}</span></div>
+          <div style="height:8px; border-radius:5px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ sel.meterPct }}; background:{{ sel.meterColor }}; box-shadow:0 0 8px {{ sel.meterColor }};"></div></div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <sc-for list="{{ sel.facts }}" as="f" hint-placeholder-count="3">
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid {{ hairline }}; border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:{{ inkFaint }};">{{ f.label }}</div><div style="font-size:11.5px; font-weight:600; color:{{ f.color }}; margin-top:2px;">{{ f.val }}</div></div>
+          </sc-for>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:{{ inkFaint }}; margin-bottom:8px;">{{ sel.traceLabel }}</div>
+          <div style="position:relative; padding-left:6px;">
+            <sc-for list="{{ sel.trace }}" as="tr" hint-placeholder-count="3">
+              <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:11px; position:relative;">
+                <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ tr.dot }}; border:2px solid {{ base }}; box-shadow:0 0 7px {{ tr.dot }}; margin-top:2px; z-index:1;"></span>
+                <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:{{ hairline }};"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; color:{{ ink }};">{{ tr.label }}</div><div style="font-size:9.5px; color:{{ inkFaint }}; font-family:'IBM Plex Mono',monospace;">{{ tr.meta }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:{{ inkFaint }}; margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:{{ inkMid }};">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(217,138,138,0.07); border:1px solid rgba(217,138,138,0.3); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:#d98a8a;"></span><span style="font-size:10.5px; font-weight:600; color:#e0a0a0;">{{ sel.contradiction.title }}</span></div>
+            <div style="font-size:10.5px; line-height:1.5; color:{{ inkMid }};">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid {{ hairline }}; border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:{{ inkFaint }}; margin-bottom:9px;">CANONICAL · THE RECORD UNDERNEATH</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:{{ inkFaint }};">record</span><span style="color:var(--accent2);">{{ sel.recordId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:{{ inkFaint }};">domain · type</span><span>{{ sel.recordType }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:{{ inkFaint }};">coverage conf</span><span style="color:{{ sel.confColor }};">{{ sel.conf }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:{{ inkFaint }};">sensitivity</span><span style="color:#e0a0a0;">{{ sel.sensitivity }}</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:{{ inkFaint }}; margin-bottom:8px;">{{ sel.actionsLabel }}</div>
+          <div style="display:flex; gap:7px;">
+            <span onClick="{{ sel.onPrimary }}" style="flex:1; text-align:center; font-size:11.5px; font-weight:600; color:{{ onAccentInk }}; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:10px; border-radius:9px; cursor:pointer; box-shadow:0 0 14px var(--glow);">{{ sel.primaryLabel }}</span>
+            <span onClick="{{ sel.onSecondary }}" style="flex:0 0 auto; text-align:center; font-size:11.5px; color:{{ ink }}; border:1px solid {{ hairline }}; padding:10px 13px; border-radius:9px; cursor:pointer;">{{ sel.secondaryLabel }}</span>
+          </div>
+          <div style="font-size:9px; color:{{ inkFaint }}; margin-top:8px; text-align:center; line-height:1.4;">Writes a private note to yourself. It never messages anyone, never edits a record, and keeps no streak.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 110px; border-top:1px solid {{ hairline }}; background:{{ headerBg }}; padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:{{ inkMid }};">The throughline · where it's been heading</span>
+        <span style="font-size:10px; color:{{ inkFaint }};">milestones from the record, and the goal you've named</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, {{ trackA }}, {{ trackB }}); border:1px solid {{ hairline }};">
+        <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="5">
+          <div style="position:absolute; left:{{ m.left }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; width:104px;">
+            <div style="font-size:9px; color:{{ m.txtColor }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:104px; text-align:center; margin-bottom:3px;">{{ m.label }}</div>
+            <div style="width:{{ m.size }}; height:{{ m.size }}; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ring }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:{{ inkFaint }}; margin-top:3px;">{{ m.when }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 248px; display:flex; align-items:center; gap:12px; background:rgba(127,200,160,0.05); border:1px solid rgba(127,200,160,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#8fce92; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:{{ inkMid }}; margin-top:3px;">records edited · no one was messaged</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:{{ hairline }};"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ ink }}; line-height:1.25;">the room reads,<br>you decide</div>
+        <div style="font-size:9px; color:{{ inkFaint }}; margin-top:3px;">every nudge is yours to ignore</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;atrium&quot;,&quot;workbench&quot;],&quot;default&quot;:&quot;atrium&quot;,&quot;tsType&quot;:&quot;'atrium' | 'workbench'&quot;},&quot;ambientMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;warmthDecay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.CONTACTS = {
+      maya:{ name:'Maya Okonkwo', role:'Design Lead', org:'a product studio', rel:'mentor', warmth:0.82, last:6, recip:'even', conf:0.88, ang:-92, met:'Met on a conference panel, two years back',
+        read:'Your steadiest tie. Warm, recent, mutual. The kind of contact you keep without trying \u2014 which is exactly why people forget to.',
+        trace:[{label:'Conference panel \u00b7 first meeting',meta:'EVENT \u00b7 ~2 yrs ago',dot:'#7fc8a0'},{label:'14 exchanges since',meta:'messages \u00b7 2 coffees',dot:'#8ab6e8'},{label:'Last spoke 6 days ago',meta:'verification CRS',dot:'#7fc8a0'}],
+        reasoning:['Fourteen logged exchanges over two years \u2014 well above the dormancy line.','Last contact six days ago keeps the lantern bright.','Coverage confidence 0.88 \u2014 this relationship is well mapped.'], contradiction:null,
+        recordId:'ent_ct_maya', recordType:'RELATIONSHIPS \u00b7 CONTACT', sensitivity:'SENSITIVE' },
+      rosa:{ name:'Rosa Vega', role:'Researcher', org:'a research lab', rel:'peer', warmth:0.66, last:21, recip:'they owe', conf:0.82, ang:-32, met:'Grad-program cohort',
+        read:'Solid peer, a touch overdue. She owes you a reply from three weeks ago \u2014 no rush, just noting the ball\u2019s in her court, not yours.',
+        trace:[{label:'Grad-program cohort',meta:'shared history',dot:'#7fc8a0'},{label:'Co-wrote a short piece',meta:'EVIDENCE \u00b7 1 yr ago',dot:'#8ab6e8'},{label:'Last spoke 21 days ago',meta:'her reply pending',dot:'#e8c07a'}],
+        reasoning:['Long shared history, recent collaboration \u2014 a real peer tie.','She owes the next move; the warmth dip is hers to mend.','Coverage confidence 0.82.'], contradiction:null,
+        recordId:'ent_ct_rosa', recordType:'RELATIONSHIPS \u00b7 CONTACT', sensitivity:'SENSITIVE' },
+      theo:{ name:'Theo Lindqvist', role:'Producer', org:'a design collective', rel:'lead', warmth:0.55, last:12, recip:'you owe', conf:0.6, ang:34, met:'Cold intro through Maya',
+        read:'A warm lead Maya handed you. You owe the reply, and a lead left to cool becomes a missed gig. This one\u2019s worth the ten minutes.',
+        trace:[{label:'Introduced by Maya',meta:'intro \u00b7 5 weeks ago',dot:'#8ab6e8'},{label:'One call, went well',meta:'OBSERVED',dot:'#7fc8a0'},{label:'Your reply owed \u00b7 12 days',meta:'follow-up pending',dot:'#f0b06a'}],
+        reasoning:['Warm introduction from a trusted tie raises the floor on this one.','You owe the next message \u2014 12 days and counting.','Coverage confidence 0.60 \u2014 still early, lightly mapped.'],
+        contradiction:{ title:'WHO INTRODUCED YOU?', note:'Your note credits Maya for the intro; the calendar says you both sat on the same panel first. Minor \u2014 logged, not corrected. The room won\u2019t quietly rewrite how you met.' },
+        recordId:'ent_ct_theo', recordType:'RELATIONSHIPS \u00b7 CONTACT', sensitivity:'SENSITIVE' },
+      devin:{ name:'Devin Hart', role:'Editor', org:'an indie press', rel:'collaborator', warmth:0.4, last:74, recip:'you owe', conf:0.7, ang:118, met:'Worked together on an anthology',
+        read:'Real collaborator, gone quiet \u2014 and you owe him the intro you promised back when. Seventy-four days. That\u2019s not cold yet, but it\u2019s reaching for a coat.',
+        trace:[{label:'Anthology vol. 1 together',meta:'EVIDENCE \u00b7 9 mo ago',dot:'#7fc8a0'},{label:'You promised an intro',meta:'OBLIGATION \u00b7 unkept',dot:'#f0b06a'},{label:'Last spoke 74 days ago',meta:'going quiet',dot:'#c89a9a'}],
+        reasoning:['Strong shared work, but 74 days of silence is pulling the warmth down.','You carry an unkept promise here \u2014 the intro you said you\u2019d make.','Coverage confidence 0.70.'], contradiction:null,
+        recordId:'ent_ct_devin', recordType:'RELATIONSHIPS \u00b7 CONTACT', sensitivity:'SENSITIVE' },
+      owen:{ name:'Owen Pierce', role:'Curator', org:'a publishing house', rel:'peer', warmth:0.3, last:95, recip:'even', conf:0.4, ang:158, met:'Through a mutual friend',
+        read:'Barely mapped \u2014 one mutual friend, a couple of messages, three months quiet. The room won\u2019t pretend you\u2019re close. If he matters, the data\u2019s too thin to say so yet.',
+        trace:[{label:'Mutual-friend introduction',meta:'sparse \u00b7 3 mo ago',dot:'#c89a9a'},{label:'2 messages on record',meta:'low coverage',dot:'#9aa6c0'},{label:'Last spoke 95 days ago',meta:'verification UNV',dot:'#c89a9a'}],
+        reasoning:['Only two records back this tie \u2014 below the line for a confident read.','Shown faint and honest; absence of data is not closeness.','Coverage confidence 0.40 \u2014 a coverage gap, flagged not hidden.'], contradiction:null,
+        recordId:'ent_ct_owen', recordType:'RELATIONSHIPS \u00b7 CONTACT', sensitivity:'SENSITIVE' },
+      nadia:{ name:'Nadia Salem', role:'Illustrator', org:'a gallery', rel:'dormant', warmth:0.22, last:160, recip:'even', conf:0.55, ang:-142, met:'Old studio-mate',
+        read:'An old studio-mate the years quietly buried. Five months dark, but the history\u2019s real. This is the lantern in the far gallery most worth walking over to relight.',
+        trace:[{label:'Shared a studio for 2 years',meta:'deep history',dot:'#7fc8a0'},{label:'Drifted, no fallout',meta:'OBSERVED',dot:'#9aa6c0'},{label:'Last spoke 160 days ago',meta:'dormant',dot:'#c89a9a'}],
+        reasoning:['Long, genuine shared history \u2014 the tie was strong before it went quiet.','160 days dormant, but nothing broke it; it just lapsed.','Coverage confidence 0.55 \u2014 the past is well recorded, the present isn\u2019t.'], contradiction:null,
+        recordId:'ent_ct_nadia', recordType:'RELATIONSHIPS \u00b7 CONTACT', sensitivity:'SENSITIVE' }
+    };
+    this.CONTACT_ORDER=['maya','rosa','theo','devin','owen','nadia'];
+    this.SKILLS = {
+      typography:{ name:'Editorial typography', tool:'pen', prof:0.85, trend:'steady', last:8, conf:0.8, gap:'at goal',
+        read:'Your sharpest tool, and it stays sharp because you use it. At goal \u2014 nothing to prove, just keep it in hand.',
+        trace:[{label:'Years of shipped work',meta:'PROJECTS \u00b7 deep',dot:'#7fc8a0'},{label:'A formal course',meta:'LEARNING',dot:'#8ab6e8'},{label:'Used 8 days ago',meta:'current',dot:'#7fc8a0'}],
+        reasoning:['Backed by years of project records plus formal training.','Practiced within the week \u2014 no rust.','At your stated goal level for this skill.'], contradiction:null,
+        recordId:'skl_typography', recordType:'LEARNING \u00b7 SKILL', sensitivity:'PERSONAL' },
+      research:{ name:'User research', tool:'lens', prof:0.6, trend:'growing', last:3, conf:0.72, gap:'closing',
+        read:'On the rise. You\u2019ve been at it on the current project and the proficiency is climbing toward your goal. Momentum\u2019s the asset here \u2014 don\u2019t set it down.',
+        trace:[{label:'Current project work',meta:'PROJECTS \u00b7 active',dot:'#7fc8a0'},{label:'Practiced 3 days ago',meta:'fresh',dot:'#7fc8a0'},{label:'Trend: rising 4 wks',meta:'DAQ growing',dot:'#8ab6e8'}],
+        reasoning:['Logged practice on the active project is moving the needle.','Three days since last use \u2014 firmly current.','Gap to goal is closing; keep the cadence.'], contradiction:null,
+        recordId:'skl_research', recordType:'LEARNING \u00b7 SKILL', sensitivity:'PERSONAL' },
+      motion:{ name:'Motion design', tool:'reel', prof:0.35, trend:'rusting', last:120, conf:0.5, gap:'wide',
+        read:'The dustiest tool on the bench. One course, little practice, and four months untouched \u2014 the 0.35 is a memory more than a current read. This is the widest gap to your goal.',
+        trace:[{label:'One course, completed',meta:'LEARNING \u00b7 thin',dot:'#e8c07a'},{label:'Little applied practice',meta:'coverage gap',dot:'#c89a9a'},{label:'Last used 120 days ago',meta:'rusting',dot:'#c89a9a'}],
+        reasoning:['Built on a single course with scarce applied practice.','120 days idle \u2014 the proficiency reads stale, not current.','Widest gap to your named goal; the honest place to invest.'], contradiction:null,
+        recordId:'skl_motion', recordType:'LEARNING \u00b7 SKILL', sensitivity:'PERSONAL' },
+      writing:{ name:'Long-form writing', tool:'quill', prof:0.7, trend:'steady', last:14, conf:0.75, gap:'near goal',
+        read:'Strong and steady. The anthology and a regular journaling habit keep it warm. Near goal \u2014 a reliable second edge alongside the typography.',
+        trace:[{label:'Anthology contribution',meta:'EVIDENCE \u00b7 shipped',dot:'#7fc8a0'},{label:'Regular journaling',meta:'JOURNAL \u00b7 ongoing',dot:'#8ab6e8'},{label:'Used 14 days ago',meta:'warm',dot:'#7fc8a0'}],
+        reasoning:['Anchored by published work plus an ongoing practice.','Two weeks since last use \u2014 comfortably current.','Near your goal level.'], contradiction:null,
+        recordId:'skl_writing', recordType:'LEARNING \u00b7 SKILL', sensitivity:'PERSONAL' },
+      facilitation:{ name:'Workshop facilitation', tool:'people', prof:0.45, trend:'growing', last:20, conf:0.6, gap:'developing',
+        read:'Developing, with a few real sessions behind it. Growing slowly \u2014 the kind of skill that compounds if you keep saying yes to the rooms.',
+        trace:[{label:'A handful of sessions',meta:'PROJECTS',dot:'#8ab6e8'},{label:'Positive feedback logged',meta:'OBSERVED',dot:'#7fc8a0'},{label:'Last ran 20 days ago',meta:'developing',dot:'#e8c07a'}],
+        reasoning:['A few facilitated sessions with logged positive feedback.','Twenty days since the last \u2014 still developing, not stalled.','Coverage confidence 0.60.'], contradiction:null,
+        recordId:'skl_facilitation', recordType:'LEARNING \u00b7 SKILL', sensitivity:'PERSONAL' }
+    };
+    this.SKILL_ORDER=['typography','research','writing','facilitation','motion'];
+    this.OPPS = {
+      talk:{ title:'Conference talk', org:'a design conference', stage:'offer', warmth:0.85, next:'accept by Fri', owed:true, conf:0.85,
+        read:'An offer on the table with a Friday clock. Warm, concrete, and yours to take \u2014 the only thing standing between you and it is a reply.',
+        trace:[{label:'Invitation received',meta:'EVIDENCE \u00b7 firm',dot:'#7fc8a0'},{label:'Tied to the panel circle',meta:'via Maya',dot:'#8ab6e8'},{label:'Accept by Friday',meta:'OBLIGATION',dot:'#f0b06a'}],
+        reasoning:['A firm written offer \u2014 highest-confidence item in the pipeline.','Deadline Friday; the next action is a yes or a no.','Coverage confidence 0.85.'], contradiction:null,
+        recordId:'opp_talk', recordType:'CAREER \u00b7 OPPORTUNITY', sensitivity:'PERSONAL' },
+      anthology2:{ title:'Anthology vol. 2 \u2014 editor', org:'an indie press', stage:'in-talks', warmth:0.7, next:'send sample edit', owed:true, conf:0.7,
+        read:'In real talks, and they\u2019re waiting on your sample edit. This is the one where you owe the move \u2014 and it happens to run straight through Devin, who\u2019s also gone quiet. Two birds.',
+        trace:[{label:'Editor role floated',meta:'in talks',dot:'#7fc8a0'},{label:'Runs through Devin',meta:'contact link',dot:'#8ab6e8'},{label:'Sample edit owed',meta:'OBLIGATION',dot:'#f0b06a'}],
+        reasoning:['Active discussion for an editor role \u2014 a meaningful step toward the goal.','Your sample edit is the gating next action.','Coverage confidence 0.70.'], contradiction:null,
+        recordId:'opp_anth2', recordType:'CAREER \u00b7 OPPORTUNITY', sensitivity:'PERSONAL' },
+      grant:{ title:'Research grant \u2014 co-applicant', org:'a research lab', stage:'applied', warmth:0.6, next:'await decision', owed:false, conf:0.55,
+        read:'Filed and out of your hands for now. Co-applying with Rosa\u2019s lab \u2014 nothing to do but wait, which is its own kind of fine. Don\u2019t poke it.',
+        trace:[{label:'Application submitted',meta:'EVIDENCE \u00b7 filed',dot:'#7fc8a0'},{label:'With Rosa\u2019s lab',meta:'contact link',dot:'#8ab6e8'},{label:'Decision pending',meta:'no action',dot:'#9aa6c0'}],
+        reasoning:['Submitted \u2014 the next move belongs to the committee.','Co-applicant tie strengthens the bid.','Coverage confidence 0.55.'], contradiction:null,
+        recordId:'opp_grant', recordType:'CAREER \u00b7 OPPORTUNITY', sensitivity:'PERSONAL' },
+      studio:{ title:'Studio design contract', org:'a product studio', stage:'lead', warmth:0.5, next:'reply to Maya', owed:false, conf:0.6,
+        read:'An early lead Maya surfaced. Warm enough to chase, soft enough to lose if it sits. A reply keeps it alive; silence lets it wander off.',
+        trace:[{label:'Lead surfaced by Maya',meta:'via mentor',dot:'#8ab6e8'},{label:'Initial interest',meta:'OBSERVED',dot:'#7fc8a0'},{label:'Reply to Maya',meta:'next move',dot:'#e8c07a'}],
+        reasoning:['Early-stage lead from your strongest tie \u2014 worth a real reply.','Nothing owed formally, but leads decay when ignored.','Coverage confidence 0.60.'], contradiction:null,
+        recordId:'opp_studio', recordType:'CAREER \u00b7 OPPORTUNITY', sensitivity:'PERSONAL' }
+    };
+    this.OPP_ORDER=['studio','grant','anthology2','talk'];
+    this.STAGES=[['lead','Lead'],['applied','Applied'],['in-talks','In talks'],['offer','Offer']];
+    this.MILESTONES=[{label:'Studio-mate years',months:40},{label:'Joined the collective',months:26},{label:'Anthology vol. 1 shipped',months:9},{label:'Conference panel',months:3},{label:'Lead editorial designer',months:-7,goal:true}];
+    this.GOAL='Lead editorial designer / independent practice';
+    this.state={ dir:(props.direction||'atrium'), selType:'contact', selId:'nadia', toast:null };
+  }
+
+  pal(){ return this.state.dir==='atrium'
+    ? { base:'#16101c', accent:'#f0b45c', accent2:'#e88aa8', glow:'rgba(240,180,92,0.3)', bg1:'rgba(240,180,92,0.12)', bg2:'rgba(232,138,168,0.1)',
+        ink:'rgba(244,234,226,0.92)', inkMid:'rgba(244,234,226,0.7)', inkDim:'rgba(244,234,226,0.5)', inkFaint:'rgba(244,234,226,0.42)',
+        hairline:'rgba(240,180,92,0.16)', headerBg:'rgba(30,20,38,0.6)', navBg:'rgba(30,20,38,0.4)', pillBg:'rgba(240,180,92,0.05)', panelBg:'rgba(40,28,50,0.4)',
+        heroBg:'linear-gradient(180deg, #241636, #160f20 72%, #120b18)', heroGlow:'rgba(240,180,92,0.14)', readBg:'rgba(40,28,50,0.5)', toastBg:'rgba(28,18,36,0.97)',
+        segTrack:'rgba(20,14,26,0.6)', noteBg:'rgba(232,138,168,0.05)', noteBorder:'rgba(232,138,168,0.22)', trackA:'rgba(240,180,92,0.07)', trackB:'rgba(232,138,168,0.06)', onAccentInk:'#23160a', lantern:'#f0b45c' }
+    : { base:'#0c0e13', accent:'#56c8e8', accent2:'#7ce0c0', glow:'rgba(86,200,232,0.3)', bg1:'rgba(86,200,232,0.1)', bg2:'rgba(120,140,200,0.08)',
+        ink:'rgba(228,238,244,0.92)', inkMid:'rgba(228,238,244,0.7)', inkDim:'rgba(228,238,244,0.5)', inkFaint:'rgba(228,238,244,0.42)',
+        hairline:'rgba(120,160,180,0.16)', headerBg:'rgba(14,18,24,0.6)', navBg:'rgba(14,18,24,0.4)', pillBg:'rgba(86,200,232,0.05)', panelBg:'rgba(18,24,32,0.5)',
+        heroBg:'linear-gradient(180deg, #10161e, #0c0e13)', heroGlow:'rgba(86,200,232,0.12)', readBg:'rgba(18,24,32,0.6)', toastBg:'rgba(12,18,24,0.97)',
+        segTrack:'rgba(10,14,18,0.6)', noteBg:'rgba(86,200,232,0.04)', noteBorder:'rgba(86,200,232,0.2)', trackA:'rgba(86,200,232,0.06)', trackB:'rgba(124,224,192,0.05)', onAccentInk:'#06141a', lantern:'#f0b45c' }; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  warmthColor(w){ return w>=0.7?'#7fc8a0': w>=0.5?'#e8c07a': w>=0.35?'#e8a06a':'#c89a9a'; }
+  profColor(p){ return p>=0.75?'#7fc8a0': p>=0.55?'#7ce0c0': p>=0.4?'#e8c07a':'#e8906a'; }
+  confColor(c){ return c>=0.8?'#7fc8a0': c>=0.65?'#9bd3a0': c>=0.55?'#e8c07a': c>=0.45?'#e8a06a':'#d98a8a'; }
+  daysLabel(d){ return d<14?d+'d ago': d<60?Math.round(d/7)+'w ago':Math.round(d/30)+'mo ago'; }
+  initials(n){ return n.split(' ').map(w=>w[0]).join('').slice(0,2); }
+
+  skillIcon(tool,col,op){
+    const h=React.createElement, S={width:16,height:16,viewBox:'0 0 16 16',style:{opacity:op==null?1:op}};
+    if(tool==='pen') return h('svg',S,h('path',{d:'M3 13 L4 10 L11 3 L13 5 L6 12 Z',fill:'none',stroke:col,strokeWidth:1.2,strokeLinejoin:'round'}),h('line',{x1:10,y1:4,x2:12,y2:6,stroke:col,strokeWidth:1.2}));
+    if(tool==='lens') return h('svg',S,h('circle',{cx:6.5,cy:6.5,r:4,fill:'none',stroke:col,strokeWidth:1.3}),h('line',{x1:9.5,y1:9.5,x2:13,y2:13,stroke:col,strokeWidth:1.4,strokeLinecap:'round'}));
+    if(tool==='reel') return h('svg',S,h('circle',{cx:8,cy:8,r:5.5,fill:'none',stroke:col,strokeWidth:1.2}),h('circle',{cx:8,cy:8,r:1.4,fill:col}),h('circle',{cx:8,cy:3.6,r:1,fill:col}),h('circle',{cx:11.2,cy:9.6,r:1,fill:col}),h('circle',{cx:4.8,cy:9.6,r:1,fill:col}));
+    if(tool==='quill') return h('svg',S,h('path',{d:'M3 13 C6 10, 10 6, 13 2 C10 4, 5 6, 3 13 Z',fill:'none',stroke:col,strokeWidth:1.2,strokeLinejoin:'round'}),h('line',{x1:4.5,y1:10,x2:8,y2:10,stroke:col,strokeWidth:1}));
+    return h('svg',S,h('circle',{cx:5,cy:5,r:2.2,fill:'none',stroke:col,strokeWidth:1.2}),h('path',{d:'M1.5 13 C1.5 9.5, 8.5 9.5, 8.5 13',fill:'none',stroke:col,strokeWidth:1.2}),h('circle',{cx:11,cy:6,r:1.7,fill:'none',stroke:col,strokeWidth:1.1}),h('path',{d:'M9 12.5 C9 10.5, 14 10.5, 14 12.5',fill:'none',stroke:col,strokeWidth:1.1}));
+  }
+
+  buildAtrium(){
+    const h=React.createElement, p=this.pal(), motion=this.props.ambientMotion!==false, cx=500, cy=292, R=[];
+    R.push(h('defs',{key:'d'},h('filter',{id:'ag',x:'-120%',y:'-120%',width:'340%',height:'340%'},h('feGaussianBlur',{stdDeviation:'4',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'})))));
+    // gallery rings
+    [90,160,232].forEach((rr,i)=>R.push(h('ellipse',{key:'g'+i,cx:cx,cy:cy,rx:rr,ry:rr*0.62,fill:'none',stroke:this.hexA(p.accent,0.1-i*0.018),strokeWidth:1})));
+    // faint columns / arches
+    for(let i=0;i<8;i++){ const a=i/8*Math.PI*2; R.push(h('line',{key:'col'+i,x1:cx,y1:cy,x2:cx+Math.cos(a)*250,y2:cy+Math.sin(a)*155,stroke:this.hexA(p.accent,0.04),strokeWidth:1})); }
+    R.push(h('path',{key:'dome',d:'M '+(cx-250)+' '+cy+' A 250 150 0 0 1 '+(cx+250)+' '+cy,fill:'none',stroke:this.hexA(p.accent,0.08),strokeWidth:1.2}));
+    // ambient embers
+    if(motion){ let s=53; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; }; for(let i=0;i<16;i++){ const x=(cx-200+rnd()*400).toFixed(0), y=(120+rnd()*220).toFixed(0); R.push(h('circle',{key:'em'+i,cx:x,cy:y,r:(rnd()*1.1+0.5).toFixed(2),fill:p.lantern,opacity:0.5,style:{transformOrigin:x+'px '+y+'px',animation:'lwEmber '+(3+rnd()*4).toFixed(1)+'s ease-in-out infinite '+(rnd()*3).toFixed(1)+'s'}})); } }
+    // hearth (you)
+    R.push(h('circle',{key:'hglow',cx:cx,cy:cy,r:34,fill:this.hexA(p.lantern,0.28),filter:'url(#ag)',style:motion?{animation:'lwGlow 4s ease-in-out infinite'}:undefined}));
+    R.push(h('circle',{key:'hearth',cx:cx,cy:cy,r:13,fill:p.lantern}));
+    R.push(h('text',{key:'youT',x:cx,y:cy+30,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:9,fill:this.hexA(p.ink,0.7),letterSpacing:'0.1em'},'YOU'));
+    // contacts as lanterns
+    this.CONTACT_ORDER.forEach(k=>{ const c=this.CONTACTS[k], on=this.state.selType==='contact'&&this.state.selId===k;
+      const r=240-c.warmth*200, a=c.ang*Math.PI/180, x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r*0.62;
+      const reconnect=c.warmth<0.45||c.last>60, wc=this.warmthColor(c.warmth), bright=0.3+c.warmth*0.7;
+      // tether to hearth
+      R.push(h('line',{key:k+'th',x1:cx,y1:cy,x2:x,y2:y,stroke:this.hexA(wc,on?0.4:0.14),strokeWidth:on?1.4:0.9}));
+      // glow
+      R.push(h('circle',{key:k+'gl',cx:x,cy:y,r:on?26:18,fill:this.hexA(wc,bright*0.3)}));
+      if(reconnect) R.push(h('circle',{key:k+'rk',cx:x,cy:y,r:on?20:15,fill:'none',stroke:this.hexA(p.accent2,0.7),strokeWidth:1.3,style:motion?{transformOrigin:x+'px '+y+'px',animation:'lwPulse 2.4s ease-in-out infinite'}:undefined}));
+      // lantern body
+      R.push(h('circle',{key:k+'o',cx:x,cy:y,r:on?9:7,fill:wc,opacity:bright,filter:on?'url(#ag)':undefined,onClick:()=>this.setState({selType:'contact',selId:k}),style:{cursor:'pointer'}}));
+      R.push(h('circle',{key:k+'c',cx:x,cy:y,r:on?3.4:2.6,fill:'#fff',opacity:0.5+c.warmth*0.4}));
+      // reciprocity token (you owe)
+      if(c.recip==='you owe') R.push(h('rect',{key:k+'ow',x:x+7,y:y-11,width:9,height:6,rx:1,fill:'#1a1018',stroke:'#f0b06a',strokeWidth:0.9}));
+      // name
+      R.push(h('text',{key:k+'n',x:x,y:y+(on?24:20),textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:on?12:10.5,fontWeight:600,fill:on?p.ink:this.hexA(p.ink,0.55+c.warmth*0.35)},c.name.split(' ')[0]));
+      R.push(h('text',{key:k+'d',x:x,y:y+(on?36:31),textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8,fill:this.hexA(wc,0.85)},this.daysLabel(c.last)));
+    });
+    return h('svg',{viewBox:'0 0 1000 520',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  fireToast(m){ this.setState({toast:m}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4400); }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+  pick(type,id){ this.setState({selType:type,selId:id}); }
+
+  buildSel(){
+    const p=this.pal(), dir=this.state.dir, T=this.state.selType, id=this.state.selId;
+    if(T==='contact'){ const c=this.CONTACTS[id], wc=this.warmthColor(c.warmth), owe=c.recip==='you owe';
+      const recLabel = c.recip==='you owe'?'you owe a reply': c.recip==='they owe'?'their move next':'even';
+      return { kind:'contact', title:c.name, subtitle:c.role+' · '+c.org, color:wc, badge:this.initials(c.name), avatarBg:this.hexA(wc,0.18), headerBg:this.hexA(wc,0.06),
+        statLabel:c.rel, statColor:wc, statBg:this.hexA(wc,0.16), read:c.read,
+        meterLabel:'WARMTH · time since you spoke', meterVal:Math.round(c.warmth*100)+'%', meterPct:Math.round(c.warmth*100)+'%', meterColor:wc,
+        facts:[{label:'LAST SPOKE',val:this.daysLabel(c.last),color:p.ink},{label:'RELATIONSHIP',val:c.rel,color:p.ink},{label:'RECIPROCITY',val:recLabel,color:owe?'#f0b06a':p.ink}],
+        traceLabel:'HOW YOU KNOW THEM · PROVENANCE', trace:c.trace, reasoning:c.reasoning, contradiction:c.contradiction,
+        recordId:c.recordId, recordType:c.recordType, conf:c.conf.toFixed(2), confColor:this.confColor(c.conf), sensitivity:c.sensitivity,
+        actionsLabel: dir==='atrium'?'TEND THIS TIE':'WORK THIS CONTACT',
+        primaryLabel: dir==='atrium'?(c.warmth<0.45?'Draft a note to rekindle':'Draft a hello'):'Schedule a follow-up', secondaryLabel:'Log a touch',
+        onPrimary:()=>this.fireToast(dir==='atrium'?('Drafted a note to '+c.name.split(' ')[0]+' for you to send when you like. Nothing\u2019s gone out \u2014 the room never messages anyone.'):('Follow-up with '+c.name.split(' ')[0]+' put on your list. Private to you; no record touched, no message sent.')),
+        onSecondary:()=>this.fireToast('Logged that you reached out to '+c.name.split(' ')[0]+'. That\u2019s a new note from you \u2014 it doesn\u2019t rewrite the history, it adds to it.') };
+    }
+    if(T==='skill'){ const s=this.SKILLS[id], pc=this.profColor(s.prof), rust=s.trend==='rusting';
+      return { kind:'skill', title:s.name, subtitle:'skill · '+s.gap, color:pc, badge:'', avatarBg:this.hexA(pc,0.18), headerBg:this.hexA(pc,0.06),
+        statLabel:s.trend, statColor:rust?'#e8906a':'#7ce0c0', statBg:this.hexA(rust?'#e8906a':'#7ce0c0',0.16), read:s.read,
+        meterLabel:'PROFICIENCY · how sharp it is', meterVal:Math.round(s.prof*100)+'%', meterPct:Math.round(s.prof*100)+'%', meterColor:pc,
+        facts:[{label:'LAST PRACTICED',val:this.daysLabel(s.last),color:rust?'#e8906a':p.ink},{label:'TREND',val:s.trend,color:rust?'#e8906a':'#7ce0c0'},{label:'GAP TO GOAL',val:s.gap,color:p.ink}],
+        traceLabel:'WHERE IT CAME FROM · PROVENANCE', trace:s.trace, reasoning:s.reasoning, contradiction:s.contradiction,
+        recordId:s.recordId, recordType:s.recordType, conf:s.conf.toFixed(2), confColor:this.confColor(s.conf), sensitivity:s.sensitivity,
+        actionsLabel:'WORK THE SKILL', primaryLabel: dir==='atrium'?'Set an intention':'Pin to the bench', secondaryLabel:'Log practice',
+        onPrimary:()=>this.fireToast('Noted '+s.name.toLowerCase()+' as a focus. A private intention \u2014 no quota, no streak, and the record stays put.'),
+        onSecondary:()=>this.fireToast('Logged a practice session on '+s.name.toLowerCase()+'. Adds to the trail; the proficiency read will catch up from real use, not from saying so.') };
+    }
+    const o=this.OPPS[id], wc=this.warmthColor(o.warmth), stageLabel=this.STAGES.find(s=>s[0]===o.stage)[1];
+    return { kind:'opp', title:o.title, subtitle:o.org+' · '+stageLabel, color:wc, badge:'', avatarBg:this.hexA(wc,0.18), headerBg:this.hexA(wc,0.06),
+      statLabel:stageLabel, statColor:wc, statBg:this.hexA(wc,0.16), read:o.read,
+      meterLabel:'WARMTH · how live it is', meterVal:Math.round(o.warmth*100)+'%', meterPct:Math.round(o.warmth*100)+'%', meterColor:wc,
+      facts:[{label:'STAGE',val:stageLabel,color:p.ink},{label:'NEXT MOVE',val:o.next,color:o.owed?'#f0b06a':p.ink},{label:'OWED',val:o.owed?'your move':'waiting',color:o.owed?'#f0b06a':p.ink}],
+      traceLabel:'THE TRAIL · PROVENANCE', trace:o.trace, reasoning:o.reasoning, contradiction:o.contradiction,
+      recordId:o.recordId, recordType:o.recordType, conf:o.conf.toFixed(2), confColor:this.confColor(o.conf), sensitivity:o.sensitivity,
+      actionsLabel: dir==='atrium'?'TEND THIS THREAD':'ADVANCE IT', primaryLabel: dir==='atrium'?'Note the next step':'Mark the next move', secondaryLabel:'Log an update',
+      onPrimary:()=>this.fireToast('Next step on "'+o.title+'" noted: '+o.next+'. Private reminder \u2014 nothing sent, nothing in the ledger changed.'),
+      onSecondary:()=>this.fireToast('Update logged on "'+o.title+'". A new note from you; the opportunity\u2019s history stays intact.') };
+  }
+
+  renderVals(){
+    const p=this.pal(), dir=this.state.dir, on=(x)=>x;
+    const navItems=['Prism Intake','Lattice Vault','The Counting House','Engine Room','Distortion Clinic','Iris','The Potting Shed','The Case File','The Governor','The Long Game']
+      .map(l=>{ const a=l==='The Long Game'; return {label:l,weight:a?'600':'400',bg:a?this.hexA(p.accent,0.1):'transparent',bar:a?'inset 2px 0 0 var(--accent)':'none',txt:a?p.ink:this.hexA(p.ink,0.6),dot:a?'var(--accent)':this.hexA(p.ink,0.35)}; });
+
+    const dirChips=[['atrium','The Atrium','warm · people first'],['workbench','The Workbench','tactical · craft first']].map(d=>{ const a=dir===d[0];
+      return { label:d[1], sub:d[2], onSelect:()=>this.setState({dir:d[0]}), bg:a?this.hexA(p.accent,0.16):'transparent', txt:a?p.ink:this.hexA(p.ink,0.6), subColor:a?this.hexA(p.accent,0.9):this.hexA(p.ink,0.4) }; });
+
+    const reconnect=this.CONTACT_ORDER.filter(k=>this.CONTACTS[k].warmth<0.45||this.CONTACTS[k].last>60);
+    const owed=this.CONTACT_ORDER.filter(k=>this.CONTACTS[k].recip==='you owe').length + this.OPP_ORDER.filter(k=>this.OPPS[k].owed).length;
+    const dull=this.SKILL_ORDER.filter(k=>this.SKILLS[k].trend==='rusting'||this.SKILLS[k].prof<0.4).length;
+    const live=this.OPP_ORDER.filter(k=>this.OPPS[k].stage!=='closed').length;
+    const dimmest=this.CONTACT_ORDER.slice().sort((a,b)=>this.CONTACTS[a].warmth-this.CONTACTS[b].warmth)[0];
+    const dirStatus = dir==='atrium'
+      ? 'The far gallery\u2019s gone quiet \u2014 '+reconnect.length+' lanterns worth rekindling. '+this.CONTACTS[dimmest].name.split(' ')[0]+'\u2019s has been dark the longest.'
+      : dull+' tools going dull, '+live+' live commissions, and '+owed+' follow-ups you owe. Tighten up.';
+
+    // atrium secondary strip: top skill needing work + live opps
+    const atriumStrip=[];
+    ['motion','facilitation'].forEach(k=>{ const s=this.SKILLS[k]; atriumStrip.push({ kind:'SKILL', title:s.name, meta:this.daysLabel(s.last)+' · '+s.gap, color:this.profColor(s.prof), metaColor:s.trend==='rusting'?'#e8906a':this.hexA(p.ink,0.5), onSelect:()=>this.pick('skill',k), bg:this.hexA(this.profColor(s.prof),0.06), border:p.hairline }); });
+    this.OPP_ORDER.forEach(k=>{ const o=this.OPPS[k]; atriumStrip.push({ kind:'OPENING', title:o.title, meta:this.STAGES.find(s=>s[0]===o.stage)[1]+' · '+o.next, color:this.warmthColor(o.warmth), metaColor:o.owed?'#f0b06a':this.hexA(p.ink,0.5), onSelect:()=>this.pick('opp',k), bg:this.hexA(this.warmthColor(o.warmth),0.06), border:p.hairline }); });
+
+    const skillTools=this.SKILL_ORDER.map(k=>{ const s=this.SKILLS[k], on2=this.state.selType==='skill'&&this.state.selId===k, pc=this.profColor(s.prof), rust=s.trend==='rusting';
+      return { name:s.name, icon:this.skillIcon(s.tool,pc,rust?0.5:1), iconOpacity:rust?0.6:1, color:pc, profPct:Math.round(s.prof*100)+'%', lastPracticed:this.daysLabel(s.last),
+        trend:s.trend, trendColor:rust?'#e8906a':'#7ce0c0', trendBg:this.hexA(rust?'#e8906a':'#7ce0c0',0.14), onSelect:()=>this.pick('skill',k),
+        bg:on2?this.hexA(pc,0.08):this.hexA(p.ink,0.02), border:on2?this.hexA(pc,0.45):p.hairline }; });
+
+    const pipelineStages=this.STAGES.map(st=>({ label:st[1], items:this.OPP_ORDER.filter(k=>this.OPPS[k].stage===st[0]).map(k=>{ const o=this.OPPS[k], on2=this.state.selType==='opp'&&this.state.selId===k, wc=this.warmthColor(o.warmth);
+      return { title:o.title, org:o.org, next:o.next, nextColor:o.owed?'#f0b06a':this.hexA(p.ink,0.5), color:wc, onSelect:()=>this.pick('opp',k), bg:on2?this.hexA(wc,0.08):this.hexA(p.ink,0.02), border:on2?this.hexA(wc,0.45):p.hairline }; }) }));
+
+    const rosterList=this.CONTACT_ORDER.slice().sort((a,b)=>this.CONTACTS[a].warmth-this.CONTACTS[b].warmth).map(k=>{ const c=this.CONTACTS[k], on2=this.state.selType==='contact'&&this.state.selId===k, wc=this.warmthColor(c.warmth);
+      return { name:c.name, initials:this.initials(c.name), color:wc, avatarBg:this.hexA(wc,0.18), warmthPct:Math.round(c.warmth*100)+'%', last:this.daysLabel(c.last), owed:c.recip==='you owe', onSelect:()=>this.pick('contact',k), bg:on2?this.hexA(wc,0.08):this.hexA(p.ink,0.02), border:on2?this.hexA(wc,0.45):p.hairline }; });
+
+    const span=50; const milestones=this.MILESTONES.map(m=>{ const left=Math.max(3,Math.min(95,((span-(m.months+8))/span)*100));
+      return { label:m.label, when:m.goal?'goal':(m.months+'mo'), color:m.goal?p.accent2:p.accent, ring:m.goal?p.accent:this.hexA(p.ink,0.3), size:m.goal?'13px':'9px', left:left+'%', txtColor:m.goal?p.ink:this.hexA(p.ink,0.6) }; });
+
+    return {
+      base:p.base, accent:p.accent, accent2:p.accent2, glow:p.glow, bg1:p.bg1, bg2:p.bg2,
+      ink:p.ink, inkMid:p.inkMid, inkDim:p.inkDim, inkFaint:p.inkFaint, hairline:p.hairline, headerBg:p.headerBg, navBg:p.navBg, pillBg:p.pillBg, panelBg:p.panelBg,
+      heroBg:p.heroBg, heroGlow:p.heroGlow, readBg:p.readBg, toastBg:p.toastBg, segTrack:p.segTrack, noteBg:p.noteBg, noteBorder:p.noteBorder, trackA:p.trackA, trackB:p.trackB, onAccentInk:p.onAccentInk,
+      navItems, dirChips, dirStatus, dirSub: dir==='atrium'?'the atrium · warm':'the workbench · tactical',
+      isAtrium:dir==='atrium', isWorkbench:dir==='workbench', atriumSvg:this.buildAtrium(), atriumStrip, skillTools, pipelineStages, rosterList, milestones,
+      owedCount:owed, goalShort:'lead editorial', toast:this.state.toast,
+      readLabel: dir==='atrium'?'THE NOTE':'THE CALL', sel:this.buildSel()
+    };
+  }
+}
+</script>
+</body>
+</html>

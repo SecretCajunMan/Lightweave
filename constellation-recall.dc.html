@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwTwinkle{0%,100%{opacity:.25}50%{opacity:.85}}
+  @keyframes lwPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:.15;transform:scale(1.7)}}
+  @keyframes lwCool{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.95;transform:scale(1.18)}}
+  @keyframes lwFlux{to{stroke-dashoffset:-44}}
+  input.lwq{background:transparent;border:none;outline:none;color:rgba(238,241,251,0.92);font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;width:100%}
+  input.lwq::placeholder{color:rgba(238,241,251,0.4)}
+</style>
+</helmet>
+<div data-screen-label="Constellation Recall" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; background:radial-gradient(1200px 680px at 44% -18%, var(--bg1), transparent 60%), radial-gradient(1000px 760px at 106% 122%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Constellation Recall</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 9 · pattern sky</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>read-only projection</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">5 constellations · 3 distortions</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>ledger synced</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">RECALL · Mon Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="constellation-recall"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:14px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:9px 12px 9px 14px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <svg width="16" height="16" viewBox="0 0 16 16" style="flex:0 0 auto;"><circle cx="7" cy="7" r="5" fill="none" stroke="var(--accent2)" stroke-width="1.4"></circle><line x1="11" y1="11" x2="15" y2="15" stroke="var(--accent2)" stroke-width="1.4" stroke-linecap="round"></line></svg>
+        <input class="lwq" value="{{ queryText }}" onChange="{{ onQuery }}" placeholder="Recall a pattern — e.g. when do I focus best?"></input>
+        <div style="display:flex; align-items:center; gap:7px; flex:0 0 auto;">
+          <sc-for list="{{ queryChips }}" as="qc" hint-placeholder-count="3">
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-family:'IBM Plex Mono',monospace; padding:5px 9px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:rgba(238,241,251,0.7); cursor:pointer;"><span style="width:5px; height:5px; border-radius:50%; background:{{ qc.dot }};"></span>{{ qc.label }}</span>
+          </sc-for>
+        </div>
+        <div style="width:1px; height:22px; background:rgba(255,255,255,0.1); flex:0 0 auto;"></div>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.5); flex:0 0 auto;">{{ resultCount }}</span>
+        <span style="flex:0 0 auto; font-size:11.5px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:7px 14px; border-radius:8px; cursor:pointer;">Recall</span>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% 8%, rgba(60,80,160,0.10), transparent 55%), linear-gradient(180deg, #080b18, #06080f 55%, #080611);">
+          <div style="position:absolute; inset:0;">{{ skySvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,241,251,0.72);">Pattern sky</span>
+            <span style="font-size:10px; color:rgba(238,241,251,0.42);">stars are records · lines are threads · bright named stars are strong insights</span>
+          </div>
+          <div style="position:absolute; top:11px; right:14px; display:flex; align-items:center; gap:11px;">
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:9px; height:9px; border-radius:50%; background:#fff; box-shadow:0 0 8px #fff;"></span><span style="font-size:9.5px; color:rgba(238,241,251,0.5);">strong</span></div>
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:6px; height:6px; border-radius:50%; background:rgba(174,184,214,0.7);"></span><span style="font-size:9.5px; color:rgba(238,241,251,0.5);">faint</span></div>
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#ff6b5e; box-shadow:0 0 8px #ff6b5e;"></span><span style="font-size:9.5px; color:rgba(238,241,251,0.5);">distortion</span></div>
+          </div>
+          <sc-for list="{{ starLabels }}" as="sl" hint-placeholder-count="5">
+            <div onClick="{{ sl.onSelect }}" style="position:absolute; left:{{ sl.leftPct }}; top:{{ sl.topPct }}; transform:translate(10px,-50%); cursor:pointer; z-index:{{ sl.z }}; opacity:{{ sl.op }};">
+              <div style="display:inline-flex; align-items:center; gap:6px;">
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:{{ sl.size }}; font-weight:600; white-space:nowrap; color:{{ sl.txt }}; text-shadow:0 0 10px rgba(0,0,0,0.8);">{{ sl.name }}</span>
+                <sc-if value="{{ sl.showConf }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; padding:1px 5px; border-radius:5px; background:{{ sl.confBg }}; color:{{ sl.confColor }};">{{ sl.conf }}</span>
+                </sc-if>
+              </div>
+              <sc-if value="{{ sl.insight }}" hint-placeholder-val="{{ true }}">
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.45); margin-top:1px; white-space:nowrap;">{{ sl.sub }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="flex:0 0 250px; display:flex; flex-direction:column; gap:10px; min-height:0;">
+          <div style="flex:1; min-height:0; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 13px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px; flex:0 0 auto;"><svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 1 L8.6 5 L13 5 L9.4 7.7 L10.8 12 L7 9.4 L3.2 12 L4.6 7.7 L1 5 L5.4 5 Z" fill="none" stroke="var(--accent2)" stroke-width="1"></path></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:500;">Insight clusters</span></div>
+            <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+              <sc-for list="{{ clusterList }}" as="cl" hint-placeholder-count="5">
+                <div onClick="{{ cl.onSelect }}" style="cursor:pointer; padding:9px 10px; border-radius:10px; background:{{ cl.rowBg }}; border:1px solid {{ cl.rowBorder }}; border-left:2px solid {{ cl.color }};">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+                    <span style="width:7px; height:7px; border-radius:50%; background:{{ cl.color }}; box-shadow:0 0 6px {{ cl.color }}; flex:0 0 auto;"></span>
+                    <span style="font-size:11.5px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ cl.name }}</span>
+                    <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ cl.lifeBg }}; color:{{ cl.lifeColor }};">{{ cl.life }}</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <div style="flex:1; height:4px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ cl.confPct }}; background:{{ cl.confColor }};"></div></div>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:{{ cl.confColor }};">{{ cl.conf }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="flex:0 0 auto; background:rgba(255,255,255,0.025); border:1px solid rgba(255,107,94,0.22); border-radius:14px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e; box-shadow:0 0 8px #ff6b5e;"></span><span style="font-size:11.5px; font-weight:600; letter-spacing:0.04em;">Distortion markers</span></div>
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ distortions }}" as="ds" hint-placeholder-count="3">
+                <div onClick="{{ ds.onSelect }}" style="cursor:pointer;">
+                  <div style="display:flex; align-items:center; gap:7px; margin-bottom:2px;"><span style="width:6px; height:6px; border-radius:50%; background:{{ ds.color }};"></span><span style="font-size:11px; font-weight:600; color:{{ ds.color }};">{{ ds.kind }}</span></div>
+                  <div style="font-size:10px; color:rgba(238,241,251,0.6); line-height:1.4; padding-left:13px;">{{ ds.detail }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <aside style="flex:0 0 378px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 14px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px;">{{ sel.name }}</span>
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.magBg }}; color:{{ sel.color }};">{{ sel.magTag }}</span>
+        </div>
+        <div style="font-size:11px; color:rgba(238,241,251,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.subtitle }} · {{ sel.records }} stars · {{ sel.window }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:16px;">
+
+        <div style="background:{{ sel.headerBg }}; border:1px solid {{ sel.softBorder }}; border-radius:11px; padding:12px 13px;">
+          <div style="font-size:13px; line-height:1.55; color:rgba(238,241,251,0.9);">{{ sel.statement }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:11px;">
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">insight confidence</span>
+            <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:7px; background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.08); border-radius:11px; padding:11px 12px;">
+          <div style="display:flex; align-items:center; gap:7px;">
+            <svg width="11" height="11" viewBox="0 0 12 12" style="flex:0 0 auto;"><rect x="2.5" y="5" width="7" height="5.5" rx="1" fill="none" stroke="rgba(238,241,251,0.6)" stroke-width="1"></rect><path d="M4 5 V3.5 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(238,241,251,0.6)" stroke-width="1"></path></svg>
+            <span style="font-size:9.5px; letter-spacing:0.12em; color:rgba(238,241,251,0.5);">CANONICAL — THE SKY THEME CANNOT ALTER THESE</span>
+          </div>
+          <div style="display:flex; gap:7px;">
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:{{ sel.lifeBg }}; border:1px solid {{ sel.lifeBorder }};"><div style="font-size:8.5px; color:rgba(238,241,251,0.45);">LIFECYCLE</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.life }}</div></div>
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);"><div style="font-size:8.5px; color:rgba(238,241,251,0.45);">VISIBILITY</div><div style="font-size:11.5px; font-weight:600; color:rgba(238,241,251,0.85);">{{ sel.visibility }}</div></div>
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);"><div style="font-size:8.5px; color:rgba(238,241,251,0.45);">RESOLVER</div><div style="font-size:10px; font-weight:600; font-family:'IBM Plex Mono',monospace; color:rgba(238,241,251,0.85);">{{ sel.resolver }}</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">WHAT MAKES THIS {{ sel.brightWord }}</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.build }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="flex:0 0 116px; font-size:11px; color:rgba(238,241,251,0.6);">{{ b.label }}</span>
+                <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ b.widthPct }}; background:{{ b.color }}; box-shadow:0 0 8px {{ b.color }};"></div></div>
+                <span style="flex:0 0 auto; min-width:30px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ b.color }};">{{ b.valLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">EVIDENCE · {{ sel.records }} STARS BACKING</div>
+          <div style="border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+            <div style="display:flex; align-items:center; padding:7px 11px; background:rgba(255,255,255,0.04); font-size:8.5px; letter-spacing:0.08em; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">
+              <span style="flex:1;">RECORD</span><span style="flex:0 0 64px;">SOURCE</span><span style="flex:0 0 48px;">WHEN</span><span style="flex:0 0 34px; text-align:right;">CONF</span>
+            </div>
+            <sc-for list="{{ sel.evidence }}" as="ev" hint-placeholder-count="4">
+              <div onClick="{{ ev.onTrace }}" style="display:flex; align-items:center; padding:8px 11px; border-top:1px solid rgba(255,255,255,0.05); background:{{ ev.bg }}; cursor:pointer;">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ ev.rec }}</span><span style="font-size:9px; color:rgba(238,241,251,0.45);">{{ ev.kind }}</span></span>
+                <span style="flex:0 0 64px; font-size:10px; color:rgba(238,241,251,0.62);">{{ ev.source }}</span>
+                <span style="flex:0 0 48px; font-size:10px; font-family:'IBM Plex Mono',monospace; color:rgba(238,241,251,0.55);">{{ ev.when }}</span>
+                <span style="flex:0 0 34px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ ev.confColor }};">{{ ev.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE TRACE · PROVENANCE LINEAGE</div>
+          <div style="position:relative; padding-left:6px;">
+            <sc-for list="{{ sel.trace }}" as="tr" hint-placeholder-count="4">
+              <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:11px; position:relative;">
+                <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ tr.dot }}; border:2px solid #0a0c16; box-shadow:0 0 7px {{ tr.dot }}; margin-top:2px; z-index:1;"></span>
+                <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; color:rgba(238,241,251,0.82);">{{ tr.label }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">{{ tr.meta }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">TIME WINDOW · BI-TEMPORAL</div>
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">event range</div><div style="font-size:12px;">{{ sel.window }}</div></div>
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">lag</div><div style="font-size:12px;">{{ sel.lag }}</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="4">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:12px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><circle cx="6" cy="6" r="4.4" fill="#ffd9a0"></circle><circle cx="7.6" cy="4.8" r="4.4" fill="#0c0c14" stroke="#ff6b5e" stroke-width="0.8"></circle></svg>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ sel.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">RELATED INSIGHTS</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ sel.related }}" as="rl" hint-placeholder-count="2">
+              <div onClick="{{ rl.onSelect }}" style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.07); border-radius:9px; cursor:pointer;">
+                <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ rl.color }}; box-shadow:0 0 7px {{ rl.color }};"></span>
+                <span style="flex:1; min-width:0; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ rl.name }}</span>
+                <span style="font-size:9px; color:rgba(238,241,251,0.45);">{{ rl.relation }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ rl.confColor }};">{{ rl.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">pattern</span><span style="color:{{ sel.color }};">{{ sel.patternId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>PAT · pattern</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>contract_v1.5</span></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:10px; line-height:1.45;">{{ sel.canonicalNote }}</div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open {{ sel.records }} records</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Catalog view</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 96px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Flux timeline · 30 days</span>
+      <span style="font-size:10px; color:rgba(238,241,251,0.38);">how each insight's brightness has shifted in the ledger</span>
+      <div style="flex:1;"></div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#46e0b4;"></span>brightening</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff6b5e;"></span>dimming</span>
+    </div>
+    <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(255,107,94,0.05), rgba(70,224,180,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+      <div style="position:absolute; inset:0;">{{ fluxSvg }}</div>
+      <sc-for list="{{ fluxMarks }}" as="m" hint-placeholder-count="4">
+        <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:104px;">
+          <div style="font-size:9px; color:rgba(238,241,251,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:104px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+          <div style="width:10px; height:10px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ m.date }}</div>
+        </div>
+      </sc-for>
+      <span style="position:absolute; right:8px; bottom:4px; font-size:8.5px; color:rgba(238,241,251,0.3); font-family:'IBM Plex Mono',monospace;">tonight</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'long_morning', queryText:'when do I focus best?', layers:{lines:true,faint:true,distortion:true,nebula:true,labels:true} };
+    this.CLUSTERS = {
+      long_morning:{
+        name:'The Long Morning', subtitle:'Sleep → next-day focus', color:'#9b8cff', conf:0.81,
+        life:'Confirmed', visibility:'Private', resolver:'HIGHEST_CONF', records:14, patternId:'pat_lm_204', window:'May 18 – Jun 15', lag:'next day',
+        stars:[
+          {x:142,y:96,mag:0.55,rec:'rec_sl_18'},
+          {x:212,y:150,mag:1.0,insight:true,label:'The Long Morning',rec:'pat_lm_204'},
+          {x:178,y:206,mag:0.6,rec:'rec_fo_22'},
+          {x:262,y:96,mag:0.72,label:'Deep Sleep',rec:'rec_sl_band'},
+          {x:302,y:170,mag:0.5,rec:'rec_fo_19'},
+          {x:120,y:168,mag:0.4,rec:'rec_sl_self'}
+        ],
+        threads:[[0,1],[1,3],[1,2],[2,4],[3,4],[0,5]],
+        statement:'On nights of 7 h or more, the next day held longer focus blocks — a median 52 → 72 min. Fourteen records from band and journal agree, making this the brightest star in the field.',
+        build:[{k:'Sample agreement',v:0.84,c:'#9b8cff'},{k:'Source breadth',v:0.80,c:'#39e0a6'},{k:'Effect size',v:0.72,c:'#9b8cff'},{k:'Counter-evidence',v:0.22,c:'#ff6b5e'}],
+        evidence:[
+          {rec:'rec_sl_band',kind:'Sleep · band',source:'Wearable',conf:0.92,when:'Jun 14'},
+          {rec:'rec_fo_22',kind:'Focus block',source:'Timer',conf:0.88,when:'Jun 14'},
+          {rec:'rec_sl_18',kind:'Sleep · band',source:'Wearable',conf:0.90,when:'Jun 9'},
+          {rec:'rec_fo_19',kind:'Focus block',source:'Timer',conf:0.85,when:'Jun 11'},
+          {rec:'rec_sl_self',kind:'Sleep · self',source:'Journal',conf:0.60,when:'Jun 14'}
+        ],
+        trace:[
+          {label:'Domains · Sleep, Focus',meta:'2 source domains',dot:'#9b8cff'},
+          {label:'14 canonical records',meta:'band · timer · journal',dot:'#56b8ff'},
+          {label:'Resolver · HIGHEST_CONF',meta:'no governance override',dot:'#39e0a6'},
+          {label:'Pattern pat_lm_204',meta:'contract_v1.5 · derived',dot:'#9b8cff'}
+        ],
+        reasoning:[
+          'Fourteen records pair short and long nights against next-day focus duration.',
+          'The effect holds across both wearable and self-report sources.',
+          'Directional: sleep precedes focus; causation is not asserted.',
+          'Confidence 0.81 — strong agreement, two corroborating sources.'
+        ],
+        contradiction:null,
+        related:[{id:'greenline',relation:'shares Vitals'},{id:'emberfall',relation:'same domain'}],
+        canonicalNote:'A derived pattern over 14 canonical records. The stars are the records; this constellation is only a reading of them.'
+      },
+      greenline:{
+        name:'Greenline', subtitle:'Movement → calmer night', color:'#46e0b4', conf:0.72,
+        life:'Confirmed', visibility:'Private', resolver:'HIGHEST_CONF', records:11, patternId:'pat_gl_118', window:'May 20 – Jun 14', lag:'same evening',
+        stars:[
+          {x:702,y:92,mag:0.6,rec:'rec_act_1'},
+          {x:772,y:132,mag:0.9,insight:true,label:'Greenline',rec:'pat_gl_118'},
+          {x:842,y:102,mag:0.55,rec:'rec_act_2'},
+          {x:822,y:178,mag:0.6,rec:'rec_hr_low'},
+          {x:736,y:188,mag:0.45,rec:'rec_calm'}
+        ],
+        threads:[[0,1],[1,2],[1,3],[3,4],[1,4]],
+        statement:'Afternoon movement precedes a calmer night: on active days resting heart rate ran about 4 bpm lower by evening. Corroborated across wearable and journal.',
+        build:[{k:'Sample agreement',v:0.74,c:'#46e0b4'},{k:'Source breadth',v:0.70,c:'#39e0a6'},{k:'Effect size',v:0.58,c:'#46e0b4'},{k:'Counter-evidence',v:0.26,c:'#ff6b5e'}],
+        evidence:[
+          {rec:'rec_hr_low',kind:'Resting HR',source:'Wearable',conf:0.91,when:'Jun 13'},
+          {rec:'rec_act_1',kind:'Activity',source:'Wearable',conf:0.90,when:'Jun 13'},
+          {rec:'rec_act_2',kind:'Activity',source:'Wearable',conf:0.88,when:'Jun 10'},
+          {rec:'rec_calm',kind:'Evening note',source:'Journal',conf:0.62,when:'Jun 13'}
+        ],
+        trace:[
+          {label:'Domains · Fitness, Vitals',meta:'2 source domains',dot:'#46e0b4'},
+          {label:'11 canonical records',meta:'wearable · journal',dot:'#56b8ff'},
+          {label:'Resolver · HIGHEST_CONF',meta:'no governance override',dot:'#39e0a6'},
+          {label:'Pattern pat_gl_118',meta:'contract_v1.5 · derived',dot:'#46e0b4'}
+        ],
+        reasoning:[
+          'Eleven active days pair afternoon movement with lower evening resting HR.',
+          'Device-measured on both sides; journal notes corroborate the calm.',
+          'Effect modest but consistent across the window.',
+          'Confidence 0.72 — well sourced, moderate sample.'
+        ],
+        contradiction:null,
+        related:[{id:'long_morning',relation:'shares Vitals'},{id:'spendwake',relation:'evening rhythm'}],
+        canonicalNote:'A derived pattern over 11 canonical fitness and vitals records.'
+      },
+      spendwake:{
+        name:'Spendwake', subtitle:'Late-night spending rhythm', color:'#f5b14e', conf:0.64,
+        life:'Watching', visibility:'Private', resolver:'LATEST', records:9, patternId:'pat_sw_077', window:'May 16 – Jun 14', lag:'same night',
+        stars:[
+          {x:432,y:302,mag:0.6,rec:'rec_tx_1'},
+          {x:502,y:332,mag:0.8,insight:true,label:'Spendwake',rec:'pat_sw_077'},
+          {x:562,y:300,mag:0.5,rec:'rec_tx_2'},
+          {x:540,y:382,mag:0.45,rec:'rec_tx_3'},
+          {x:456,y:376,mag:0.4,rec:'rec_late'}
+        ],
+        threads:[[0,1],[1,2],[1,3],[3,4],[4,0]],
+        statement:'Discretionary spending clusters after 11 pm — 6 of the last 9 buys landed late. The pattern is real but cooling; recent weeks show fewer late purchases.',
+        build:[{k:'Sample agreement',v:0.66,c:'#f5b14e'},{k:'Recency trend',v:0.40,c:'#ff9e57'},{k:'Effect size',v:0.60,c:'#f5b14e'},{k:'Source breadth',v:0.45,c:'#ffb454'}],
+        evidence:[
+          {rec:'rec_tx_1',kind:'Transaction',source:'Bank feed',conf:0.96,when:'Jun 14'},
+          {rec:'rec_tx_2',kind:'Transaction',source:'Bank feed',conf:0.96,when:'Jun 11'},
+          {rec:'rec_late',kind:'Timestamp',source:'Device',conf:0.84,when:'Jun 11'},
+          {rec:'rec_tx_3',kind:'Transaction',source:'Bank feed',conf:0.95,when:'Jun 6'}
+        ],
+        trace:[
+          {label:'Domain · Finances',meta:'1 source domain',dot:'#f5b14e'},
+          {label:'9 canonical records',meta:'bank feed · device clock',dot:'#56b8ff'},
+          {label:'Resolver · LATEST',meta:'recency-weighted',dot:'#ff9e57'},
+          {label:'Pattern pat_sw_077',meta:'contract_v1.5 · derived',dot:'#f5b14e'}
+        ],
+        reasoning:[
+          'Nine discretionary purchases carry device timestamps after 11 pm in 6 cases.',
+          'Bank records are high-confidence; the late-hour read leans on device clocks.',
+          'Recent weeks trend lower — the star is dimming, lifecycle held at Watching.',
+          'Confidence 0.64 — solid records, but a cooling, single-domain pattern.'
+        ],
+        contradiction:null,
+        related:[{id:'greenline',relation:'evening rhythm'},{id:'emberfall',relation:'night hours'}],
+        canonicalNote:'A derived pattern over 9 canonical finance records. Its brightness reflects current records and will dim further as they change.'
+      },
+      open_door:{
+        name:'The Open Door', subtitle:'Social contact → mood lift', color:'#8aa0c8', conf:0.38,
+        life:'Uncertain', visibility:'Private', resolver:'LATEST', records:3, patternId:'pat_od_041', window:'May 24 – Jun 13', lag:'unclear',
+        faintCluster:true,
+        stars:[
+          {x:182,y:382,mag:0.34,rec:'rec_soc_1'},
+          {x:242,y:412,mag:0.5,insight:true,label:'The Open Door',rec:'pat_od_041'},
+          {x:302,y:388,mag:0.3,rec:'rec_soc_2'}
+        ],
+        threads:[[0,1],[1,2]],
+        statement:'Social contact may lift next-day mood, but only 3 records exist in 30 days. Held as a faint star inside a coverage gap — shown, never asserted.',
+        build:[{k:'Coverage',v:0.20,c:'#ff6b5e'},{k:'Sample size',v:0.22,c:'#ff6b5e'},{k:'Source breadth',v:0.30,c:'#ffb454'},{k:'Confidence',v:0.38,c:'#ff6b5e'}],
+        evidence:[
+          {rec:'rec_mood_x',kind:'Mood check',source:'Self',conf:0.60,when:'Jun 13'},
+          {rec:'rec_soc_1',kind:'Social note',source:'Journal',conf:0.55,when:'Jun 12'},
+          {rec:'rec_soc_2',kind:'Social note',source:'Journal',conf:0.50,when:'May 28'}
+        ],
+        trace:[
+          {label:'Domains · Relationships, Mood',meta:'2 source domains',dot:'#8aa0c8'},
+          {label:'3 canonical records',meta:'sparse · journal · self',dot:'#9aa6c0'},
+          {label:'Resolver · LATEST',meta:'low coverage flagged',dot:'#9aa6c0'},
+          {label:'Pattern pat_od_041',meta:'contract_v1.5 · low coverage',dot:'#8aa0c8'}
+        ],
+        reasoning:[
+          'Only three social records fall inside the 30-day window.',
+          'Too thin to assert a relationship — drawn as a faint star, not a bright one.',
+          'Lightweave will not render a connection it cannot see.',
+          'Confidence 0.38 — the honest reading is uncertainty.'
+        ],
+        contradiction:null,
+        related:[{id:'long_morning',relation:'mood link'},{id:'emberfall',relation:'mood link'}],
+        canonicalNote:'A faint reading over 3 canonical records. The dark nebula around it is the truthful rendering of thin data.'
+      },
+      emberfall:{
+        name:'Emberfall', subtitle:'Sleep → mood (contested)', color:'#ff6b5e', conf:0.40,
+        life:'Contested', visibility:'Private', resolver:'HIGHEST_CONF', records:9, patternId:'pat_ef_092', window:'Jun 2 – Jun 16', lag:'next day',
+        distort:true,
+        stars:[
+          {x:692,y:362,mag:0.5,reddwarf:true,rec:'rec_sl_self2'},
+          {x:762,y:342,mag:0.62,eclipse:true,insight:true,label:'Emberfall',rec:'rec_sl_band'},
+          {x:820,y:382,mag:0.4,rec:'rec_md_11'},
+          {x:722,y:412,mag:0.34,rec:'rec_sl_self'}
+        ],
+        threads:[[0,1],[1,2],[1,3]],
+        statement:'A sleep → mood pattern is contested: two source records disagree on sleep duration for 2 of 9 nights. The eclipse marks the conflict, which the projection keeps visible.',
+        build:[{k:'Source agreement',v:0.30,c:'#ff6b5e'},{k:'Conflict span',v:0.62,c:'#ff9e57'},{k:'Sample size',v:0.42,c:'#ffb454'},{k:'Resolvability',v:0.25,c:'#ff6b5e'}],
+        evidence:[
+          {rec:'rec_sl_band',kind:'Sleep · band',source:'Wearable',conf:0.92,when:'Jun 11'},
+          {rec:'rec_sl_self',kind:'Sleep · self',source:'Journal',conf:0.60,when:'Jun 11'},
+          {rec:'rec_md_11',kind:'Mood check',source:'Self',conf:0.70,when:'Jun 12'},
+          {rec:'rec_sl_self2',kind:'Sleep · self',source:'Journal',conf:0.58,when:'Jun 4'}
+        ],
+        trace:[
+          {label:'Domains · Sleep, Mood',meta:'2 source domains',dot:'#ff6b5e'},
+          {label:'9 canonical records',meta:'band vs self disagree',dot:'#ff9e57'},
+          {label:'Resolver · HIGHEST_CONF',meta:'conflict held, not dropped',dot:'#ff6b5e'},
+          {label:'Pattern pat_ef_092',meta:'contract_v1.5 · contested',dot:'#ff6b5e'}
+        ],
+        reasoning:[
+          'Two records eclipse each other on duration for 2 of 9 nights.',
+          'The resolver surfaces the conflict rather than picking a winner silently.',
+          'The disputed pairs weaken the pattern instead of being discarded.',
+          'Confidence 0.40 — and the projection cannot resolve the conflict away.'
+        ],
+        contradiction:{ title:'ECLIPSE · 2 OF 9 NIGHTS', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'Two records eclipse each other on duration. The projection preserves the conflict — it cannot resolve or hide it. Truth is not skinnable.' },
+        related:[{id:'long_morning',relation:'same domain'},{id:'open_door',relation:'mood link'}],
+        canonicalNote:'A contested pattern over 9 canonical records. The conflict is preserved in the ledger, never resolved by the sky.'
+      }
+    };
+    this.DISTORTIONS=[
+      {kind:'Eclipse · Emberfall', detail:'Two sleep records disagree — self 5.0 h vs band 6.2 h on 2 of 9 nights.', color:'#ff6b5e', id:'emberfall'},
+      {kind:'Red dwarf · Spendwake cooling', detail:'Insight dimmed 0.71 → 0.64 as recent records arrived.', color:'#ff9e57', id:'spendwake'},
+      {kind:'Dark nebula · The Open Door', detail:'Coverage gap — only 3 social records in 30 days. Region left unresolved.', color:'#9aa6c0', id:'open_door'}
+    ];
+  }
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#06070e', bg1:'rgba(124,90,255,0.18)', bg2:'rgba(40,200,170,0.10)', glow:'rgba(124,90,255,0.30)', nebA:'rgba(124,90,255,0.11)', nebB:'rgba(40,200,170,0.09)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#04070e', bg1:'rgba(40,130,210,0.20)', bg2:'rgba(40,210,190,0.10)', glow:'rgba(70,200,255,0.30)', nebA:'rgba(50,120,220,0.11)', nebB:'rgba(40,200,200,0.09)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#050a07', bg1:'rgba(70,170,100,0.18)', bg2:'rgba(180,205,90,0.10)', glow:'rgba(95,211,154,0.30)', nebA:'rgba(70,170,110,0.11)', nebB:'rgba(150,190,80,0.09)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#7fd99a': c>=0.5?'#e8c75a': c>=0.4?'#ff9e57':'#ff6b5e'; }
+  lifeColor(l){ return l==='Confirmed'?'#39e0a6': l==='Watching'?'#e8c75a': l==='Contested'?'#ff6b5e':'#9aa6c0'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  buildSky(L, sel){
+    const h=React.createElement, R=[], C=this.CLUSTERS, t=this.cur();
+    R.push(h('defs',{key:'d'},
+      h('filter',{id:'sglow',x:'-200%',y:'-200%',width:'500%',height:'500%'},h('feGaussianBlur',{stdDeviation:'2',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'}))),
+      h('filter',{id:'neb',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'42'}))
+    ));
+    // nebulae behind clusters
+    if(L.nebula){
+      const nb=[ {x:212,y:150,r:150,c:t.nebA}, {x:772,y:135,r:140,c:t.nebB}, {x:500,y:340,r:120,c:t.nebA}, {x:240,y:404,r:140,c:'rgba(110,120,150,0.13)'}, {x:740,y:372,r:120,c:'rgba(255,90,80,0.10)'} ];
+      nb.forEach((n,i)=>R.push(h('circle',{key:'nb'+i,cx:n.x,cy:n.y,r:n.r,fill:n.c,filter:'url(#neb)'})));
+    }
+    // celestial graticule
+    if(this.props.showGrid !== false){
+      for(let i=0;i<4;i++){ R.push(h('ellipse',{key:'gr'+i,cx:500,cy:560,rx:300+i*150,ry:200+i*110,fill:'none',stroke:'rgba(150,170,220,0.04)',strokeWidth:1})); }
+      for(let i=1;i<6;i++){ R.push(h('path',{key:'gv'+i,d:'M '+(i*166)+' 0 Q '+(i*166-40)+' 270 '+(i*166)+' 540',fill:'none',stroke:'rgba(150,170,220,0.035)',strokeWidth:1})); }
+    }
+    // faint field stars
+    if(L.faint){
+      let s=7; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+      for(let i=0;i<160;i++){ const x=rnd()*1000, y=rnd()*540, rr=rnd()*0.9+0.3, op=rnd()*0.5+0.12, tw=rnd()<0.13;
+        R.push(h('circle',{key:'fs'+i,cx:x.toFixed(1),cy:y.toFixed(1),r:rr.toFixed(2),fill:'#cdd6f5',opacity:op.toFixed(2),style:tw?{animation:'lwTwinkle '+(2+rnd()*3).toFixed(1)+'s ease-in-out infinite'}:undefined})); }
+    }
+    // threads
+    if(L.lines){
+      Object.keys(C).forEach(ck=>{ const cl=C[ck], dim=sel&&sel!==ck, col=cl.color;
+        const dash = cl.faintCluster?'2 7':(cl.distort?'5 5':null);
+        cl.threads.forEach((th,ti)=>{ const a=cl.stars[th[0]], b=cl.stars[th[1]];
+          R.push(h('line',{key:ck+'t'+ti,x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:this.hexA(col,dim?0.10:(cl.faintCluster?0.30:0.46)),strokeWidth:sel===ck?1.7:1.1,strokeDasharray:dash,strokeLinecap:'round'})); });
+      });
+    }
+    // stars
+    Object.keys(C).forEach(ck=>{ const cl=C[ck], dim=sel&&sel!==ck, col=cl.color, pick=()=>this.setState({sel:ck});
+      cl.stars.forEach((st,si)=>{ const mag=st.mag, isA=st.insight, rad=1.6+mag*(isA?5:3.6);
+        if(st.eclipse){
+          R.push(h('circle',{key:ck+'eg'+si,cx:st.x,cy:st.y,r:rad+8,fill:this.hexA('#ff6b5e',dim?0.05:0.16)}));
+          R.push(h('circle',{key:ck+'eb'+si,cx:st.x,cy:st.y,r:rad+1.5,fill:'#ffe0b0',opacity:dim?0.3:0.95,filter:'url(#sglow)',onClick:pick,style:{cursor:'pointer'}}));
+          R.push(h('circle',{key:ck+'ed'+si,cx:st.x+rad*0.55,cy:st.y-rad*0.45,r:rad+0.5,fill:'#0a0a14',opacity:dim?0.5:0.96,stroke:'#ff6b5e',strokeWidth:0.9,onClick:pick,style:{cursor:'pointer'}}));
+          if(sel===ck) R.push(h('circle',{key:ck+'ep'+si,cx:st.x,cy:st.y,r:rad+5,fill:'none',stroke:this.hexA('#ff6b5e',0.7),strokeWidth:1.2,style:{transformOrigin:st.x+'px '+st.y+'px',animation:'lwPulse 2s ease-in-out infinite'}}));
+        } else if(st.reddwarf){
+          R.push(h('circle',{key:ck+'rr'+si,cx:st.x,cy:st.y,r:rad+5,fill:'none',stroke:this.hexA('#ff6b5e',dim?0.18:0.38),strokeWidth:1,style:{transformOrigin:st.x+'px '+st.y+'px',animation:'lwCool 3s ease-in-out infinite'}}));
+          R.push(h('circle',{key:ck+'rg'+si,cx:st.x,cy:st.y,r:rad+3,fill:this.hexA('#ff6b5e',dim?0.06:0.14)}));
+          R.push(h('circle',{key:ck+'rc'+si,cx:st.x,cy:st.y,r:rad,fill:'#ff6b5e',opacity:dim?0.4:0.9,filter:'url(#sglow)',onClick:pick,style:{cursor:'pointer'}}));
+        } else {
+          const fill = cl.faintCluster?'#aeb8d6':'#ffffff';
+          R.push(h('circle',{key:ck+'g'+si,cx:st.x,cy:st.y,r:rad+(isA?7:3),fill:this.hexA(col,dim?0.05:(isA?0.20:0.10))}));
+          R.push(h('circle',{key:ck+'s'+si,cx:st.x,cy:st.y,r:rad,fill:fill,opacity:dim?0.38:(cl.faintCluster?0.62:1),filter:isA?'url(#sglow)':undefined,onClick:pick,style:{cursor:'pointer'}}));
+          if(isA){
+            const sp=rad+(dim?6:11);
+            R.push(h('path',{key:ck+'sp'+si,d:'M '+st.x+' '+(st.y-sp)+' L '+st.x+' '+(st.y+sp)+' M '+(st.x-sp)+' '+st.y+' L '+(st.x+sp)+' '+st.y,stroke:this.hexA('#ffffff',dim?0.14:0.55),strokeWidth:0.8}));
+            R.push(h('circle',{key:ck+'ac'+si,cx:st.x,cy:st.y,r:rad*0.5,fill:col,opacity:dim?0.4:0.92,onClick:pick,style:{cursor:'pointer'}}));
+            if(sel===ck) R.push(h('circle',{key:ck+'pl'+si,cx:st.x,cy:st.y,r:rad+3,fill:'none',stroke:this.hexA(col,0.75),strokeWidth:1.2,style:{transformOrigin:st.x+'px '+st.y+'px',animation:'lwPulse 2s ease-in-out infinite'}}));
+          }
+        }
+      });
+    });
+    return h('svg',{viewBox:'0 0 1000 540',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid slice',style:{display:'block'}},R);
+  }
+
+  buildFlux(){
+    const h=React.createElement, vals=[0.50,0.58,0.55,0.66,0.62,0.70,0.64,0.60], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>46-(v-0.45)*120;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++){ d=d+' L '+X(i)+' '+Y(vals[i]); }
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.6),strokeWidth:1.4}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent2,0.5),strokeWidth:1.4,strokeDasharray:'3 9',style:{animation:'lwFlux 3s linear infinite'}}));
+  }
+
+  renderVals(){
+    const t=this.cur(), L=this.state.layers, C=this.CLUSTERS, selKey=this.state.sel, cl=C[selKey];
+    const pick=id=>()=>this.setState({sel:id});
+    // star labels overlay
+    const starLabels=[];
+    Object.keys(C).forEach(ck=>{ const c=C[ck], dim=this.state.sel&&this.state.sel!==ck;
+      c.stars.forEach(st=>{ if(!st.label) return;
+        starLabels.push({ id:ck, name:st.label, insight:!!st.insight, sub:c.subtitle,
+          leftPct:(st.x/1000*100)+'%', topPct:(st.y/540*100)+'%', z:st.insight?9:6, op:dim?0.4:1,
+          size:st.insight?'13px':'11px', txt:st.insight?'rgba(238,241,251,0.96)':'rgba(238,241,251,0.66)',
+          showConf:!!st.insight, conf:c.conf.toFixed(2), confColor:this.confColor(c.conf), confBg:this.hexA(this.confColor(c.conf),0.16),
+          onSelect:pick(ck) }); });
+    });
+    const clusterList=Object.keys(C).map(ck=>{ const c=C[ck], seld=ck===selKey;
+      return { id:ck, name:c.name, color:c.color, conf:c.conf.toFixed(2), confPct:Math.round(c.conf*100)+'%', confColor:this.confColor(c.conf),
+        life:c.life.toUpperCase(), lifeColor:this.lifeColor(c.life), lifeBg:this.hexA(this.lifeColor(c.life),0.16),
+        rowBg:seld?'rgba(255,255,255,0.06)':'rgba(255,255,255,0.02)', rowBorder:seld?c.color:'rgba(255,255,255,0.07)', onSelect:pick(ck) }; });
+    const distortions=this.DISTORTIONS.map(d=>({ ...d, onSelect:pick(d.id) }));
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Resonance Atlas'},{label:'Constellation Recall',active:true}
+    ].map(n=>({ label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,255,255,0.07)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:n.active?'var(--accent)':'rgba(238,241,251,0.35)' }));
+    const layerToggles=[
+      {key:'lines',label:'Constellation lines',color:'#9b8cff'},{key:'faint',label:'Faint stars',color:'#aeb8d6'},{key:'distortion',label:'Distortion markers',color:'#ff6b5e'},{key:'nebula',label:'Nebulae',color:'#46e0b4'},{key:'labels',label:'Star names',color:'#f5b14e'}
+    ].map(o=>({ label:o.label, color:o.color, onToggle:()=>this.setState(st=>({layers:{...st.layers,[o.key]:!st.layers[o.key]}})),
+      bg:L[o.key]?o.color:'rgba(255,255,255,0.16)', knob:L[o.key]?'14px':'2px', txt:L[o.key]?'rgba(238,241,251,0.9)':'rgba(238,241,251,0.45)' }));
+    const queryChips=[
+      {label:'Last 30 days',dot:'#9b8cff'},{label:'conf ≥ 0.30',dot:'#e8c75a'},{label:'all domains',dot:'#46e0b4'}
+    ];
+    const fluxMarks=[
+      {id:'long_morning',subj:'Long Morning brightened',date:'Jun 9',leftPct:'18%',color:'#46e0b4',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'spendwake',subj:'Spendwake cooling',date:'Jun 12',leftPct:'44%',color:'#ff9e57',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'emberfall',subj:'Emberfall contested',date:'Jun 13',leftPct:'68%',color:'#ff6b5e',ringColor:'#ff6b5e'},
+      {id:'open_door',subj:'Open Door coverage gap',date:'Jun 15',leftPct:'88%',color:'#9aa6c0',ringColor:'rgba(255,255,255,0.3)'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+    // selected view
+    const magTag = cl.distort?'DISTORTION': cl.faintCluster?'FAINT STAR': cl.conf>=0.78?'BRIGHT STAR':'NAMED STAR';
+    const sel={ name:cl.name, subtitle:cl.subtitle, color:cl.color, magTag, magBg:this.hexA(cl.color,0.16),
+      records:cl.records, window:cl.window, lag:cl.lag, statement:cl.statement, patternId:cl.patternId,
+      conf:cl.conf.toFixed(2), confPct:Math.round(cl.conf*100)+'%', confColor:this.confColor(cl.conf),
+      headerBg:this.hexA(cl.color,0.07), softBorder:this.hexA(cl.color,0.26),
+      life:cl.life, lifeColor:this.lifeColor(cl.life), lifeBg:this.hexA(this.lifeColor(cl.life),0.12), lifeBorder:this.hexA(this.lifeColor(cl.life),0.3),
+      visibility:cl.visibility, resolver:cl.resolver,
+      brightWord: cl.distort?'CONTESTED': cl.faintCluster?'FAINT':'BRIGHT',
+      build:cl.build.map(b=>({ label:b.k, widthPct:Math.round(b.v*100)+'%', valLabel:Math.round(b.v*100), color:b.c })),
+      evidence:cl.evidence.map(e=>({ rec:e.rec, kind:e.kind, source:e.source, when:e.when, conf:e.conf.toFixed(2), confColor:this.confColor(e.conf), bg:'rgba(0,0,0,0.15)', onTrace:pick(selKey) })),
+      trace:cl.trace, reasoning:cl.reasoning, contradiction:cl.contradiction,
+      related:cl.related.map(r=>({ name:C[r.id].name, color:C[r.id].color, conf:C[r.id].conf.toFixed(2), confColor:this.confColor(C[r.id].conf), relation:r.relation, onSelect:pick(r.id) })),
+      canonicalNote:cl.canonicalNote };
+    const totalStars=Object.keys(C).reduce((a,ck)=>a+C[ck].stars.length,0);
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      skySvg:this.buildSky(L,this.state.sel), fluxSvg:this.buildFlux(),
+      queryText:this.state.queryText, onQuery:e=>this.setState({queryText:e.target.value}),
+      queryChips, resultCount:'5 constellations · '+totalStars+' stars',
+      navItems, layerToggles, clusterList, distortions, starLabels, fluxMarks, sel
+    };
+  }
+}
+</script>
+</body>
+</html>

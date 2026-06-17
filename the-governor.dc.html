@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0a0809}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes gvSpin{to{transform:rotate(360deg)}}
+  @keyframes gvGlow{0%,100%{opacity:.6}50%{opacity:.95}}
+  @keyframes gvTwinkle{0%,100%{opacity:.3}50%{opacity:.85}}
+  @keyframes gvToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="The Governor" style="height:100vh; overflow:hidden; color:rgba(238,234,226,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1150px 640px at 38% -18%, {{ bg1 }}, transparent 58%), radial-gradient(1050px 740px at 110% 122%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="13" r="2.6" fill="var(--accent)"></circle><g stroke="var(--accent2)" stroke-width="1.3"><line x1="14" y1="13" x2="14" y2="5"></line><line x1="14" y1="13" x2="21" y2="17"></line><line x1="14" y1="13" x2="7" y2="17"></line></g><circle cx="14" cy="5" r="2.2" fill="none" stroke="var(--accent)" stroke-width="1.3"></circle><circle cx="21" cy="17" r="2.2" fill="none" stroke="var(--accent)" stroke-width="1.3"></circle><circle cx="7" cy="17" r="2.2" fill="none" stroke="var(--accent)" stroke-width="1.3"></circle><line x1="14" y1="20" x2="14" y2="24" stroke="var(--accent2)" stroke-width="1.3"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">The Governor</span>
+      <span style="font-size:10.5px; color:rgba(238,234,226,0.42);">Layer 6 · the authority regulator · you decide what it may do</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,234,226,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>authority {{ authorityLabel }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>annotation-logged · records read-only</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,234,226,0.42); font-family:'IBM Plex Mono',monospace;">GOVERNOR · owner</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-governor"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow:hidden; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:14px; left:50%; z-index:20; transform:translateX(-50%); animation:gvToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(18,15,12,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:600px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(238,234,226,0.9);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:12px;">
+        <div style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ sel.name }}</span>
+          <span style="font-size:10.5px; color:rgba(238,234,226,0.45);">{{ sel.tagline }}</span>
+        </div>
+        <div style="width:1px; height:30px; background:rgba(255,255,255,0.12);"></div>
+        <div style="display:flex; align-items:center; gap:10px; flex:1;">
+          <span style="font-size:10px; color:rgba(238,234,226,0.5);">GRANTED AUTHORITY</span>
+          <div style="flex:0 0 200px; height:8px; border-radius:5px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ authorityPct }}; background:linear-gradient(90deg, var(--accent), var(--accent2));"></div></div>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--accent);">{{ authorityLabel }}</span>
+          <span style="font-size:10px; color:rgba(238,234,226,0.42);">of what it could do, it may</span>
+        </div>
+        <sc-if value="{{ sel.locked }}" hint-placeholder-val="{{ false }}">
+          <span style="display:inline-flex; align-items:center; gap:7px; font-size:11px; color:rgba(238,234,226,0.6); border:1px solid rgba(255,255,255,0.12); padding:7px 12px; border-radius:9px;">🔒 Sealed by policy — you cannot grant this.</span>
+        </sc-if>
+      </section>
+
+      <section style="flex:1; min-height:0; display:flex; gap:12px;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(110% 100% at 50% 45%, rgba(120,90,50,0.16), transparent 60%), linear-gradient(180deg, #14100b, #0a0807);">
+          <div style="position:absolute; inset:0;">{{ governorSvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,234,226,0.72);">The regulator</span>
+            <span style="font-size:10px; color:rgba(238,234,226,0.42);">more authority spins it faster, the weights fly wider · each spoke is a capability, colored by its gate</span>
+          </div>
+          <div style="position:absolute; bottom:12px; left:0; right:0; text-align:center;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,234,226,0.5);">{{ sel.name }} gated to <span style="color:{{ sel.gateColor }};">{{ sel.gateLabel }}</span></div>
+          </div>
+        </div>
+
+        <div style="flex:0 0 336px; display:flex; flex-direction:column; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden;">
+          <div style="flex:0 0 auto; padding:12px 14px 10px; border-bottom:1px solid rgba(255,255,255,0.07);">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">Gate per capability</span>
+            <div style="font-size:10px; color:rgba(238,234,226,0.45); margin-top:3px;">Auto · it may act · Propose · it must ask · Sealed · never</div>
+          </div>
+          <div style="flex:1; min-height:0; overflow-y:auto; padding:10px 14px; display:flex; flex-direction:column; gap:9px;">
+            <sc-for list="{{ gateRows }}" as="gr" hint-placeholder-count="8">
+              <div onClick="{{ gr.onSelect }}" style="border-radius:11px; padding:9px 10px; cursor:pointer; background:{{ gr.rowBg }}; border:1px solid {{ gr.rowBorder }};">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                  <span style="width:8px; height:8px; border-radius:2px; background:{{ gr.color }}; box-shadow:0 0 6px {{ gr.color }};"></span>
+                  <span style="font-size:12px; font-weight:500; flex:1;">{{ gr.name }}</span>
+                  <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(238,234,226,0.4);">{{ gr.risk }}</span>
+                </div>
+                <div style="display:flex; gap:4px;">
+                  <sc-for list="{{ gr.segments }}" as="sg" hint-placeholder-count="3">
+                    <span onClick="{{ sg.onClick }}" style="flex:1; text-align:center; font-size:10px; padding:5px 4px; border-radius:7px; cursor:{{ sg.cursor }}; background:{{ sg.bg }}; border:1px solid {{ sg.border }}; color:{{ sg.txt }};">{{ sg.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 380px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Proof &amp; governance</span>
+        <div style="font-size:10.5px; color:rgba(238,234,226,0.45); margin-top:3px;">what this gate permits — and what it can never touch</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <sc-if value="{{ showLedgerPreview }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px 13px;">
+            <div style="font-size:10px; letter-spacing:0.12em; color:rgba(238,234,226,0.45); margin-bottom:10px;">WHAT THE SYSTEM MAY DO RIGHT NOW</div>
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ previewGroups }}" as="pg" hint-placeholder-count="3">
+                <div>
+                  <div style="display:flex; align-items:center; gap:7px; margin-bottom:5px;"><span style="width:7px; height:7px; border-radius:50%; background:{{ pg.color }};"></span><span style="font-size:10px; font-weight:600; color:{{ pg.color }};">{{ pg.label }}</span><span style="font-size:9px; color:rgba(238,234,226,0.4);">{{ pg.sub }}</span></div>
+                  <div style="display:flex; flex-wrap:wrap; gap:5px; padding-left:14px;">
+                    <sc-for list="{{ pg.items }}" as="it" hint-placeholder-count="3">
+                      <span style="font-size:10px; padding:3px 8px; border-radius:6px; background:{{ it.bg }}; border:1px solid {{ it.border }}; color:rgba(238,234,226,0.8);">{{ it.name }}</span>
+                    </sc-for>
+                    <sc-if value="{{ pg.empty }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:10px; color:rgba(238,234,226,0.35); font-style:italic;">nothing in this band</span>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="background:{{ sel.headerBg }}; border:1px solid {{ sel.softBorder }}; border-radius:12px; padding:12px 13px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.color }}; box-shadow:0 0 8px {{ sel.color }};"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ sel.name }}</span>
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.gateBg }}; color:{{ sel.gateColor }};">{{ sel.gateLabel }}</span>
+          </div>
+          <div style="font-size:11.5px; line-height:1.5; color:rgba(238,234,226,0.72); margin-top:8px; text-wrap:pretty;">{{ sel.statement }}</div>
+          <div style="font-size:9.5px; color:rgba(238,234,226,0.42); margin-top:8px; font-family:'IBM Plex Mono',monospace;">action.gate · canonical field · set by you</div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L10 2.6 V6 C10 8.6 8 10.4 6 11 C4 10.4 2 8.6 2 6 V2.6 Z" fill="none" stroke="rgba(238,234,226,0.5)" stroke-width="1"></path></svg>
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(238,234,226,0.5);">THE RULE BEHIND THE GATE</span>
+          </div>
+          <div style="display:flex; gap:7px; margin-bottom:9px;">
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(238,234,226,0.45);">CEILING</div><div style="font-size:11px; font-weight:600; color:{{ sel.ceilingColor }};">{{ sel.ceilingLabel }}</div></div>
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(238,234,226,0.45);">POLICY</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(238,234,226,0.85);">{{ sel.policy }}</div></div>
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(238,234,226,0.45);">SCOPE</div><div style="font-size:11px; font-weight:600; color:rgba(238,234,226,0.85);">{{ sel.scope }}</div></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,234,226,0.55);"><span style="color:rgba(238,234,226,0.4);">set by</span><span>{{ sel.setBy }}</span></div>
+          <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,234,226,0.55); margin-top:3px;"><span style="color:rgba(238,234,226,0.4);">resolver</span><span style="color:{{ sel.color }};">{{ sel.resolver }}</span></div>
+          <div style="font-size:10px; color:rgba(238,234,226,0.5); margin-top:9px; line-height:1.45;">Changing the gate writes a governance annotation. The records this capability would touch are never edited by setting it.</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,234,226,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(238,234,226,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.ceilingNote }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(245,178,90,0.06); border:1px solid rgba(245,178,90,0.28); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:#f5b25a;"></span><span style="font-size:10.5px; font-weight:600; color:#f5c88a;">SAFETY CEILING</span></div>
+            <div style="font-size:10.5px; line-height:1.5; color:rgba(238,234,226,0.6);">{{ sel.ceilingNote }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,234,226,0.4); margin-bottom:8px;">SET THE GATE · {{ sel.nameUpper }}</div>
+          <div style="display:flex; gap:7px;">
+            <sc-for list="{{ sel.actions }}" as="ac" hint-placeholder-count="3">
+              <div onClick="{{ ac.onClick }}" style="flex:1; text-align:center; cursor:{{ ac.cursor }}; border-radius:9px; padding:9px 6px; background:{{ ac.bg }}; border:1px solid {{ ac.border }}; box-shadow:{{ ac.ring }};">
+                <div style="font-size:11.5px; font-weight:600; color:{{ ac.txt }};">{{ ac.label }}</div>
+                <div style="font-size:8.5px; color:rgba(238,234,226,0.45); margin-top:2px;">{{ ac.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:9px; color:rgba(238,234,226,0.42); margin-top:8px; text-align:center; line-height:1.4;">Every change is a governed annotation — who, what, when. Never silent, never retroactive, never a record edit.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 112px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,234,226,0.6);">Governance ledger · every grant and every seal</span>
+        <span style="font-size:10px; color:rgba(238,234,226,0.38);">authority is annotated — the trail is the point</span>
+      </div>
+      <div style="flex:1; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ govLog }}" as="gl" hint-placeholder-count="4">
+          <div style="flex:0 0 auto; min-width:200px; display:flex; gap:9px; align-items:flex-start; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ gl.color }}; box-shadow:0 0 6px {{ gl.color }}; margin-top:3px;"></span>
+            <div style="min-width:0;">
+              <div style="font-size:10.5px; color:rgba(238,234,226,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:164px;">{{ gl.head }}</div>
+              <div style="font-size:9px; color:rgba(238,234,226,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:164px;">{{ gl.sub }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:#5fe0b0; margin-top:1px;">{{ gl.when }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 268px; display:flex; align-items:center; gap:12px; background:rgba(57,224,166,0.05); border:1px solid rgba(57,224,166,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#5fe0b0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(238,234,226,0.55); margin-top:3px;">canonical records edited by the governor</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:rgba(238,234,226,0.92); line-height:1;">{{ govCount }}</div>
+        <div style="font-size:9.5px; color:rgba(238,234,226,0.55); margin-top:3px; line-height:1.3;">governance annotations logged · authority moved, truth didn't</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;engine&quot;,&quot;cobalt&quot;,&quot;rose&quot;],&quot;default&quot;:&quot;engine&quot;,&quot;tsType&quot;:&quot;'engine' | 'cobalt' | 'rose'&quot;},&quot;governorMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showLedgerPreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    // ceiling: the highest gate policy will ever allow. locked: cannot be changed at all.
+    this.CAPS = {
+      reminders:{ name:'Reminders', risk:0.3, ceiling:'auto', desc:'send you nudges and surface due items', policy:'gov_v2.1', setBy:'you · Jun 8', scope:'self', resolver:'SCHEDULE' },
+      annotations:{ name:'Annotations', risk:0.4, ceiling:'auto', desc:'append notes, consent records, and corrections', policy:'gov_v2.1', setBy:'you · Jun 8', scope:'self', resolver:'APPEND_ONLY' },
+      inference:{ name:'Inference', risk:0.6, ceiling:'propose', desc:'derive new patterns from existing records', policy:'gov_v2.0', setBy:'safety · fixed', scope:'derived', resolver:'INFERENCE_FLAGGED',
+        ceilingNote:'Inference can be proposed but never auto-committed. Derived claims must be flagged and reviewable — they cannot quietly become canon.' },
+      sharing:{ name:'Sharing', risk:0.8, ceiling:'auto', desc:'project records to other audiences', policy:'gov_v2.1', setBy:'you · Jun 12', scope:'cross-audience', resolver:'CONSENT', link:'Iris',
+        ceilingNote:null },
+      exports:{ name:'Exports', risk:0.7, ceiling:'propose', desc:'package records for outside systems or clinicians', policy:'gov_v2.0', setBy:'you · Jun 10', scope:'external', resolver:'MANUAL',
+        ceilingNote:'Exports leave the ledger\u2019s walls, so they cap at Propose — every export is an explicit, logged act, never automatic.' },
+      finance:{ name:'Finance writes', risk:0.95, ceiling:'propose', desc:'record or adjust financial entries', policy:'gov_v2.0', setBy:'safety · fixed', scope:'finance', resolver:'PROPOSE_ONLY',
+        ceilingNote:'Money moves only with your sign-off. The ceiling is Propose, fixed by policy — the governor will never automate a financial write.' },
+      health:{ name:'Health actions', risk:1.0, ceiling:'propose', desc:'act on health-adjacent patterns', policy:'gov_v2.0', setBy:'safety · fixed', scope:'health', resolver:'PROPOSE_ONLY',
+        ceilingNote:'Health-adjacent actions can be proposed for review but never automated. No dosing, no treatment, no auto-commit — fixed above your settings.' },
+      deletion:{ name:'Deletion', risk:1.0, ceiling:'sealed', locked:true, desc:'remove records from the ledger', policy:'gov_v2.0', setBy:'core invariant', scope:'ledger', resolver:'FORBIDDEN',
+        ceilingNote:'Sealed and locked. Lightweave never prunes — records are superseded or archived, never deleted. You cannot grant this, and neither can the system.' }
+    };
+    this.CAP_ORDER=['reminders','annotations','inference','sharing','exports','finance','health','deletion'];
+    this.GATES=['auto','propose','sealed'];
+    this.GLABEL={ auto:'Auto', propose:'Propose', sealed:'Sealed' };
+    this.GCOLOR={ auto:'#39e0a6', propose:'#f5b25a', sealed:'#7c8596' };
+    this.GVAL={ auto:1, propose:0.5, sealed:0 };
+    this.GSUB={ auto:'it may act', propose:'it must ask', sealed:'never' };
+    this.state={
+      selCap:'sharing', toast:null,
+      gates:{ reminders:'auto', annotations:'auto', inference:'propose', sharing:'propose', exports:'propose', finance:'propose', health:'propose', deletion:'sealed' },
+      log:[
+        { head:'Sealed · Finance writes', sub:'you required sign-off', when:'Jun 12', color:'#7c8596' },
+        { head:'Auto · Reminders', sub:'granted autonomous nudges', when:'Jun 8', color:'#39e0a6' },
+        { head:'Propose · Inference', sub:'derived claims must be flagged', when:'Jun 6', color:'#f5b25a' }
+      ]
+    };
+  }
+
+  themes={
+    engine:{ accent:'#f5b25a', accent2:'#ffd08a', base:'#0a0809', bg1:'rgba(245,180,90,0.14)', bg2:'rgba(200,140,90,0.1)', glow:'rgba(245,178,90,0.3)' },
+    cobalt:{ accent:'#56c8ff', accent2:'#9b8cff', base:'#06080f', bg1:'rgba(70,150,230,0.14)', bg2:'rgba(150,120,255,0.1)', glow:'rgba(86,200,255,0.3)' },
+    rose:  { accent:'#ff7a9c', accent2:'#c89bff', base:'#08070d', bg1:'rgba(255,122,156,0.14)', bg2:'rgba(200,155,255,0.1)', glow:'rgba(255,122,156,0.3)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.engine; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  gateAllowed(cap,lv){ const c=this.CAPS[cap]; if(c.locked) return lv==='sealed'; return this.GVAL[lv] <= this.GVAL[c.ceiling]; }
+  authority(){ let n=0,d=0; this.CAP_ORDER.forEach(k=>{ const w=this.CAPS[k].risk; n+=w*this.GVAL[this.state.gates[k]]; d+=w; }); return n/d; }
+
+  buildGovernor(){
+    const h=React.createElement, t=this.cur(), cx=300, cy=232, motion=this.props.governorMotion!==false;
+    const auth=this.authority(), sel=this.state.selCap, gates=this.state.gates, R=[];
+    R.push(h('defs',{key:'d'},
+      h('radialGradient',{id:'ghub',cx:'42%',cy:'38%',r:'66%'},h('stop',{offset:'0%',stopColor:'#fff'}),h('stop',{offset:'40%',stopColor:t.accent}),h('stop',{offset:'100%',stopColor:t.accent2})),
+      h('radialGradient',{id:'gball',cx:'38%',cy:'34%',r:'70%'},h('stop',{offset:'0%',stopColor:'#fff'}),h('stop',{offset:'45%',stopColor:t.accent}),h('stop',{offset:'100%',stopColor:'#7a5326'})),
+      h('filter',{id:'gg',x:'-80%',y:'-80%',width:'260%',height:'260%'},h('feGaussianBlur',{stdDeviation:'5',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'})))
+    ));
+    let s=23; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<60;i++){ R.push(h('circle',{key:'st'+i,cx:(rnd()*600).toFixed(1),cy:(rnd()*470).toFixed(1),r:(rnd()*0.8+0.3).toFixed(2),fill:'#f0e6d6',opacity:(rnd()*0.3+0.08).toFixed(2)})); }
+    // housing ring + base
+    R.push(h('circle',{key:'house',cx:cx,cy:cy,r:150,fill:'none',stroke:'rgba(255,255,255,0.08)',strokeWidth:1.5}));
+    R.push(h('ellipse',{key:'base',cx:cx,cy:cy+150,rx:60,ry:14,fill:this.hexA(t.accent,0.1),stroke:this.hexA(t.accent,0.3),strokeWidth:1}));
+    R.push(h('line',{key:'spindle',x1:cx,y1:cy,x2:cx,y2:cy+150,stroke:this.hexA(t.accent2,0.5),strokeWidth:3}));
+    // flyball arms (3) — ball distance grows with authority
+    const ballR=48+auth*86, arms=[];
+    for(let i=0;i<3;i++){ const a=i*2*Math.PI/3 - Math.PI/2, bx=cx+Math.cos(a)*ballR, by=cy+Math.sin(a)*ballR;
+      arms.push(h('line',{key:'arm'+i,x1:cx,y1:cy,x2:bx.toFixed(1),y2:by.toFixed(1),stroke:t.accent2,strokeWidth:3,strokeLinecap:'round',opacity:0.85}));
+      arms.push(h('line',{key:'lk'+i,x1:cx,y1:cy+40,x2:bx.toFixed(1),y2:by.toFixed(1),stroke:this.hexA(t.accent,0.4),strokeWidth:1.4}));
+      arms.push(h('circle',{key:'ball'+i,cx:bx.toFixed(1),cy:by.toFixed(1),r:15,fill:'url(#gball)',stroke:this.hexA('#fff',0.4),strokeWidth:1,filter:'url(#gg)'}));
+    }
+    const dur=(15-auth*9).toFixed(1);
+    R.push(h('g',{key:'arms',style:motion?{transformOrigin:cx+'px '+cy+'px',animation:'gvSpin '+dur+'s linear infinite'}:undefined},arms));
+    // collar
+    R.push(h('circle',{key:'collar',cx:cx,cy:cy+40,r:7,fill:this.hexA(t.accent,0.5)}));
+    // hub + readout
+    R.push(h('circle',{key:'hubg',cx:cx,cy:cy,r:46,fill:this.hexA(t.accent,0.18),filter:'url(#gg)',style:motion?{animation:'gvGlow 4s ease-in-out infinite'}:undefined}));
+    R.push(h('circle',{key:'hub',cx:cx,cy:cy,r:38,fill:'url(#ghub)'}));
+    R.push(h('text',{key:'ht',x:cx,y:cy-9,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8,fill:'rgba(20,14,8,0.6)',letterSpacing:'0.16em'},'GRANTED'));
+    R.push(h('text',{key:'hv',x:cx,y:cy+13,textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:24,fontWeight:700,fill:'rgba(20,14,8,0.7)'},Math.round(auth*100)+'%'));
+    // capability markers ring
+    this.CAP_ORDER.forEach((ck,k)=>{ const c=this.CAPS[ck], lv=gates[ck], on=ck===sel, col=this.GCOLOR[lv];
+      const ang=k*2*Math.PI/8 - Math.PI/2, mr=192, mx=cx+Math.cos(ang)*mr, my=cy+Math.sin(ang)*mr;
+      if(on){ R.push(h('line',{key:ck+'pl',x1:cx+Math.cos(ang)*154,y1:cy+Math.sin(ang)*154,x2:mx,y2:my,stroke:this.hexA(col,0.5),strokeWidth:1.2})); }
+      R.push(h('circle',{key:ck+'mg',cx:mx,cy:my,r:on?13:9,fill:this.hexA(col,0.16)}));
+      R.push(h('circle',{key:ck+'m',cx:mx,cy:my,r:on?7:5,fill:lv==='sealed'?'none':col,stroke:lv==='sealed'?col:'none',strokeWidth:1.5,opacity:lv==='propose'?0.85:1,filter:on?'url(#gg)':undefined,onClick:()=>this.setState({selCap:ck}),style:{cursor:'pointer'}}));
+      if(c.locked){ R.push(h('path',{key:ck+'lk',d:'M'+(mx-2.4)+' '+(my-0.3)+' h4.8 v3 h-4.8 z M'+(mx-1.5)+' '+(my-0.3)+' v-1.4 a1.5 1.5 0 0 1 3 0 v1.4',fill:'none',stroke:col,strokeWidth:0.8})); }
+      if(on) R.push(h('circle',{key:ck+'mr',cx:mx,cy:my,r:11,fill:'none',stroke:this.hexA(col,0.7),strokeWidth:1.2}));
+      const lx=cx+Math.cos(ang)*(mr+20), ly=cy+Math.sin(ang)*(mr+20);
+      R.push(h('text',{key:ck+'l',x:lx,y:ly+3,textAnchor:Math.cos(ang)>0.3?'start':Math.cos(ang)<-0.3?'end':'middle',fontFamily:'IBM Plex Sans, sans-serif',fontSize:10,fontWeight:on?600:400,fill:on?'rgba(238,234,226,0.95)':'rgba(238,234,226,0.55)'},c.name));
+    });
+    return h('svg',{viewBox:'0 0 600 470',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  setGate(cap,lv){
+    const c=this.CAPS[cap];
+    if(c.locked){ this.flash(c.name+' is sealed by a core invariant. Lightweave never deletes \u2014 records are superseded or archived, never pruned. This gate cannot be opened.'); return; }
+    if(!this.gateAllowed(cap,lv)){ this.flash(c.name+' caps at '+this.GLABEL[c.ceiling]+'. The '+this.GLABEL[lv]+' gate is above the safety ceiling and is fixed by policy, not by you.'); return; }
+    if(this.state.gates[cap]===lv) return;
+    const verb=this.GLABEL[lv], cname=c.name;
+    this.setState(st=>{
+      const gates={...st.gates, [cap]:lv};
+      const entry={ head:verb+' · '+cname, sub: lv==='auto'?'granted autonomous action':lv==='propose'?'must ask before acting':'sealed \u2014 never', when:'now', color:this.GCOLOR[lv] };
+      return { gates, log:[entry,...st.log].slice(0,8),
+        toast:verb+': '+cname+'. A governance annotation is written \u2014 who, what, when. The records this touches are exactly as they were.' };
+    });
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200);
+  }
+  flash(msg){ this.setState({toast:msg}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4600); }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const t=this.cur(), C=this.CAPS, selCap=this.state.selCap, c=C[selCap], gates=this.state.gates, lv=gates[selCap], auth=this.authority();
+    const navItems=['Prism Intake','Lumen Apothecary','Distortion Clinic','Resonance Atlas','Tide Room','Lattice Vault','Family Lantern Wall','Signal Menagerie','Iris','The Governor']
+      .map(l=>{ const on=l==='The Governor'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,255,255,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(238,234,226,0.95)':'rgba(238,234,226,0.6)',dot:on?'var(--accent)':'rgba(238,234,226,0.35)'}; });
+
+    const capItems=this.CAP_ORDER.map(ck=>{ const cp=C[ck], on=ck===selCap, g=gates[ck];
+      return { name:cp.name, locked:!!cp.locked, onSelect:()=>this.setState({selCap:ck}), color:this.GCOLOR[g],
+        gateLabel:this.GLABEL[g].toLowerCase()+' · '+this.GSUB[g], gateColor:this.hexA(this.GCOLOR[g],0.85),
+        weight:on?'600':'500', txt:on?'rgba(238,234,226,0.96)':'rgba(238,234,226,0.7)',
+        bg:on?this.hexA(t.accent,0.12):'transparent', border:on?this.hexA(t.accent,0.4):'rgba(255,255,255,0.06)' }; });
+
+    const gateRows=this.CAP_ORDER.map(ck=>{ const cp=C[ck], on=ck===selCap, g=gates[ck];
+      const risk=cp.risk>=0.9?'high risk':cp.risk>=0.6?'sensitive':'low risk';
+      const segments=this.GATES.map(gk=>{ const act=g===gk, allowed=this.gateAllowed(ck,gk), col=this.GCOLOR[gk];
+        return { label:this.GLABEL[gk], cursor:allowed?'pointer':'not-allowed', onClick:()=>{ this.setState({selCap:ck}); this.setGate(ck,gk); },
+          bg:act?this.hexA(col,0.2): allowed?'rgba(255,255,255,0.03)':'rgba(255,255,255,0.012)',
+          border:act?this.hexA(col,0.6):'rgba(255,255,255,0.09)',
+          txt:act?col: allowed?'rgba(238,234,226,0.55)':'rgba(238,234,226,0.25)' }; });
+      return { name:cp.name, color:this.GCOLOR[g], risk, onSelect:()=>this.setState({selCap:ck}), segments,
+        rowBg:on?this.hexA(this.GCOLOR[g],0.07):'rgba(255,255,255,0.02)', rowBorder:on?this.hexA(this.GCOLOR[g],0.4):'rgba(255,255,255,0.07)' }; });
+
+    const grp=(gk)=>this.CAP_ORDER.filter(ck=>gates[ck]===gk).map(ck=>({ name:C[ck].name, bg:this.hexA(this.GCOLOR[gk],0.1), border:this.hexA(this.GCOLOR[gk],0.3) }));
+    const a=grp('auto'), p=grp('propose'), se=grp('sealed');
+    const previewGroups=[
+      { label:'Auto', sub:'it may act on its own', color:'#39e0a6', items:a, empty:a.length===0 },
+      { label:'Propose', sub:'it must ask you first', color:'#f5b25a', items:p, empty:p.length===0 },
+      { label:'Sealed', sub:'it never will', color:'#7c8596', items:se, empty:se.length===0 }
+    ];
+
+    const statement = c.locked ? c.name+' is sealed by a core invariant: the ledger is append-only and nothing is ever pruned. The system cannot delete, and you cannot grant it the power to.'
+      : lv==='auto' ? 'The system may '+c.desc+' on its own, no prompt needed. Every such action still writes an annotation you can audit.'
+      : lv==='propose' ? 'The system may propose to '+c.desc+', but waits for your approval before anything happens. Nothing acts silently.'
+      : 'The system may not '+c.desc+' at all right now. The capability is sealed until you open it.';
+
+    const reasoning = c.locked ? ['This is a core invariant, above any setting.','Records are superseded or archived — never removed.','Even at maximum authority, deletion stays sealed.']
+      : [ lv==='auto'?'Gate Auto: autonomous action is permitted within scope \u201c'+c.scope+'\u201d.':lv==='propose'?'Gate Propose: actions are drafted and held for your sign-off.':'Gate Sealed: no action passes for this capability.',
+          c.ceiling!=='auto'?'Safety ceiling is '+this.GLABEL[c.ceiling]+' \u2014 this capability can never be raised above it.':'No safety ceiling \u2014 you may grant full autonomy or restrict at will.',
+          'The gate is a governed annotation. It changes what the system may do, never what any record says.' ];
+
+    const actions=this.GATES.map(gk=>{ const act=lv===gk, allowed=this.gateAllowed(selCap,gk), col=this.GCOLOR[gk];
+      return { label:this.GLABEL[gk], sub:this.GSUB[gk], onClick:()=>this.setGate(selCap,gk), cursor:allowed?'pointer':'not-allowed',
+        bg:act?this.hexA(col,0.16): allowed?'rgba(255,255,255,0.03)':'rgba(255,255,255,0.012)',
+        border:act?this.hexA(col,0.5):'rgba(255,255,255,0.1)', ring:act?'0 0 0 1px '+this.hexA(col,0.4):'none',
+        txt:act?col: allowed?'rgba(238,234,226,0.85)':'rgba(238,234,226,0.28)' }; });
+
+    const govCount = 9 + this.state.log.filter(l=>l.when==='now').length;
+
+    const sel={ name:c.name, nameUpper:c.name.toUpperCase(), tagline:c.desc, locked:!!c.locked, color:this.GCOLOR[lv],
+      headerBg:this.hexA(this.GCOLOR[lv],0.07), softBorder:this.hexA(this.GCOLOR[lv],0.26),
+      gateLabel:this.GLABEL[lv], gateColor:this.GCOLOR[lv], gateBg:this.hexA(this.GCOLOR[lv],0.16),
+      statement, ceilingLabel:this.GLABEL[c.ceiling], ceilingColor:this.GCOLOR[c.ceiling], policy:c.policy, scope:c.scope,
+      setBy:c.setBy, resolver:c.resolver, reasoning, ceilingNote:c.ceilingNote||null, actions };
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      navItems, capItems, gateRows, previewGroups, govLog:this.state.log, govCount,
+      authorityLabel:Math.round(auth*100)+'%', authorityPct:Math.round(auth*100)+'%',
+      governorSvg:this.buildGovernor(), toast:this.state.toast,
+      showLedgerPreview:this.props.showLedgerPreview!==false, sel
+    };
+  }
+}
+</script>
+</body>
+</html>

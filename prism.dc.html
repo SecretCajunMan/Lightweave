@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<script src="./lw-site.js"></script>
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  .pxmono{font-family:'IBM Plex Mono',monospace}
+  @keyframes pxbeam{to{stroke-dashoffset:-40}}
+  @keyframes pxtwk{0%,100%{opacity:.3}50%{opacity:.85}}
+  .pxcard{transition:transform .12s ease, border-color .12s ease, background .12s ease}
+  .pxcard:hover{transform:translateY(-2px); border-color:rgba(255,255,255,0.22)}
+  .pxbtn{transition:background .12s ease, transform .1s ease}
+  .pxbtn:active{transform:translateY(1px)}
+</style>
+</helmet>
+<div data-screen-label="Prism" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; position:relative; --accent:{{ accent }}; --accent2:{{ accent2 }}; background:radial-gradient(1200px 660px at 38% -16%, {{ bg1 }}, transparent 60%), radial-gradient(1000px 740px at 108% 120%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <!-- HEADER -->
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:15px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); z-index:5;">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#34e1b4" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7ad0" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Prism</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Flagship lens · Layer 1 · refract the ledger</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="pxmono" style="display:flex; align-items:center; gap:8px; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>ledger read-only</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">{{ status.records }} records · {{ status.sources }} sources</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid {{ status.srcBorder }}; border-radius:7px; background:{{ status.srcBg }}; color:{{ status.srcColor }};"><span style="width:6px;height:6px;border-radius:50%;background:{{ status.srcColor }};box-shadow:0 0 7px {{ status.srcColor }};"></span>{{ status.srcLabel }}</span>
+    </div>
+    <button onClick="{{ onOpenImport }}" class="pxbtn" style="display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; padding:8px 14px; border-radius:9px; cursor:pointer; font-family:inherit;">
+      <svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 2 V9 M4 6 L7 9 L10 6 M2.5 11.5 H11.5" fill="none" stroke="#0b0d16" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      Import Ledger JSON
+    </button>
+  </header>
+
+  <!-- BODY -->
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="prism"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:0;">
+
+      <!-- REFRACTION HERO -->
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:16px; padding:13px 16px; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="flex:0 0 230px; height:96px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background:radial-gradient(120% 120% at 0% 50%, rgba(255,255,255,0.05), transparent 60%); overflow:hidden;">{{ refractionSvg }}</div>
+        <div style="flex:1; min-width:0;">
+          <div class="pxmono" style="font-size:9.5px; letter-spacing:0.16em; color:rgba(238,241,251,0.42); margin-bottom:8px;">ONE LEDGER, REFRACTED — {{ status.records }} CANONICAL RECORDS ACROSS {{ facetCount }} FACETS</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <sc-for list="{{ spectrum }}" as="s" hint-placeholder-count="6">
+              <div onClick="{{ s.onPick }}" class="pxbtn" style="display:flex; align-items:center; gap:7px; padding:6px 11px; border-radius:9px; cursor:pointer; background:{{ s.bg }}; border:1px solid {{ s.border }};">
+                <span style="width:9px; height:9px; border-radius:2px; background:{{ s.color }}; box-shadow:0 0 8px {{ s.color }};"></span>
+                <span style="font-size:12px; font-weight:600; color:rgba(238,241,251,0.92);">{{ s.label }}</span>
+                <span class="pxmono" style="font-size:10px; color:{{ s.color }};">{{ s.count }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- FACETS + DRAWER -->
+      <section style="flex:1; display:flex; gap:12px; padding:12px 14px; min-height:0;">
+
+        <!-- facet columns -->
+        <div style="flex:1; min-width:0; overflow-y:auto; padding-right:4px; display:flex; flex-direction:column; gap:18px;">
+          <sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+            <div>
+              <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
+                <span style="width:11px; height:11px; border-radius:3px; background:{{ g.color }}; box-shadow:0 0 9px {{ g.color }};"></span>
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ g.label }}</span>
+                <span class="pxmono" style="font-size:10px; color:rgba(238,241,251,0.42);">{{ g.sub }}</span>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(244px,1fr)); gap:10px;">
+                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+                  <div onClick="{{ it.onSelect }}" class="pxcard" style="background:{{ it.cardBg }}; border:1px solid {{ it.border }}; border-radius:13px; padding:13px 14px; cursor:pointer; box-shadow:{{ it.shadow }};">
+                    <div style="display:flex; align-items:center; gap:7px; margin-bottom:8px;">
+                      <span class="pxmono" style="font-size:8px; letter-spacing:0.08em; color:{{ g.color }}; border:1px solid {{ it.tagBorder }}; border-radius:5px; padding:1px 6px;">{{ it.kindTag }}</span>
+                      <span style="flex:1;"></span>
+                      <sc-for list="{{ it.warnDots }}" as="w" hint-placeholder-count="0">
+                        <span title="{{ w.label }}" style="width:8px; height:8px; border-radius:50%; background:{{ w.color }}; box-shadow:0 0 6px {{ w.color }};"></span>
+                      </sc-for>
+                    </div>
+                    <div style="font-family:'Space Grotesk',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25; color:{{ it.subjColor }};">{{ it.subject }}</div>
+                    <div style="font-size:12px; color:rgba(238,241,251,0.6); margin-top:4px; min-height:16px;">{{ it.value }}</div>
+                    <div style="display:flex; align-items:center; gap:7px; margin-top:11px;">
+                      <span class="pxmono" style="font-size:9.5px; padding:3px 7px; border-radius:6px; background:{{ it.lifeBg }}; color:{{ it.lifeColor }};">{{ it.life }}</span>
+                      <sc-if value="{{ it.showConf }}" hint-placeholder-val="{{ true }}">
+                        <span class="pxmono" style="font-size:9.5px; padding:3px 7px; border-radius:6px; background:rgba(255,255,255,0.05); color:{{ it.confColor }};">conf {{ it.conf }}</span>
+                      </sc-if>
+                      <span style="flex:1;"></span>
+                      <button onClick="{{ it.onProof }}" class="pxbtn" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; color:{{ it.proofTxt }}; background:{{ it.proofBg }}; border:1px solid {{ it.proofBorder }}; border-radius:7px; padding:5px 9px; cursor:pointer; font-family:inherit;">
+                        <svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.6" fill="none" stroke="currentColor" stroke-width="1"></circle><path d="M6 3.6 V6 L7.7 7.2" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"></path></svg>
+                        Proof
+                      </button>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- PROOF DRAWER -->
+        <aside style="flex:0 0 380px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.subject }}</span>
+              <span class="pxmono" style="font-size:9px; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div class="pxmono" style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:5px;">{{ sel.kindTag }} · {{ sel.canonId }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:13px;">
+
+            <!-- WARNINGS -->
+            <sc-if value="{{ sel.hasWarn }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,158,87,0.05); border:1px solid rgba(255,158,87,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><svg width="13" height="13" viewBox="0 0 12 12"><path d="M6 1 L11 10.5 H1 Z" fill="none" stroke="#ffb27a" stroke-width="1"></path><line x1="6" y1="4.3" x2="6" y2="7.4" stroke="#ffb27a" stroke-width="1"></line><circle cx="6" cy="9" r="0.6" fill="#ffb27a"></circle></svg><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#ffb27a;">PROJECTION WARNINGS</span></div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <sc-for list="{{ sel.warnings }}" as="w" hint-placeholder-count="1">
+                    <div style="display:flex; gap:9px; align-items:flex-start;">
+                      <span style="flex:0 0 auto; width:8px; height:8px; border-radius:50%; background:{{ w.color }}; box-shadow:0 0 6px {{ w.color }}; margin-top:4px;"></span>
+                      <div><div style="font-size:11.5px; font-weight:600; color:{{ w.color }};">{{ w.label }}</div><div style="font-size:11px; line-height:1.45; color:rgba(238,241,251,0.6);">{{ w.note }}</div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- confidence -->
+            <sc-if value="{{ sel.showConf }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <span style="font-size:9.5px; color:rgba(238,241,251,0.45); flex:0 0 auto;">canonical confidence</span>
+                  <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+                  <span class="pxmono" style="font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+                </div>
+                <div class="pxmono" style="font-size:9.5px; color:rgba(238,241,251,0.4); margin-top:6px;">time window · {{ sel.window }}</div>
+              </div>
+            </sc-if>
+
+            <!-- contradiction -->
+            <sc-if value="{{ sel.hasContradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e; box-shadow:0 0 7px #ff6b5e;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em;">CONTRADICTORY SIGNALS</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div class="pxmono" style="font-size:9px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div class="pxmono" style="font-size:9px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10.5px; color:rgba(238,241,251,0.55); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <!-- source trace -->
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+              <sc-if value="{{ sel.hasSources }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.sources }}" as="sc" hint-placeholder-count="2">
+                    <div style="display:flex; align-items:center; gap:9px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:8px 10px;">
+                      <span class="pxmono" style="font-size:8.5px; font-weight:600; color:{{ sc.kindColor }}; border:1px solid {{ sc.kindBorder }}; border-radius:5px; padding:2px 5px;">{{ sc.kind }}</span>
+                      <span style="font-size:11.5px; flex:1; color:rgba(238,241,251,0.82); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sc.name }}</span>
+                      <span class="pxmono" style="font-size:9.5px; color:{{ sc.integColor }};">intg {{ sc.integ }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sel.noSources }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:11px; line-height:1.45; color:rgba(255,158,87,0.85); background:rgba(255,158,87,0.06); border:1px solid rgba(255,158,87,0.28); border-radius:9px; padding:9px 11px;">No source is attached to this projection. It is shown — flagged — but it cannot be corroborated. Lightweave never invents one to fill the gap.</div>
+              </sc-if>
+            </div>
+
+            <!-- reasoning -->
+            <sc-if value="{{ sel.hasReasoning }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                    <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- CANONICAL FALLBACK -->
+            <div style="background:rgba(0,0,0,0.24); border:1px solid rgba(255,255,255,0.09); border-radius:12px; padding:11px 12px;">
+              <div onClick="{{ onToggleRaw }}" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <span style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.42);">CANONICAL FALLBACK</span>
+                <span class="pxmono" style="font-size:9px; color:rgba(238,241,251,0.4);">raw record</span>
+                <span style="flex:1;"></span>
+                <span class="pxmono" style="font-size:10px; color:var(--accent2);">{{ rawToggleLabel }}</span>
+              </div>
+              <div class="pxmono" style="display:flex; flex-direction:column; gap:5px; font-size:10.5px; margin-top:10px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span style="color:{{ sel.color }};">{{ sel.truthMode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">records used</span><span>{{ sel.recordsUsed }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>{{ sel.schema }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">visibility</span><span style="color:{{ sel.visColor }};">{{ sel.visibility }}</span></div>
+              </div>
+              <sc-if value="{{ showRaw }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:11px; padding-top:11px; border-top:1px dashed rgba(255,255,255,0.12);">
+                  <div class="pxmono" style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.38); margin-bottom:7px;">RECORD FIELDS</div>
+                  <div class="pxmono" style="display:flex; flex-direction:column; gap:4px; font-size:10.5px;">
+                    <sc-for list="{{ sel.fields }}" as="f" hint-placeholder-count="4">
+                      <div style="display:flex; gap:10px; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45); white-space:nowrap;">{{ f.k }}</span><span style="color:rgba(238,241,251,0.85); text-align:right;">{{ f.v }}</span></div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="display:flex; gap:7px;">
+              <span class="pxbtn" style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical record</span>
+              <span class="pxbtn" style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Export</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="flex:0 0 64px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(0,0,0,0.18); display:flex; align-items:center; gap:16px; padding:0 18px;">
+    <span class="pxmono" style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.45);">CANONICAL TRACE</span>
+    <div style="flex:1; display:flex; align-items:center; gap:0;">
+      <sc-for list="{{ trace }}" as="tr" hint-placeholder-count="5">
+        <div style="display:flex; align-items:center; gap:0;">
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:10.5px; color:rgba(238,241,251,0.68);"><span style="width:7px; height:7px; border-radius:50%; background:{{ tr.color }}; box-shadow:0 0 7px {{ tr.color }};"></span>{{ tr.label }}<span class="pxmono" style="font-size:9px; color:rgba(238,241,251,0.4);">{{ tr.meta }}</span></span>
+          <sc-if value="{{ tr.arrow }}" hint-placeholder-val="{{ true }}"><span style="margin:0 12px; color:rgba(238,241,251,0.3);">→</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <span style="display:inline-flex; align-items:center; gap:7px; font-size:10.5px; font-weight:600; color:rgba(57,224,166,0.9); border:1px solid rgba(57,224,166,0.28); border-radius:7px; padding:5px 10px; background:rgba(57,224,166,0.06);"><span style="width:6px; height:6px; border-radius:50%; background:#39e0a6; box-shadow:0 0 7px #39e0a6;"></span>records edited: 0</span>
+  </footer>
+
+  <!-- IMPORT MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseImport }}" style="position:absolute; inset:0; z-index:40; background:rgba(4,5,11,0.72); backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px); display:flex; align-items:center; justify-content:center; padding:30px;">
+      <div onClick="{{ stop }}" style="width:560px; max-width:100%; max-height:100%; display:flex; flex-direction:column; background:linear-gradient(180deg, rgba(20,22,34,0.96), rgba(12,13,22,0.98)); border:1px solid rgba(255,255,255,0.12); border-radius:18px; box-shadow:0 30px 80px rgba(0,0,0,0.6); overflow:hidden;">
+        <div style="padding:18px 20px 14px; border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="width:11px; height:11px; border-radius:3px; background:var(--accent); box-shadow:0 0 9px var(--accent);"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; flex:1;">Import Ledger JSON</span>
+            <span onClick="{{ onCloseImport }}" class="pxbtn" style="cursor:pointer; font-size:18px; color:rgba(238,241,251,0.5); line-height:1;">✕</span>
+          </div>
+          <div style="font-size:12.5px; line-height:1.5; color:rgba(238,241,251,0.6); margin-top:8px;">Paste an array of records, or <span class="pxmono" style="color:var(--accent2);">{ "records": [...] }</span>. The adapter maps whatever it can and flags whatever it can't. Stored locally and <b style="color:rgba(238,241,251,0.85);">shared with every other room</b> — never written to canon.</div>
+        </div>
+        <div style="padding:16px 20px; display:flex; flex-direction:column; gap:11px; min-height:0;">
+          <textarea onInput="{{ onImportText }}" value="{{ importText }}" spellcheck="false" placeholder='[ { "id": "rec_01", "kind": "score", "subject": "Sleep quality", "value": "0.74", "confidence": 0.74, "lifecycle": "Watching", "sources": [{ "kind": "DEV", "name": "Sleep band", "integrity": 0.94 }] } ]' style="width:100%; height:190px; resize:vertical; background:rgba(0,0,0,0.34); border:1px solid rgba(255,255,255,0.12); border-radius:11px; padding:12px 13px; color:rgba(238,241,251,0.92); font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-height:1.5; outline:none;"></textarea>
+          <sc-if value="{{ importError }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:11.5px; color:#ff8a7e; background:rgba(255,107,94,0.08); border:1px solid rgba(255,107,94,0.3); border-radius:9px; padding:9px 11px;">{{ importErrorMsg }}</div>
+          </sc-if>
+          <sc-if value="{{ importOk }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:11.5px; color:#7fe0b0; background:rgba(57,224,166,0.08); border:1px solid rgba(57,224,166,0.3); border-radius:9px; padding:9px 11px;">{{ importOkMsg }}</div>
+          </sc-if>
+        </div>
+        <div style="padding:14px 20px 18px; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:10px;">
+          <span onClick="{{ onLoadSampleText }}" class="pxbtn pxmono" style="font-size:11px; color:rgba(238,241,251,0.7); cursor:pointer;">paste the sample</span>
+          <sc-if value="{{ isImported }}" hint-placeholder-val="{{ false }}">
+            <span onClick="{{ onRestoreSample }}" class="pxbtn pxmono" style="font-size:11px; color:#ff9e87; cursor:pointer;">restore sample ledger</span>
+          </sc-if>
+          <span style="flex:1;"></span>
+          <button onClick="{{ onCloseImport }}" class="pxbtn" style="font-size:12.5px; color:rgba(238,241,251,0.8); background:transparent; border:1px solid rgba(255,255,255,0.14); border-radius:9px; padding:9px 16px; cursor:pointer; font-family:inherit;">Cancel</button>
+          <button onClick="{{ onDoImport }}" class="pxbtn" style="font-size:12.5px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; border-radius:9px; padding:9px 18px; cursor:pointer; font-family:inherit;">Refract it →</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:null, showRaw:false, modal:false, importText:'', importErr:'', importOk:'' };
+  }
+  componentDidMount(){
+    if(window.LWLedger && window.LWLedger.subscribe){ this._unsub = window.LWLedger.subscribe(()=>this.forceUpdate()); }
+  }
+  componentWillUnmount(){ if(this._unsub) this._unsub(); }
+
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#06070e', bg1:'rgba(124,90,255,0.18)', bg2:'rgba(40,200,170,0.10)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#04070e', bg1:'rgba(40,130,210,0.20)', bg2:'rgba(40,210,190,0.10)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#050a07', bg1:'rgba(70,170,100,0.18)', bg2:'rgba(180,205,90,0.10)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+
+  FACETS(){ return [
+    { kind:'insight', label:'Insights', sub:'derived patterns',        color:'#9b8cff' },
+    { kind:'score',   label:'Scores',   sub:'resolved aggregates',     color:'#34e1b4' },
+    { kind:'bloom',   label:'Blooms',   sub:'habits & goals growing',  color:'#ff7ad0' },
+    { kind:'storm',   label:'Storms',   sub:'distortions & conflicts', color:'#ff6b5e' },
+    { kind:'thread',  label:'Threads',  sub:'people & connections',    color:'#46c8ff' },
+    { kind:'reward',  label:'Rewards',  sub:'claimable loops',         color:'#ffce5a' }
+  ]; }
+
+  SAMPLE(){ return [
+    { id:'rec_lm_204', kind:'insight', subject:'Short sleep \u2192 next-day focus dip', value:'Holds across 9 nights', confidence:0.81, lifecycle:'Confirmed', visibility:'public', window:'May 18 \u2013 Jun 15',
+      sources:[{kind:'DEV',name:'Sleep band export',integrity:0.94},{kind:'DEV',name:'Focus timer log',integrity:0.86},{kind:'HUM',name:'Journal entries',integrity:0.62}],
+      reasoning:['Pairs nightly sleep against next-day focus duration across 9 nights.','Holds across band and timer; the self-report adds and partly disputes it.','Directional only \u2014 causation is not asserted.'],
+      contradiction:{a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'},b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'},note:'Two of nine nights disagree. The conflict is surfaced, never silently resolved.'},
+      truthMode:'PATTERN', resolver:'HIGHEST_CONF', recordsUsed:14, schema:'contract_v1.5', fields:{domain:'sleep\u00d7focus', nights:9, method:'paired-delta', r:'-0.58', asserts:'directional'} },
+    { id:'rec_sq_31', kind:'score', subject:'Sleep quality', value:'0.74 \u00b7 trending flat', confidence:0.74, lifecycle:'Watching', visibility:'public', window:'last 30 nights',
+      sources:[{kind:'DEV',name:'Sleep band export',integrity:0.94}],
+      reasoning:['Confidence-weighted mean of 30 nightly band records.','Single high-integrity source \u2014 no corroboration needed.'],
+      truthMode:'AGGREGATE', resolver:'LATEST_VERIFIED', recordsUsed:30, schema:'contract_v1.5', fields:{unit:'index_0_1', mean:0.74, sd:0.08, n:30} },
+    { id:'rec_runway_07', kind:'score', subject:'Financial runway', value:'8.2 months', confidence:0.88, lifecycle:'Confirmed', visibility:'public', window:'as of Jun 16',
+      sources:[{kind:'EXT',name:'Bank feed (OAuth)',integrity:0.90},{kind:'DOC',name:'Expense ledger',integrity:0.84}],
+      reasoning:['Cash on hand divided by trailing 90-day burn.','Both inputs provider-attested.'],
+      truthMode:'LATEST', resolver:'LATEST', recordsUsed:46, schema:'contract_v1.5', fields:{cash:'$41,200', burn_mo:'$5,020', months:8.2} },
+    { id:'rec_pages_88', kind:'bloom', subject:'Morning pages habit', value:'17-day streak', confidence:0.91, lifecycle:'Confirmed', visibility:'public', window:'May 31 \u2013 Jun 16',
+      sources:[{kind:'DEV',name:'Writing app log',integrity:0.88}],
+      reasoning:['Each entry is an app-logged event with a timestamp.','Streak read by LATEST resolver \u2014 no gaps in 17 days.'],
+      truthMode:'STREAK', resolver:'LATEST', recordsUsed:17, schema:'contract_v1.5', fields:{streak:17, longest:24, unit:'days'} },
+    { id:'rec_strength_12', kind:'bloom', subject:'Strength training', value:'2.1\u00d7 / week, growing', confidence:0.67, lifecycle:'Watching', visibility:'public', window:'last 6 weeks',
+      sources:[{kind:'DEV',name:'Gym check-ins',integrity:0.79},{kind:'HUM',name:'Workout notes',integrity:0.6}],
+      reasoning:['Check-in frequency normalized to a weekly rate.','Notes add detail but lower the integrity floor.'],
+      truthMode:'RATE', resolver:'HIGHEST_CONF', recordsUsed:13, schema:'contract_v1.5', fields:{per_week:2.1, trend:'+0.4', n:13} },
+    { id:'rec_budget_storm', kind:'storm', subject:'Spending vs budget conflict', value:'2 sources disagree', confidence:0.48, lifecycle:'Contested', visibility:'public', window:'June',
+      sources:[{kind:'EXT',name:'Bank feed (OAuth)',integrity:0.90},{kind:'HUM',name:'Manual budget note',integrity:0.55}],
+      reasoning:['Bank-derived spend exceeds the self-set budget figure.','The two cannot both be canonical \u2014 held as contested.','Confidence capped at 0.48 until reconciled.'],
+      contradiction:{a:{label:'Bank feed',val:'$2,140',conf:'conf 0.90',color:'#56b8ff'},b:{label:'Budget note',val:'$1,600',conf:'conf 0.55',color:'#ff9e57'},note:'The pretty number does not win. Both are kept until you reconcile them in the Distortion Clinic.'},
+      truthMode:'CONTESTED', resolver:'NONE', recordsUsed:2, schema:'contract_v1.5', fields:{bank:'$2,140', note:'$1,600', delta:'$540', status:'contested'} },
+    { id:'rec_caf_sim', kind:'insight', subject:'Caffeine after 2pm \u2192 worse sleep', value:'Simulated what-if', confidence:0.66, lifecycle:'Simulated', visibility:'public', window:'projected · 14 nights',
+      sources:[{kind:'SYS',name:'Signal Forge scenario',integrity:0.7}],
+      reasoning:['A what-if run, not an observation \u2014 lifecycle is SIMULATED.','Projects band data forward under a cutoff rule.','Must never be read as a confirmed pattern.'],
+      truthMode:'SIMULATED', resolver:'SCENARIO', recordsUsed:0, schema:'contract_v1.5', fields:{scenario:'caffeine_cutoff_14h', basis:'band', status:'hypothetical'} },
+    { id:'rec_mood_sealed', kind:'score', subject:'Mood baseline', value:'\u2014 sealed \u2014', confidence:0.7, lifecycle:'Confirmed', visibility:'sealed', window:'private',
+      sources:[{kind:'HUM',name:'Private journal',integrity:0.6}],
+      reasoning:['This record is sealed by an Iris visibility policy.','The projection can show that it exists \u2014 not its value.'],
+      truthMode:'AGGREGATE', resolver:'HIGHEST_CONF', recordsUsed:21, schema:'contract_v1.5', fields:{visibility:'sealed by Iris', value:'withheld', policy:'self-only'} },
+    { id:'rec_ws_60', kind:'insight', subject:'Meeting density \u2192 sleep strain', value:'Thin evidence', confidence:0.6, lifecycle:'Watching', visibility:'public', window:'Jun 2 \u2013 Jun 16',
+      sources:[],
+      reasoning:['Suggested by calendar load but the supporting records did not normalize.','Surfaced with NO source attached \u2014 corroborate before trusting.'],
+      truthMode:'PATTERN', resolver:'LATEST', recordsUsed:0, schema:'contract_v1.5', fields:{basis:'calendar(unnormalized)', sources:0, status:'unsupported'} },
+    { id:'rec_maya_thr', kind:'thread', subject:'Maya \u2014 time to reconnect', value:'34 days since contact', confidence:0.83, lifecycle:'Confirmed', visibility:'public', window:'rolling',
+      sources:[{kind:'EXT',name:'Calendar',integrity:0.9},{kind:'DEV',name:'Messages metadata',integrity:0.82}],
+      reasoning:['Days-since-contact read from real interaction records.','A reminder, never a scorecard \u2014 nothing is graded.'],
+      truthMode:'LATEST', resolver:'LATEST', recordsUsed:8, schema:'contract_v1.5', fields:{last_contact:'May 13', days:34, channel:'message'} },
+    { id:'rec_david_thr', kind:'thread', subject:'Mentor: David', value:'Quarterly cadence holding', confidence:0.71, lifecycle:'Watching', visibility:'public', window:'last 2 quarters',
+      sources:[{kind:'EXT',name:'Calendar',integrity:0.9}],
+      reasoning:['Recurring calendar blocks normalized to a cadence.'],
+      truthMode:'RATE', resolver:'LATEST', recordsUsed:4, schema:'contract_v1.5', fields:{cadence:'~90d', last:'May 2', status:'on-track'} },
+    { id:'rec_ship_rwd', kind:'reward', subject:'Ship the Lightweave demo', value:'Claimable on attestation', confidence:0.95, lifecycle:'Confirmed', visibility:'public', window:'goal',
+      sources:[{kind:'DEV',name:'Repo activity',integrity:0.92},{kind:'HUM',name:'Self-marked done',integrity:0.6}],
+      reasoning:['Repo activity attests the work; self-mark alone would not release it.','Reward unlocks only on attested completion \u2014 never a self-tick.'],
+      truthMode:'GATED', resolver:'HIGHEST_CONF', recordsUsed:6, schema:'contract_v1.5', fields:{goal:'demo_v1', attested:true, release:'ready'} },
+    { id:'rec_papers_rwd', kind:'reward', subject:'Read 5 papers', value:'3 / 5 logged', confidence:0.6, lifecycle:'Watching', visibility:'public', window:'June',
+      sources:[{kind:'HUM',name:'Reading log',integrity:0.6}],
+      reasoning:['Self-logged progress; not yet at the release threshold.'],
+      truthMode:'COUNT', resolver:'DELTA_SUM', recordsUsed:3, schema:'contract_v1.5', fields:{done:3, target:5, status:'in-progress'} }
+  ]; }
+
+  confColor(c){ return c>=0.8?'#39e0a6': c>=0.65?'#7fd99a': c>=0.55?'#e8c75a': c>=0.45?'#ff9e57':'#ff6b5e'; }
+  lifeColor(l){ return l==='Confirmed'?'#39e0a6': l==='Watching'?'#e8c75a': l==='Contested'?'#ff6b5e': l==='Simulated'?'#b18cff':'#9aa6c0'; }
+  kindColor(k){ return ({HUM:'#f0d8a8',DEV:'#66c7ff',DOC:'#d9a441',EXT:'#34e1b4',SYS:'#9b8cff',AI:'#ff7ad0'})[k]||'#9aa6c0'; }
+  hexA(hex,a){ const c=(hex||'#888').replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  // --- the projection adapter: raw records -> normalized view-models ---
+  normalize(rec, i){
+    const r = Object.assign({}, rec);
+    r.id = r.id || ('rec_'+i);
+    r.kind = (r.kind||'insight').toLowerCase();
+    if(!this.FACETS().some(f=>f.kind===r.kind)) r.kind='insight';
+    r.subject = r.subject || r.title || r.name || '(untitled record)';
+    r.lifecycle = r.lifecycle || 'Watching';
+    r.visibility = r.visibility || 'public';
+    r.sources = Array.isArray(r.sources)? r.sources : [];
+    r.reasoning = Array.isArray(r.reasoning)? r.reasoning : [];
+    const conf = (typeof r.confidence==='number') ? r.confidence : null;
+    const sealed = r.visibility==='sealed' || r.visibility==='private';
+    const warnings=[];
+    if(sealed) warnings.push({k:'hidden', label:'Hidden by visibility policy', color:'#7fb0ff', note:'An Iris policy seals this record. Its existence shows; its value does not.'});
+    if(!r.sources.length) warnings.push({k:'sources', label:'Sources missing', color:'#ff9e57', note:'No source is attached. Shown but uncorroborated \u2014 no source was invented to fill the gap.'});
+    if(r.lifecycle==='Simulated') warnings.push({k:'sim', label:'Lifecycle is SIMULATED', color:'#b18cff', note:'A what-if projection, not an observation. Never read it as a confirmed fact.'});
+    if(conf!=null && conf<0.55) warnings.push({k:'lowconf', label:'Low confidence', color:'#ff6b5e', note:'Confidence is below 0.55. The signal is weak and may be contested.'});
+    return Object.assign(r, { _conf:conf, _sealed:sealed, _warnings:warnings });
+  }
+  records(){
+    let raw = (window.LWLedger && window.LWLedger.records && window.LWLedger.records()) || [];
+    if(!raw.length) raw = this.SAMPLE();
+    return raw.map((r,i)=>this.normalize(r,i));
+  }
+  isImported(){ const m = window.LWLedger && window.LWLedger.records && window.LWLedger.records(); return !!(m && m.length); }
+
+  buildRefraction(present){
+    const h=React.createElement, t=this.cur();
+    const order=['insight','score','bloom','storm','thread','reward'];
+    const colorOf={insight:'#9b8cff',score:'#34e1b4',bloom:'#ff7ad0',storm:'#ff6b5e',thread:'#46c8ff',reward:'#ffce5a'};
+    const rays=order.filter(k=>present.has(k));
+    const cx=70, cy=48, n=rays.length||6, span=58;
+    const lines=rays.map((k,i)=>{
+      const ang=(-span/2 + (span/(Math.max(1,n-1)))*i) * Math.PI/180;
+      const x2=cx+Math.cos(ang)*150, y2=cy+Math.sin(ang)*150;
+      return h('line',{key:k,x1:cx+10,y1:cy,x2,y2,stroke:colorOf[k],strokeWidth:3,strokeLinecap:'round',opacity:0.85,filter:'url(#pxg)'});
+    });
+    const stars=[]; let s=5; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<18;i++){ stars.push(h('circle',{key:'s'+i,cx:(rnd()*230).toFixed(1),cy:(rnd()*96).toFixed(1),r:(rnd()*0.9+0.3).toFixed(2),fill:'#cdd6f5',opacity:(rnd()*0.4+0.1).toFixed(2),style:{animation:'pxtwk '+(2+rnd()*2.5).toFixed(1)+'s ease-in-out infinite'}})); }
+    return h('svg',{viewBox:'0 0 230 96',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},
+      h('defs',null,h('filter',{id:'pxg',x:'-50%',y:'-50%',width:'200%',height:'200%'},h('feGaussianBlur',{stdDeviation:'1.8'}))),
+      ...stars,
+      h('line',{x1:4,y1:cy,x2:cx-2,y2:cy,stroke:'#ffffff',strokeWidth:3.4,strokeLinecap:'round',opacity:0.92}),
+      h('line',{x1:4,y1:cy,x2:cx-2,y2:cy,stroke:'#ffffff',strokeWidth:1.2,strokeLinecap:'round',strokeDasharray:'2 7',opacity:0.8,style:{animation:'pxbeam 1.4s linear infinite'}}),
+      ...lines,
+      h('polygon',{points:(cx-10)+','+(cy+20)+' '+(cx+14)+','+cy+' '+(cx-10)+','+(cy-20),fill:'rgba(255,255,255,0.06)',stroke:'url(#pxgrad)',strokeWidth:1.6,filter:'url(#pxg)'}),
+      h('defs',null,h('linearGradient',{id:'pxgrad',x1:'0',y1:'0',x2:'1',y2:'1'},h('stop',{offset:'0%',stopColor:t.accent}),h('stop',{offset:'100%',stopColor:t.accent2}))),
+      h('polygon',{points:(cx-10)+','+(cy+20)+' '+(cx+14)+','+cy+' '+(cx-10)+','+(cy-20),fill:'none',stroke:'#fff',strokeWidth:0.7,opacity:0.5})
+    );
+  }
+
+  // import handlers
+  openImport(){ this.setState({modal:true, importErr:'', importOk:''}); }
+  closeImport(){ this.setState({modal:false}); }
+  loadSampleText(){ this.setState({importText:JSON.stringify({records:this.SAMPLE()},null,2), importErr:'', importOk:''}); }
+  restoreSample(){ if(window.LWLedger) window.LWLedger.clear(); this.setState({modal:false, sel:null, importText:'', importErr:'', importOk:''}); }
+  doImport(){
+    let txt=(this.state.importText||'').trim();
+    if(!txt){ this.setState({importErr:'Nothing to import. Paste a JSON array or an object with a "records" key.', importOk:''}); return; }
+    let data;
+    try{ data=JSON.parse(txt); }catch(e){ this.setState({importErr:'That is not valid JSON: '+e.message, importOk:''}); return; }
+    let recs = Array.isArray(data) ? data : (data && Array.isArray(data.records) ? data.records : null);
+    if(!recs){ this.setState({importErr:'Expected an array of records, or { "records": [...] }.', importOk:''}); return; }
+    if(!recs.length){ this.setState({importErr:'The ledger is empty \u2014 no records to refract.', importOk:''}); return; }
+    const bad = recs.findIndex(r=> !r || typeof r!=='object');
+    if(bad>=0){ this.setState({importErr:'Record at index '+bad+' is not an object.', importOk:''}); return; }
+    if(window.LWLedger) window.LWLedger.set(recs, {importedAt:Date.now(), count:recs.length});
+    this.setState({modal:false, sel:null, importErr:'', importOk:'Imported '+recs.length+' records \u2014 now shared with every room.'});
+  }
+
+  renderVals(){
+    const t=this.cur(), recs=this.records(), imported=this.isImported();
+    const facets=this.FACETS();
+    const present=new Set(recs.map(r=>r.kind));
+    // selected
+    let selId=this.state.sel; if(!selId || !recs.some(r=>r.id===selId)) selId=recs[0] && recs[0].id;
+    const selRec=recs.find(r=>r.id===selId) || recs[0];
+    const pick=id=>()=>this.setState({sel:id});
+    const proofPick=id=>(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); this.setState({sel:id, showRaw:true}); };
+    // facet meta lookup
+    const fmeta={}; facets.forEach(f=>fmeta[f.kind]=f);
+    // build item cards grouped
+    const cardOf=(r)=>{
+      const fm=fmeta[r.kind], conf=r._conf, sealed=r._sealed;
+      const warnDots=r._warnings.map(w=>({color:w.color,label:w.label}));
+      return { id:r.id, kindTag:fm.label.replace(/s$/,'').toUpperCase(), subject: sealed? '\u2014 sealed \u2014' : r.subject,
+        value: sealed? 'value withheld by policy' : r.value, subjColor: sealed? 'rgba(238,241,251,0.5)':'rgba(238,241,251,0.95)',
+        life:r.lifecycle, lifeColor:this.lifeColor(r.lifecycle), lifeBg:this.hexA(this.lifeColor(r.lifecycle),0.16),
+        showConf: conf!=null && !sealed, conf: conf!=null? conf.toFixed(2):'', confColor: conf!=null? this.confColor(conf):'#888',
+        warnDots,
+        cardBg: r.id===selId? this.hexA(fm.color,0.1) : 'rgba(255,255,255,0.025)',
+        border: r.id===selId? fm.color : (r._warnings.length? 'rgba(255,158,87,0.3)':'rgba(255,255,255,0.09)'),
+        tagBorder:this.hexA(fm.color,0.4),
+        shadow: r.id===selId? ('0 0 0 1px '+fm.color+', 0 8px 22px rgba(0,0,0,0.4)') : '0 3px 12px rgba(0,0,0,0.3)',
+        proofTxt: r.id===selId? '#0b0d16':'rgba(238,241,251,0.82)',
+        proofBg: r.id===selId? fm.color : 'rgba(255,255,255,0.06)',
+        proofBorder: r.id===selId? fm.color : 'rgba(255,255,255,0.14)',
+        onSelect:pick(r.id), onProof:proofPick(r.id) };
+    };
+    const groups=facets.filter(f=>present.has(f.kind)).map(f=>({
+      label:f.label, sub:f.sub, color:f.color,
+      items: recs.filter(r=>r.kind===f.kind).map(cardOf)
+    }));
+    const spectrum=facets.filter(f=>present.has(f.kind)).map(f=>{
+      const c=recs.filter(r=>r.kind===f.kind).length;
+      return { label:f.label, count:c, color:f.color, bg:this.hexA(f.color,0.08), border:this.hexA(f.color,0.3), onPick:()=>{ const first=recs.find(r=>r.kind===f.kind); if(first) this.setState({sel:first.id}); } };
+    });
+    // selected drawer vm
+    const fm=fmeta[selRec.kind], sealed=selRec._sealed, conf=selRec._conf;
+    const sel={
+      subject: sealed? selRec.subject+' \u00b7 sealed' : selRec.subject, color:fm.color, headerBg:this.hexA(fm.color,0.07),
+      kindTag:fm.label.replace(/s$/,'').toUpperCase(), canonId:selRec.id,
+      life:selRec.lifecycle, lifeColor:this.lifeColor(selRec.lifecycle), lifeBg:this.hexA(this.lifeColor(selRec.lifecycle),0.16),
+      hasWarn:selRec._warnings.length>0, warnings:selRec._warnings,
+      showConf: conf!=null, conf: conf!=null?conf.toFixed(2):'', confPct: conf!=null?Math.round(conf*100)+'%':'0%', confColor: conf!=null?this.confColor(conf):'#888',
+      window:selRec.window||'\u2014',
+      hasContradiction:!!selRec.contradiction, contradiction:selRec.contradiction||{a:{},b:{}},
+      hasSources:selRec.sources.length>0, noSources:selRec.sources.length===0,
+      sources:selRec.sources.map(s=>({ kind:s.kind, name:s.name, integ:(s.integrity!=null?s.integrity.toFixed(2):'\u2014'), integColor:s.integrity!=null?this.confColor(s.integrity):'#888', kindColor:this.kindColor(s.kind), kindBorder:this.hexA(this.kindColor(s.kind),0.4) })),
+      hasReasoning:selRec.reasoning.length>0, reasoning:selRec.reasoning,
+      truthMode:selRec.truthMode||'\u2014', resolver:selRec.resolver||'\u2014', recordsUsed:selRec.recordsUsed!=null?selRec.recordsUsed:'\u2014', schema:selRec.schema||'contract_v1.5',
+      visibility:selRec.visibility, visColor: sealed? '#7fb0ff':'rgba(238,241,251,0.85)',
+      fields: Object.keys(selRec.fields||{}).map(k=>({k, v:String(selRec.fields[k])}))
+    };
+    const totalSources=recs.reduce((a,r)=>a+r.sources.length,0);
+    const status={ records:recs.length, sources:totalSources,
+      srcLabel: imported? 'imported ledger':'sample ledger',
+      srcColor: imported? t.accent2 : 'rgba(238,241,251,0.6)',
+      srcBg: imported? this.hexA(t.accent2,0.1):'rgba(255,255,255,0.02)',
+      srcBorder: imported? this.hexA(t.accent2,0.4):'rgba(255,255,255,0.09)' };
+    const trace=[
+      {label:'ingested', meta:recs.length+'', color:'#46c8ff', arrow:true},
+      {label:'attested', meta:totalSources+' src', color:'#34e1b4', arrow:true},
+      {label:'normalized', meta:'adapter', color:'#6fe06a', arrow:true},
+      {label:'refracted', meta:groups.length+' facets', color:'#9b8cff', arrow:true},
+      {label:'rendered', meta:'live', color:'#ff7ad0', arrow:false}
+    ];
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2,
+      refractionSvg:this.buildRefraction(present), facetCount:groups.length,
+      groups, spectrum, sel, status, trace,
+      showRaw:this.state.showRaw, rawToggleLabel:this.state.showRaw?'\u2212 hide fields':'+ show fields',
+      onToggleRaw:()=>this.setState(s=>({showRaw:!s.showRaw})),
+      modalOpen:this.state.modal, onOpenImport:()=>this.openImport(), onCloseImport:()=>this.closeImport(), stop:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },
+      importText:this.state.importText, onImportText:(e)=>this.setState({importText:e.target.value}),
+      onDoImport:()=>this.doImport(), onLoadSampleText:()=>this.loadSampleText(), onRestoreSample:()=>this.restoreSample(),
+      importError:!!this.state.importErr, importErrorMsg:this.state.importErr, importOk:!!this.state.importOk, importOkMsg:this.state.importOk,
+      isImported:imported
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#04090f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1.5deg)}}
+  @keyframes lwBobSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+  @keyframes lwFlicker{0%,100%{opacity:1}42%{opacity:.45}48%{opacity:.85}70%{opacity:.35}76%{opacity:.8}}
+  @keyframes lwSwim{0%{transform:translateX(0)}50%{transform:translateX(16px)}100%{transform:translateX(0)}}
+  @keyframes lwRipple{0%{transform:scale(.4);opacity:.55}100%{transform:scale(2.4);opacity:0}}
+  @keyframes lwBubble{0%{transform:translateY(0);opacity:0}15%{opacity:.6}100%{transform:translateY(-120px);opacity:0}}
+  @keyframes lwHaze{0%,100%{opacity:.35;transform:translateX(0)}50%{opacity:.7;transform:translateX(14px)}}
+  @keyframes lwTwinkle{0%,100%{opacity:.3}50%{opacity:.8}}
+</style>
+</helmet>
+<div data-screen-label="Source Aquarium" style="height:100vh; overflow:hidden; color:rgba(229,243,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; --water1:{{ water1 }}; --water2:{{ water2 }}; background:radial-gradient(1100px 640px at 44% -16%, var(--bg1), transparent 60%), radial-gradient(950px 720px at 110% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M5 14 Q10 9 16 14 Q19 16.5 23 12" fill="none" stroke="var(--accent)" stroke-width="1.5"></path><path d="M5 19 Q10 14 16 19 Q19 21.5 23 17" fill="none" stroke="var(--accent2)" stroke-width="1.2" opacity="0.8"></path><circle cx="20" cy="9" r="1.5" fill="#7fe0ff"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Source Aquarium</span>
+      <span style="font-size:10.5px; color:rgba(229,243,247,0.42);">Projection · sources as living organisms · upstream of every record</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(229,243,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(127,224,255,0.3); border-radius:7px; background:rgba(127,224,255,0.08); color:#9fe6ff;"><span style="width:6px;height:6px;border-radius:50%;background:#7fe0ff;box-shadow:0 0 7px #7fe0ff;"></span>ingestion live</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">7 sources</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,193,77,0.3); border-radius:7px; background:rgba(255,193,77,0.08); color:#ffce6b;"><span style="width:6px;height:6px;border-radius:50%;background:#ffc14d;box-shadow:0 0 7px #ffc14d;"></span>2 noisy · 2 murk</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Data Steward</span>
+        <span style="font-size:10px; color:rgba(229,243,247,0.42); font-family:'IBM Plex Mono',monospace;">INGEST · Mon Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="source-aquarium"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(229,243,247,0.42); margin-bottom:4px;">TANK STATE · 7 SOURCES FEEDING</div>
+          <div style="display:flex; align-items:baseline; gap:11px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600; line-height:1.1; color:rgba(229,243,247,0.97);">Clear, with two murk pockets</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:7px;">
+            <sc-for list="{{ healthLegend }}" as="v" hint-placeholder-count="4">
+              <span style="display:inline-flex; align-items:center; gap:5px; font-size:9.5px; font-family:'IBM Plex Mono',monospace; padding:3px 8px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); color:rgba(229,243,247,0.62);"><span style="width:7px;height:7px;border-radius:50%;background:{{ v.color }};box-shadow:0 0 6px {{ v.color }};"></span>{{ v.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:13px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(229,243,247,0.4);">CONSISTENCY</span>
+            <div style="position:relative; width:44px; height:44px; border-radius:50%; background:conic-gradient(#46e0c8 84%, rgba(255,255,255,0.08) 0); display:flex; align-items:center; justify-content:center;"><div style="width:34px; height:34px; border-radius:50%; background:#06121a; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;">.84</span></div></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(229,243,247,0.4);">FRESH IMPORT</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(127,224,255,0.12); border:1px solid rgba(127,224,255,0.3);"><span style="width:7px; height:7px; border-radius:50%; background:#7fe0ff; box-shadow:0 0 7px #7fe0ff;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:#9fe6ff;">240 fish</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(229,243,247,0.4);">NORMALIZED</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(95,211,154,0.12); border:1px solid rgba(95,211,154,0.3); color:#86e0ad;">1,884 recs</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, var(--water1) 0%, var(--water2) 55%, #03060c 100%);">
+          <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(120deg, transparent 30%, rgba(127,224,255,0.06) 50%, transparent 70%); animation:lwHaze 9s ease-in-out infinite;"></div>
+          <div style="position:absolute; inset:0;">{{ dustSvg }}</div>
+
+          <div style="position:absolute; left:0; right:0; bottom:0; height:30%; background:linear-gradient(180deg, transparent, rgba(4,8,14,0.82) 70%); pointer-events:none;"></div>
+          <div style="position:absolute; left:18px; bottom:11px; font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(229,243,247,0.32); pointer-events:none;">MURK · degraded &amp; stale sources sink here — still feeding, flagged</div>
+
+          <div style="position:absolute; inset:0; pointer-events:none;">
+            <sc-for list="{{ bubbles }}" as="b" hint-placeholder-count="0">
+              <span style="position:absolute; left:{{ b.left }}; bottom:{{ b.bottom }}; width:{{ b.size }}; height:{{ b.size }}; border-radius:50%; border:1px solid rgba(180,230,255,0.5); animation:lwBubble {{ b.dur }} linear infinite; animation-delay:{{ b.delay }};"></span>
+            </sc-for>
+          </div>
+
+          <sc-for list="{{ ripples }}" as="r" hint-placeholder-count="0">
+            <span style="position:absolute; left:{{ r.left }}; top:{{ r.top }}; width:80px; height:80px; margin:-40px; border-radius:50%; border:1.5px solid {{ r.color }}; pointer-events:none; animation:lwRipple {{ r.dur }} ease-out infinite; animation-delay:{{ r.delay }};"></span>
+          </sc-for>
+
+          <!-- normalization pipeline -->
+          <div style="position:absolute; right:14px; top:46px; bottom:34px; width:30%; min-width:188px; border-left:1px solid rgba(127,224,255,0.18); background:linear-gradient(90deg, rgba(127,224,255,0.05), rgba(127,224,255,0.10)); border-radius:0 12px 12px 0; backdrop-filter:blur(3px); display:flex; flex-direction:column; padding:11px 12px; gap:7px;">
+            <div style="font-size:9px; letter-spacing:0.14em; color:#9fe6ff;">NORMALIZATION</div>
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:8px; padding:7px 9px; border-radius:9px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09);">
+                <span style="width:6px; height:6px; border-radius:50%; background:{{ f.color }}; box-shadow:0 0 6px {{ f.color }};"></span>
+                <span style="font-size:10px; font-weight:600; color:rgba(229,243,247,0.82);">{{ f.label }}</span>
+                <span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:rgba(229,243,247,0.45);">{{ f.meta }}</span>
+              </div>
+            </sc-for>
+            <div style="flex:1;"></div>
+            <div style="display:flex; align-items:center; gap:9px; padding:10px 11px; border-radius:10px; background:rgba(95,211,154,0.1); border:1px solid rgba(95,211,154,0.32);">
+              <svg width="16" height="16" viewBox="0 0 20 20"><polygon points="10,2 17,7 17,15 3,15 3,7" fill="none" stroke="#86e0ad" stroke-width="1.2"></polygon><line x1="3" y1="7" x2="10" y2="11" stroke="#86e0ad" stroke-width="1"></line><line x1="17" y1="7" x2="10" y2="11" stroke="#86e0ad" stroke-width="1"></line></svg>
+              <div style="line-height:1.15;"><div style="font-size:11px; font-weight:600; color:#a6ecc4;">Canonical records</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(229,243,247,0.45);">output · confidence assigned here</div></div>
+              <span style="margin-left:auto; font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#a6ecc4;">+18</span>
+            </div>
+          </div>
+
+          <!-- organisms -->
+          <sc-for list="{{ organisms }}" as="o" hint-placeholder-count="7">
+            <div onClick="{{ o.onSelect }}" style="position:absolute; left:{{ o.left }}; top:{{ o.top }}; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; cursor:pointer; z-index:{{ o.z }}; opacity:{{ o.op }};">
+              <div style="width:{{ o.size }}; height:{{ o.size }}; display:flex; align-items:center; justify-content:center; animation:{{ o.anim }};">{{ o.creatureEl }}</div>
+              <div style="margin-top:4px; display:flex; flex-direction:column; align-items:center; gap:3px;">
+                <div style="display:flex; align-items:center; gap:5px; padding:3px 8px; border-radius:7px; background:{{ o.chipBg }}; border:1px solid {{ o.chipBorder }};">
+                  <span style="width:6px; height:6px; border-radius:50%; background:{{ o.color }}; box-shadow:0 0 6px {{ o.color }};"></span>
+                  <span style="font-size:10px; font-weight:600; color:rgba(229,243,247,0.92); white-space:nowrap;">{{ o.name }}</span>
+                  <sc-if value="{{ o.warn }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; padding:1px 4px; border-radius:4px; background:{{ o.warnBg }}; color:{{ o.warnColor }};">{{ o.warnLabel }}</span></sc-if>
+                </div>
+                <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(229,243,247,0.4);">{{ o.kindLabel }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.name }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(229,243,247,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.kind }} · {{ sel.origin }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(229,243,247,0.4); margin-bottom:9px;">SOURCE HEALTH</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+                <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:9px 10px;">
+                  <div style="font-size:8.5px; letter-spacing:0.08em; color:rgba(229,243,247,0.42);">CLARITY</div>
+                  <div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:{{ sel.color }}; margin-top:2px;">{{ sel.clarity }}</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:9px 10px;">
+                  <div style="font-size:8.5px; letter-spacing:0.08em; color:rgba(229,243,247,0.42);">FRESHNESS</div>
+                  <div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:{{ sel.freshColor }}; margin-top:2px;">{{ sel.fresh }}</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:9px 10px;">
+                  <div style="font-size:8.5px; letter-spacing:0.08em; color:rgba(229,243,247,0.42);">THROUGHPUT</div>
+                  <div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:rgba(229,243,247,0.88); margin-top:2px;">{{ sel.throughput }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:11px; padding:11px 12px;">
+              <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L10 2.5 V6 C10 8.5 8 10.4 6 11 C4 10.4 2 8.5 2 6 V2.5 Z" fill="none" stroke="{{ sel.attColor }}" stroke-width="1"></path><path d="M4.4 6 L5.6 7.3 L7.8 4.6" fill="none" stroke="{{ sel.attColor }}" stroke-width="1"></path></svg>
+                <span style="font-size:10px; letter-spacing:0.12em; color:rgba(229,243,247,0.45);">ATTESTATION QUALITY</span>
+                <span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:{{ sel.attColor }};">{{ sel.attType }}</span>
+              </div>
+              <div style="height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.attPct }}; background:{{ sel.attColor }}; box-shadow:0 0 8px {{ sel.attColor }};"></div></div>
+              <div style="font-size:10.5px; color:rgba(229,243,247,0.55); margin-top:8px; line-height:1.45;">{{ sel.attNote }}</div>
+            </div>
+
+            <div>
+              <div style="display:flex; align-items:center; gap:9px; margin-bottom:9px;">
+                <span style="font-size:10px; letter-spacing:0.13em; color:rgba(229,243,247,0.4);">CROSS-SOURCE CONSISTENCY</span>
+                <span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.consColor }};">{{ sel.cons }}</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <sc-for list="{{ sel.agreements }}" as="ag" hint-placeholder-count="2">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="width:7px; height:7px; border-radius:50%; background:{{ ag.color }}; flex:0 0 auto; box-shadow:0 0 6px {{ ag.color }};"></span>
+                    <span style="font-size:10.5px; color:rgba(229,243,247,0.72);">{{ ag.label }}</span>
+                    <span style="flex:1; height:1px; background:rgba(255,255,255,0.07);"></span>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ ag.color }};">{{ ag.val }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.warning }}" hint-placeholder-val="{{ false }}">
+              <div style="background:{{ sel.warnBoxBg }}; border:1px solid {{ sel.warnBoxBorder }}; border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L11 10.5 H1 Z" fill="none" stroke="{{ sel.warnBoxColor }}" stroke-width="1"></path><line x1="6" y1="4.5" x2="6" y2="7.5" stroke="{{ sel.warnBoxColor }}" stroke-width="1"></line><circle cx="6" cy="9" r="0.6" fill="{{ sel.warnBoxColor }}"></circle></svg><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:{{ sel.warnBoxColor }};">{{ sel.warnTitle }}</span></div>
+                <div style="font-size:10.5px; color:rgba(229,243,247,0.66); line-height:1.45;">{{ sel.warning }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,107,208,0.05); border:1px solid rgba(255,107,208,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:50%; background:#ff6bd0; box-shadow:0 0 7px #ff6bd0;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em;">RIPPLE · CONTRADICTION</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(229,243,247,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(229,243,247,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(229,243,247,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(229,243,247,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(229,243,247,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <div style="font-size:10.5px; color:rgba(229,243,247,0.5); line-height:1.45; padding:9px 11px; background:rgba(127,224,255,0.04); border:1px solid rgba(127,224,255,0.18); border-radius:9px;">{{ sel.integNote }}</div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(229,243,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(229,243,247,0.72);">{{ step }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(229,243,247,0.4); margin-bottom:8px;">PROVENANCE TRACE</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.provenance }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #0a1016; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(229,243,247,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(229,243,247,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(229,243,247,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(229,243,247,0.45);">source</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(229,243,247,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(229,243,247,0.45);">transport</span><span>{{ sel.transport }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(229,243,247,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(229,243,247,0.45);">integrity</span><span style="color:{{ sel.integColor }};">{{ sel.integ }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(229,243,247,0.45);">records.produced</span><span>{{ sel.records }}</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#08121a; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical records</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(229,243,247,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Trace</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(229,243,247,0.6);">Ingestion stream · last 24h</span>
+        <span style="font-size:10px; color:rgba(229,243,247,0.38);">every drop of water entered here before it became a record</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(229,243,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#7fe0ff;"></span>import</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(229,243,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ffc14d;"></span>noisy batch</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(229,243,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#8a93a8;"></span>stale gap</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(70,224,200,0.05), rgba(127,224,255,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ streamSvg }}</div>
+        <sc-for list="{{ streamMarks }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:108px;">
+            <div style="font-size:8.5px; color:rgba(229,243,247,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:108px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(229,243,247,0.4); margin-top:3px; white-space:nowrap;">{{ m.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(229,243,247,0.66);">CLEAR WATER OR MURKY · THE TANK SHOWS THE SOURCE AS IT IS</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;abyss&quot;,&quot;reef&quot;,&quot;lagoon&quot;],&quot;default&quot;:&quot;abyss&quot;,&quot;tsType&quot;:&quot;'abyss' | 'reef' | 'lagoon'&quot;},&quot;bubbles&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'echo' };
+
+    this.SOURCES = {
+      tidewell:{ name:'Tidewell Beacon', creature:'jelly', state:'reliable', x:16, y:36, origin:'wearable device feed',
+        clarity:'0.94', fresh:'2m', freshColor:'#86e0ad', throughput:'high', life:'Attested', kind:'SRC \u00b7 device',
+        attType:'Ed25519', attPct:'94%', attNote:'Signed by the device at capture and hash-verified on import. The strongest attestation in the tank.',
+        cons:'0.90', agreements:[{label:'agrees with Mesh Relay',val:'0.93',color:'#46e0c8'},{label:'disputes Echo Chamber',val:'0.61',color:'#ff6bd0'}],
+        integ:'0.94', integColor:'#5fd39a', mode:'SRC \u00b7 raw', transport:'TLS \u00b7 signed', window:'streamed nightly', canonId:'src_tidewell', records:'412',
+        integNote:'Sources carry integrity, not confidence. Confidence is assigned downstream at normalization \u2014 a clear swimmer is still just a source.',
+        reasoning:['A device feed signed at the moment of capture.','Swims clear and steady \u2014 high clarity, fresh, high throughput.','Feeds 412 records; disagreements with self-reports are surfaced, not absorbed.'],
+        provenance:[{title:'Wearable device',meta:'hardware origin',color:'#7fe0ff',radius:'3px'},{title:'Ed25519 signature',meta:'verified at capture',color:'#5fd39a',radius:'3px'},{title:'Encrypted import',meta:'TLS \u00b7 hash-checked',color:'#46e0c8',radius:'3px'}] },
+
+      echo:{ name:'Echo Chamber', creature:'jelly', state:'contradictory', x:29, y:30, origin:'self-written journal',
+        clarity:'0.58', fresh:'1h', freshColor:'#86e0ad', throughput:'low', life:'Disputed', kind:'SRC \u00b7 self-report',
+        attType:'none', attPct:'40%', attNote:'Self-written with no third-party attestation. Admitted to the tank, but flagged \u2014 never silently trusted.',
+        cons:'0.61', agreements:[{label:'conflicts with Tidewell Beacon',val:'0.61',color:'#ff6bd0'},{label:'partial w/ Drift Logger',val:'0.74',color:'#ffc14d'}],
+        integ:'0.58', integColor:'#ff9e57', mode:'SRC \u00b7 raw', transport:'app \u00b7 self-entry', window:'irregular', canonId:'src_echo', records:'96',
+        integNote:'Sources carry integrity, not confidence. This one\u2019s low integrity ripples downstream \u2014 records built on it inherit the doubt.',
+        reasoning:['A self-reported feed with no external attestation.','It ripples: on two nights it disagrees with the device beacon.','Kept in the tank because removing a source would hide truth \u2014 the conflict is shown instead.'],
+        provenance:[{title:'Manual journal entry',meta:'self-attested origin',color:'#ff9e57',radius:'2px'},{title:'No third party',meta:'attestation absent',color:'#ff6bd0',radius:'2px'},{title:'App ingest',meta:'TLS receipt only',color:'#ffc14d',radius:'3px'}],
+        contradiction:{ a:{label:'Echo Chamber',val:'5.0 h',conf:'integ 0.58',color:'#ff6bd0'}, b:{label:'Tidewell Beacon',val:'6.2 h',conf:'integ 0.94',color:'#46e0c8'}, note:'Same night, two sources disagree. The ripple is the contradiction made visible \u2014 the resolver weighs it later; the tank never erases it.' },
+        warning:null },
+
+      mesh:{ name:'Mesh Relay', creature:'jelly', state:'reliable', x:18, y:66, origin:'calendar provider · OAuth',
+        clarity:'0.90', fresh:'5m', freshColor:'#86e0ad', throughput:'steady', life:'Attested', kind:'SRC \u00b7 provider',
+        attType:'OAuth token', attPct:'90%', attNote:'Provider-issued token attests the feed is authentic. Strong, though provider-level rather than device-level.',
+        cons:'0.88', agreements:[{label:'agrees with Tidewell Beacon',val:'0.93',color:'#46e0c8'},{label:'independent of Echo',val:'\u2014',color:'#8a93a8'}],
+        integ:'0.90', integColor:'#5fd39a', mode:'SRC \u00b7 raw', transport:'OAuth \u00b7 live sync', window:'live sync', canonId:'src_mesh', records:'558',
+        integNote:'Sources carry integrity, not confidence. A steady swimmer feeds steady records \u2014 but meaning is still assigned downstream.',
+        reasoning:['A provider feed imported over OAuth.','Swims steadily \u2014 reliable cadence, high clarity.','The tank\u2019s highest-throughput source at 558 records.'],
+        provenance:[{title:'Calendar provider',meta:'third-party origin',color:'#7fe0ff',radius:'3px'},{title:'OAuth token',meta:'provider-attested',color:'#5fd39a',radius:'3px'},{title:'Live sync',meta:'continuous',color:'#46e0c8',radius:'3px'}] },
+
+      drift:{ name:'Drift Logger', creature:'blob', state:'noisy', x:45, y:50, origin:'focus app log', warn:true, warnLabel:'noisy',
+        clarity:'0.71', fresh:'12m', freshColor:'#86e0ad', throughput:'erratic', life:'Imported', kind:'SRC \u00b7 app log',
+        attType:'TLS receipt', attPct:'72%', attNote:'App-level TLS receipt confirms delivery, but the signal itself is jittery \u2014 frequent gaps and duplicates.',
+        cons:'0.74', agreements:[{label:'partial w/ Echo Chamber',val:'0.74',color:'#ffc14d'},{label:'thin overlap w/ Mesh',val:'0.66',color:'#ffc14d'}],
+        integ:'0.74', integColor:'#7fd99a', mode:'SRC \u00b7 raw', transport:'app \u00b7 TLS', window:'per session', canonId:'src_drift', records:'264',
+        integNote:'Sources carry integrity, not confidence. Noise lowers clarity but not integrity outright \u2014 the dedupe filter cleans much of it before records form.',
+        reasoning:['An app log that flickers \u2014 erratic timing, occasional duplicates.','Clarity is dented by noise, but the feed is genuine and attested at delivery.','The normalization dedupe membrane removes most jitter before records are minted.'],
+        provenance:[{title:'Focus app',meta:'software origin',color:'#ffc14d',radius:'2px'},{title:'TLS receipt',meta:'delivery-attested',color:'#7fd99a',radius:'3px'},{title:'Session ingest',meta:'intermittent',color:'#ffc14d',radius:'2px'}],
+        warning:'Noisy source: 14% of batches arrive with gaps or duplicate frames. The flicker is the noise made visible. Dedupe handles it downstream, but throughput stays erratic.', warnTitle:'NOISY SOURCE' },
+
+      cistern:{ name:'Old Cistern', creature:'ray', state:'stale', x:34, y:84, origin:'legacy manual export', warn:true, warnLabel:'14d',
+        clarity:'0.34', fresh:'14d', freshColor:'#ff9e57', throughput:'dormant', life:'Stale', kind:'SRC \u00b7 legacy',
+        attType:'manual', attPct:'48%', attNote:'A legacy manual export. No fresh attestation in 14 days \u2014 it has sunk into the murk, still on record but no longer feeding new water.',
+        cons:'0.55', agreements:[{label:'last agreed w/ Mesh',val:'0.81',color:'#8a93a8'},{label:'stale \u2014 not re-checked',val:'\u2014',color:'#8a93a8'}],
+        integ:'0.48', integColor:'#ff9e57', mode:'SRC \u00b7 raw', transport:'manual upload', window:'last seen Jun 2', canonId:'src_cistern', records:'88',
+        integNote:'Sources carry integrity, not confidence. A stale source is not deleted \u2014 records it already produced stand, but new normalization weights its age.',
+        reasoning:['A manual legacy export, last refreshed 14 days ago.','It has sunk into the murk \u2014 dim, low clarity, dormant throughput.','Its prior 88 records remain valid; staleness is flagged, not erased.'],
+        provenance:[{title:'Legacy system',meta:'manual origin',color:'#8a93a8',radius:'2px'},{title:'Manual upload',meta:'no live attestation',color:'#8a93a8',radius:'2px'},{title:'Last seen Jun 2',meta:'14 days stale',color:'#ff9e57',radius:'2px'}],
+        warning:'Stale source: no import in 14 days. It still appears in the tank so its past contributions stay traceable, but it is contributing no new water and is weighted for age downstream.', warnTitle:'STALE SOURCE' },
+
+      salt:{ name:'Salt Survey', creature:'ray', state:'degraded', x:57, y:80, origin:'third-party dataset', warn:true, warnLabel:'degraded',
+        clarity:'0.41', fresh:'3d', freshColor:'#ffce6b', throughput:'partial', life:'Degraded', kind:'SRC \u00b7 dataset',
+        attType:'checksum', attPct:'54%', attNote:'A third-party dataset arriving with partial fields and a weak checksum. It hides in the murk \u2014 present, but only half-legible.',
+        cons:'0.63', agreements:[{label:'partial w/ Mesh Relay',val:'0.69',color:'#8a93a8'},{label:'sparse overlap',val:'0.58',color:'#8a93a8'}],
+        integ:'0.54', integColor:'#e8c75a', mode:'SRC \u00b7 raw', transport:'bulk \u00b7 checksum', window:'weekly drop', canonId:'src_salt', records:'128',
+        integNote:'Sources carry integrity, not confidence. Degraded fields are passed through with null-flags, never invented \u2014 the schema filter marks the holes.',
+        reasoning:['A bulk third-party dataset with missing fields.','Degraded clarity \u2014 it lurks in the murk rather than swimming clear.','Holes are marked null at the schema filter, never back-filled with guesses.'],
+        provenance:[{title:'External dataset',meta:'third-party origin',color:'#8a93a8',radius:'2px'},{title:'Weak checksum',meta:'partial verification',color:'#e8c75a',radius:'2px'},{title:'Bulk drop',meta:'weekly',color:'#8a93a8',radius:'2px'}],
+        warning:'Degraded source: ~30% of fields arrive empty. Missing data is flagged null at normalization \u2014 the tank shows it murky rather than pretending it is clear.', warnTitle:'DEGRADED SOURCE' },
+
+      spore:{ name:'Spore Cluster', creature:'school', state:'fresh', x:54, y:34, origin:'fresh import batch',
+        clarity:'0.82', fresh:'now', freshColor:'#9fe6ff', throughput:'arriving', life:'Imported', kind:'SRC \u00b7 import',
+        attType:'batch sig', attPct:'82%', attNote:'A glowing school of 240 data fish, just arrived and swimming toward the normalization filters. Batch-signed; not yet normalized.',
+        cons:'\u2014', agreements:[{label:'not yet cross-checked',val:'pending',color:'#7fe0ff'}],
+        integ:'0.82', integColor:'#7fd99a', mode:'SRC \u00b7 import', transport:'batch \u00b7 signed', window:'arrived 12:04', canonId:'src_spore', records:'0 \u2192 18',
+        integNote:'Sources carry integrity, not confidence. This school has integrity but no confidence yet \u2014 confidence is minted only as it passes the filters into records.',
+        reasoning:['A fresh import batch of 240 records, glowing as it enters.','It swims toward the dedupe \u2192 schema \u2192 attestation \u2192 resolver filters.','No confidence yet: it is still water, becoming records as it passes through.'],
+        provenance:[{title:'Import batch',meta:'arrived 12:04',color:'#7fe0ff',radius:'3px'},{title:'Batch signature',meta:'verified',color:'#5fd39a',radius:'3px'},{title:'Heading to filters',meta:'normalization pending',color:'#7fe0ff',radius:'3px'}] }
+    };
+    this.NAV=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Family Lantern Wall','Bounty Constellarium','Source Aquarium'];
+  }
+
+  themes={
+    abyss:  { accent:'#46e0c8', accent2:'#7fe0ff', base:'#04090f', bg1:'rgba(40,180,200,0.13)', bg2:'rgba(60,90,220,0.10)', glow:'rgba(70,224,200,0.30)', water1:'#0a2230', water2:'#06141f' },
+    reef:   { accent:'#5fe0d0', accent2:'#ff9ec2', base:'#08080f', bg1:'rgba(60,210,200,0.12)', bg2:'rgba(255,140,180,0.10)', glow:'rgba(95,224,208,0.30)', water1:'#0e2230', water2:'#0a141c' },
+    lagoon: { accent:'#5fd3a6', accent2:'#7fe0ff', base:'#04100c', bg1:'rgba(70,200,150,0.13)', bg2:'rgba(80,200,220,0.10)', glow:'rgba(95,211,166,0.30)', water1:'#0a261f', water2:'#06150f' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.abyss; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  stateColor(s){ return ({reliable:'#46e0c8', contradictory:'#ff6bd0', noisy:'#ffc14d', stale:'#8a93a8', degraded:'#e8c75a', fresh:'#7fe0ff'})[s]||'#7fe0ff'; }
+  lifeColor(l){ return ({Attested:'#5fd39a', Imported:'#7fe0ff', Disputed:'#ff6bd0', Degraded:'#e8c75a', Stale:'#8a93a8'})[l]||'#9aa6c0'; }
+
+  // ---- creature art (decorative) ----
+  jelly(color, contradictory){
+    const h=React.createElement, g=this.hexA(color,0.85), f=this.hexA(color,0.32);
+    const tents=[]; for(let i=0;i<6;i++){ const x=14+i*6.4; tents.push(h('path',{key:'t'+i,d:'M '+x+' 30 q '+(i%2?3:-3)+' 9 '+(i%2?-1:1)+' 20',fill:'none',stroke:g,strokeWidth:1.1,opacity:0.7})); }
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 60 64'},
+      h('defs',null,h('radialGradient',{id:'jg'+color.slice(1)},h('stop',{offset:'0%',stopColor:'#ffffff',stopOpacity:0.9}),h('stop',{offset:'45%',stopColor:color,stopOpacity:0.7}),h('stop',{offset:'100%',stopColor:color,stopOpacity:0.08}))),
+      h('ellipse',{cx:30,cy:34,rx:24,ry:18,fill:color,opacity:0.12}),
+      h('path',{d:'M6 30 Q8 6 30 6 Q52 6 54 30 Q54 33 30 31 Q6 33 6 30 Z',fill:'url(#jg'+color.slice(1)+')',stroke:g,strokeWidth:1}),
+      h('ellipse',{cx:30,cy:22,rx:9,ry:6,fill:'#fff',opacity:0.5}),
+      ...tents);
+  }
+  blob(color){
+    const h=React.createElement, g=this.hexA(color,0.85);
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 60 60'},
+      h('defs',null,h('radialGradient',{id:'bg'+color.slice(1)},h('stop',{offset:'0%',stopColor:'#fff',stopOpacity:0.85}),h('stop',{offset:'40%',stopColor:color,stopOpacity:0.6}),h('stop',{offset:'100%',stopColor:color,stopOpacity:0.05}))),
+      h('path',{d:'M30 8 Q44 10 48 24 Q54 32 46 42 Q40 54 28 50 Q14 52 12 38 Q6 28 14 20 Q18 8 30 8 Z',fill:'url(#bg'+color.slice(1)+')',stroke:g,strokeWidth:1}),
+      h('circle',{cx:24,cy:26,r:3,fill:'#06141f'}), h('circle',{cx:36,cy:28,r:2.4,fill:'#06141f'}),
+      h('path',{d:'M22 12 q -4 -6 1 -9 M40 14 q 5 -6 0 -10',fill:'none',stroke:g,strokeWidth:1,opacity:0.6}));
+  }
+  ray(color){
+    const h=React.createElement, g=this.hexA(color,0.8);
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 64 44'},
+      h('defs',null,h('radialGradient',{id:'rg'+color.slice(1)},h('stop',{offset:'0%',stopColor:color,stopOpacity:0.5}),h('stop',{offset:'100%',stopColor:color,stopOpacity:0.05}))),
+      h('path',{d:'M32 8 Q58 14 60 26 Q44 24 32 30 Q20 24 4 26 Q6 14 32 8 Z',fill:'url(#rg'+color.slice(1)+')',stroke:g,strokeWidth:1}),
+      h('path',{d:'M32 30 q 0 8 -1 12',fill:'none',stroke:g,strokeWidth:1,opacity:0.6}),
+      h('circle',{cx:27,cy:18,r:1.6,fill:'#cfe8f2',opacity:0.8}), h('circle',{cx:37,cy:18,r:1.6,fill:'#cfe8f2',opacity:0.8}));
+  }
+  school(color){
+    const h=React.createElement, g=this.hexA(color,0.9);
+    const fish=(x,y,s)=>h('g',{key:x+'-'+y,transform:'translate('+x+','+y+') scale('+s+')'},
+      h('path',{d:'M0 0 Q6 -3 11 0 Q6 3 0 0 Z',fill:color,opacity:0.85}),
+      h('path',{d:'M0 0 L -4 -3 L -3 0 L -4 3 Z',fill:g}));
+    const pos=[[10,14,1.1],[22,8,0.9],[20,22,0.95],[33,16,1.15],[34,28,0.8],[44,11,0.9],[45,23,1.0],[12,30,0.8]];
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 60 40'},
+      h('circle',{cx:30,cy:20,r:20,fill:color,opacity:0.08}),
+      ...pos.map(p=>fish(p[0],p[1],p[2])));
+  }
+  creatureFor(s){
+    if(s.creature==='jelly') return this.jelly(this.stateColor(s.state), s.state==='contradictory');
+    if(s.creature==='blob') return this.blob(this.stateColor(s.state));
+    if(s.creature==='ray') return this.ray(this.stateColor(s.state));
+    return this.school(this.stateColor(s.state));
+  }
+  animFor(s){
+    if(s.state==='noisy') return 'lwFlicker 1.4s steps(1) infinite, lwBob 6s ease-in-out infinite';
+    if(s.state==='stale'||s.state==='degraded') return 'lwBobSlow 8s ease-in-out infinite';
+    if(s.state==='fresh') return 'lwSwim 4s ease-in-out infinite';
+    return 'lwBob '+(5.5+(s.x%3))+'s ease-in-out infinite';
+  }
+  sizeFor(s){ return s.creature==='school'?'84px': s.creature==='ray'?'72px':'62px'; }
+
+  renderVals(){
+    const t=this.cur(), S=this.SOURCES, selId=this.state.sel, b=S[selId];
+    const pick=id=>()=>this.setState({sel:id});
+
+    const organisms=Object.keys(S).map(id=>{ const s=S[id], col=this.stateColor(s.state), seld=id===selId;
+      return { id, name:s.name, color:col, left:s.x+'%', top:s.y+'%', size:this.sizeFor(s),
+        z:seld?12:(s.state==='stale'||s.state==='degraded'?4:7), op:seld?1:(this.state.sel?0.82:0.96),
+        anim:this.animFor(s), creatureEl:this.creatureFor(s),
+        kindLabel:s.kind, chipBg:seld?this.hexA(col,0.16):'rgba(8,18,26,0.7)', chipBorder:seld?col:'rgba(255,255,255,0.12)',
+        warn:!!s.warn, warnLabel:s.warnLabel||'', warnBg:this.hexA(s.state==='stale'?'#ff9e57':col,0.16), warnColor:s.state==='stale'?'#ffb27a':col,
+        onSelect:pick(id) }; });
+
+    const warnPalette={ noisy:{c:'#ffc14d',bg:'rgba(255,193,77,0.05)',bd:'rgba(255,193,77,0.3)'}, stale:{c:'#ff9e57',bg:'rgba(255,158,87,0.05)',bd:'rgba(255,158,87,0.3)'}, degraded:{c:'#e8c75a',bg:'rgba(232,199,90,0.05)',bd:'rgba(232,199,90,0.3)'} };
+    const wp=warnPalette[b.state]||warnPalette.noisy;
+
+    const sel={
+      name:b.name, color:this.stateColor(b.state), kind:b.kind, origin:b.origin,
+      life:b.life, lifeColor:this.lifeColor(b.life), lifeBg:this.hexA(this.lifeColor(b.life),0.16), headerBg:this.hexA(this.stateColor(b.state),0.07),
+      clarity:b.clarity, fresh:b.fresh, freshColor:b.freshColor, throughput:b.throughput,
+      attType:b.attType, attPct:b.attPct, attColor:this.stateColor(b.state), attNote:b.attNote,
+      cons:b.cons, consColor: parseFloat(b.cons)>=0.8?'#5fd39a': parseFloat(b.cons)>=0.6?'#e8c75a': isNaN(parseFloat(b.cons))?'#7fe0ff':'#ff9e57', agreements:b.agreements,
+      warning:b.warning||null, warnTitle:b.warnTitle||'', warnBoxColor:wp.c, warnBoxBg:wp.bg, warnBoxBorder:wp.bd,
+      contradiction:b.contradiction||null,
+      integNote:b.integNote,
+      reasoning:b.reasoning, provenance:b.provenance,
+      canonId:b.canonId, mode:b.mode, transport:b.transport, window:b.window, integ:b.integ, integColor:b.integColor, records:b.records
+    };
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Source Aquarium'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(229,243,247,0.95)':'rgba(229,243,247,0.6)', dot:active?'var(--accent)':'rgba(229,243,247,0.35)' }; });
+
+    const healthLegend=[ {label:'clear',color:'#46e0c8'},{label:'noisy',color:'#ffc14d'},{label:'murk',color:'#8a93a8'},{label:'ripple',color:'#ff6bd0'} ];
+    const filters=[ {label:'Dedupe membrane',color:'#7fe0ff',meta:'\u221213%'},{label:'Schema filter',color:'#46e0c8',meta:'null-flag'},{label:'Attestation gate',color:'#5fd39a',meta:'pass'},{label:'Conflict resolver',color:'#ff6bd0',meta:'1 ripple'} ];
+
+    // ripple between echo & tidewell midpoint
+    const mid=(a,b2)=>({ left:((S[a].x+S[b2].x)/2)+'%', top:((S[a].y+S[b2].y)/2)+'%' });
+    const rip=mid('echo','tidewell');
+    const ripples=[ {left:rip.left, top:rip.top, color:'rgba(255,107,208,0.6)', dur:'3.2s', delay:'0s'}, {left:rip.left, top:rip.top, color:'rgba(255,107,208,0.4)', dur:'3.2s', delay:'1.6s'} ];
+
+    const bubbles=[ {left:'22%',bottom:'14%',size:'5px',dur:'7s',delay:'0s'},{left:'40%',bottom:'8%',size:'3px',dur:'9s',delay:'2s'},{left:'30%',bottom:'20%',size:'4px',dur:'8s',delay:'4s'},{left:'52%',bottom:'10%',size:'3px',dur:'7.5s',delay:'1s'},{left:'15%',bottom:'24%',size:'4px',dur:'10s',delay:'3s'} ];
+    const showBubbles = this.props.bubbles===false ? [] : bubbles;
+
+    const streamMarks=[
+      {subj:'Mesh sync',meta:'live',leftPct:'8%',color:'#7fe0ff',ringColor:'rgba(255,255,255,0.3)',id:'mesh'},
+      {subj:'Tidewell nightly',meta:'+412',leftPct:'25%',color:'#46e0c8',ringColor:'rgba(255,255,255,0.3)',id:'tidewell'},
+      {subj:'Drift batch',meta:'noisy 14%',leftPct:'43%',color:'#ffc14d',ringColor:'#ffc14d',id:'drift'},
+      {subj:'Cistern gap',meta:'14d stale',leftPct:'59%',color:'#8a93a8',ringColor:'#8a93a8',id:'cistern'},
+      {subj:'Spore import',meta:'240 fish',leftPct:'78%',color:'#7fe0ff',ringColor:'#7fe0ff',id:'spore'},
+      {subj:'Now',meta:'+18 recs',leftPct:'93%',color:t.accent,ringColor:'rgba(255,255,255,0.3)',id:'spore'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, water1:t.water1, water2:t.water2,
+      dustSvg:this.buildDust(), streamSvg:this.buildStream(),
+      organisms, ripples, bubbles:showBubbles, filters, sel, navItems, healthLegend, streamMarks
+    };
+  }
+
+  buildDust(){
+    const h=React.createElement, R=[]; let s=13; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<60;i++){ R.push(h('circle',{key:'d'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*1.0+0.2).toFixed(2),fill:'#bfe9f5',opacity:(rnd()*0.22+0.04).toFixed(2),style:{animation:rnd()>0.6?('lwTwinkle '+(2+rnd()*3).toFixed(1)+'s ease-in-out infinite'):'none'}})); }
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+  buildStream(){
+    const h=React.createElement, vals=[0.30,0.55,0.40,0.22,0.66,0.50], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-v*44;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06090a}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwRain{to{transform:translateY(20px);opacity:0}}
+  @keyframes lwSway{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.2deg)}}
+  @keyframes lwGlow{0%,100%{opacity:.5}50%{opacity:.95}}
+  @keyframes lwShimmer{0%,100%{opacity:.6}50%{opacity:1}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="The Yield Garden" style="height:100vh; overflow:hidden; color:rgba(232,238,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 28% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 116% 122%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><path d="M14 4 L14 24" stroke="var(--accent)" stroke-width="1.1" opacity="0.5"></path><path d="M5.5 9 L22.5 19 M5.5 19 L22.5 9" stroke="var(--accent2)" stroke-width="1.1" opacity="0.55"></path><circle cx="14" cy="14" r="2.6" fill="var(--accent2)"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">The Yield Garden</span>
+      <span style="font-size:10.5px; color:rgba(232,238,247,0.42);">your money as a garden — same soil, same numbers, friendlier weather</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(232,238,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(70,224,180,0.3); border-radius:7px; background:rgba(70,224,180,0.06); color:#7fe0c0;"><svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="#7fe0c0" stroke-width="1"></rect><path d="M3.6 5 V3.7 a2.4 2.4 0 0 1 4.8 0 V5" fill="none" stroke="#7fe0c0" stroke-width="1"></path></svg>truth layer · locked</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>tended {{ reconciledPct }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,138,122,0.3); border-radius:7px; background:rgba(255,138,122,0.06); color:#ff9a8a;"><span style="width:6px;height:6px;border-radius:50%;background:#ff7a6a;box-shadow:0 0 7px #ff7a6a;"></span>{{ flaggedCount }} weed</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Gardener</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42); font-family:'IBM Plex Mono',monospace;">record owner</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0; position:relative;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-yield-garden"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:0;">
+      <div style="flex:0 0 auto; padding:13px 18px 12px; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex; align-items:flex-end; gap:12px; margin-bottom:11px;">
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600;">The garden · this season</div>
+            <div style="font-size:12px; color:rgba(232,238,247,0.6); margin-top:3px;">Rain fills the cistern; the beds drink. Tap a cloud, the cistern, or a bed to read the record.</div>
+          </div>
+          <div style="flex:0 0 auto; display:flex; gap:6px;">
+            <sc-for list="{{ viewTabs }}" as="vt" hint-placeholder-count="2">
+              <span onClick="{{ vt.onClick }}" style="cursor:pointer; font-size:11px; padding:7px 13px; border-radius:9px; background:{{ vt.bg }}; border:1px solid {{ vt.border }}; color:{{ vt.txt }};">{{ vt.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex; gap:9px;">
+          <sc-for list="{{ statTiles }}" as="st" hint-placeholder-count="4">
+            <div style="flex:1; border-radius:11px; padding:9px 12px; background:{{ st.bg }}; border:1px solid {{ st.border }};">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:9px; letter-spacing:0.1em; color:rgba(232,238,247,0.5);">{{ st.label }}</span>
+                <sc-if value="{{ st.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ st.badgeBg }}; color:{{ st.badgeColor }};">{{ st.badge }}</span></sc-if>
+              </div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:700; color:{{ st.color }}; line-height:1.1; margin-top:3px;">{{ st.value }}</div>
+              <div style="font-size:9.5px; color:rgba(232,238,247,0.5); margin-top:2px;">{{ st.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1; min-height:0; display:flex; flex-direction:column; padding:14px 18px 16px;">
+        <div style="flex:1; min-height:0; position:relative; border:1px solid rgba(255,255,255,0.09); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, #0b1418 0%, #0a1512 52%, #0c1410 100%);">
+          <div style="position:absolute; inset:0;">{{ gardenSvg }}</div>
+          <div style="position:absolute; top:11px; left:16px; font-size:9px; letter-spacing:0.14em; color:rgba(232,238,247,0.4);">RAIN · INCOME</div>
+          <div style="position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; font-size:9.5px; color:rgba(232,238,247,0.5);">
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:#5fd39a;box-shadow:0 0 6px #5fd39a;"></span>lush = settled</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:2px;border:1px dashed #e8c75a;"></span>pale = estimated</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:#ff6b8a;"></span>weed = contested</span>
+            <span style="font-style:italic;">The weather changes how it feels, not what it holds.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside style="flex:0 0 374px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 17px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">The cutting</span>
+          <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.statusBg }}; color:{{ sel.statusColor }};">{{ sel.statusLabel }}</span>
+        </div>
+        <div style="font-size:10.5px; color:rgba(232,238,247,0.45); margin-top:3px;">what's really growing here — read from the ledger</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:15px 17px 18px; display:flex; flex-direction:column; gap:14px;">
+
+        <div style="display:flex; align-items:center; gap:13px;">
+          <div style="flex:0 0 64px; height:64px; border-radius:14px; background:{{ sel.iconBg }}; border:1px solid {{ sel.iconBorder }}; display:flex; align-items:center; justify-content:center;">
+            <span style="width:34px; height:34px;">{{ sel.icon }}</span>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600;">{{ sel.name }}</div>
+            <div style="font-size:11px; color:rgba(232,238,247,0.6); margin-top:2px;">{{ sel.kindLabel }}</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:{{ sel.amountColor }}; margin-top:4px;">{{ sel.amount }} <span style="font-size:11px; font-weight:400; color:rgba(232,238,247,0.45);">{{ sel.cadence }}</span></div>
+          </div>
+        </div>
+
+        <div style="border-radius:11px; padding:11px 12px; background:{{ sel.transBg }}; border:1px solid {{ sel.transBorder }};">
+          <div style="font-size:9px; letter-spacing:0.1em; color:{{ sel.statusColor }}; margin-bottom:6px;">IN THE GARDEN → IN THE LEDGER</div>
+          <div style="font-size:11.5px; line-height:1.55; color:rgba(232,238,247,0.8); text-wrap:pretty;">{{ sel.blurb }}</div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">CONFIDENCE</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.confColor }};">{{ sel.confStr }} · {{ sel.confWord }}</span>
+          </div>
+          <div style="height:8px; border-radius:6px; background:rgba(255,255,255,0.08); overflow:hidden;">
+            <div style="height:100%; width:{{ sel.confPct }}; background:linear-gradient(90deg, {{ sel.confColor }}, {{ sel.color }}); border-radius:6px;"></div>
+          </div>
+          <sc-if value="{{ sel.confNote }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:9.5px; color:rgba(232,238,247,0.5); margin-top:5px;">{{ sel.confNote }}</div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">STATUS</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.statusColor }};">{{ sel.statusLabel }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">RESOLVER</div><div style="font-size:10px; font-weight:600; font-family:'IBM Plex Mono',monospace; color:rgba(232,238,247,0.85);">{{ sel.resolver }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">WINDOW</div><div style="font-size:10px; font-weight:500; color:rgba(232,238,247,0.82);">{{ sel.window }}</div></div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">SOURCE FEEDS · PROVENANCE</div>
+          <div style="border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+            <sc-for list="{{ sel.sources }}" as="sr" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; padding:8px 11px; border-top:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.15);">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(232,238,247,0.85);">{{ sr.rec }}</span><span style="font-size:9px; color:rgba(232,238,247,0.45);">{{ sr.kind }} · {{ sr.note }}</span></span>
+                <sc-if value="{{ sr.flag }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto; font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; margin-right:8px; background:rgba(255,158,87,0.16); color:#ff9e57;">{{ sr.flag }}</span></sc-if>
+                <span style="flex:0 0 54px; font-size:10px; color:rgba(232,238,247,0.6);">{{ sr.source }}</span>
+                <span style="flex:0 0 34px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ sr.confColor }};">{{ sr.confStr }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,107,138,0.06); border:1px solid rgba(255,107,138,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 C5 4 3 4 2 6 C4 6 5 8 6 11 C7 8 8 6 10 6 C9 4 7 4 6 1 Z" fill="none" stroke="#ff6b8a" stroke-width="0.9"></path></svg>
+              <span style="font-size:11px; font-weight:600;">{{ sel.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(232,238,247,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="rp" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(232,238,247,0.72);">{{ rp }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:9px;">CANONICAL RECORD LINK</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">id</span><span style="color:{{ sel.color }};">{{ sel.canonicalId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">visibility</span><span>Private</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">governance</span><span>{{ sel.governance }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">records</span><span>{{ sel.records }} canonical</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">CARE ACTIONS</span>
+            <span style="font-size:9.5px; color:rgba(232,238,247,0.42);">recommended: <span style="color:var(--accent2); font-weight:600;">{{ sel.recLabel }}</span></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ sel.actions }}" as="ca" hint-placeholder-count="2">
+              <div onClick="{{ ca.onClick }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:10px; background:{{ ca.bg }}; border:1px solid {{ ca.border }}; box-shadow:{{ ca.ring }};">
+                <span style="flex:1; min-width:0;">
+                  <span style="display:flex; align-items:center; gap:6px;"><span style="font-size:12px; font-weight:600; color:{{ ca.labelColor }};">{{ ca.label }}</span><sc-if value="{{ ca.recommended }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:rgba(70,224,180,0.16); color:#7fe0c0;">REC</span></sc-if></span>
+                  <span style="display:block; font-size:9.5px; line-height:1.35; color:rgba(232,238,247,0.5); margin-top:3px;">{{ ca.help }}</span>
+                </span>
+                <span style="flex:0 0 auto; font-size:9px; font-family:'IBM Plex Mono',monospace; color:{{ ca.writesColor }};">{{ ca.writes }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:9px; padding-top:9px; border-top:1px solid rgba(255,255,255,0.06);">
+            <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></rect><path d="M4 5 V3.6 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></path></svg>
+            <span style="font-size:10px; color:rgba(232,238,247,0.55); line-height:1.4;">Tending, staking, weeding — all annotations. None of them moves a dollar in the ledger.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 132px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px; min-height:0;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:11px; margin-bottom:8px; flex:0 0 auto;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:rgba(232,238,247,0.7);">Today in the garden · ledger trace</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42);">straight from the feeds · tap to trace one</span>
+      </div>
+      <div style="flex:1; min-height:0; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ reckonings }}" as="rk" hint-placeholder-count="6">
+          <div onClick="{{ rk.onSelect }}" style="flex:0 0 auto; min-width:182px; cursor:pointer; display:flex; gap:9px; align-items:flex-start; background:{{ rk.bg }}; border:1px solid {{ rk.border }}; border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ rk.color }}; box-shadow:0 0 6px {{ rk.color }}; margin-top:4px;"></span>
+            <div style="min-width:0; flex:1;">
+              <div style="display:flex; align-items:baseline; gap:6px;"><span style="font-size:10.5px; color:rgba(232,238,247,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:104px;">{{ rk.title }}</span><span style="flex:1;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:{{ rk.amountColor }};">{{ rk.amount }}</span></div>
+              <div style="font-size:9px; color:rgba(232,238,247,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ rk.detail }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ rk.statusColor }}; margin-top:1px;">{{ rk.status }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 240px; display:flex; align-items:center; gap:12px; background:rgba(70,224,180,0.05); border:1px solid rgba(70,224,180,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:#7fe0c0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px;">dollars moved by gardening</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:rgba(232,238,247,0.92); line-height:1;">{{ annotationCount }}</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px; line-height:1.3;">annotations · the zero is the one that matters</div>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; bottom:148px; left:50%; z-index:40; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(16,22,32,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:560px;">
+      <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+      <span style="font-size:11.5px; line-height:1.45; color:rgba(232,238,247,0.9);">{{ toast }}</span>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;garden&quot;,&quot;meadow&quot;,&quot;dusk&quot;],&quot;default&quot;:&quot;garden&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;livingMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.STATUS = {
+      settled:  { label:'Settled',   color:'#39e0a6', bg:'rgba(57,224,166,0.14)' },
+      cleared:  { label:'Cleared',   color:'#7fd99a', bg:'rgba(127,217,154,0.14)' },
+      estimated:{ label:'Estimated', color:'#e8c75a', bg:'rgba(232,199,90,0.14)' },
+      contested:{ label:'Contested', color:'#ff6b8a', bg:'rgba(255,107,138,0.14)' }
+    };
+    this.ITEMS = {
+      in_primary:{ flow:'in', name:'Steady rain', kindLabel:'Income · salary', amt:4200, color:'#6fd0e0', status:'settled', conf:0.95, cadence:'/season', resolver:'LATEST', window:'monthly · last 6', records:6, canonicalId:'src_payroll', governance:'User-owned',
+        blurb:'A dependable cloud that opens on the first of every season — your salary, read straight off the payroll feed. The garden\u2019s main watering: settled, on time, six seasons running.',
+        sources:[{rec:'rec_pay_jun',kind:'Payroll deposit',source:'Bank feed',note:'settled Jun 1',conf:0.97}],
+        reasoning:['Direct-deposit feed posts on the 1st, six months consistent.','No contradictions; amount matches the last five to the cent.','High confidence \u2014 the bedrock of the cistern\u2019s runway.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      in_side:{ flow:'in', name:'Passing showers', kindLabel:'Income · freelance', amt:850, color:'#9fe0c0', status:'estimated', conf:0.68, cadence:'/season avg', resolver:'LATEST', window:'rolling 3mo avg', records:7, canonicalId:'src_freelance', governance:'User-owned',
+        blurb:'Freelance showers \u2014 they come when they come. Drawn pale because between real downpours this is only an average, never a promise.',
+        sources:[{rec:'rec_fl_1',kind:'Freelance deposit',source:'Bank feed',note:'cleared Jun 9',conf:0.80},{rec:'rec_fl_avg',kind:'3-mo average',source:'Derived',note:'estimate',conf:0.60}],
+        reasoning:['Two deposits in the window; the rest is a 3-month average.','Marked estimated \u2014 the projection never asserts an unsettled figure as fact.','Confidence held at 0.68 to reflect the irregularity honestly.'], contradiction:null, actions:['estimate','reconcile'], rec:'estimate' },
+      in_interest:{ flow:'in', name:'Morning dew', kindLabel:'Income · interest', amt:35, color:'#bfeed8', status:'settled', conf:0.92, cadence:'/season', resolver:'LATEST', window:'monthly', records:6, canonicalId:'src_interest', governance:'User-owned',
+        blurb:'A faint dew on the leaves each morning \u2014 interest on the cistern. Small, settled, real.',
+        sources:[{rec:'rec_int_jun',kind:'Interest posting',source:'Bank feed',note:'settled Jun 1',conf:0.92}],
+        reasoning:['Posted monthly by the bank on the reserve balance.','Tiny but settled; no contradictions.','Rounds out income without moving the runway much.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      reserve:{ flow:'reserve', name:'The cistern', kindLabel:'Held reserve', amt:18400, color:'#46c8ff', status:'settled', conf:0.97, cadence:'', resolver:'LATEST', window:'as of Jun 16', records:1, canonicalId:'bal_reserve', governance:'User-owned',
+        blurb:'Every drop you\u2019ve saved, held in the cistern. If the rain stopped today it would water the whole garden for 5.2 seasons. The level is read from the bank; the \u201cseasons\u201d is a projection drawn over it.',
+        sources:[{rec:'rec_bal',kind:'Account balance',source:'Bank feed',note:'synced 2h ago',conf:0.97}],
+        reasoning:['Balance feed synced two hours ago.','Runway = cistern / seasonal thirst = 5.2 seasons at today\u2019s outflow.','The seasons figure is derived; the balance under it is canonical.'], contradiction:null, actions:['pin','reconcile'], rec:'pin' },
+      out_housing:{ flow:'out', name:'Shelter bed', kindLabel:'Outflow · housing', amt:1650, color:'#9b8cff', status:'settled', conf:0.97, cadence:'/season', resolver:'GOVERNED', window:'monthly', records:6, canonicalId:'cat_housing', governance:'User-owned', hosting:false,
+        blurb:'The deepest-rooted perennial in the garden \u2014 rent and the fixed cost of a roof. Biggest drinker, settled by standing order, no surprises.',
+        sources:[{rec:'rec_rent',kind:'Standing order',source:'Bank feed',note:'settled Jun 1',conf:0.97}],
+        reasoning:['Fixed standing order, identical six seasons running.','Settled and reconciled; no contradictions.','Largest single draw on the cistern.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      out_food:{ flow:'out', name:'Kitchen garden', kindLabel:'Outflow · food', amt:620, color:'#5fd39a', status:'settled', conf:0.90, cadence:'/season', resolver:'LATEST', window:'monthly', records:23, canonicalId:'cat_food', governance:'User-owned', hosting:false,
+        blurb:'The vegetable bed \u2014 groceries and the odd treat, summed from card transactions. Settled, with the normal season-to-season wobble of a working plot.',
+        sources:[{rec:'rec_food',kind:'Card transactions',source:'Bank feed',note:'23 settled',conf:0.90}],
+        reasoning:['Aggregated from 23 settled card transactions.','Variance is ordinary; confidence solid at 0.90.','No duplicates flagged this season.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      out_storage:{ flow:'out', name:'Cold frame', kindLabel:'Outflow · hosting · drives', amt:180, color:'#46c8ff', status:'settled', conf:0.88, cadence:'/season', resolver:'GOVERNED', window:'monthly', records:1, canonicalId:'cat_storage', governance:'User-owned', hosting:true,
+        blurb:'The cold frame under glass that keeps every projection you\u2019ve grown \u2014 the storage array. A fixed seasonal cost, settled, matched to the bank line.',
+        sources:[{rec:'rec_store_inv',kind:'Storage invoice',source:'Vendor feed',note:'settled Jun 5',conf:0.92},{rec:'rec_store_tx',kind:'Card payment',source:'Bank feed',note:'matched',conf:0.96}],
+        reasoning:['Fixed array lease, invoice matched to the bank line.','Half of keeping the glasshouse running. Settled and reconciled.','No drift \u2014 the predictable half of hosting.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      out_compute:{ flow:'out', name:'Grow-lamps', kindLabel:'Outflow · hosting · electricity', amt:240, color:'#7fb6e8', status:'estimated', conf:0.76, cadence:'/season est', resolver:'LATEST', window:'3mo avg · this season est', records:4, canonicalId:'cat_compute', governance:'User-owned', hosting:true,
+        blurb:'The lamps and pumps that actually run the glasshouse \u2014 electricity and compute. Their thirst rises and falls with the weather, so this season is an estimate until the meter\u2019s read. Last reading settled at $224.10.',
+        sources:[{rec:'rec_power',kind:'Utility bill',source:'Utility feed',note:'last settled $224.10',conf:0.94},{rec:'rec_power_est',kind:'This-season estimate',source:'Derived',note:'not yet billed',conf:0.62}],
+        reasoning:['Last utility bill settled at $224.10; this season is estimated from a 3-month average.','Marked estimated and drawn pale \u2014 never asserted as settled.','The variable half of hosting; ask for the reading to settle it.'], contradiction:null, actions:['statement','estimate'], rec:'statement' },
+      out_subs:{ flow:'out', name:'The bramble', kindLabel:'Outflow · subscriptions', amt:310, color:'#ff7aa8', status:'contested', conf:0.70, cadence:'/season', resolver:'GOVERNED', window:'monthly', records:9, canonicalId:'cat_subs', governance:'Governed', hosting:false,
+        blurb:'A tangle of recurring growth. A weed crept in this season \u2014 one $42.10 sprig sprouted from two feeds and got counted twice. The bed reads overgrown until QC settles what\u2019s really planted.',
+        sources:[{rec:'tx_9921 \u00b7 feed A',kind:'Subscription',source:'Bank A',note:'',conf:0.96,flag:'WEED?'},{rec:'tx_9921 \u00b7 feed B',kind:'Subscription',source:'Bank B',note:'',conf:0.95,flag:'WEED?'},{rec:'rec_subs_rest',kind:'Other subs',source:'Bank feed',note:'7 settled',conf:0.90}],
+        reasoning:['Two records share amount, merchant, and timestamp exactly.','Counting both overgrows the bed by $42.10 \u2014 confidence dinged to 0.70.','Inclusion is governed: pull the weed to QC, never quietly rip out a record.'],
+        contradiction:{ title:'SAME SPRIG \u00b7 TWO FEEDS', a:{label:'Feed A \u00b7 tx_9921',val:'$42.10',conf:'conf 0.96',color:'#4fd0e0'}, b:{label:'Feed B \u00b7 tx_9921',val:'$42.10',conf:'conf 0.95',color:'#f0a85c'}, note:'Identical amount, merchant, and timestamp. Almost certainly one charge sprouted twice \u2014 but the garden cannot rip out a canonical record. QC and governance decide what stays planted.' }, actions:['qc','reconcile'], rec:'qc' },
+      out_else:{ flow:'out', name:'Wildflower margin', kindLabel:'Outflow · misc', amt:540, color:'#cfe06a', status:'settled', conf:0.80, cadence:'/season', resolver:'LATEST', window:'monthly', records:14, canonicalId:'cat_misc', governance:'User-owned', hosting:false,
+        blurb:'The untidy margin \u2014 transport, one-offs, volunteers that haven\u2019t earned a bed. Settled, lower confidence only because it\u2019s a grab bag.',
+        sources:[{rec:'rec_misc',kind:'Mixed transactions',source:'Bank feed',note:'14 settled',conf:0.80}],
+        reasoning:['Catch-all for 14 uncategorised settled transactions.','Confidence at 0.80 reflects mixed provenance, not bad data.','Give it its own bed once a pattern emerges.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' }
+    };
+    this.ORDER_IN=['in_primary','in_side','in_interest'];
+    this.ORDER_OUT=['out_housing','out_food','out_storage','out_compute','out_subs','out_else'];
+    this.SHORT={ out_housing:'Shelter', out_food:'Kitchen', out_storage:'Cold frame', out_compute:'Grow-lamps', out_subs:'Bramble', out_else:'Margin' };
+    this.ACTIONS = {
+      reconcile:{label:'Tend the bed',       help:'Mark matched to the statement.',               writes:'+1 annotation'},
+      pin:      {label:'Stake it',           help:'Keep an eye on this one.',                     writes:'+1 annotation'},
+      statement:{label:'Ask for the reading',help:'Request the settled figure from the feed.',    writes:'+1 annotation'},
+      estimate: {label:'Mark seedling',      help:'Label as not-yet-settled. Honest, not hidden.',writes:'+1 annotation'},
+      qc:       {label:'Pull the weed \u2192 QC', help:'Governed review of the duplicate.',         writes:'\u2192 QC \u00b7 +1 annotation'}
+    };
+    this.TOASTS = {
+      reconcile:'Tended. Logged as an annotation \u2014 the bed holds exactly what the bank reported.',
+      pin:'Staked. Nothing changed in the ledger but a note that you\u2019re watching this one.',
+      statement:'Reading requested. The estimate stays an estimate until the real number settles.',
+      estimate:'Marked seedling. Calling an unsettled figure \u201cestimated\u201d is the honest move.',
+      qc:'Weed flagged for QC. Inclusion is governed \u2014 we surface the duplicate, we never rip out a record.'
+    };
+    this.RECK = [
+      { id:'rk_pay',  title:'Payroll', detail:'steady rain \u00b7 Bank feed', amt:'+$4,200.00', status:'settled',  item:'in_primary' },
+      { id:'rk_store',title:'Cold storage invoice', detail:'cold frame \u00b7 hosting', amt:'\u2212$180.00', status:'settled', item:'out_storage' },
+      { id:'rk_pow',  title:'Utility \u2014 power', detail:'grow-lamps \u00b7 hosting', amt:'\u2212$224.10', status:'settled', item:'out_compute' },
+      { id:'rk_sub',  title:'Stream subscription', detail:'bramble \u00b7 weed (dup)', amt:'\u2212$42.10', status:'contested', item:'out_subs' },
+      { id:'rk_food', title:'Grocery run', detail:'kitchen garden \u00b7 card', amt:'\u2212$86.40', status:'settled', item:'out_food' },
+      { id:'rk_fl',   title:'Freelance deposit', detail:'passing showers \u00b7 cleared', amt:'+$500.00', status:'cleared', item:'in_side' }
+    ];
+    this.state = { sel:'reserve', view:'garden', annos:{}, toast:null };
+  }
+
+  cur(){ return this.ITEMS[this.state.sel] || this.ITEMS.reserve; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.9?'#39e0a6': c>=0.75?'#7fd99a': c>=0.6?'#e8c75a': c>=0.45?'#ff9e57':'#ff6b5e'; }
+  confWord(c){ return c>=0.9?'high': c>=0.75?'solid': c>=0.6?'fair': c>=0.45?'low':'very low'; }
+  motionOn(){ return this.props.livingMotion!==false; }
+  money(n){ return '$'+n.toLocaleString('en-US'); }
+
+  // ---- plant for a bed (cx, soilY, amount, color, status) ----
+  plant(cx, soilY, amt, color, status, seed, leafCol){
+    const h=React.createElement, m=this.motionOn(), est=status==='estimated';
+    const ph = Math.max(34, Math.min(118, 30 + amt/22));
+    const topY = soilY - ph, op = est?0.55:0.95, stroke = est?this.hexA(leafCol,0.55):leafCol;
+    const G=[];
+    G.push(h('path',{key:'stem',d:'M'+cx+' '+soilY+' Q '+(cx-6)+' '+(soilY-ph*0.5)+' '+cx+' '+topY,fill:'none',stroke:stroke,strokeWidth:2.4,strokeLinecap:'round',strokeDasharray:est?'3 4':undefined,opacity:op}));
+    const ly=[soilY-ph*0.4, soilY-ph*0.68];
+    ly.forEach((y,i)=>{ const dir=i%2?1:-1; G.push(h('path',{key:'lf'+i,d:'M'+cx+' '+y.toFixed(0)+' q '+(dir*13)+' -6 '+(dir*20)+' 3 q '+(-dir*8)+' 3 '+(-dir*20)+' -3 Z',fill:this.hexA(leafCol,est?0.3:0.7),stroke:'none'})); });
+    // bloom / head
+    if(status==='estimated'){ G.push(h('circle',{key:'bud',cx:cx,cy:topY,r:5,fill:'none',stroke:this.hexA(color,0.7),strokeWidth:1.4,strokeDasharray:'2 3'})); }
+    else { for(let p=0;p<6;p++){ const a=Math.PI*2*p/6; G.push(h('ellipse',{key:'pe'+p,cx:cx+Math.cos(a)*6,cy:topY+Math.sin(a)*6,rx:4,ry:2.6,fill:this.hexA(color,0.85),transform:'rotate('+(a*180/Math.PI)+' '+(cx+Math.cos(a)*6)+' '+(topY+Math.sin(a)*6)+')'})); }
+      G.push(h('circle',{key:'cn',cx:cx,cy:topY,r:3.4,fill:'#ffe9a8'})); }
+    return h('g',{style:m?{animation:'lwSway '+(2.4+(seed%5)*0.4)+'s ease-in-out infinite',transformOrigin:cx+'px '+soilY+'px'}:undefined},G);
+  }
+  weed(cx, soilY){
+    const h=React.createElement, m=this.motionOn();
+    return h('g',{style:m?{animation:'lwSway 1.8s ease-in-out infinite',transformOrigin:cx+'px '+soilY+'px'}:undefined},
+      h('path',{d:'M'+cx+' '+soilY+' L'+(cx-7)+' '+(soilY-26)+' M'+cx+' '+soilY+' L'+(cx+8)+' '+(soilY-30)+' M'+cx+' '+soilY+' L'+cx+' '+(soilY-34)+' M'+(cx-7)+' '+(soilY-26)+' l-6 -6 M'+(cx+8)+' '+(soilY-30)+' l6 -5 M'+cx+' '+(soilY-34)+' l-5 -5 M'+cx+' '+(soilY-34)+' l5 -5',fill:'none',stroke:'#ff6b8a',strokeWidth:2,strokeLinecap:'round'}),
+      h('circle',{cx:cx,cy:soilY-34,r:2.4,fill:'#ff8aa0'}));
+  }
+
+  buildGarden(){
+    const h=React.createElement, m=this.motionOn(), sel=this.state.sel, R=[];
+    const W=1000, soilY=300;
+    R.push(h('defs',null,h('filter',{id:'gg',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'5',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'})))));
+    // sun
+    R.push(h('circle',{key:'sun',cx:940,cy:48,r:17,fill:this.hexA('#ffe7a0',0.5),style:m?{animation:'lwShimmer 4s ease-in-out infinite'}:undefined}));
+    for(let i=0;i<8;i++){ const a=Math.PI*2*i/8; R.push(h('line',{key:'sr'+i,x1:940+Math.cos(a)*22,y1:48+Math.sin(a)*22,x2:940+Math.cos(a)*29,y2:48+Math.sin(a)*29,stroke:this.hexA('#ffe7a0',0.35),strokeWidth:2,strokeLinecap:'round'})); }
+    // soil band
+    R.push(h('rect',{key:'soil',x:0,y:soilY,width:W,height:390-soilY+90,fill:'#3a2a1c'}));
+    R.push(h('rect',{key:'soil2',x:0,y:soilY,width:W,height:8,fill:'#4a3826'}));
+    for(let i=0;i<60;i++){ const x=(i*53)%W, y=soilY+12+((i*37)%70); R.push(h('circle',{key:'sp'+i,cx:x,cy:y,r:1,fill:'rgba(255,255,255,0.05)'})); }
+
+    // clouds (income) along top
+    const cloudX={in_primary:250,in_side:470,in_interest:650};
+    this.ORDER_IN.forEach(id=>{ const it=this.ITEMS[id], cx=cloudX[id], cy=72, on=id===sel, est=it.status==='estimated';
+      const opacity=on?1:0.62, scale=id==='in_primary'?1.15:id==='in_interest'?0.7:0.95;
+      const cg=[];
+      if(on) cg.push(h('ellipse',{key:'gl',cx:0,cy:0,rx:62,ry:30,fill:this.hexA(it.color,0.16),filter:'url(#gg)'}));
+      [[-28,4,20],[ -2,-6,26],[26,4,20],[0,10,30]].forEach((p,i)=>cg.push(h('ellipse',{key:'c'+i,cx:p[0],cy:p[1],rx:p[2],ry:p[2]*0.72,fill:this.hexA(it.color,est?0.3:0.5),stroke:this.hexA(it.color,0.6),strokeWidth:est?1:0,strokeDasharray:est?'3 3':undefined})));
+      const drops=Math.max(2,Math.min(7,Math.round(it.amt/650)));
+      for(let dI=0;dI<drops;dI++){ const dx=-26+dI*(52/Math.max(1,drops-1)); cg.push(h('line',{key:'d'+dI,x1:dx,y1:16,x2:dx,y2:26,stroke:this.hexA(it.color,est?0.4:0.8),strokeWidth:2,strokeLinecap:'round',strokeDasharray:est?'2 3':undefined,style:m?{animation:'lwRain '+(0.9+dI*0.12)+'s linear infinite'}:undefined})); }
+      R.push(h('g',{key:id,onClick:()=>this.select(id),style:{cursor:'pointer',opacity:opacity},transform:'translate('+cx+' '+cy+') scale('+scale+')'},
+        h('rect',{x:-54,y:-30,width:108,height:78,fill:'rgba(0,0,0,0)'}), cg,
+        h('text',{x:0,y:44,textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:11,fontWeight:600,fill:'rgba(232,238,247,0.92)'},it.name),
+        h('text',{x:0,y:57,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:9,fill:'#7fe0c0'},'+'+this.money(it.amt)+' \u00b7 '+it.conf.toFixed(2))));
+    });
+
+    // cistern (reserve) at left
+    { const it=this.ITEMS.reserve, on=sel==='reserve';
+      const bx=58, bw=86, bTop=232, bBot=362, bh=bBot-bTop;
+      const totalOut=this.ORDER_OUT.reduce((s,k)=>s+this.ITEMS[k].amt,0);
+      const seasons=it.amt/totalOut, lvl=Math.min(1,seasons/8);
+      const waterTop=bBot-bh*lvl;
+      const cg=[];
+      if(on) cg.push(h('ellipse',{key:'gl',cx:bx+bw/2,cy:(bTop+bBot)/2,rx:bw*0.8,ry:bh*0.7,fill:this.hexA(it.color,0.18),filter:'url(#gg)'}));
+      cg.push(h('rect',{key:'water',x:bx+4,y:waterTop,width:bw-8,height:bBot-waterTop-4,rx:5,fill:this.hexA('#46c8ff',0.5)}));
+      cg.push(h('path',{key:'wave',d:'M'+(bx+4)+' '+waterTop+' q '+(bw/4)+' -6 '+(bw/2)+' 0 q '+(bw/4)+' 6 '+(bw/2-4)+' 0',fill:'none',stroke:this.hexA('#9fe0ff',0.7),strokeWidth:2,style:m?{animation:'lwShimmer 3s ease-in-out infinite'}:undefined}));
+      cg.push(h('rect',{key:'barrel',x:bx,y:bTop,width:bw,height:bh,rx:8,fill:'none',stroke:this.hexA('#cda87a',0.85),strokeWidth:2.2}));
+      [0.28,0.6].forEach((f,i)=>cg.push(h('line',{key:'band'+i,x1:bx,y1:bTop+bh*f,x2:bx+bw,y2:bTop+bh*f,stroke:this.hexA('#cda87a',0.5),strokeWidth:2})));
+      for(let i=1;i<4;i++) cg.push(h('line',{key:'st'+i,x1:bx+bw*i/4,y1:bTop,x2:bx+bw*i/4,y2:bBot,stroke:this.hexA('#cda87a',0.18),strokeWidth:1}));
+      R.push(h('g',{key:'reserve',onClick:()=>this.select('reserve'),style:{cursor:'pointer',opacity:on?1:0.78}},
+        h('rect',{x:bx-8,y:bTop-8,width:bw+16,height:bh+52,fill:'rgba(0,0,0,0)'}), cg,
+        h('text',{x:bx+bw/2,y:bTop-10,textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:11,fontWeight:600,fill:'rgba(232,238,247,0.92)'},'The cistern'),
+        h('text',{x:bx+bw/2,y:bBot+18,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:10,fill:'#9fe0ff'},this.money(it.amt)),
+        h('text',{x:bx+bw/2,y:bBot+31,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fill:'rgba(232,238,247,0.55)'},seasons.toFixed(1)+' seasons')));
+    }
+
+    // beds (outflows)
+    const bedCenters=[245,375,505,635,765,895];
+    // glasshouse over beds 2 & 3 (cold frame, grow-lamps): x ~ 460-680
+    R.push(h('path',{key:'ghouse',d:'M452 300 L452 196 L570 150 L688 196 L688 300',fill:this.hexA('#7fb6e8',0.05),stroke:this.hexA('#7fb6e8',0.35),strokeWidth:1.4,strokeLinejoin:'round'}));
+    R.push(h('line',{key:'ghm1',x1:570,y1:150,x2:570,y2:300,stroke:this.hexA('#7fb6e8',0.18),strokeWidth:1}));
+    R.push(h('line',{key:'ghm2',x1:511,y1:173,x2:511,y2:300,stroke:this.hexA('#7fb6e8',0.14),strokeWidth:1}));
+    R.push(h('line',{key:'ghm3',x1:629,y1:173,x2:629,y2:300,stroke:this.hexA('#7fb6e8',0.14),strokeWidth:1}));
+    R.push(h('text',{key:'ghl',x:570,y:168,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8,fill:this.hexA('#9fc8f0',0.7),letterSpacing:'1'},'UNDER GLASS \u00b7 HOSTING'));
+
+    this.ORDER_OUT.forEach((id,bi)=>{ const it=this.ITEMS[id], cx=bedCenters[bi], on=id===sel, leafCol=it.status==='contested'?'#7fae6a':'#5fae6a';
+      const bg=[];
+      if(on) bg.push(h('ellipse',{key:'gl',cx:cx,cy:soilY-30,rx:64,ry:50,fill:this.hexA(it.color,0.14),filter:'url(#gg)'}));
+      // mound
+      bg.push(h('ellipse',{key:'mound',cx:cx,cy:soilY+4,rx:52,ry:12,fill:'#46341f'}));
+      // plants
+      const n = Math.max(2, Math.min(5, Math.round(it.amt/280)+1));
+      for(let p=0;p<n;p++){ const px=cx-((n-1)*16)/2 + p*16; bg.push(this.plant(px, soilY, it.amt/n*1.2, it.color, it.status, bi*7+p, leafCol)); }
+      if(it.status==='contested') bg.push(this.weed(cx+30, soilY));
+      R.push(h('g',{key:id,onClick:()=>this.select(id),style:{cursor:'pointer',opacity:on?1:0.82}},
+        h('rect',{x:cx-62,y:soilY-128,width:124,height:212,fill:'rgba(0,0,0,0)'}), bg,
+        h('text',{x:cx,y:soilY+34,textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:11,fontWeight:600,fill:'rgba(232,238,247,0.9)'},this.SHORT[id]),
+        h('text',{x:cx,y:soilY+47,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fill:on?it.color:'rgba(232,238,247,0.55)'},'\u2212'+this.money(it.amt)+' \u00b7 '+it.conf.toFixed(2))));
+    });
+
+    return h('svg',{viewBox:'0 0 1000 400',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  select(id){ this.setState({sel:id}); }
+  setView(v){ this.setState({view:v}); }
+  act(id,key){ this.setState(st=>({ annos:{...st.annos,[id]:key}, toast:this.TOASTS[key] }));
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),3800); }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  bigIcon(item){ const h=React.createElement, col=item.color;
+    if(item.flow==='in') return h('svg',{viewBox:'0 0 34 34',width:'100%',height:'100%'},h('path',{d:'M9 13 a8 7 0 0 1 16 1 a5 5 0 0 1 -1 9 H10 a5 5 0 0 1 -1 -10 Z',fill:'none',stroke:col,strokeWidth:1.6}),h('line',{x1:12,y1:27,x2:12,y2:31,stroke:col,strokeWidth:1.6,strokeLinecap:'round'}),h('line',{x1:17,y1:27,x2:17,y2:32,stroke:col,strokeWidth:1.6,strokeLinecap:'round'}),h('line',{x1:22,y1:27,x2:22,y2:31,stroke:col,strokeWidth:1.6,strokeLinecap:'round'}));
+    if(item.flow==='reserve') return h('svg',{viewBox:'0 0 34 34',width:'100%',height:'100%'},h('rect',{x:9,y:8,width:16,height:20,rx:3,fill:'none',stroke:col,strokeWidth:1.6}),h('rect',{x:9,y:18,width:16,height:10,rx:2,fill:this.hexA(col,0.4)}),h('line',{x1:9,y1:14,x2:25,y2:14,stroke:this.hexA(col,0.6),strokeWidth:1.4}));
+    // plant icon for beds
+    return h('svg',{viewBox:'0 0 34 34',width:'100%',height:'100%'},h('path',{d:'M17 30 V14',stroke:col,strokeWidth:1.8,strokeLinecap:'round'}),h('path',{d:'M17 18 q -9 -2 -10 -10 q 9 1 10 10',fill:this.hexA(col,0.4),stroke:col,strokeWidth:1.2}),h('path',{d:'M17 15 q 8 -2 9 -9 q -8 1 -9 9',fill:this.hexA(col,0.4),stroke:col,strokeWidth:1.2}),h('circle',{cx:17,cy:11,r:3,fill:this.hexA(col,0.7)}));
+  }
+
+  renderVals(){
+    const pal = this.props.palette==='meadow'?{accent:'#5fd39a',accent2:'#46c8ff'}: this.props.palette==='dusk'?{accent:'#f5b25a',accent2:'#5fd39a'}:{accent:'#46c8ff',accent2:'#5fd39a'};
+    const navItems = ['Prism Intake','Spectrum Recall','Lattice Vault','The Counting House','The Yield Garden','Verdant Harmonics','Resonance Atlas','Signal Menagerie','Lumen Apothecary']
+      .map(l=>{ const on=l==='The Yield Garden'; return {label:l, weight:on?'600':'400', bg:on?'rgba(255,255,255,0.07)':'transparent', bar:on?'inset 2px 0 0 var(--accent)':'none', txt:on?'rgba(232,238,247,0.95)':'rgba(232,238,247,0.6)', dot:on?'var(--accent)':'rgba(232,238,247,0.32)'}; });
+
+    const totalIn = this.ORDER_IN.reduce((s,id)=>s+this.ITEMS[id].amt,0);
+    const totalOut = this.ORDER_OUT.reduce((s,id)=>s+this.ITEMS[id].amt,0);
+    const net = totalIn-totalOut;
+    const hosting = this.ITEMS.out_storage.amt + this.ITEMS.out_compute.amt;
+    const runwayMo = this.ITEMS.reserve.amt/totalOut;
+    const hostingMo = this.ITEMS.reserve.amt/hosting;
+    const hostingPct = Math.round(hosting/totalOut*100);
+
+    const statTiles = [
+      { label:'RAINFALL · /SEASON', value:this.money(totalIn), color:'#7fe0c0', note:'3 clouds · 1 passing shower', bg:'rgba(70,224,180,0.05)', border:'rgba(70,224,180,0.2)' },
+      { label:'THIRST · /SEASON', value:this.money(totalOut), color:'rgba(232,238,247,0.92)', note:'net +'+this.money(net)+' soaks into the cistern', bg:'rgba(255,255,255,0.025)', border:'rgba(255,255,255,0.09)' },
+      { label:'CISTERN', value:runwayMo.toFixed(1)+' seasons', color:'#9fe0ff', note:'if the rain stopped today', bg:'rgba(70,200,255,0.05)', border:'rgba(70,200,255,0.22)' },
+      { label:'GLASSHOUSE UPKEEP', value:this.money(hosting)+'/mo', color:'#7fcfff', note:hostingPct+'% of thirst · ~'+hostingMo.toFixed(0)+' seasons in the cistern', badge:'UNDER GLASS', badgeBg:'rgba(70,200,255,0.16)', badgeColor:'#7fcfff', bg:'rgba(70,200,255,0.06)', border:'rgba(70,200,255,0.28)' }
+    ];
+
+    const viewTabs=[['garden','Garden'],['rows','Rows']].map(g=>{ const on=this.state.view===g[0];
+      return { label:g[1], onClick:()=>this.setView(g[0]), bg:on?this.hexA(pal.accent,0.16):'rgba(255,255,255,0.03)', border:on?this.hexA(pal.accent,0.5):'rgba(255,255,255,0.1)', txt:on?'#fff':'rgba(232,238,247,0.65)' }; });
+
+    const it=this.cur(), sc=this.STATUS[it.status];
+    const actions=it.actions.map(k=>{ const a=this.ACTIONS[k], rec=k===it.rec, wasTaken=this.state.annos[this.state.sel]===k;
+      return { label:a.label, help:a.help, writes:a.writes, recommended:rec, onClick:()=>this.act(this.state.sel,k),
+        bg:wasTaken?this.hexA(pal.accent2,0.14):(rec?this.hexA(pal.accent2,0.08):'rgba(255,255,255,0.03)'),
+        border:wasTaken?this.hexA(pal.accent2,0.55):(rec?this.hexA(pal.accent2,0.4):'rgba(255,255,255,0.1)'),
+        ring:rec?'0 0 0 1px '+this.hexA(pal.accent2,0.3):'none', labelColor:rec?'#bfe9e0':'rgba(232,238,247,0.9)', writesColor:'#7fe0c0' }; });
+
+    const sel={ name:it.name, kindLabel:it.kindLabel, amount:(it.flow==='in'?'+':it.flow==='reserve'?'':'\u2212')+this.money(it.amt), cadence:it.cadence,
+      amountColor:it.flow==='in'?'#7fe0c0':(it.flow==='reserve'?'#9fe0ff':'rgba(232,238,247,0.92)'),
+      icon:this.bigIcon(it), iconBg:this.hexA(it.color,0.08), iconBorder:this.hexA(it.color,0.3), color:it.color,
+      statusLabel:sc.label, statusColor:sc.color, statusBg:sc.bg, blurb:it.blurb,
+      transBg:this.hexA(sc.color,0.05), transBorder:this.hexA(sc.color,0.26),
+      confStr:it.conf.toFixed(2), confColor:this.confColor(it.conf), confWord:this.confWord(it.conf), confPct:Math.round(it.conf*100)+'%',
+      confNote:it.status==='estimated'?'Partly estimated — not every figure has settled yet.':(it.status==='contested'?'Overgrown by a duplicate — held until QC settles inclusion.':null),
+      resolver:it.resolver, window:it.window, governance:it.governance, records:it.records, canonicalId:it.canonicalId,
+      sources:it.sources.map(s=>({rec:s.rec, kind:s.kind, note:s.note, source:s.source, flag:s.flag||null, confStr:s.conf.toFixed(2), confColor:this.confColor(s.conf)})),
+      contradiction:it.contradiction, reasoning:it.reasoning, actions, recLabel:this.ACTIONS[it.rec].label };
+
+    const reckonings=this.RECK.map(r=>{ const sc2=this.STATUS[r.status], inflow=r.amt[0]==='+';
+      return { title:r.title, detail:r.detail, amount:r.amt, amountColor:inflow?'#7fe0c0':'rgba(232,238,247,0.88)', status:sc2.label, statusColor:sc2.color, color:sc2.color, onSelect:()=>this.select(r.item), bg:'rgba(255,255,255,0.025)', border:'rgba(255,255,255,0.07)' }; });
+
+    return {
+      accent:pal.accent, accent2:pal.accent2, base:'#06090a', bg1:this.hexA(pal.accent,0.16), bg2:this.hexA(pal.accent2,0.1), glow:this.hexA(pal.accent,0.3),
+      navItems, statTiles, viewTabs, gardenSvg:this.buildGarden(), sel, reckonings, annotationCount:Object.keys(this.state.annos).length,
+      reconciledPct:'92%', flaggedCount:1, toast:this.state.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

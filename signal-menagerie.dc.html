@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @keyframes lwSink{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+  @keyframes lwJit{0%,100%{transform:translate(0,0)}20%{transform:translate(-1.6px,1px)}45%{transform:translate(1.6px,-1px)}70%{transform:translate(-1px,-1.2px)}90%{transform:translate(1px,1px)}}
+  @keyframes lwWob{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+  @keyframes lwPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes lwBlink{0%,92%,100%{opacity:1}96%{opacity:.15}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="Signal Menagerie" style="height:100vh; overflow:hidden; color:rgba(232,238,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 30% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 114% 122%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><path d="M14 4 L14 24" stroke="var(--accent)" stroke-width="1.1" opacity="0.5"></path><path d="M5.5 9 L22.5 19 M5.5 19 L22.5 9" stroke="var(--accent2)" stroke-width="1.1" opacity="0.55"></path><circle cx="14" cy="14" r="2.6" fill="var(--accent2)"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Signal Menagerie</span>
+      <span style="font-size:10.5px; color:rgba(232,238,247,0.42);">every critter is a real record wearing a face</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(232,238,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(70,224,180,0.3); border-radius:7px; background:rgba(70,224,180,0.06); color:#7fe0c0;"><svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="#7fe0c0" stroke-width="1"></rect><path d="M3.6 5 V3.7 a2.4 2.4 0 0 1 4.8 0 V5" fill="none" stroke="#7fe0c0" stroke-width="1"></path></svg>truth layer · locked</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ critterCount }} critters · projection live</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,138,122,0.3); border-radius:7px; background:rgba(255,138,122,0.06); color:#ff9a8a;"><span style="width:6px;height:6px;border-radius:50%;background:#ff7a6a;box-shadow:0 0 7px #ff7a6a;"></span>{{ needCount }} need care</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Keeper</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42); font-family:'IBM Plex Mono',monospace;">record owner</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0; position:relative;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="signal-menagerie"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:0;">
+      <div style="flex:0 0 auto; padding:13px 18px 12px; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex; align-items:flex-end; gap:12px; margin-bottom:11px;">
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600;">The habitat</div>
+            <div style="font-size:12px; color:rgba(232,238,247,0.6); margin-top:3px;">Your patterns and sources, alive. Click a critter to see the record underneath it.</div>
+          </div>
+          <div style="flex:0 0 auto; display:flex; gap:6px;">
+            <sc-for list="{{ groupTabs }}" as="gt" hint-placeholder-count="2">
+              <span onClick="{{ gt.onClick }}" style="cursor:pointer; font-size:11px; padding:7px 13px; border-radius:9px; background:{{ gt.bg }}; border:1px solid {{ gt.border }}; color:{{ gt.txt }};">{{ gt.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:9px; flex-wrap:wrap; padding:9px 11px; border:1px solid rgba(255,255,255,0.09); border-radius:11px; background:rgba(0,0,0,0.2);">
+          <span style="font-size:9px; letter-spacing:0.12em; color:rgba(232,238,247,0.45); margin-right:2px;">PROJECTION SAFETY LEGEND</span>
+          <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="4">
+            <span style="display:inline-flex; align-items:center; gap:7px; padding:4px 9px 4px 4px; border-radius:20px; background:{{ lg.bg }}; border:1px solid {{ lg.border }};">
+              <span style="width:26px; height:26px; flex:0 0 auto;">{{ lg.glyph }}</span>
+              <span style="display:flex; flex-direction:column; line-height:1.2;"><span style="font-size:10.5px; font-weight:600; color:{{ lg.color }};">{{ lg.mood }}</span><span style="font-size:9px; color:rgba(232,238,247,0.55);">{{ lg.meaning }}</span></span>
+            </span>
+          </sc-for>
+          <span style="flex:1;"></span>
+          <span style="font-size:10px; color:rgba(232,238,247,0.5); font-style:italic;">Mood is a lens. <span style="color:var(--accent2);">Confidence is the truth.</span></span>
+        </div>
+      </div>
+
+      <div style="flex:1; min-height:0; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:14px;">
+        <sc-for list="{{ enclosures }}" as="en" hint-placeholder-count="4">
+          <div style="border:1px solid {{ en.border }}; border-radius:14px; background:{{ en.bg }}; overflow:hidden;">
+            <div style="display:flex; align-items:center; gap:10px; padding:9px 14px; border-bottom:1px solid rgba(255,255,255,0.06); background:{{ en.headBg }};">
+              <span style="width:9px; height:9px; border-radius:50%; background:{{ en.color }}; box-shadow:0 0 8px {{ en.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600;">{{ en.title }}</span>
+              <span style="font-size:10.5px; color:rgba(232,238,247,0.5);">{{ en.sub }}</span>
+              <div style="flex:1;"></div>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ en.chipBg }}; color:{{ en.color }};">{{ en.meaning }}</span>
+              <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; color:rgba(232,238,247,0.5);">{{ en.count }}</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; padding:14px;">
+              <sc-for list="{{ en.creatures }}" as="cr" hint-placeholder-count="3">
+                <div onClick="{{ cr.onSelect }}" style="cursor:pointer; width:118px; border-radius:13px; padding:10px 8px 9px; display:flex; flex-direction:column; align-items:center; gap:3px; background:{{ cr.tileBg }}; border:1px solid {{ cr.tileBorder }}; box-shadow:{{ cr.tileRing }};">
+                  <div style="width:88px; height:80px;">{{ cr.svg }}</div>
+                  <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600;">{{ cr.name }}</span>
+                  <span style="font-size:9px; color:rgba(232,238,247,0.5); text-align:center; line-height:1.25;">{{ cr.realKind }}</span>
+                  <div style="display:flex; align-items:center; gap:5px; margin-top:3px;">
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:{{ cr.confColor }};">{{ cr.confStr }}</span>
+                    <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ cr.lifeBg }}; color:{{ cr.lifeColor }};">{{ cr.lifecycle }}</span>
+                  </div>
+                  <sc-if value="{{ cr.tended }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:#7fe0c0; margin-top:1px;">✓ tended</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 17px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Proof card</span>
+          <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.catBg }}; color:{{ sel.catColor }};">{{ sel.catLabel }}</span>
+        </div>
+        <div style="font-size:10.5px; color:rgba(232,238,247,0.45); margin-top:3px;">what this critter actually is — no faith required</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:15px 17px 18px; display:flex; flex-direction:column; gap:14px;">
+
+        <div style="display:flex; gap:13px; align-items:center;">
+          <div style="flex:0 0 96px; height:96px; border-radius:14px; background:{{ sel.portraitBg }}; border:1px solid {{ sel.portraitBorder }}; display:flex; align-items:center; justify-content:center;">
+            <div style="width:88px; height:88px;">{{ sel.svg }}</div>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600;">{{ sel.name }}</div>
+            <div style="font-size:11px; color:rgba(232,238,247,0.6); margin-top:2px;">{{ sel.realKind }}</div>
+            <div style="font-size:10px; font-family:'IBM Plex Mono',monospace; color:var(--accent); margin-top:5px;">{{ sel.canonicalId }}</div>
+          </div>
+        </div>
+
+        <div style="border-radius:11px; padding:11px 12px; background:{{ sel.transBg }}; border:1px solid {{ sel.transBorder }};">
+          <div style="font-size:9px; letter-spacing:0.1em; color:{{ sel.catColor }}; margin-bottom:6px;">MOOD → MEANING</div>
+          <div style="font-size:11.5px; line-height:1.55; color:rgba(232,238,247,0.8); text-wrap:pretty;">{{ sel.translate }}</div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">CONFIDENCE</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.confColor }};">{{ sel.confStr }} · {{ sel.confWord }}</span>
+          </div>
+          <div style="height:8px; border-radius:6px; background:rgba(255,255,255,0.08); overflow:hidden;">
+            <div style="height:100%; width:{{ sel.confPct }}; background:linear-gradient(90deg, {{ sel.confColor }}, {{ sel.catColor }}); border-radius:6px;"></div>
+          </div>
+          <sc-if value="{{ sel.confNote }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:9.5px; color:rgba(232,238,247,0.5); margin-top:5px;">{{ sel.confNote }}</div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">LIFECYCLE</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">RESOLVER</div><div style="font-size:10px; font-weight:600; font-family:'IBM Plex Mono',monospace; color:rgba(232,238,247,0.85);">{{ sel.resolver }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">WINDOW</div><div style="font-size:10px; font-weight:500; color:rgba(232,238,247,0.82);">{{ sel.window }}</div></div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+          <div style="border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+            <sc-for list="{{ sel.sources }}" as="sr" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; padding:8px 11px; border-top:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.15);">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(232,238,247,0.85);">{{ sr.rec }}</span><span style="font-size:9px; color:rgba(232,238,247,0.45);">{{ sr.kind }} · {{ sr.temperament }}</span></span>
+                <span style="flex:0 0 58px; font-size:10px; color:rgba(232,238,247,0.6);">{{ sr.source }}</span>
+                <span style="flex:0 0 34px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ sr.confColor }};">{{ sr.confStr }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,107,138,0.06); border:1px solid rgba(255,107,138,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="5" cy="6" r="4" fill="#ffd9a0"></circle><circle cx="7.4" cy="6" r="4" fill="#1a0f14" stroke="#ff6b8a" stroke-width="0.8"></circle></svg>
+              <span style="font-size:11px; font-weight:600;">{{ sel.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(232,238,247,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="rp" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(232,238,247,0.72);">{{ rp }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:9px;">CANONICAL RECORD LINK</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">id</span><span style="color:{{ sel.catColor }};">{{ sel.canonicalId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">visibility</span><span>{{ sel.visibility }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">governance</span><span>{{ sel.governance }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">records</span><span>{{ sel.records }} canonical</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">CARE ACTIONS</span>
+            <span style="font-size:9.5px; color:rgba(232,238,247,0.42);">recommended: <span style="color:var(--accent2); font-weight:600;">{{ sel.recLabel }}</span></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ sel.careActions }}" as="ca" hint-placeholder-count="2">
+              <div onClick="{{ ca.onClick }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:10px; background:{{ ca.bg }}; border:1px solid {{ ca.border }}; box-shadow:{{ ca.ring }};">
+                <span style="flex:1; min-width:0;">
+                  <span style="display:flex; align-items:center; gap:6px;"><span style="font-size:12px; font-weight:600; color:{{ ca.labelColor }};">{{ ca.label }}</span><sc-if value="{{ ca.recommended }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:rgba(70,224,180,0.16); color:#7fe0c0;">REC</span></sc-if></span>
+                  <span style="display:block; font-size:9.5px; line-height:1.35; color:rgba(232,238,247,0.5); margin-top:3px;">{{ ca.help }}</span>
+                </span>
+                <span style="flex:0 0 auto; font-size:9px; font-family:'IBM Plex Mono',monospace; color:{{ ca.writesColor }};">{{ ca.writes }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:9px; padding-top:9px; border-top:1px solid rgba(255,255,255,0.06);">
+            <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></rect><path d="M4 5 V3.6 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></path></svg>
+            <span style="font-size:10px; color:rgba(232,238,247,0.55); line-height:1.4;">Care annotates the projection. The canonical record stays byte-for-byte the same.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 132px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px; min-height:0;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:11px; margin-bottom:8px; flex:0 0 auto;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:rgba(232,238,247,0.7);">Source logs &amp; ledger trace</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42);">where each critter is fed from · and every pet you've logged</span>
+      </div>
+      <div style="flex:1; min-height:0; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ ledger }}" as="lg" hint-placeholder-count="6">
+          <div style="flex:0 0 auto; min-width:176px; display:flex; gap:9px; align-items:flex-start; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ lg.color }}; box-shadow:0 0 6px {{ lg.color }}; margin-top:3px;"></span>
+            <div style="min-width:0;">
+              <div style="font-size:10.5px; color:rgba(232,238,247,0.82); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:148px;">{{ lg.title }}</div>
+              <div style="font-size:9px; color:rgba(232,238,247,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:148px;">{{ lg.detail }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ lg.writesColor }}; margin-top:1px;">{{ lg.writes }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 240px; display:flex; align-items:center; gap:12px; background:rgba(70,224,180,0.05); border:1px solid rgba(70,224,180,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:#7fe0c0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px;">records edited by care</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:rgba(232,238,247,0.92); line-height:1;">{{ annotationCount }}</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px; line-height:1.3;">annotations · the zero is the one that matters</div>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; bottom:148px; left:50%; z-index:40; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(16,22,32,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:560px;">
+      <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+      <span style="font-size:11.5px; line-height:1.45; color:rgba(232,238,247,0.9);">{{ toast }}</span>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;verdant&quot;,&quot;dusk&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;livingMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.CAT = {
+      stable:        { label:'STABLE PATTERN', color:'#46e0b4', light:'#9ff0d4', title:'Calm & bright', sub:'healthy patterns',    meaning:'high confidence' },
+      needy:         { label:'NEEDY PATTERN',  color:'#f0b75a', light:'#ffd699', title:'Tired & needy', sub:'neglected patterns',  meaning:'stale / decaying' },
+      noisy:         { label:'NOISY SOURCE',   color:'#6fa8ff', light:'#b8d4ff', title:'Jittery',       sub:'noisy sources',       meaning:'unreliable feed' },
+      contradiction: { label:'CONTRADICTION',  color:'#ff6b8a', light:'#ffb0c0', title:'Prickly & unstable', sub:'contradictions', meaning:'sources disagree' }
+    };
+    this.CREATURES = [
+      { id:'dawnpip', name:'Dawnpip', cat:'stable', realKind:'Pattern · Morning focus', canonicalId:'pat_fo_133', conf:0.88, lifecycle:'Confirmed', resolver:'HIGHEST_CONF', window:'May 19 – Jun 15', visibility:'Private', governance:'User-owned', records:18,
+        translate:'Bright and bobbing → confidence 0.88, confirmed across 18 records. The cheer is a skin; the number earned it.',
+        sources:[{rec:'rec_fo_22',kind:'Focus block',source:'Timer',temperament:'steady',conf:0.88},{rec:'rec_cal_3',kind:'Calendar',source:'Calendar',temperament:'steady',conf:0.80}],
+        reasoning:['Median focus block 58 min over four weeks, low variance.','Two reliable sources agree; no open contradictions.','Lifecycle confirmed — confidence stable for 9 days.'], contradiction:null, rec:'leave' },
+      { id:'emberlull', name:'Emberlull', cat:'stable', realKind:'Pattern · Wind-down', canonicalId:'pat_wd_058', conf:0.82, lifecycle:'Confirmed', resolver:'LATEST', window:'May 22 – Jun 14', visibility:'Private', governance:'User-owned', records:21,
+        translate:'Settled and glowing → 0.82, confirmed. A calm critter because the evening routine is genuinely consistent.',
+        sources:[{rec:'rec_ph_use',kind:'Phone usage',source:'Device',temperament:'steady',conf:0.84},{rec:'rec_band_hr',kind:'Resting HR',source:'Wearable',temperament:'flaky',conf:0.79}],
+        reasoning:['Screen-down time clusters within a 25-min band nightly.','Heart-rate dip corroborates on 17 of 21 nights.','One flaky source, but the steady one carries the read.'], contradiction:null, rec:'leave' },
+      { id:'tidewick', name:'Tidewick', cat:'stable', realKind:'Pattern · Hydration on active days', canonicalId:'pat_hy_071', conf:0.76, lifecycle:'Watching', resolver:'HIGHEST_CONF', window:'May 30 – Jun 15', visibility:'Private', governance:'User-owned', records:12,
+        translate:'Bright but watchful → 0.76 and still Watching. Healthy enough to smile, not yet confirmed.',
+        sources:[{rec:'rec_hy_log',kind:'Hydration log',source:'Self',temperament:'sparse',conf:0.70},{rec:'rec_steps',kind:'Step count',source:'Wearable',temperament:'flaky',conf:0.82}],
+        reasoning:['Intake rises on days above 8k steps — clear coupling.','Self-logged intake is sparse, capping confidence below confirm.','Held at Watching until coverage improves.'], contradiction:null, rec:'leave' },
+      { id:'mossback', name:'Mossback', cat:'needy', realKind:'Pattern · Hydration baseline', canonicalId:'pat_hy_044', conf:0.52, lifecycle:'Watching', resolver:'LATEST', window:'Apr 28 – Jun 7', visibility:'Private', governance:'User-owned', records:6,
+        translate:'Droopy and dim → stale: no fresh log in 9 days, confidence decaying toward 0.52. The fatigue is projection; the gap is real.',
+        sources:[{rec:'rec_hy_old',kind:'Hydration log',source:'Self',temperament:'sparse · 9d stale',conf:0.55}],
+        reasoning:['Last contributing record is 9 days old.','No new evidence — confidence decays on schedule, not on mood.','Feeding it (request evidence) is the honest fix; faking freshness is not.'], contradiction:null, rec:'feed' },
+      { id:'dimsel', name:'Dimsel', cat:'needy', realKind:'Pattern · Social connection', canonicalId:'pat_so_041', conf:0.38, lifecycle:'Uncertain', resolver:'LATEST', window:'May 24 – Jun 13', visibility:'Private', governance:'User-owned', records:3,
+        translate:'Small and sleepy → only 3 records in 30 days. 0.38, below the assertion floor. Too thin to be a trend, honest as a maybe.',
+        sources:[{rec:'rec_soc_1',kind:'Social note',source:'Journal',temperament:'sparse',conf:0.55},{rec:'rec_soc_2',kind:'Social note',source:'Journal',temperament:'sparse',conf:0.50}],
+        reasoning:['Coverage is 3 of 30 days — a rumor, not a pattern.','Confidence held below the floor on purpose.','Mark resting or request evidence; do not let it cosplay a trend.'], contradiction:null, rec:'feed' },
+      { id:'statyk', name:'Statyk', cat:'noisy', realKind:'Source · Wearable band', canonicalId:'src_band_01', conf:0.71, lifecycle:'Watching', resolver:'—', window:'rolling 14d', visibility:'Private', governance:'Source-governed', records:1,
+        translate:'Jittery and staticky → the band drops 18% of expected pings. Temperament tracks reliability 0.71, not a bad personality.',
+        sources:[{rec:'rec_band_last',kind:'Band sync',source:'Wearable',temperament:'flaky · 18% drop',conf:0.71}],
+        reasoning:['18% of expected samples missing over the last 14 days.','Downstream patterns inherit the gap as lowered confidence.','Re-sync request is logged; quarantine is a governed call.'], contradiction:null, rec:'resync' },
+      { id:'crackle', name:'Crackle', cat:'noisy', realKind:'Source · Location feed', canonicalId:'src_loc_02', conf:0.66, lifecycle:'Watching', resolver:'—', window:'rolling 14d', visibility:'Private', governance:'Source-governed', records:1,
+        translate:'Twitchy → the location feed emits duplicate pings. Reliability 0.66; the twitch is duplication, not drama.',
+        sources:[{rec:'rec_loc_dup',kind:'Location ping',source:'Device GPS',temperament:'jittery · dupes',conf:0.66}],
+        reasoning:['Duplicate pings inflate event counts downstream.','Flagged as a contamination risk for any pattern that ingests it.','Quarantine routes to governed QC — inclusion is never a skin call.'], contradiction:null, rec:'quarantine' },
+      { id:'snarl', name:'Snarl', cat:'contradiction', realKind:'Pattern · Sleep ↔ Mood', canonicalId:'pat_ef_092', conf:0.40, lifecycle:'Contested', resolver:'HIGHEST_CONF', window:'Jun 2 – Jun 16', visibility:'Private', governance:'User-owned', records:9,
+        translate:'Prickly, two heads → two sources disagree on the same nights. Pattern contested, capped at 0.40. The spikes are a skin over a real conflict.',
+        sources:[{rec:'rec_sl_band',kind:'Sleep · band',source:'Wearable',temperament:'flaky',conf:0.92},{rec:'rec_sl_self',kind:'Sleep · self',source:'Journal',temperament:'sparse',conf:0.60},{rec:'rec_md_11',kind:'Mood check',source:'Self',temperament:'steady',conf:0.70}],
+        reasoning:['Band and self-report disagree on duration for 2 of 9 nights.','HIGHEST_CONF would hide the conflict — so it stays contested.','Confidence cannot rise while contested. Send to clinic to resolve honestly.'],
+        contradiction:{ title:'TWO SOURCES DISAGREE · 2 OF 9 NIGHTS', a:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#6fb6ff'}, b:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#f0a85c'}, note:'Identical nights, different numbers. The resolver will not silently pick a winner, so Snarl stays prickly under every theme.' }, rec:'clinic' },
+      { id:'thornet', name:'Thornet', cat:'contradiction', realKind:'Record · Duplicate spend', canonicalId:'rec_tx_dup', conf:0.60, lifecycle:'Watching', resolver:'GOVERNED', window:'Jun 11', visibility:'Private', governance:'Governed', records:2,
+        translate:'Two-bodied and bristling → one purchase counted twice. The count looks fat (0.68); the true figure is ~0.60. Inclusion is a governed field, not a vibe.',
+        sources:[{rec:'tx_9921 · feed A',kind:'Transaction',source:'Bank A',temperament:'reliable',conf:0.96},{rec:'tx_9921 · feed B',kind:'Transaction',source:'Bank B',temperament:'reliable',conf:0.95}],
+        reasoning:['Two records share amount, merchant, and timestamp exactly.','High-confidence duplicate — but confidence is not permission to delete.','Record inclusion is governed; the menagerie flags, QC resolves.'],
+        contradiction:{ title:'SAME EVENT · TWO FEEDS', a:{label:'Feed A · tx_9921',val:'$42.10',conf:'conf 0.96',color:'#4fd0e0'}, b:{label:'Feed B · tx_9921',val:'$42.10',conf:'conf 0.95',color:'#f0a85c'}, note:'Almost certainly one event ingested twice. The menagerie cannot delete a canonical record — governance decides inclusion.' }, rec:'clinic' }
+    ];
+    this.CMAP={}; this.CREATURES.forEach(c=>this.CMAP[c.id]=c);
+    this.CARE = {
+      leave:     {label:'Leave be',          help:'Healthy. Looking is free — writes nothing.',          writes:'read-only'},
+      pin:       {label:'Pin to dashboard',  help:'Surface this critter where you\u2019ll see it.',        writes:'+1 annotation'},
+      feed:      {label:'Request evidence',  help:'Ask the source for fresh data to wake it up.',         writes:'+1 annotation'},
+      rest:      {label:'Mark resting',      help:'Honest snooze — logged as low-coverage, not hidden.',  writes:'+1 annotation'},
+      resync:    {label:'Request re-sync',   help:'Ping the source to close the gap.',                    writes:'+1 annotation'},
+      quarantine:{label:'Quarantine source', help:'Route to governed QC — inclusion is never a skin call.',writes:'→ QC · +1 annotation'},
+      clinic:    {label:'Send to clinic',    help:'Escalate the contradiction to the Distortion Clinic.', writes:'→ clinic · +1 annotation'},
+      unknown:   {label:'Mark unknown',      help:'Honest shrug, logged as such.',                       writes:'+1 annotation'}
+    };
+    this.CARE_SETS = { stable:['pin','leave'], needy:['feed','rest'], noisy:['resync','quarantine'], contradiction:['clinic','unknown'] };
+    this.TOASTS = {
+      leave:'Left be. No annotations written — a healthy critter doesn\u2019t need fixing.',
+      pin:'Pinned. Logged as an annotation. The record is exactly as untouched as before.',
+      feed:'Evidence requested. Now we wait for reality to file fresh data.',
+      rest:'Marked resting. Pretending it was current would have been the actual error.',
+      resync:'Re-sync requested from the source. Downstream reads flagged stale until it answers.',
+      quarantine:'Sent to QC. Inclusion is governed — the menagerie flags, it never deletes.',
+      clinic:'Sent to the Distortion Clinic. A human looks at the conflict; the record stays put.',
+      unknown:'Marked unknown. An honest shrug beats a confident guess.'
+    };
+    this.state = { sel:'snarl', group:'habitat', cared:{}, toast:null,
+      log:[ {title:'Wearable band sync', detail:'18% pings dropped · 14d window', writes:'source log', color:'#6fa8ff'},
+            {title:'Bank feed ingest', detail:'tx_9921 · 2 feeds · possible dup', writes:'source log', color:'#ff9a8a'},
+            {title:'Calendar sync', detail:'on time · 0% loss', writes:'source log', color:'#7fe0c0'} ] };
+  }
+
+  cur(){ return this.CMAP[this.state.sel] || this.CREATURES[0]; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#7fd99a': c>=0.5?'#e8c75a': c>=0.4?'#ff9e57':'#ff6b5e'; }
+  confWord(c){ return c>=0.85?'high': c>=0.7?'solid': c>=0.5?'fair': c>=0.4?'low':'very low'; }
+  lifeColor(l){ return l==='Confirmed'?'#39e0a6': l==='Watching'?'#e8c75a': l==='Contested'?'#ff6b8a':'#9aa6c0'; }
+  motionOn(){ return this.props.livingMotion!==false; }
+
+  // ---------- creature art (viewBox 0 0 100 100) ----------
+  creature(c){
+    const h=React.createElement, m=this.motionOn(), cat=this.CAT[c.cat], col=cat.color, lt=cat.light;
+    const bodyA = 0.42 + c.conf*0.48;       // confidence -> body brightness
+    const glowA = 0.10 + c.conf*0.34;       // confidence -> glow
+    const anim = c.cat==='stable'?'lwBob 3s ease-in-out infinite': c.cat==='needy'?'lwSink 4.5s ease-in-out infinite': c.cat==='noisy'?'lwJit 0.5s steps(2) infinite':'lwWob 2.4s ease-in-out infinite';
+    const G=[];
+    const cx=50, cy=54, rx=24, ry=22;
+
+    // glow halo
+    G.push(h('ellipse',{key:'glow',cx:cx,cy:cy,rx:rx+10,ry:ry+10,fill:this.hexA(lt,glowA),filter:'url(#mb)'}));
+
+    // contradiction spikes (behind body)
+    if(c.cat==='contradiction'){
+      for(let i=0;i<11;i++){ const a=Math.PI*2*i/11, ix=cx+Math.cos(a)*rx, iy=cy+Math.sin(a)*ry, ox=cx+Math.cos(a)*(rx+9), oy=cy+Math.sin(a)*(ry+9);
+        G.push(h('path',{key:'sp'+i,d:'M'+ix.toFixed(1)+' '+iy.toFixed(1)+' L'+ox.toFixed(1)+' '+oy.toFixed(1),stroke:col,strokeWidth:2.4,strokeLinecap:'round',opacity:0.85})); }
+    }
+    // noisy antenna + static
+    if(c.cat==='noisy'){
+      G.push(h('path',{key:'ant',d:'M50 33 L50 20 L46 16 M50 20 L54 17',stroke:col,strokeWidth:1.8,fill:'none',strokeLinecap:'round',strokeLinejoin:'round'}));
+      G.push(h('circle',{key:'antb',cx:50,cy:14,r:2.4,fill:lt}));
+      let s=c.id.length*7+3; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+      for(let i=0;i<5;i++){ G.push(h('path',{key:'st'+i,d:'M'+(28+rnd()*44).toFixed(0)+' '+(40+rnd()*26).toFixed(0)+' l3 -2 l-1 4 l3 -1',stroke:lt,strokeWidth:1,fill:'none',opacity:0.7})); }
+    }
+    // needy droopy leaf + zzz
+    if(c.cat==='needy'){
+      G.push(h('path',{key:'lf',d:'M50 34 Q42 26 38 30 Q44 34 50 34',fill:this.hexA(col,0.7)}));
+      G.push(h('path',{key:'lf2',d:'M50 34 Q40 30 36 33',stroke:this.hexA(col,0.5),strokeWidth:1,fill:'none'}));
+      G.push(h('text',{key:'z1',x:74,y:34,fontFamily:'Space Grotesk, sans-serif',fontSize:9,fill:this.hexA(lt,0.8),style:m?{animation:'lwPulse 2.6s ease-in-out infinite'}:undefined},'z'));
+      G.push(h('text',{key:'z2',x:80,y:27,fontFamily:'Space Grotesk, sans-serif',fontSize:7,fill:this.hexA(lt,0.6)},'z'));
+    }
+    // stable sparkles
+    if(c.cat==='stable'){
+      [[24,32],[78,40],[72,72]].forEach((p,i)=>G.push(h('path',{key:'sk'+i,d:'M'+p[0]+' '+(p[1]-4)+' L'+p[0]+' '+(p[1]+4)+' M'+(p[0]-4)+' '+p[1]+' L'+(p[0]+4)+' '+p[1],stroke:lt,strokeWidth:1.4,strokeLinecap:'round',style:m?{animation:'lwPulse '+(1.8+i*0.4)+'s ease-in-out infinite'}:undefined})));
+    }
+
+    // body
+    G.push(h('ellipse',{key:'body',cx:cx,cy:cy,rx:rx,ry:ry,fill:this.hexA(col,bodyA),stroke:this.hexA(lt,0.7),strokeWidth:1.4}));
+    // belly sheen
+    G.push(h('ellipse',{key:'sheen',cx:cx-7,cy:cy-7,rx:8,ry:6,fill:this.hexA('#ffffff',0.18)}));
+    // feet
+    G.push(h('ellipse',{key:'f1',cx:cx-10,cy:cy+ry-2,rx:6,ry:4,fill:this.hexA(col,bodyA*0.9)}));
+    G.push(h('ellipse',{key:'f2',cx:cx+10,cy:cy+ry-2,rx:6,ry:4,fill:this.hexA(col,bodyA*0.9)}));
+
+    // eyes per mood
+    const eyeStyle = (c.cat==='stable' && m)?{animation:'lwBlink 4s ease-in-out infinite'}:undefined;
+    if(c.cat==='needy'){
+      G.push(h('path',{key:'e1',d:'M38 50 Q42 53 46 50',stroke:'#1a140a',strokeWidth:1.8,fill:'none',strokeLinecap:'round'}));
+      G.push(h('path',{key:'e2',d:'M54 50 Q58 53 62 50',stroke:'#1a140a',strokeWidth:1.8,fill:'none',strokeLinecap:'round'}));
+      G.push(h('path',{key:'mo',d:'M45 62 Q50 59 55 62',stroke:'#1a140a',strokeWidth:1.5,fill:'none',strokeLinecap:'round'}));
+    } else if(c.cat==='noisy'){
+      [[42,50],[58,50]].forEach((p,i)=>{ G.push(h('circle',{key:'eo'+i,cx:p[0],cy:p[1],r:4.6,fill:'#0a1322'})); G.push(h('circle',{key:'ei'+i,cx:p[0],cy:p[1],r:1.8,fill:lt})); });
+      G.push(h('path',{key:'mo',d:'M44 61 l3 -2 l3 3 l3 -3 l3 2',stroke:'#0a1322',strokeWidth:1.5,fill:'none',strokeLinecap:'round',strokeLinejoin:'round'}));
+    } else if(c.cat==='contradiction'){
+      G.push(h('path',{key:'br1',d:'M37 46 L46 49',stroke:'#1a0f14',strokeWidth:1.8,strokeLinecap:'round'}));
+      G.push(h('path',{key:'br2',d:'M63 46 L54 49',stroke:'#1a0f14',strokeWidth:1.8,strokeLinecap:'round'}));
+      G.push(h('circle',{key:'e1',cx:43,cy:52,r:3.4,fill:'#1a0f14'}));
+      G.push(h('circle',{key:'e2',cx:57,cy:52,r:3.4,fill:'#1a0f14'}));
+      G.push(h('circle',{key:'eh1',cx:44,cy:51,r:1,fill:lt}));
+      G.push(h('circle',{key:'eh2',cx:58,cy:51,r:1,fill:lt}));
+      G.push(h('path',{key:'mo',d:'M43 62 l3 -3 l3 3 l3 -3 l3 3',stroke:'#1a0f14',strokeWidth:1.6,fill:'none',strokeLinecap:'round',strokeLinejoin:'round'}));
+    } else {
+      G.push(h('g',{key:'eyes',style:eyeStyle},
+        h('circle',{cx:42,cy:50,r:4.6,fill:'#0a2018'}),h('circle',{cx:58,cy:50,r:4.6,fill:'#0a2018'}),
+        h('circle',{cx:43.4,cy:48.6,r:1.4,fill:'#ffffff'}),h('circle',{cx:59.4,cy:48.6,r:1.4,fill:'#ffffff'})));
+      G.push(h('path',{key:'mo',d:'M44 60 Q50 65 56 60',stroke:'#0a2018',strokeWidth:1.6,fill:'none',strokeLinecap:'round'}));
+      G.push(h('circle',{key:'bl1',cx:36,cy:57,r:2.6,fill:this.hexA('#ff9ec2',0.45)}));
+      G.push(h('circle',{key:'bl2',cx:64,cy:57,r:2.6,fill:this.hexA('#ff9ec2',0.45)}));
+    }
+
+    return h('svg',{viewBox:'0 0 100 100',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block',overflow:'visible'}},
+      h('defs',null,h('filter',{id:'mb',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'5'}))),
+      h('g',{style:m?{animation:anim,transformOrigin:'50px 56px'}:undefined},G));
+  }
+
+  select(id){ this.setState({sel:id}); }
+  setGroup(g){ this.setState({group:g}); }
+  takeCare(id,key){
+    const c=this.CMAP[id], ca=this.CARE[key];
+    this.setState(st=>{
+      const cared={...st.cared}; if(key!=='leave') cared[id]=key;
+      let log=st.log;
+      if(key!=='leave'){ log=[{title:ca.label+' · '+c.name, detail:c.realKind, writes:ca.writes, color:this.CAT[c.cat].color}, ...st.log].slice(0,8); }
+      return { cared, log, toast:this.TOASTS[key] };
+    });
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),3800);
+  }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const accent=this.props.accent2Hex; // unused placeholder safeguard
+    const themePal = { accent:'#9b8cff', accent2:'#34e1b4' };
+    const pal = this.props.palette==='verdant'?{accent:'#5fd39a',accent2:'#cfe06a'}: this.props.palette==='dusk'?{accent:'#f5b25a',accent2:'#6fd0c0'}:themePal;
+
+    const navItems = ['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Signal Menagerie','Distortion Clinic']
+      .map(l=>{ const on=l==='Signal Menagerie'; return {label:l, weight:on?'600':'400', bg:on?'rgba(255,255,255,0.07)':'transparent', bar:on?'inset 2px 0 0 var(--accent)':'none', txt:on?'rgba(232,238,247,0.95)':'rgba(232,238,247,0.6)', dot:on?'var(--accent)':'rgba(232,238,247,0.32)'}; });
+
+    const legend = ['stable','needy','noisy','contradiction'].map(k=>{ const cc=this.CAT[k]; const sample=this.CREATURES.find(c=>c.cat===k);
+      return { mood:cc.title, meaning:cc.meaning, color:cc.color, bg:this.hexA(cc.color,0.07), border:this.hexA(cc.color,0.3), glyph:this.creature({...sample, conf:k==='needy'||k==='contradiction'?sample.conf:0.85}) }; });
+
+    const mkCreature=(c)=>{ const cc=this.CAT[c.cat], on=c.id===this.state.sel; return {
+      name:c.name, realKind:c.realKind, svg:this.creature(c), onSelect:()=>this.select(c.id),
+      confStr:c.conf.toFixed(2), confColor:this.confColor(c.conf), lifecycle:c.lifecycle, lifeColor:this.lifeColor(c.lifecycle), lifeBg:this.hexA(this.lifeColor(c.lifecycle),0.14),
+      tended:!!this.state.cared[c.id], tileBg:on?this.hexA(cc.color,0.1):'rgba(255,255,255,0.025)', tileBorder:on?this.hexA(cc.color,0.5):'rgba(255,255,255,0.07)', tileRing:on?'0 0 0 1px '+this.hexA(cc.color,0.4):'none' }; };
+
+    let enclosures;
+    if(this.state.group==='field'){
+      const sorted=[...this.CREATURES].sort((a,b)=>a.conf-b.conf);
+      enclosures=[{ title:'Open field', sub:'everyone together, neediest first', meaning:'sorted by confidence', color:pal.accent,
+        border:'rgba(255,255,255,0.08)', bg:'rgba(255,255,255,0.015)', headBg:'rgba(255,255,255,0.025)', chipBg:this.hexA(pal.accent,0.14),
+        count:this.CREATURES.length+' critters', creatures:sorted.map(mkCreature) }];
+    } else {
+      enclosures=['stable','needy','noisy','contradiction'].map(k=>{ const cc=this.CAT[k]; const list=this.CREATURES.filter(c=>c.cat===k);
+        return { title:cc.title, sub:cc.sub, meaning:cc.meaning, color:cc.color, border:this.hexA(cc.color,0.22), bg:this.hexA(cc.color,0.03),
+          headBg:this.hexA(cc.color,0.06), chipBg:this.hexA(cc.color,0.14), count:list.length+(list.length===1?' critter':' critters'), creatures:list.map(mkCreature) }; });
+    }
+
+    const groupTabs=[['habitat','Enclosures'],['field','Open field']].map(g=>{ const on=this.state.group===g[0];
+      return { label:g[1], onClick:()=>this.setGroup(g[0]), bg:on?this.hexA(pal.accent,0.16):'rgba(255,255,255,0.03)', border:on?this.hexA(pal.accent,0.5):'rgba(255,255,255,0.1)', txt:on?'#fff':'rgba(232,238,247,0.65)' }; });
+
+    const c=this.cur(), cc=this.CAT[c.cat];
+    const careActions=this.CARE_SETS[c.cat].map(k=>{ const ca=this.CARE[k], rec=k===c.rec, taken=this.state.cared[c.id]===k;
+      return { label:ca.label, help:ca.help, writes:ca.writes, recommended:rec, onClick:()=>this.takeCare(c.id,k),
+        bg:taken?this.hexA(pal.accent2,0.14):(rec?this.hexA(pal.accent2,0.08):'rgba(255,255,255,0.03)'),
+        border:taken?this.hexA(pal.accent2,0.55):(rec?this.hexA(pal.accent2,0.4):'rgba(255,255,255,0.1)'),
+        ring:rec?'0 0 0 1px '+this.hexA(pal.accent2,0.3):'none', labelColor:rec?'#bfe9e0':'rgba(232,238,247,0.9)',
+        writesColor:ca.writes==='read-only'?'rgba(232,238,247,0.4)':'#7fe0c0' }; });
+
+    const sel={ name:c.name, realKind:c.realKind, canonicalId:c.canonicalId, svg:this.creature(c),
+      catLabel:cc.label, catColor:cc.color, catBg:this.hexA(cc.color,0.14),
+      portraitBg:this.hexA(cc.color,0.06), portraitBorder:this.hexA(cc.color,0.3),
+      transBg:this.hexA(cc.color,0.05), transBorder:this.hexA(cc.color,0.26), translate:c.translate,
+      confStr:c.conf.toFixed(2), confColor:this.confColor(c.conf), confWord:this.confWord(c.conf), confPct:Math.round(c.conf*100)+'%',
+      confNote:c.lifecycle==='Contested'?'Capped while contested — cannot rise until the conflict resolves.':(c.cat==='needy'?'Decaying — no fresh evidence in the window.':null),
+      lifecycle:c.lifecycle, lifeColor:this.lifeColor(c.lifecycle), resolver:c.resolver, window:c.window, visibility:c.visibility, governance:c.governance, records:c.records,
+      sources:c.sources.map(s=>({rec:s.rec, kind:s.kind, source:s.source, temperament:s.temperament, confStr:s.conf.toFixed(2), confColor:this.confColor(s.conf)})),
+      contradiction:c.contradiction, reasoning:c.reasoning, careActions, recLabel:this.CARE[c.rec].label };
+
+    const ledger=this.state.log.map(l=>({ title:l.title, detail:l.detail, writes:l.writes, color:l.color, writesColor:l.writes==='source log'?'rgba(232,238,247,0.45)':'#7fe0c0' }));
+    const annotationCount=Object.keys(this.state.cared).length;
+
+    return {
+      accent:pal.accent, accent2:pal.accent2, base:'#06070e', bg1:this.hexA(pal.accent,0.16), bg2:this.hexA(pal.accent2,0.09), glow:this.hexA(pal.accent,0.3),
+      navItems, legend, enclosures, groupTabs, sel, ledger, annotationCount,
+      critterCount:this.CREATURES.length, needCount:this.CREATURES.filter(c=>c.cat==='needy'||c.cat==='contradiction').length,
+      toast:this.state.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

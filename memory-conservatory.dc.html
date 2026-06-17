@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#070d09}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+  @keyframes lwSwaySlow{0%,100%{transform:rotate(-0.8deg) translateY(0)}50%{transform:rotate(0.8deg) translateY(-2px)}}
+  @keyframes lwMote{0%{transform:translateY(0);opacity:0}18%{opacity:.6}100%{transform:translateY(-90px);opacity:0}}
+  @keyframes lwShaft{0%,100%{opacity:.25}50%{opacity:.5}}
+  @keyframes lwTwinkle{0%,100%{opacity:.25}50%{opacity:.65}}
+</style>
+</helmet>
+<div data-screen-label="Memory Conservatory" style="height:100vh; overflow:hidden; color:rgba(236,242,235,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; --glass1:{{ glass1 }}; --glass2:{{ glass2 }}; background:radial-gradient(1100px 640px at 48% -18%, var(--bg1), transparent 60%), radial-gradient(950px 720px at 110% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M14 24 C14 18 14 14 14 10" stroke="var(--accent)" stroke-width="1.5" fill="none"></path><path d="M14 14 C10 13 8 10 8.5 7 C12 7 14 9 14 13" fill="none" stroke="var(--accent2)" stroke-width="1.2"></path><path d="M14 12 C18 11 20 8 19.5 5 C16 5 14 7 14 11" fill="none" stroke="var(--accent2)" stroke-width="1.2"></path><circle cx="14" cy="8" r="2.2" fill="none" stroke="#ffce6b" stroke-width="1.2"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Memory Conservatory</span>
+      <span style="font-size:10.5px; color:rgba(236,242,235,0.42);">Projection · remembered records, kept alive · never invented</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(236,242,235,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(95,211,154,0.32); border-radius:7px; background:rgba(95,211,154,0.08); color:#86e0ad;"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>0 grafts mixed into records</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(199,155,255,0.3); border-radius:7px; background:rgba(199,155,255,0.08); color:#d4b8ff;"><span style="width:6px;height:6px;border-radius:50%;background:#c79bff;box-shadow:0 0 7px #c79bff;"></span>5 reconstructed</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Keeper</span>
+        <span style="font-size:10px; color:rgba(236,242,235,0.42); font-family:'IBM Plex Mono',monospace;">RECALL · Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="memory-conservatory"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(236,242,235,0.42); margin-bottom:4px;">THE CONSERVATORY</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; color:rgba(236,242,235,0.97);">Kept honestly — nothing pruned, nothing invented.</div>
+          <div style="font-size:11.5px; color:rgba(236,242,235,0.52); margin-top:5px; line-height:1.5;">Well-recorded memories bloom; thin ones wilt; contested details grow thorns. Anything reconstructed is grown apart on the grafting bench, so inference is never mistaken for what happened.</div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:12px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,242,235,0.4);">IN BLOOM</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,206,107,0.12); border:1px solid rgba(255,206,107,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#ffce6b; box-shadow:0 0 7px #ffce6b;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ffd98a;">12</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,242,235,0.4);">FADING</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(176,168,144,0.12); border:1px solid rgba(176,168,144,0.3); color:#c8c0a8;">9</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,242,235,0.4);">RECONSTRUCTED</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(199,155,255,0.12); border:1px solid rgba(199,155,255,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#c79bff; box-shadow:0 0 7px #c79bff;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#d4b8ff;">5</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, var(--glass1) 0%, var(--glass2) 58%, #060b07 100%);">
+          <div style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(90deg, transparent 0 119px, rgba(255,255,255,0.04) 119px 120px), repeating-linear-gradient(0deg, transparent 0 119px, rgba(255,255,255,0.03) 119px 120px);"></div>
+          <div style="position:absolute; left:18%; top:-10%; width:30%; height:130%; transform:skewX(-16deg); background:linear-gradient(90deg, transparent, rgba(255,236,170,0.10), transparent); animation:lwShaft 11s ease-in-out infinite; pointer-events:none;"></div>
+          <div style="position:absolute; left:64%; top:-10%; width:22%; height:130%; transform:skewX(-16deg); background:linear-gradient(90deg, transparent, rgba(255,236,170,0.07), transparent); animation:lwShaft 13s ease-in-out infinite; pointer-events:none;"></div>
+          <div style="position:absolute; inset:0;">{{ dustSvg }}</div>
+          <div style="position:absolute; inset:0; pointer-events:none;">
+            <sc-for list="{{ motes }}" as="m" hint-placeholder-count="0">
+              <span style="position:absolute; left:{{ m.left }}; bottom:{{ m.bottom }}; width:{{ m.size }}; height:{{ m.size }}; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 6px {{ m.color }}; animation:lwMote {{ m.dur }} linear infinite; animation-delay:{{ m.delay }};"></span>
+            </sc-for>
+          </div>
+
+          <div style="position:relative; height:100%; overflow-y:auto; padding:12px 16px 14px; display:flex; flex-direction:column; gap:11px;">
+            <sc-for list="{{ beds }}" as="bed" hint-placeholder-count="3">
+              <div>
+                <div style="display:flex; align-items:center; gap:9px; margin-bottom:6px;">
+                  <span style="font-size:9.5px; letter-spacing:0.14em; color:{{ bed.labelColor }};">{{ bed.label }}</span>
+                  <span style="flex:1; height:1px; background:linear-gradient(90deg,{{ bed.lineColor }},transparent);"></span>
+                  <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(236,242,235,0.4);">{{ bed.sub }}</span>
+                </div>
+                <sc-if value="{{ bed.warn }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; padding:7px 11px; border-radius:9px; background:rgba(199,155,255,0.06); border:1px dashed rgba(199,155,255,0.36);">
+                    <svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 1 L13 12 H1 Z" fill="none" stroke="#c79bff" stroke-width="1"></path><line x1="7" y1="5" x2="7" y2="8.5" stroke="#c79bff" stroke-width="1"></line><circle cx="7" cy="10.2" r="0.7" fill="#c79bff"></circle></svg>
+                    <span style="font-size:10px; color:#d4b8ff; line-height:1.4;">{{ bed.warn }}</span>
+                  </div>
+                </sc-if>
+                <div style="display:flex; gap:10px; align-items:flex-end;">
+                  <sc-for list="{{ bed.specimens }}" as="s" hint-placeholder-count="3">
+                    <div onClick="{{ s.onSelect }}" style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; cursor:pointer; opacity:{{ s.op }};">
+                      <div style="position:relative; width:100%; height:104px; display:flex; align-items:flex-end; justify-content:center;">
+                        <div style="position:absolute; bottom:8px; width:56%; height:18px; border-radius:50%; background:radial-gradient(closest-side, {{ s.halo }}, transparent); pointer-events:none;"></div>
+                        <div style="width:58px; height:96px; transform-origin:50% 100%; animation:{{ s.sway }};">{{ s.plantEl }}</div>
+                        <sc-if value="{{ s.graft }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; top:6px; right:14%; font-size:7px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:rgba(199,155,255,0.16); border:1px solid rgba(199,155,255,0.4); color:#d4b8ff;">GRAFT</span></sc-if>
+                        <sc-if value="{{ s.thorn }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; top:6px; right:16%; width:13px; height:13px; border-radius:50%; background:#1a1014; border:1px solid #ff8fa0; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; color:#ff8fa0;">!</span></sc-if>
+                      </div>
+                      <div style="width:100%; text-align:center; padding:0 2px;">
+                        <div style="height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); margin-bottom:6px;"></div>
+                        <div style="font-size:11px; font-weight:600; line-height:1.2; color:rgba(236,242,235,0.94); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ s.name }}</div>
+                        <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin-top:4px;">
+                          <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ s.color }};">{{ s.vitality }}</span>
+                          <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:5px; background:{{ s.confBg }}; color:{{ s.confColor }};">{{ s.confLabel }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.name }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(236,242,235,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.vitalityFull }} · {{ sel.window }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,242,235,0.4); margin-bottom:7px;">THE MEMORY, AS KEPT</div>
+              <div style="font-size:13px; font-weight:500; color:rgba(236,242,235,0.9); line-height:1.55;">{{ sel.memory }}</div>
+            </div>
+
+            <sc-if value="{{ sel.graftNote }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:10.5px; color:rgba(236,242,235,0.66); line-height:1.5; padding:10px 12px; background:rgba(199,155,255,0.06); border:1px solid rgba(199,155,255,0.3); border-radius:10px; display:flex; gap:9px;">
+                <svg width="14" height="14" viewBox="0 0 14 14" style="flex:0 0 auto; margin-top:1px;"><path d="M7 13 V7 M7 9 C4 8.5 3 6.5 3.4 4.5 C5.6 4.6 7 6 7 8 M7 8 C7 6 8.4 4.4 10.6 4.3 C11 6.3 10 8.3 7 8.8" fill="none" stroke="#c79bff" stroke-width="1"></path><rect x="5.4" y="8.4" width="3.2" height="2" rx="0.6" fill="none" stroke="#c79bff" stroke-width="0.9"></rect></svg>
+                <span>{{ sel.graftNote }}</span>
+              </div>
+            </sc-if>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px;">
+              <div style="background:rgba(95,211,154,0.05); border:1px solid rgba(95,211,154,0.26); border-radius:11px; padding:10px 11px;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#86e0ad" stroke-width="1"></circle><path d="M3.6 6.1 L5.2 7.6 L8.4 4.2" fill="none" stroke="#86e0ad" stroke-width="1.1"></path></svg><span style="font-size:9px; letter-spacing:0.06em; color:#86e0ad;">RECORDED</span></div>
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.recorded }}" as="r" hint-placeholder-count="2">
+                    <div><div style="font-size:10px; color:rgba(236,242,235,0.8); line-height:1.35;">{{ r.t }}</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(236,242,235,0.42); margin-top:1px;">{{ r.src }}</div></div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:rgba(199,155,255,0.05); border:1px solid rgba(199,155,255,0.28); border-radius:11px; padding:10px 11px;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;"><svg width="11" height="11" viewBox="0 0 12 12"><path d="M6 1 L11 10.5 H1 Z" fill="none" stroke="#d4b8ff" stroke-width="1"></path><line x1="6" y1="4.5" x2="6" y2="7.3" stroke="#d4b8ff" stroke-width="1"></line><circle cx="6" cy="8.8" r="0.6" fill="#d4b8ff"></circle></svg><span style="font-size:9px; letter-spacing:0.06em; color:#d4b8ff;">RECONSTRUCTED</span></div>
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.reconstructed }}" as="r" hint-placeholder-count="2">
+                    <div><div style="font-size:10px; color:rgba(236,242,235,0.78); line-height:1.35;">{{ r.t }}</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:#bcb0ff; margin-top:1px;">{{ r.basis }}</div></div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:9px 11px;">
+                <div style="font-size:8.5px; letter-spacing:0.08em; color:rgba(236,242,235,0.42);">CORROBORATION</div>
+                <div style="display:flex; align-items:baseline; gap:5px; margin-top:3px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:{{ sel.corroColor }};">{{ sel.corro }}</span><span style="font-size:9px; color:rgba(236,242,235,0.5);">sources</span></div>
+              </div>
+              <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:9px 11px;">
+                <div style="font-size:8.5px; letter-spacing:0.08em; color:rgba(236,242,235,0.42);">LAST RECALLED</div>
+                <div style="display:flex; align-items:baseline; gap:5px; margin-top:3px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:rgba(236,242,235,0.88);">{{ sel.recallLast }}</span><span style="font-size:9px; color:rgba(236,242,235,0.5);">· {{ sel.recallCount }}</span></div>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,143,160,0.05); border:1px solid rgba(255,143,160,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:50%; background:#ff8fa0; box-shadow:0 0 7px #ff8fa0;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#ff8fa0;">CONTESTED DETAIL · THORN</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(236,242,235,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(236,242,235,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(236,242,235,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(236,242,235,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(236,242,235,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="font-size:9.5px; color:rgba(236,242,235,0.45); flex:0 0 64px;">confidence</span>
+              <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+            </div>
+
+            <sc-if value="{{ sel.hasRefs }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,242,235,0.4); margin-bottom:8px;">GROWS ALONGSIDE</div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <sc-for list="{{ sel.refs }}" as="rf" hint-placeholder-count="2">
+                    <div onClick="{{ rf.onSelect }}" style="display:flex; align-items:center; gap:8px; padding:7px 9px; border-radius:8px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); cursor:pointer;">
+                      <span style="width:7px; height:7px; border-radius:50%; background:{{ rf.color }}; box-shadow:0 0 6px {{ rf.color }};"></span>
+                      <span style="font-size:11px; color:rgba(236,242,235,0.82); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ rf.name }}</span>
+                      <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(236,242,235,0.42);">{{ rf.rel }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,242,235,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(236,242,235,0.72);">{{ step }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,242,235,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.sources }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #0c120d; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(236,242,235,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(236,242,235,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,242,235,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,242,235,0.45);">memory</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,242,235,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,242,235,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,242,235,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,242,235,0.45);">retention</span><span style="color:#86e0ad;">kept · never pruned</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0c120d; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical record</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(236,242,235,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Recall log</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(236,242,235,0.6);">Recall ledger · when each was last visited</span>
+        <span style="font-size:10px; color:rgba(236,242,235,0.38);">recall keeps a memory in bloom — neglect lets it fade, but never deletes it</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(236,242,235,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ffce6b;"></span>bloom</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(236,242,235,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#b0a890;"></span>fading</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(236,242,235,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#c79bff;"></span>graft</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(120,200,140,0.05), rgba(255,206,107,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ ledgerSvg }}</div>
+        <sc-for list="{{ ledgerMarks }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:110px;">
+            <div style="font-size:8.5px; color:rgba(236,242,235,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(236,242,235,0.4); margin-top:3px; white-space:nowrap;">{{ m.when }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(236,242,235,0.66);">WE KEEP WHAT WAS RECORDED · WE LABEL WHAT WAS RECONSTRUCTED</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;glasshouse&quot;,&quot;orchid&quot;,&quot;fernlight&quot;],&quot;default&quot;:&quot;glasshouse&quot;,&quot;tsType&quot;:&quot;'glasshouse' | 'orchid' | 'fernlight'&quot;},&quot;motes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'long_morning' };
+
+    this.MEM = {
+      long_morning:{ bed:'bloom', kind:'bloom', name:'The Long Morning', vitality:'in bloom', conf:0.9, life:'Confirmed', window:'this spring', corro:4, recallLast:'2d', recallCount:'recalled often',
+        memory:'A slow morning the whole house remembers the same way \u2014 late light, no plans, everyone drifting through the kitchen. Well-recorded, often revisited, fully in bloom.',
+        recorded:[{t:'The date and who was home',src:'calendar + messages'},{t:'The weather that morning',src:'local weather record'},{t:'Photos taken at the table',src:'photo library \u00b7 timestamped'}],
+        reconstructed:[{t:'Nothing inferred',basis:'every element is attested'}],
+        reasoning:['Four independent sources agree on the same morning.','Frequent recall keeps it bloomed and high-confidence.','No element rests on inference \u2014 a fully recorded memory.'],
+        sources:[{title:'Calendar + messages',meta:'attested',color:'#5fd39a',radius:'3px'},{title:'Weather record',meta:'provider-attested',color:'#9b8cff',radius:'3px'},{title:'Photo library',meta:'device \u00b7 timestamped',color:'#ffce6b',radius:'3px'}],
+        refs:[{id:'frost_walk',rel:'same season'},{id:'recipe',rel:'same kitchen'}],
+        canonId:'mem_lm_512', mode:'MEM \u00b7 recorded', resolver:'HIGHEST_CONF' },
+
+      frost_walk:{ bed:'bloom', kind:'bloom', name:'First Frost Walk', vitality:'in bloom', conf:0.86, life:'Confirmed', window:'last autumn', corro:3, recallLast:'9d', recallCount:'recalled often',
+        memory:'The first cold walk of the year \u2014 stiff boots, breath you could see, the long field at the edge of town. Bright and well-kept.',
+        recorded:[{t:'Date and route walked',src:'phone GPS track'},{t:'Temperature that day',src:'weather record'},{t:'A photo at the treeline',src:'photo library'}],
+        reconstructed:[{t:'Nothing inferred',basis:'every element is attested'}],
+        reasoning:['GPS, weather and a photo corroborate the same walk.','Recalled regularly \u2014 the memory stays in bloom.','No inference required.'],
+        sources:[{title:'GPS track',meta:'device \u00b7 logged',color:'#5fd39a',radius:'3px'},{title:'Weather record',meta:'provider-attested',color:'#9b8cff',radius:'3px'},{title:'Photo library',meta:'timestamped',color:'#ffce6b',radius:'3px'}],
+        refs:[{id:'long_morning',rel:'same season'}],
+        canonId:'mem_fw_207', mode:'MEM \u00b7 recorded', resolver:'HIGHEST_CONF' },
+
+      kitchen_repair:{ bed:'bloom', kind:'bud', name:'The Cabinet Fix', vitality:'budding', conf:0.88, life:'Confirmed', window:'last week', corro:2, recallLast:'1d', recallCount:'new',
+        memory:'Fixing the cabinet door last week \u2014 the wrong screws first, then the right ones. Recent, so still a bud; it will bloom as it\u2019s revisited.',
+        recorded:[{t:'When the repair happened',src:'task log \u00b7 Ritual Circle'},{t:'A before/after photo',src:'photo library'}],
+        reconstructed:[{t:'Nothing inferred',basis:'recent and attested'}],
+        reasoning:['A recent memory with two attesting sources.','Too new to have been recalled much \u2014 rendered as a bud.','Will bloom with revisiting; nothing inferred.'],
+        sources:[{title:'Task completion log',meta:'rit \u00b7 attested',color:'#5fd39a',radius:'3px'},{title:'Photo library',meta:'timestamped',color:'#ffce6b',radius:'3px'}],
+        refs:[],
+        canonId:'mem_kr_044', mode:'MEM \u00b7 recorded', resolver:'LATEST' },
+
+      recipe:{ bed:'bloom', kind:'thorn', name:'Grandmother\u2019s Recipe', vitality:'bloom · thorned', conf:0.7, life:'Disputed', window:'years back', corro:2, recallLast:'14d', recallCount:'recalled often',
+        memory:'Grandmother\u2019s recipe, written down from memory. Mostly clear and often made \u2014 but one ingredient is remembered two different ways, so the bloom carries a thorn.',
+        recorded:[{t:'The dish and the occasion',src:'family notes + photos'},{t:'Most of the method',src:'a written card'}],
+        reconstructed:[{t:'The disputed ingredient',basis:'two accounts differ \u2014 neither is overwritten'}],
+        contradiction:{ a:{label:'Your account',val:'nutmeg',conf:'conf 0.68',color:'#ffce6b'}, b:{label:'Aunt\u2019s account',val:'allspice',conf:'conf 0.66',color:'#ff8fa0'}, note:'Two people remember the spice differently. The conservatory keeps both as a thorn rather than quietly choosing one.' },
+        reasoning:['Most of the memory is corroborated and bloomed.','One detail is contested between two accounts \u2014 a thorn.','Neither version is silently picked; the disagreement is kept visible.'],
+        sources:[{title:'Written recipe card',meta:'family record',color:'#ffce6b',radius:'3px'},{title:'Two spoken accounts',meta:'conflicting',color:'#ff8fa0',radius:'2px'}],
+        refs:[{id:'long_morning',rel:'same kitchen'},{id:'reunion',rel:'same people'}],
+        canonId:'mem_gr_318', mode:'MEM \u00b7 recorded', resolver:'CONFLICT_OPEN' },
+
+      borrowed_summer:{ bed:'fading', kind:'wilt', name:'A Borrowed Summer', vitality:'fading', conf:0.55, life:'Watching', window:'long ago', corro:1, recallLast:'8mo', recallCount:'rarely recalled',
+        memory:'A summer spent at a borrowed house \u2014 warm, but the edges have gone soft. One journal mentions it; little else survives. It wilts, but it is not thrown away.',
+        recorded:[{t:'That the summer happened',src:'a single journal entry'}],
+        reconstructed:[{t:'Most of the detail',basis:'memory only \u2014 no second source to confirm'}],
+        reasoning:['A single self-written source supports it.','Rarely recalled and thinly recorded \u2014 it wilts.','Kept regardless; fading is not deletion.'],
+        sources:[{title:'Journal entry',meta:'self-written \u00b7 single source',color:'#b0a890',radius:'2px'}],
+        refs:[],
+        canonId:'mem_bs_129', mode:'MEM \u00b7 recorded', resolver:'HIGHEST_CONF' },
+
+      cistern_address:{ bed:'fading', kind:'dormant', name:'The Old Address', vitality:'dormant', conf:0.5, life:'Watching', window:'long ago', corro:1, recallLast:'2y', recallCount:'almost never',
+        memory:'The address of the old place \u2014 almost gone. One legacy record still holds it. Dormant now, but kept in the soil so it can be recalled if ever needed.',
+        recorded:[{t:'The street and town',src:'legacy export \u00b7 Old Cistern'}],
+        reconstructed:[{t:'The house number',basis:'inferred from a neighbour\u2019s record \u2014 uncertain'}],
+        reasoning:['Supported only by a stale legacy source.','Effectively dormant \u2014 long since recalled.','Retained, not pruned, so the thread is never fully lost.'],
+        sources:[{title:'Legacy export',meta:'src_cistern \u00b7 14d+ stale',color:'#8a93a8',radius:'2px'}],
+        refs:[{id:'why_moved',rel:'same chapter'}],
+        canonId:'mem_oa_077', mode:'MEM \u00b7 recorded', resolver:'HIGHEST_CONF' },
+
+      half_conversation:{ bed:'fading', kind:'wilt', name:'Half a Conversation', vitality:'fading', conf:0.52, life:'Watching', window:'a while ago', corro:1, recallLast:'5mo', recallCount:'rarely recalled',
+        memory:'Half a conversation on a train \u2014 you remember the feeling of it, not the words. The record holds the when and where; the rest has thinned to an impression.',
+        recorded:[{t:'The trip it happened on',src:'transit + calendar'}],
+        reconstructed:[{t:'What was actually said',basis:'impression only \u2014 not recorded'}],
+        reasoning:['Only the trip itself is attested.','The content is an impression, not a record \u2014 it wilts.','Shown soft because the evidence is soft.'],
+        sources:[{title:'Transit + calendar',meta:'attested context only',color:'#b0a890',radius:'2px'}],
+        refs:[],
+        canonId:'mem_hc_201', mode:'MEM \u00b7 recorded', resolver:'HIGHEST_CONF' },
+
+      reunion:{ bed:'graft', kind:'graft', name:'The Reunion', vitality:'reconstructed', conf:0.48, life:'Watching', window:'years back', corro:2, recallLast:'1mo', recallCount:'occasionally',
+        memory:'A reunion reconstructed from photos and a calendar block \u2014 no account of the day itself survives. Grown on the grafting bench so it is never mistaken for a recorded memory.',
+        graftNote:'This memory has no direct record of the day. It is reconstructed from adjacent evidence, so the conservatory grows it as a graft \u2014 kept separate so inference is never read as recollection.',
+        recorded:[{t:'That a gathering occurred',src:'calendar block + photos'},{t:'Who appears in frame',src:'photo library'}],
+        reconstructed:[{t:'What was said and felt',basis:'inferred from typical gatherings \u2014 not recorded'},{t:'The order of the day',basis:'stitched from photo timestamps'}],
+        reasoning:['Calendar and photos confirm a gathering happened.','No record of the day\u2019s substance survives.','The narrative is reconstructed and labeled as such \u2014 cordoned to the grafting bench.'],
+        sources:[{title:'Calendar block',meta:'attested \u00b7 the fact',color:'#5fd39a',radius:'3px'},{title:'Photo library',meta:'timestamped frames',color:'#ffce6b',radius:'3px'},{title:'Inference model',meta:'reconstruction \u00b7 not a record',color:'#c79bff',radius:'2px'}],
+        refs:[{id:'recipe',rel:'same people'}],
+        canonId:'mem_rn_440', mode:'MEM \u00b7 reconstructed', resolver:'INFERENCE_FLAGGED' },
+
+      why_moved:{ bed:'graft', kind:'graft', name:'Why We Moved', vitality:'reconstructed', conf:0.4, life:'Watching', window:'a long chapter', corro:1, recallLast:'3mo', recallCount:'occasionally',
+        memory:'Why we moved that year \u2014 a story stitched from dates and old letters, not from any record of the reason itself. The most reconstructed specimen in the house, and the most clearly labeled.',
+        graftNote:'There is no record of the reason \u2014 only of the move. Everything explanatory here is inference. It is grown as a graft and held at low confidence so it is never confused with what was actually documented.',
+        recorded:[{t:'That the move happened, and when',src:'address change + dates'}],
+        reconstructed:[{t:'The reason behind it',basis:'inferred from letters \u2014 no record states it'},{t:'How the decision was made',basis:'narrative inference \u2014 unverifiable'}],
+        reasoning:['Only the move itself \u2014 timing and place \u2014 is recorded.','The reason is entirely reconstructed from indirect letters.','Held at the lowest confidence and cordoned, so inference can never pose as memory.'],
+        sources:[{title:'Address-change record',meta:'attested \u00b7 the move',color:'#5fd39a',radius:'3px'},{title:'Old letters',meta:'indirect \u00b7 suggestive only',color:'#c79bff',radius:'2px'},{title:'Inference model',meta:'reconstruction \u00b7 not a record',color:'#c79bff',radius:'2px'}],
+        refs:[{id:'cistern_address',rel:'same chapter'}],
+        canonId:'mem_wm_388', mode:'MEM \u00b7 reconstructed', resolver:'INFERENCE_FLAGGED' }
+    };
+    this.BEDS=[
+      { key:'bloom', label:'ATTESTED BLOOMS', sub:'recorded \u00b7 corroborated', ids:['long_morning','frost_walk','kitchen_repair','recipe'] },
+      { key:'fading', label:'FADING & DORMANT', sub:'thin records \u2014 kept, not deleted', ids:['borrowed_summer','cistern_address','half_conversation'] },
+      { key:'graft', label:'GRAFTING BENCH \u00b7 RECONSTRUCTED', sub:'inference, cordoned', warn:'These are reconstructions, not records. Grown apart so they are never mistaken for what actually happened.', ids:['reunion','why_moved'] }
+    ];
+    this.NAV=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Family Lantern Wall','Bounty Constellarium','Source Aquarium','Ritual Circle','Mirror Hall','Memory Conservatory'];
+  }
+
+  themes={
+    glasshouse:{ accent:'#8fd39a', accent2:'#ffce6b', base:'#070d09', bg1:'rgba(120,200,140,0.13)', bg2:'rgba(255,200,110,0.10)', glow:'rgba(143,211,154,0.30)', glass1:'#0e1c14', glass2:'#0a140d' },
+    orchid:    { accent:'#c79bdf', accent2:'#ff9ec2', base:'#0c0810', bg1:'rgba(190,130,220,0.13)', bg2:'rgba(255,158,194,0.10)', glow:'rgba(199,155,223,0.30)', glass1:'#1a1020', glass2:'#120b18' },
+    fernlight: { accent:'#6fd6c0', accent2:'#a8e08a', base:'#06100e', bg1:'rgba(90,200,180,0.13)', bg2:'rgba(168,224,138,0.10)', glow:'rgba(111,214,192,0.28)', glass1:'#0a1c1a', glass2:'#071412' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.glasshouse; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#5fd39a': c>=0.7?'#7fd99a': c>=0.55?'#e8c75a':'#c79bff'; }
+  lifeColor(l){ return ({Confirmed:'#5fd39a',Watching:'#e8c75a',Disputed:'#ff8fa0'})[l]||'#9aa6c0'; }
+  vitColor(kind){ return ({bloom:'#ffce6b',bud:'#8fd39a',thorn:'#ff8fa0',wilt:'#b0a890',dormant:'#8a93a8',graft:'#c79bff'})[kind]||'#8fd39a'; }
+
+  // ---- specimen art (decorative) ----
+  leaf(x,y,rot,col){ const h=React.createElement; return h('path',{key:'lf'+x+y,d:'M0 0 Q 9 -3 14 -11 Q 5 -8 0 0 Z',fill:col,opacity:0.55,transform:'translate('+x+' '+y+') rotate('+rot+')'}); }
+  plant(kind){
+    const h=React.createElement, col=this.vitColor(kind), g=this.hexA(col,0.9), gd=this.hexA(col,0.35);
+    const stem=(d,w,o)=>h('path',{d,fill:'none',stroke:this.hexA('#8fd39a',o||0.7),strokeWidth:w||2.4,strokeLinecap:'round'});
+    const els=[];
+    if(kind==='bloom'||kind==='thorn'){
+      els.push(stem('M29 92 C29 70 29 50 29 34',2.6));
+      els.push(this.leaf(29,64,8,'#7bbf86')); els.push(this.leaf(29,56,-150,'#7bbf86'));
+      const petals=[]; for(let i=0;i<7;i++){ const a=i/7*Math.PI*2; petals.push(h('ellipse',{key:'p'+i,cx:29+Math.cos(a)*9,cy:26+Math.sin(a)*9,rx:5,ry:8,fill:col,opacity:0.85,transform:'rotate('+(a*180/Math.PI+90)+' '+(29+Math.cos(a)*9)+' '+(26+Math.sin(a)*9)+')'})); }
+      els.push(h('g',{key:'fl',style:{filter:'drop-shadow(0 0 4px '+col+')'}},...petals));
+      els.push(h('circle',{key:'c',cx:29,cy:26,r:5,fill:'#fff7e0'}));
+      if(kind==='thorn'){ [[26,60],[33,52],[25,46]].forEach((p,i)=>els.push(h('path',{key:'th'+i,d:'M0 0 L4 -2 L0 -4 Z',fill:'#ff8fa0',transform:'translate('+p[0]+' '+p[1]+')'}))); }
+    } else if(kind==='bud'){
+      els.push(stem('M29 92 C29 72 29 52 29 38',2.6));
+      els.push(this.leaf(29,66,10,'#7bbf86')); els.push(this.leaf(29,58,-150,'#7bbf86'));
+      els.push(h('path',{key:'b',d:'M29 38 C24 34 24 26 29 21 C34 26 34 34 29 38 Z',fill:col,opacity:0.88,style:{filter:'drop-shadow(0 0 4px '+col+')'}}));
+      els.push(h('path',{key:'sep',d:'M29 21 C28 28 28 33 29 38',stroke:'#fff7e0',strokeWidth:0.8,fill:'none',opacity:0.6}));
+    } else if(kind==='wilt'){
+      els.push(stem('M29 92 C29 74 31 60 24 50 C20 44 22 40 26 40',2.2,0.5));
+      els.push(this.leaf(28,70,40,'#9bae84')); els.push(this.leaf(29,62,-120,'#9bae84'));
+      const petals=[]; for(let i=0;i<6;i++){ const a=i/6*Math.PI*2; petals.push(h('ellipse',{key:'p'+i,cx:24+Math.cos(a)*6,cy:40+Math.sin(a)*6,rx:3.6,ry:6,fill:col,opacity:0.5,transform:'rotate('+(a*180/Math.PI+90+20)+' '+(24+Math.cos(a)*6)+' '+(40+Math.sin(a)*6)+')'})); }
+      els.push(h('g',{key:'fl'},...petals)); els.push(h('circle',{key:'c',cx:24,cy:40,r:3,fill:this.hexA('#fff7e0',0.6)}));
+    } else if(kind==='dormant'){
+      els.push(stem('M29 92 C29 76 29 62 29 50',2,0.4));
+      els.push(h('path',{key:'pod',d:'M29 50 C25 47 25 40 29 37 C33 40 33 47 29 50 Z',fill:'none',stroke:this.hexA(col,0.7),strokeWidth:1.4}));
+      els.push(h('path',{key:'sprout',d:'M29 50 q -4 -3 -3 -7',fill:'none',stroke:this.hexA('#8fd39a',0.45),strokeWidth:1.2}));
+    } else if(kind==='graft'){
+      els.push(stem('M29 92 C29 80 22 72 24 62',2.4,0.55));
+      els.push(stem('M29 92 C29 80 36 72 34 62',2.4,0.55));
+      els.push(h('path',{key:'join',d:'M24 62 C26 58 32 58 34 62 C32 56 30 52 29 48 C28 52 26 58 24 62 Z',fill:'none',stroke:this.hexA(col,0.7),strokeWidth:1.6}));
+      els.push(h('rect',{key:'wrap',x:25,y:58,width:8,height:6,rx:1.4,fill:'none',stroke:'#d4b8ff',strokeWidth:1.2}));
+      const petals=[]; for(let i=0;i<6;i++){ const a=i/6*Math.PI*2; petals.push(h('ellipse',{key:'p'+i,cx:29+Math.cos(a)*7,cy:38+Math.sin(a)*7,rx:4,ry:6.5,fill:col,opacity:0.7,transform:'rotate('+(a*180/Math.PI+90)+' '+(29+Math.cos(a)*7)+' '+(38+Math.sin(a)*7)+')'})); }
+      els.push(h('g',{key:'fl',style:{filter:'drop-shadow(0 0 4px '+col+')'}},...petals));
+      els.push(h('circle',{key:'c',cx:29,cy:38,r:3.6,fill:'#efe4ff'}));
+    }
+    return h('svg',{width:'100%',height:'100%',viewBox:'0 0 58 96'},els);
+  }
+  swayFor(kind){ return (kind==='wilt'||kind==='dormant') ? 'lwSwaySlow 9s ease-in-out infinite' : 'lwSway '+(5+Math.random()*0).toFixed(0)+'s ease-in-out infinite'; }
+
+  renderVals(){
+    const t=this.cur(), M=this.MEM, selId=this.state.sel, b=M[selId];
+    const pick=id=>()=>this.setState({sel:id});
+
+    const specimen=(id)=>{ const m=M[id], col=this.vitColor(m.kind), seld=id===selId;
+      return { id, name:m.name, vitality:m.vitality, color:col, plantEl:this.plant(m.kind), sway:this.swayFor(m.kind),
+        graft:m.kind==='graft', thorn:m.kind==='thorn', halo:this.hexA(col, seld?0.5:0.28),
+        op:seld?1:(this.state.sel?0.8:0.95),
+        confLabel:m.conf.toFixed(2), confColor:this.confColor(m.conf), confBg:this.hexA(this.confColor(m.conf),0.14),
+        onSelect:pick(id) }; };
+
+    const beds=this.BEDS.map(bd=>({ label:bd.label, sub:bd.sub, warn:bd.warn||null,
+      labelColor: bd.key==='graft'?'#d4b8ff': bd.key==='fading'?'rgba(200,192,168,0.7)':'rgba(236,242,235,0.5)',
+      lineColor: bd.key==='graft'?'rgba(199,155,255,0.3)':'rgba(255,255,255,0.1)',
+      specimens:bd.ids.map(specimen) }));
+
+    const vitFull={ bloom:'in full bloom \u00b7 recorded', bud:'budding \u00b7 recent record', thorn:'bloom with a thorn \u00b7 one detail contested', wilt:'wilting \u00b7 thin record', dormant:'dormant \u00b7 nearly lost', graft:'reconstructed \u00b7 grown on the grafting bench' };
+    const sel={
+      name:b.name, color:this.vitColor(b.kind), vitalityFull:vitFull[b.kind]||b.vitality,
+      life:b.life, lifeColor:this.lifeColor(b.life), lifeBg:this.hexA(this.lifeColor(b.life),0.16), headerBg:this.hexA(this.vitColor(b.kind),0.07),
+      memory:b.memory, graftNote:b.graftNote||null,
+      recorded:b.recorded, reconstructed:b.reconstructed,
+      corro:b.corro, corroColor: b.corro>=3?'#5fd39a': b.corro===2?'#e8c75a':'#ff9e57', recallLast:b.recallLast, recallCount:b.recallCount,
+      contradiction:b.contradiction||null,
+      conf:b.conf.toFixed(2), confPct:Math.round(b.conf*100)+'%', confColor:this.confColor(b.conf),
+      hasRefs:(b.refs||[]).length>0, refs:(b.refs||[]).map(rf=>({ name:M[rf.id].name, rel:rf.rel, color:this.vitColor(M[rf.id].kind), onSelect:pick(rf.id) })),
+      reasoning:b.reasoning, sources:b.sources,
+      canonId:b.canonId, mode:b.mode, resolver:b.resolver, window:b.window
+    };
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Memory Conservatory'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(236,242,235,0.95)':'rgba(236,242,235,0.6)', dot:active?'var(--accent)':'rgba(236,242,235,0.35)' }; });
+
+    const motes=[ {left:'22%',bottom:'10%',size:'3px',dur:'9s',delay:'0s',color:'rgba(255,220,150,0.7)'},{left:'40%',bottom:'14%',size:'2px',dur:'11s',delay:'2s',color:'rgba(180,230,160,0.6)'},{left:'58%',bottom:'8%',size:'3px',dur:'10s',delay:'4s',color:'rgba(255,210,130,0.6)'},{left:'72%',bottom:'16%',size:'2px',dur:'12s',delay:'1s',color:'rgba(200,170,255,0.5)'},{left:'14%',bottom:'20%',size:'2px',dur:'10.5s',delay:'3s',color:'rgba(180,230,160,0.55)'} ];
+    const showMotes = this.props.motes===false ? [] : motes;
+
+    const ledgerMarks=[
+      {subj:'Long Morning',when:'2d',leftPct:'9%',color:'#ffce6b',ringColor:'rgba(255,255,255,0.3)',id:'long_morning'},
+      {subj:'Cabinet Fix',when:'1d',leftPct:'26%',color:'#8fd39a',ringColor:'rgba(255,255,255,0.3)',id:'kitchen_repair'},
+      {subj:'Reunion (graft)',when:'1mo',leftPct:'44%',color:'#c79bff',ringColor:'#c79bff',id:'reunion'},
+      {subj:'Borrowed Summer',when:'8mo',leftPct:'62%',color:'#b0a890',ringColor:'#b0a890',id:'borrowed_summer'},
+      {subj:'Old Address',when:'2y',leftPct:'80%',color:'#8a93a8',ringColor:'#8a93a8',id:'cistern_address'},
+      {subj:'Now',when:'today',leftPct:'94%',color:t.accent,ringColor:'rgba(255,255,255,0.3)',id:'long_morning'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, glass1:t.glass1, glass2:t.glass2,
+      dustSvg:this.buildDust(), ledgerSvg:this.buildLedger(),
+      beds, sel, navItems, motes:showMotes, ledgerMarks
+    };
+  }
+
+  buildDust(){
+    const h=React.createElement, R=[]; let s=31; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<42;i++){ R.push(h('circle',{key:'d'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*0.8+0.2).toFixed(2),fill:'#f0ecd8',opacity:(rnd()*0.16+0.03).toFixed(2),style:{animation:rnd()>0.6?('lwTwinkle '+(2+rnd()*3).toFixed(1)+'s ease-in-out infinite'):'none'}})); }
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+  buildLedger(){
+    const h=React.createElement, vals=[0.62,0.55,0.40,0.30,0.22,0.5], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-v*44;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+  }
+}
+</script>
+</body>
+</html>

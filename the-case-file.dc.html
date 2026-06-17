@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0c0a08}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(201,161,74,0.22);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwDust{0%{transform:translateY(8px);opacity:0}30%{opacity:.6}100%{transform:translateY(-22px);opacity:0}}
+  @keyframes lwLamp{0%,100%{opacity:.82}50%{opacity:1}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+  @keyframes lwSway{0%,100%{transform:rotate(-0.5deg)}50%{transform:rotate(0.5deg)}}
+</style>
+</helmet>
+<div data-screen-label="The Case File" style="height:100vh; overflow:hidden; color:rgba(236,224,200,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; --lamp:{{ lamp }}; background:radial-gradient(900px 520px at 50% -10%, {{ bg1 }}, transparent 55%), radial-gradient(900px 700px at 112% 120%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(201,161,74,0.16); background:rgba(20,16,11,0.6);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="12" cy="12" r="7.5" fill="none" stroke="var(--accent)" stroke-width="1.5"></circle><line x1="17.5" y1="17.5" x2="24" y2="24" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"></line><circle cx="12" cy="12" r="3" fill="none" stroke="var(--accent2)" stroke-width="1.1"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(201,161,74,0.22);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">The Case File</span>
+      <span style="font-size:10.5px; color:rgba(236,224,200,0.45);">Layer 9 · evidence dossier · the file doesn't do hunches</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(236,224,200,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(201,161,74,0.2); border-radius:7px; background:rgba(201,161,74,0.05);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ inFileCount }} exhibits in file</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">strength {{ strengthLabel }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#6fae72;box-shadow:0 0 7px #6fae72;"></span>chain of custody · read-only</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(201,161,74,0.22);"></div>
+    <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-case-file"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow-y:auto; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:64px; left:50%; z-index:20; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(22,17,11,0.97); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.6); max-width:580px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(236,224,200,0.92);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:13px; background:rgba(28,22,15,0.5); border:1px solid rgba(201,161,74,0.16); border-radius:13px; padding:11px 14px;">
+        <div style="display:flex; flex-direction:column; line-height:1.2; min-width:0;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ caseTitle }}</span>
+          <span style="font-size:10.5px; color:rgba(236,224,200,0.45); font-family:'IBM Plex Mono',monospace;">{{ caseKind }} · {{ caseRecipient }}</span>
+        </div>
+        <div style="width:1px; height:32px; background:rgba(201,161,74,0.2);"></div>
+        <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+          <span style="font-size:10px; color:rgba(236,224,200,0.5);">FILE STRENGTH</span>
+          <div style="flex:1; max-width:220px; height:8px; border-radius:5px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ strengthPct }}; background:linear-gradient(90deg, {{ strengthColor }}, var(--accent2));"></div></div>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:{{ strengthColor }};">{{ strengthLabel }}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:7px; font-size:9.5px; font-family:'IBM Plex Mono',monospace; color:rgba(236,224,200,0.5);">
+          <span style="padding:4px 8px; border:1px solid rgba(201,161,74,0.2); border-radius:6px;">{{ conflictNote }}</span>
+          <span style="padding:4px 8px; border:1px solid rgba(201,161,74,0.2); border-radius:6px;">{{ gapNote }}</span>
+        </div>
+        <span onClick="{{ onExport }}" style="flex:0 0 auto; font-size:11.5px; font-weight:600; color:#1a120a; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px 15px; border-radius:9px; cursor:pointer; box-shadow:0 0 16px var(--glow);">Seal &amp; export dossier</span>
+      </section>
+
+      <section style="flex:1; min-height:340px; position:relative; border:1px solid rgba(201,161,74,0.16); border-radius:16px; overflow:hidden; background:radial-gradient(120% 70% at 50% -6%, rgba(232,147,47,0.12), transparent 52%), linear-gradient(180deg, #1a1209, #120d07 70%, #0c0a08);">
+        <div style="position:absolute; inset:0;">{{ boardSvg }}</div>
+        <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(236,224,200,0.74);">The board</span>
+          <span style="font-size:10px; color:rgba(236,224,200,0.42);">pins are exhibits · string is what connects · red string is where the stories don't match · pick one</span>
+        </div>
+        <div style="position:absolute; bottom:11px; left:14px; display:flex; align-items:center; gap:11px; font-size:9.5px; color:rgba(236,224,200,0.5);">
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:10px; height:0; border-top:2px solid #b5894a;"></span>corroborates</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:10px; height:0; border-top:2px solid #c2503f;"></span>conflicts</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:10px; height:9px; border:1px dashed rgba(236,224,200,0.45);"></span>gap · nothing on record</span>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 380px; display:flex; flex-direction:column; border-left:1px solid rgba(201,161,74,0.16); background:rgba(20,16,11,0.5); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 14px; border-bottom:1px solid rgba(201,161,74,0.16); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="flex:0 0 auto;">{{ sel.icon }}</span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15.5px; line-height:1.2;">{{ sel.label }}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:7px; margin-top:8px;">
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:5px; background:{{ sel.strengthBg }}; color:{{ sel.strengthColor }};">{{ sel.strengthWord }} · {{ sel.conf }}</span>
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:5px; background:{{ sel.statusBg }}; color:{{ sel.statusColor }};">{{ sel.statusLabel }}</span>
+          <sc-if value="{{ sel.inFile }}" hint-placeholder-val="{{ true }}">
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:5px; background:rgba(111,174,114,0.16); color:#8fce92;">IN FILE</span>
+          </sc-if>
+        </div>
+        <div style="font-size:12px; line-height:1.5; color:rgba(236,224,200,0.78); margin-top:10px; text-wrap:pretty;">{{ sel.detail }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <div style="background:rgba(40,30,18,0.5); border-left:2px solid var(--accent); border-radius:0 9px 9px 0; padding:10px 13px;">
+          <div style="font-size:9px; letter-spacing:0.14em; color:var(--accent); margin-bottom:5px;">THE READ</div>
+          <div style="font-size:12px; line-height:1.55; color:rgba(236,224,200,0.82); font-style:italic; text-wrap:pretty;">{{ sel.read }}</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,224,200,0.4); margin-bottom:8px;">STRENGTH OF EVIDENCE</div>
+          <div style="display:flex; align-items:center; gap:9px;">
+            <div style="flex:1; height:8px; border-radius:5px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.strengthColor }}; box-shadow:0 0 8px {{ sel.strengthColor }};"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.strengthColor }};">{{ sel.conf }}</span>
+          </div>
+          <div style="font-size:9.5px; color:rgba(236,224,200,0.45); margin-top:5px;">confidence is the canonical field. The noir word is just how it reads out loud — the number is the number.</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,224,200,0.4); margin-bottom:8px;">CHAIN OF CUSTODY · WHERE IT CAME FROM</div>
+          <div style="position:relative; padding-left:6px;">
+            <sc-for list="{{ sel.custody }}" as="cu" hint-placeholder-count="4">
+              <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:11px; position:relative;">
+                <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ cu.dot }}; border:2px solid #14100b; box-shadow:0 0 7px {{ cu.dot }}; margin-top:2px; z-index:1;"></span>
+                <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(201,161,74,0.18);"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; color:rgba(236,224,200,0.82);">{{ cu.label }}</div><div style="font-size:9.5px; color:rgba(236,224,200,0.42); font-family:'IBM Plex Mono',monospace;">{{ cu.meta }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.conflict }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(194,80,63,0.07); border:1px solid rgba(194,80,63,0.35); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="13" height="13" viewBox="0 0 14 14" style="flex:0 0 auto;"><path d="M7 1.5 L12.5 12 H1.5 Z" fill="none" stroke="#d97a6a" stroke-width="1.1"></path><line x1="7" y1="5.5" x2="7" y2="8.5" stroke="#d97a6a" stroke-width="1.1"></line><circle cx="7" cy="10.2" r="0.7" fill="#d97a6a"></circle></svg>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ sel.conflict.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.conflict.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(236,224,200,0.55);">{{ sel.conflict.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.conflict.a.color }};">{{ sel.conflict.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(236,224,200,0.4);">{{ sel.conflict.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.conflict.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(236,224,200,0.55);">{{ sel.conflict.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.conflict.b.color }};">{{ sel.conflict.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(236,224,200,0.4);">{{ sel.conflict.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(236,224,200,0.55); margin-top:9px; line-height:1.5;">{{ sel.conflict.note }}</div>
+          </div>
+        </sc-if>
+
+        <div style="background:rgba(0,0,0,0.28); border:1px solid rgba(201,161,74,0.18); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,224,200,0.4); margin-bottom:9px;">THE RECORD UNDERNEATH · UNTOUCHED</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,224,200,0.45);">record</span><span style="color:var(--accent2);">{{ sel.recordId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,224,200,0.45);">type · truth.mode</span><span>{{ sel.recordType }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,224,200,0.45);">verification</span><span>{{ sel.verifCode }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,224,200,0.45);">sensitivity</span><span style="color:#d9a441;">{{ sel.sensitivity }}</span></div>
+          </div>
+          <div style="font-size:10px; color:rgba(236,224,200,0.5); margin-top:9px; line-height:1.45;">Pull it into the file, drop it out, take it to anyone you like — the record doesn't budge. I just decide what gets pinned to the board.</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,224,200,0.4); margin-bottom:8px;">WHAT YOU CAN DO WITH IT</div>
+          <div style="display:flex; gap:7px;">
+            <span onClick="{{ sel.onToggle }}" style="flex:1; text-align:center; font-size:11.5px; font-weight:600; color:#1a120a; background:linear-gradient(135deg, {{ sel.toggleColor }}, var(--accent2)); padding:10px; border-radius:9px; cursor:pointer;">{{ sel.toggleLabel }}</span>
+            <span onClick="{{ sel.onCorroborate }}" style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(236,224,200,0.82); border:1px solid rgba(201,161,74,0.25); padding:10px 12px; border-radius:9px; cursor:pointer;">Chase a second source</span>
+          </div>
+          <div style="font-size:9px; color:rgba(236,224,200,0.42); margin-top:8px; text-align:center; line-height:1.4;">{{ sel.safety }}</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 110px; border-top:1px solid rgba(201,161,74,0.16); background:rgba(20,16,11,0.6); padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(236,224,200,0.6);">The sequence of events</span>
+        <span style="font-size:10px; color:rgba(236,224,200,0.38);">how the night actually went, in the order the records say it did</span>
+        <div style="flex:1;"></div>
+        <span style="font-size:10px; color:rgba(236,224,200,0.4);">earliest</span>
+        <span style="font-size:10px; color:rgba(236,224,200,0.4); margin-left:auto;">latest</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(120,90,50,0.12), rgba(201,161,74,0.06)); border:1px solid rgba(201,161,74,0.14);">
+        <sc-for list="{{ timeline }}" as="tl" hint-placeholder-count="6">
+          <div onClick="{{ tl.onSelect }}" style="position:absolute; left:{{ tl.left }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:96px;">
+            <div style="font-size:9px; color:rgba(236,224,200,0.62); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:96px; text-align:center; margin-bottom:3px;">{{ tl.label }}</div>
+            <div style="width:10px; height:10px; border-radius:50%; background:{{ tl.color }}; box-shadow:0 0 8px {{ tl.color }}; border:2px solid {{ tl.ring }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(236,224,200,0.42); margin-top:3px;">{{ tl.when }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 252px; display:flex; align-items:center; gap:12px; background:rgba(111,174,114,0.05); border:1px solid rgba(111,174,114,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#8fce92; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(236,224,200,0.55); margin-top:3px;">records altered</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:rgba(236,224,200,0.92); line-height:1.25;">chain of custody<br>unbroken</div>
+        <div style="font-size:9px; color:rgba(236,224,200,0.5); margin-top:3px; line-height:1.3;">every page traces home</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;noir&quot;,&quot;midnight&quot;,&quot;sepia&quot;],&quot;default&quot;:&quot;noir&quot;,&quot;tsType&quot;:&quot;'noir' | 'midnight' | 'sepia'&quot;},&quot;boardMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showRedString&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.CASES = {
+      claim_leak:{ title:'The Pipe That Cried', kind:'Insurance · water damage', recipient:'for the claims adjuster', dot:'#e8932f',
+        conflict:{ title:'WHEN DID IT START?', a:{label:'Your note',val:'~11 pm',conf:'conf 0.55',color:'#d9803f'}, b:{label:'Water meter',val:'3:10 am',conf:'conf 0.92',color:'#6fa8c9'}, note:'You said you heard it around eleven. The meter says the burst hit at ten past three. The adjuster will find this in four seconds, so we find it first. Both go in; neither gets quietly dropped.' },
+        timeline:[['device','Meter spike','3:10a'],['text','Text to landlord','3:20a'],['photo1','Ceiling photo','9:14a'],['receipt','Plumber invoice','Jun 3'],['estimate','Repair estimate','Jun 5']],
+        exhibits:[
+          { id:'photo1', label:'Kitchen ceiling, day of', type:'photo', detail:'Timestamped, geotagged photo of the damage the morning it was found.', source:'DOC', verif:'SYS', verifCode:'SYS · system-checked', conf:0.95, life:'TRUSTED', recordId:'evd_ph_2201', recordType:'EVIDENCE_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 2 09:14', x:185, y:160, rot:-4, inFile:true,
+            read:'Timestamped and geotagged. This one walks into any room and gets believed. Lead with it.',
+            custody:[{label:'Phone camera · EXIF intact',meta:'DEV capture · Jun 2 09:14',dot:'#6fae72'},{label:'Geo + time auto-stamped',meta:'geo.source DEVICE_GPS',dot:'#6fae72'},{label:'Filed as evidence',meta:'EVIDENCE_LOG · untouched',dot:'#c9a14a'}], conflict:false },
+          { id:'device', label:'Water-meter spike, 3:10am', type:'device', detail:'Smart meter logged a sudden draw consistent with a burst line.', source:'DEV', verif:'SYS', verifCode:'SYS · device-logged', conf:0.92, life:'TRUSTED', recordId:'dat_wm_0610', recordType:'DATA_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 2 03:10', x:435, y:135, rot:3, inFile:true,
+            read:'Cold, mechanical, and it does not care about your feelings. The meter puts the burst at 3:10. That is your anchor.',
+            custody:[{label:'Smart meter · utility export',meta:'DEV · Jun 2 03:10',dot:'#6fae72'},{label:'Pulled via authorized feed',meta:'truth_source DEV',dot:'#6fae72'},{label:'Cross-checks the text below',meta:'corroborated',dot:'#c9a14a'}], conflict:false },
+          { id:'text', label:'Text to landlord, 3:20am', type:'correspondence', detail:'Outgoing message reporting water "coming through the ceiling".', source:'HUM', verif:'SLF', verifCode:'SLF · the subject\u2019s own word', conf:0.84, life:'OBSERVED', recordId:'dat_sms_0610', recordType:'DATA_LOG · RPT', sensitivity:'RESTRICTED', when:'Jun 2 03:20', x:435, y:305, rot:-3, inFile:true,
+            read:'Ten minutes after the meter, you were texting the landlord. That lines up clean. The timestamp does the vouching, not the words.',
+            custody:[{label:'Messaging export',meta:'HUM · Jun 2 03:20',dot:'#c9a14a'},{label:'Self-reported content',meta:'verification SLF',dot:'#d9a441'},{label:'Time corroborates the meter',meta:'within 10 min',dot:'#6fae72'}], conflict:false },
+          { id:'self', label:'Your note: "heard it ~11pm"', type:'statement', detail:'A later recollection that the noise started around eleven the night before.', source:'HUM', verif:'SLF', verifCode:'SLF · uncorroborated memory', conf:0.55, life:'OBSERVED', recordId:'dat_nt_0611', recordType:'DATA_LOG · RPT', sensitivity:'RESTRICTED', when:'Jun 2 (recalled)', x:185, y:335, rot:4, inFile:false,
+            read:'Your own word, no backup, and it argues with the meter by four hours. I\u2019ll keep it in the box, but I would not lead with a memory that fights the machine.',
+            custody:[{label:'Written from memory',meta:'HUM · recalled later',dot:'#d9803f'},{label:'No second source',meta:'verification SLF · UNV-adjacent',dot:'#d9803f'},{label:'Conflicts the meter',meta:'see red string',dot:'#c2503f'}], conflict:true },
+          { id:'receipt', label:'Plumber invoice #4471', type:'receipt', detail:'Itemized invoice for the emergency line repair.', source:'DOC', verif:'REV', verifCode:'REV · reviewed document', conf:0.97, life:'TRUSTED', recordId:'evd_in_4471', recordType:'EVIDENCE_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 3', x:700, y:155, rot:-2, inFile:true,
+            read:'Itemized, signed, on letterhead. Documents like this are why adjusters exist and why they lose arguments. Airtight.',
+            custody:[{label:'Contractor invoice',meta:'DOC · Jun 3',dot:'#6fae72'},{label:'Reviewed + itemized',meta:'verification REV',dot:'#6fae72'},{label:'Ties to the repair estimate',meta:'corroborated',dot:'#c9a14a'}], conflict:false },
+          { id:'estimate', label:'Repair estimate', type:'document', detail:'Independent estimate of remediation cost.', source:'DOC', verif:'REV', verifCode:'REV · reviewed document', conf:0.90, life:'TRUSTED', recordId:'evd_es_0615', recordType:'EVIDENCE_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 5', x:820, y:330, rot:3, inFile:true,
+            read:'Second number from a second pair of hands. Two estimates that agree is worth more than one that shouts.',
+            custody:[{label:'Independent assessor',meta:'DOC · Jun 5',dot:'#6fae72'},{label:'Reviewed',meta:'verification REV',dot:'#6fae72'},{label:'Backs the invoice',meta:'corroborated',dot:'#c9a14a'}], conflict:false }
+        ],
+        links:[['photo1','receipt','c'],['receipt','estimate','c'],['device','text','c'],['self','device','x']],
+        gaps:[{ label:'Pre-loss condition', x:645, y:365, rot:-5 }] },
+      health_file:{ title:'The Sleep & Mood File', kind:'Health · observation only', recipient:'for your physician — not a diagnosis', dot:'#6fa8c9',
+        conflict:{ title:'TWO STORIES, ONE NIGHT', a:{label:'Journal',val:'5.0 h',conf:'conf 0.60',color:'#d9803f'}, b:{label:'Sleep band',val:'6.2 h',conf:'conf 0.92',color:'#6fa8c9'}, note:'Two records disagree on duration for 2 of 9 nights. I don\u2019t pick a winner with a coin. Both ride along, the gap stays visible, and the doc decides what it means.' },
+        timeline:[['band','Band export','Jun 11'],['self2','Journal note','Jun 11'],['mood','Mood checks','21 days'],['pattern','Correlation','derived']],
+        exhibits:[
+          { id:'band', label:'Sleep band export', type:'device', detail:'Wearable export of nightly sleep duration, 21 days.', source:'DEV', verif:'SYS', verifCode:'SYS · device-logged', conf:0.92, life:'TRUSTED', recordId:'dat_sb_0611', recordType:'DATA_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 11', x:255, y:165, rot:-3, inFile:true,
+            read:'The band is the closest thing to an honest witness you\u2019ve got here. Bring the export, not the vibe.',
+            custody:[{label:'Wearable export',meta:'DEV · 21 nights',dot:'#6fae72'},{label:'Device-logged',meta:'verification SYS',dot:'#6fae72'},{label:'Disagrees with the journal',meta:'see red string',dot:'#c2503f'}], conflict:true },
+          { id:'self2', label:'Journal: "5 hours, rough"', type:'statement', detail:'Self-reported short, poor night.', source:'HUM', verif:'SLF', verifCode:'SLF · self-report', conf:0.60, life:'OBSERVED', recordId:'dat_jr_0611', recordType:'DATA_LOG · RPT', sensitivity:'RESTRICTED', when:'Jun 11', x:255, y:345, rot:4, inFile:true,
+            read:'How it felt counts \u2014 but feelings and the band split by an hour and change. Keep both; let the doctor weigh them.',
+            custody:[{label:'Journal entry',meta:'HUM · Jun 11',dot:'#d9a441'},{label:'Self-reported',meta:'verification SLF',dot:'#d9803f'},{label:'Conflicts the band',meta:'2 of 9 nights',dot:'#c2503f'}], conflict:true },
+          { id:'mood', label:'Mood check-ins \u00d79', type:'statement', detail:'Nine logged morning mood ratings over the window.', source:'HUM', verif:'SLF', verifCode:'SLF · self-report', conf:0.70, life:'INTERPRETED', recordId:'dat_md_21', recordType:'DATA_LOG · RPT', sensitivity:'RESTRICTED', when:'21 days', x:530, y:155, rot:2, inFile:true,
+            read:'Decent run of self-checks. Enough to show a shape, not enough to swear an oath on. That\u2019s fine \u2014 we\u2019re not swearing oaths.',
+            custody:[{label:'Daily check-ins',meta:'HUM · 9 records',dot:'#d9a441'},{label:'Self-rated',meta:'verification SLF',dot:'#d9a441'},{label:'Feeds the correlation',meta:'derived from',dot:'#c9a14a'}], conflict:false },
+          { id:'pattern', label:'Pattern: short night \u2192 low mood', type:'derived', detail:'A derived correlation between short nights and next-day low mood.', source:'AI', verif:'UNV', verifCode:'UNV · model inference', conf:0.40, life:'DISPUTED', recordId:'pat_ef_092', recordType:'CONTRADICTION_LOG · INF', sensitivity:'RESTRICTED', when:'derived', x:735, y:265, rot:-2, inFile:false,
+            read:'0.40 and contested. It\u2019s a lead, not a verdict. Hand a doctor a lead and call it a lead \u2014 anything more is malpractice with a spreadsheet.',
+            custody:[{label:'Model-derived',meta:'AI · INF',dot:'#d9803f'},{label:'Rests on disputed sleep',meta:'verification UNV',dot:'#c2503f'},{label:'Lifecycle DISPUTED',meta:'held, not asserted',dot:'#c2503f'}], conflict:true }
+        ],
+        links:[['band','pattern','c'],['mood','pattern','c'],['self2','band','x']],
+        gaps:[{ label:'Caffeine / stress log', x:530, y:360, rot:-4 }] },
+      dispute_fee:{ title:'The Late Fee Caper', kind:'Legal · billing dispute', recipient:'for the dispute', dot:'#c9a14a',
+        conflict:{ title:'THEIR STORY VS THE RECEIPTS', a:{label:'Their email',val:'"not received"',conf:'conf 0.88',color:'#d9803f'}, b:{label:'Bank record',val:'cleared Jun 8',conf:'conf 0.96',color:'#6fae72'}, note:'They say no payment came. The bank says it cleared on the 8th, a day before it was even due. Somebody\u2019s filing is sloppy, and it isn\u2019t yours. The receipt wins.' },
+        timeline:[['bank','Payment cleared','Jun 8'],['terms','Terms: due Jun 9','Jun 9'],['bill','Late notice','Jun 10'],['email','"Not received"','Jun 11']],
+        exhibits:[
+          { id:'bank', label:'Payment cleared Jun 8', type:'receipt', detail:'Bank record showing the payment posted and cleared.', source:'DOC', verif:'SYS', verifCode:'SYS · bank record', conf:0.96, life:'TRUSTED', recordId:'evd_bk_0608', recordType:'EVIDENCE_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 8', x:220, y:165, rot:-3, inFile:true,
+            read:'A cleared bank record with a date. This is the whole case in one line. Everything else is just supporting cast.',
+            custody:[{label:'Bank statement',meta:'DOC · Jun 8',dot:'#6fae72'},{label:'System-confirmed clearing',meta:'verification SYS',dot:'#6fae72'},{label:'Beats their email flat',meta:'see red string',dot:'#c2503f'}], conflict:false },
+          { id:'terms', label:'Terms: due Jun 9', type:'document', detail:'The account terms stating the due date.', source:'DOC', verif:'REV', verifCode:'REV · contract terms', conf:0.93, life:'TRUSTED', recordId:'evd_tm_001', recordType:'EVIDENCE_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 9', x:470, y:330, rot:-2, inFile:true,
+            read:'Due the ninth. Paid the eighth. The math is doing all the heavy lifting and it never gets tired.',
+            custody:[{label:'Account terms',meta:'DOC · on file',dot:'#6fae72'},{label:'Reviewed',meta:'verification REV',dot:'#6fae72'},{label:'Sets the deadline',meta:'anchors the timeline',dot:'#c9a14a'}], conflict:false },
+          { id:'bill', label:'Late notice dated Jun 10', type:'correspondence', detail:'A late-fee notice issued by the other party.', source:'EXT', verif:'CRS', verifCode:'CRS · from the other party', conf:0.90, life:'TRUSTED', recordId:'dat_ln_0610', recordType:'DATA_LOG · OBS', sensitivity:'RESTRICTED', when:'Jun 10', x:470, y:150, rot:3, inFile:true,
+            read:'Their own notice, dated the tenth, for a payment that cleared on the eighth. They handed you the contradiction. Rude of them. Useful for you.',
+            custody:[{label:'Issued by other party',meta:'EXT · Jun 10',dot:'#c9a14a'},{label:'Cross-party document',meta:'verification CRS',dot:'#6fae72'},{label:'Postdates the payment',meta:'their own timestamp',dot:'#6fae72'}], conflict:false },
+          { id:'email', label:'Their email: "no payment received"', type:'correspondence', detail:'An email from the other party claiming no payment was received.', source:'EXT', verif:'UNV', verifCode:'UNV · unverified claim', conf:0.88, life:'OBSERVED', recordId:'dat_em_0611', recordType:'DATA_LOG · RPT', sensitivity:'RESTRICTED', when:'Jun 11', x:735, y:185, rot:4, inFile:false,
+            read:'High confidence that they SENT it. Zero confidence that it\u2019s true. Confidence in a claim is not confidence in a fact \u2014 don\u2019t let anyone blur those two.',
+            custody:[{label:'Inbound email',meta:'EXT · Jun 11',dot:'#d9a441'},{label:'Unverified assertion',meta:'verification UNV',dot:'#d9803f'},{label:'Flatly contradicts the bank',meta:'see red string',dot:'#c2503f'}], conflict:true }
+        ],
+        links:[['bank','terms','c'],['bill','terms','c'],['email','bank','x']],
+        gaps:[{ label:'Their payment confirmation', x:735, y:360, rot:-4 }] }
+    };
+    this.CASE_ORDER = ['claim_leak','health_file','dispute_fee'];
+    this.state = { caseKey:'claim_leak', sel:'photo1', toast:null, inFile:{} };
+    this.CASE_ORDER.forEach(ck=>this.CASES[ck].exhibits.forEach(e=>{ this.state.inFile[ck+':'+e.id]=e.inFile; }));
+  }
+
+  themes = {
+    noir:     { accent:'#e8932f', accent2:'#c9a14a', base:'#0c0a08', bg1:'rgba(232,147,47,0.1)', bg2:'rgba(120,40,30,0.08)', glow:'rgba(232,147,47,0.3)', lamp:'#ffb43d' },
+    midnight: { accent:'#6fa8c9', accent2:'#9aa6c0', base:'#08090e', bg1:'rgba(90,130,180,0.1)', bg2:'rgba(60,40,80,0.08)', glow:'rgba(111,168,201,0.3)', lamp:'#bcd4e8' },
+    sepia:    { accent:'#d9a441', accent2:'#b5894a', base:'#0e0a06', bg1:'rgba(217,164,65,0.12)', bg2:'rgba(140,80,40,0.09)', glow:'rgba(217,164,65,0.3)', lamp:'#f0c878' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.noir; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  strengthWord(c){ return c>=0.9?'Airtight': c>=0.75?'Solid': c>=0.6?'Soft': c>=0.45?'Shaky':'Hearsay'; }
+  strengthColor(c){ return c>=0.9?'#6fae72': c>=0.75?'#a9b85a': c>=0.6?'#d9a441': c>=0.45?'#d9803f':'#c2503f'; }
+  statusLabel(l){ return ({TRUSTED:'admissible',DISPUTED:'contested',OBSERVED:'raw',INTERPRETED:'inferred',SUPERSEDED:'recanted',ARCHIVED:'filed',SIMULATED:'hypothetical'})[l]||l; }
+  statusColor(l){ return l==='TRUSTED'?'#6fae72': l==='DISPUTED'?'#c2503f': l==='OBSERVED'?'#d9a441':'#b5894a'; }
+  verifFactor(v){ return ({AUT:1,REV:0.95,SYS:0.92,CRS:0.9,SLF:0.7,DSP:0.45,UNV:0.6})[v]||0.7; }
+  ex(ck,id){ return this.CASES[ck].exhibits.find(e=>e.id===id); }
+
+  icon(type,col,sz){
+    const h=React.createElement, s=sz||13, S={width:s,height:s,viewBox:'0 0 16 16'};
+    if(type==='photo') return h('svg',S,h('rect',{x:2,y:4,width:12,height:9,rx:1.4,fill:'none',stroke:col,strokeWidth:1.2}),h('circle',{cx:8,cy:8.5,r:2.4,fill:'none',stroke:col,strokeWidth:1.1}),h('rect',{x:5.5,y:2.6,width:5,height:2,rx:0.6,fill:col}));
+    if(type==='receipt') return h('svg',S,h('path',{d:'M4 2 H12 V14 L10 12.6 L8 14 L6 12.6 L4 14 Z',fill:'none',stroke:col,strokeWidth:1.2,strokeLinejoin:'round'}),h('line',{x1:6,y1:6,x2:10,y2:6,stroke:col,strokeWidth:1}),h('line',{x1:6,y1:8.5,x2:10,y2:8.5,stroke:col,strokeWidth:1}));
+    if(type==='device') return h('svg',S,h('rect',{x:4,y:2.5,width:8,height:11,rx:1.6,fill:'none',stroke:col,strokeWidth:1.2}),h('line',{x1:6,y1:5,x2:10,y2:5,stroke:col,strokeWidth:1}),h('circle',{cx:8,cy:11,r:1,fill:col}));
+    if(type==='statement') return h('svg',S,h('path',{d:'M3 3 H13 V10 H8 L5 13 V10 H3 Z',fill:'none',stroke:col,strokeWidth:1.2,strokeLinejoin:'round'}));
+    if(type==='correspondence') return h('svg',S,h('rect',{x:2.5,y:4,width:11,height:8,rx:1,fill:'none',stroke:col,strokeWidth:1.2}),h('path',{d:'M3 5 L8 9 L13 5',fill:'none',stroke:col,strokeWidth:1.1}));
+    if(type==='derived') return h('svg',S,h('circle',{cx:8,cy:8,r:5.5,fill:'none',stroke:col,strokeWidth:1.2,strokeDasharray:'2.5 2'}),h('path',{d:'M8 5.5 L8 8 L10 9.4',fill:'none',stroke:col,strokeWidth:1.1,strokeLinecap:'round'}));
+    return h('svg',S,h('rect',{x:3,y:2.5,width:10,height:11,rx:1.2,fill:'none',stroke:col,strokeWidth:1.2}),h('line',{x1:5.5,y1:6,x2:10.5,y2:6,stroke:col,strokeWidth:1}),h('line',{x1:5.5,y1:8.5,x2:10.5,y2:8.5,stroke:col,strokeWidth:1}));
+  }
+
+  buildBoard(){
+    const h=React.createElement, t=this.cur(), c=this.CASES[this.state.caseKey], motion=this.props.boardMotion!==false, showStr=this.props.showRedString!==false, R=[];
+    R.push(h('defs',{key:'d'},
+      h('radialGradient',{id:'lamp',cx:'50%',cy:'0%',r:'80%'},h('stop',{offset:'0%',stopColor:this.hexA(t.lamp,0.22)}),h('stop',{offset:'45%',stopColor:this.hexA(t.lamp,0.06)}),h('stop',{offset:'100%',stopColor:'rgba(0,0,0,0)'})),
+      h('radialGradient',{id:'vig',cx:'50%',cy:'45%',r:'75%'},h('stop',{offset:'60%',stopColor:'rgba(0,0,0,0)'}),h('stop',{offset:'100%',stopColor:'rgba(0,0,0,0.55)'})),
+      h('filter',{id:'bg',x:'-40%',y:'-40%',width:'180%',height:'180%'},h('feGaussianBlur',{stdDeviation:'2.5'}))
+    ));
+    R.push(h('rect',{key:'lampr',x:0,y:0,width:1000,height:560,fill:'url(#lamp)',style:motion?{animation:'lwLamp 5s ease-in-out infinite'}:undefined}));
+    // dust motes in the light
+    let s=41; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<20;i++){ const x=(200+rnd()*600).toFixed(0), y=(40+rnd()*240).toFixed(0); R.push(h('circle',{key:'du'+i,cx:x,cy:y,r:(rnd()*1+0.5).toFixed(2),fill:t.lamp,opacity:0.5,style:motion?{transformOrigin:x+'px '+y+'px',animation:'lwDust '+(3+rnd()*4).toFixed(1)+'s ease-in-out infinite '+(rnd()*3).toFixed(1)+'s'}:undefined})); }
+    // coffee ring
+    R.push(h('ellipse',{key:'coffee',cx:880,cy:120,rx:34,ry:11,fill:'none',stroke:'rgba(90,55,30,0.35)',strokeWidth:3}));
+    // pin lookup
+    const pos={}; c.exhibits.forEach(e=>pos[e.id]={x:e.x,y:e.y}); c.gaps.forEach((g,i)=>pos['gap'+i]={x:g.x,y:g.y});
+    // strings
+    if(showStr){ c.links.forEach((lk,i)=>{ const a=pos[lk[0]], b=pos[lk[1]]; if(!a||!b) return; const conflict=lk[2]==='x';
+      const mx=(a.x+b.x)/2, my=(a.y+b.y)/2+24, col=conflict?'#c2503f':'#b5894a';
+      R.push(h('path',{key:'str'+i,d:'M '+a.x+' '+a.y+' Q '+mx+' '+my+' '+b.x+' '+b.y,fill:'none',stroke:col,strokeWidth:conflict?1.8:1.3,strokeDasharray:conflict?'5 4':null,opacity:0.8}));
+      if(conflict) R.push(h('g',{key:'cf'+i,transform:'translate('+mx+' '+(my-8)+')'},h('rect',{x:-30,y:-9,width:60,height:16,rx:3,fill:'rgba(40,16,12,0.92)',stroke:'#c2503f',strokeWidth:1}),h('text',{x:0,y:3,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fill:'#e8927f',letterSpacing:'0.05em'},'CONFLICT')));
+    }); }
+    // gap outlines
+    c.gaps.forEach((g,i)=>{ R.push(h('g',{key:'gap'+i,transform:'translate('+g.x+' '+g.y+') rotate('+g.rot+')'},
+      h('rect',{x:-72,y:-46,width:144,height:92,rx:3,fill:'rgba(20,14,9,0.5)',stroke:'rgba(236,224,200,0.4)',strokeWidth:1.3,strokeDasharray:'5 4'}),
+      h('text',{x:0,y:-8,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:11,fill:'rgba(236,224,200,0.5)',letterSpacing:'0.1em'},'GAP'),
+      h('text',{x:0,y:10,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fill:'rgba(236,224,200,0.4)'},'nothing on record'),
+      h('text',{x:0,y:24,textAnchor:'middle',fontFamily:'IBM Plex Sans, sans-serif',fontSize:8.5,fill:'rgba(236,224,200,0.35)'},g.label))); });
+    // exhibit cards
+    c.exhibits.forEach(e=>{ const on=e.id===this.state.sel, inF=this.state.inFile[this.state.caseKey+':'+e.id];
+      const sc=this.strengthColor(e.conf), sw=this.strengthWord(e.conf);
+      const cardChildren=[];
+      cardChildren.push(h('rect',{x:-72,y:-46,width:144,height:92,rx:3,fill:'rgba(0,0,0,0.4)',transform:'translate(3 4)'}));
+      cardChildren.push(h('rect',{x:-72,y:-46,width:144,height:92,rx:3,fill:inF?'#e8dcc0':'#cfc4a8',stroke:on?t.accent:'rgba(120,95,55,0.6)',strokeWidth:on?2.2:1}));
+      cardChildren.push(h('g',{transform:'translate(-64 -38)'},this.icon(e.type,'#5a4a30',13)));
+      cardChildren.push(h('text',{x:-46,y:-30,fontFamily:'IBM Plex Mono, monospace',fontSize:7.5,fill:'#6a5736',letterSpacing:'0.06em'},e.type.toUpperCase()));
+      // label (wrap to 2 lines if long)
+      const words=e.label.split(' '); let l1=e.label, l2=''; if(e.label.length>17){ let acc=''; for(const w of words){ if((acc+' '+w).trim().length<=17){ acc=(acc+' '+w).trim(); } else { l2+=(l2?' ':'')+w; } } l1=acc; }
+      cardChildren.push(h('text',{x:-64,y:-12,fontFamily:'IBM Plex Sans, sans-serif',fontSize:11,fontWeight:600,fill:'#241c12'},l1));
+      if(l2) cardChildren.push(h('text',{x:-64,y:1,fontFamily:'IBM Plex Sans, sans-serif',fontSize:11,fontWeight:600,fill:'#241c12'},l2));
+      // strength stamp
+      cardChildren.push(h('g',{transform:'translate(-30 26) rotate(-7)'},
+        h('rect',{x:-32,y:-9,width:64,height:18,rx:2,fill:'none',stroke:sc,strokeWidth:1.4,opacity:0.85}),
+        h('text',{x:0,y:4,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fontWeight:500,fill:sc,letterSpacing:'0.04em'},sw.toUpperCase()+' '+e.conf.toFixed(2))));
+      cardChildren.push(h('text',{x:64,y:34,textAnchor:'end',fontFamily:'IBM Plex Mono, monospace',fontSize:7.5,fill:'#6a5736'},e.source));
+      // pin
+      cardChildren.push(h('circle',{cx:0,cy:-44,r:4.5,fill:e.conflict?'#c2503f':'#c9a14a',stroke:'rgba(0,0,0,0.4)',strokeWidth:0.8}));
+      cardChildren.push(h('circle',{cx:-1.4,cy:-45.4,r:1.4,fill:'rgba(255,255,255,0.6)'}));
+      if(inF) cardChildren.push(h('circle',{cx:60,cy:-34,r:5,fill:'#6fae72',stroke:'#1a120a',strokeWidth:1}));
+      R.push(h('g',{key:e.id,transform:'translate('+e.x+' '+e.y+') rotate('+(on?0:e.rot)+')',onClick:()=>this.setState({sel:e.id}),style:Object.assign({cursor:'pointer'},on&&motion?{transformOrigin:e.x+'px '+e.y+'px',animation:'lwSway 5s ease-in-out infinite'}:{})},cardChildren));
+    });
+    R.push(h('rect',{key:'vigr',x:0,y:0,width:1000,height:560,fill:'url(#vig)',style:{pointerEvents:'none'}}));
+    return h('svg',{viewBox:'0 0 1000 520',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  fireToast(m){ this.setState({toast:m}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4600); }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+  selectCase(ck){ this.setState({caseKey:ck, sel:this.CASES[ck].exhibits[0].id}); }
+  toggleFile(){ const k=this.state.caseKey+':'+this.state.sel, e=this.ex(this.state.caseKey,this.state.sel), now=!this.state.inFile[k];
+    this.setState(st=>({inFile:{...st.inFile,[k]:now}}));
+    this.fireToast(now ? 'Pinned "'+e.label+'" to the board. It\u2019s in the file now \u2014 the record itself didn\u2019t so much as flinch.'
+      : 'Pulled "'+e.label+'" from the file. Still sitting in the ledger right where it was. I just took the pin out.'); }
+  corroborate(){ const e=this.ex(this.state.caseKey,this.state.sel); this.fireToast('Noted: chase a second source for "'+e.label+'". Logged as a request. Reality files its paperwork on its own schedule.'); }
+  exportDossier(){ const c=this.CASES[this.state.caseKey]; const n=c.exhibits.filter(e=>this.state.inFile[this.state.caseKey+':'+e.id]).length;
+    this.fireToast('Packet sealed \u2014 '+n+' exhibits, chain of custody intact, 0 records altered. Traceable, nothing fabricated. Take it to your '+c.recipient.replace(/^for (the |your )?/,'')+'. Not legal or medical advice; that\u2019s their job, not mine.'); }
+
+  renderVals(){
+    const t=this.cur(), ck=this.state.caseKey, c=this.CASES[ck], e=this.ex(ck,this.state.sel);
+    const navItems=['Prism Intake','Lattice Vault','Lumen Apothecary','Engine Room','Distortion Clinic','Iris','The Potting Shed','Mirror Hall','Aurora Proof','The Case File']
+      .map(l=>{ const on=l==='The Case File'; return {label:l,weight:on?'600':'400',bg:on?'rgba(201,161,74,0.1)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(236,224,200,0.95)':'rgba(236,224,200,0.6)',dot:on?'var(--accent)':'rgba(236,224,200,0.35)'}; });
+
+    const caseItems=this.CASE_ORDER.map(k=>{ const cc=this.CASES[k], on=k===ck; return { title:cc.title, kind:cc.kind.split(' · ')[0], dot:cc.dot, onSelect:()=>this.selectCase(k),
+      weight:on?'600':'500', txt:on?'rgba(236,224,200,0.96)':'rgba(236,224,200,0.7)', bg:on?'rgba(201,161,74,0.1)':'transparent', border:on?'rgba(201,161,74,0.35)':'rgba(255,255,255,0.06)' }; });
+
+    // file strength
+    const inF=c.exhibits.filter(x=>this.state.inFile[ck+':'+x.id]);
+    let raw=0; inF.forEach(x=>{ raw+=x.conf*this.verifFactor(x.verif); });
+    const base=inF.length?raw/inF.length:0;
+    const penalty = (c.conflict?0.08:0) + c.gaps.length*0.06;
+    const strength=Math.max(0,Math.min(1, base-penalty));
+    const sWord = strength>=0.8?'Airtight': strength>=0.65?'Holds up': strength>=0.5?'Soft': strength>=0.35?'Thin':"Won't fly";
+
+    const timeline=c.timeline.map((tr,i)=>{ const ex=this.ex(ck,tr[0]); const left=8+i*(84/Math.max(1,c.timeline.length-1));
+      return { label:tr[1], when:tr[2], color:ex?this.strengthColor(ex.conf):'#b5894a', ring:ex&&ex.conflict?'#c2503f':'rgba(0,0,0,0.4)', left:left+'%', onSelect:()=>this.setState({sel:tr[0]}) }; });
+
+    const inThisFile=this.state.inFile[ck+':'+e.id];
+    const sel={ label:e.label, icon:this.icon(e.type,this.strengthColor(e.conf),15), detail:e.detail, read:e.read,
+      conf:e.conf.toFixed(2), confPct:Math.round(e.conf*100)+'%', strengthWord:this.strengthWord(e.conf), strengthColor:this.strengthColor(e.conf), strengthBg:this.hexA(this.strengthColor(e.conf),0.16),
+      statusLabel:this.statusLabel(e.life), statusColor:this.statusColor(e.life), statusBg:this.hexA(this.statusColor(e.life),0.16),
+      headerBg:this.hexA(this.strengthColor(e.conf),0.06), inFile:inThisFile,
+      custody:e.custody, conflict:e.conflict?c.conflict:null,
+      recordId:e.recordId, recordType:e.recordType, verifCode:e.verifCode, sensitivity:e.sensitivity,
+      toggleLabel:inThisFile?'Pull from file':'Add to file', toggleColor:inThisFile?'#d9803f':t.accent,
+      onToggle:()=>this.toggleFile(), onCorroborate:()=>this.corroborate(),
+      safety:'Adding or pulling writes a note on the file. It never edits the record, never fabricates a thing, and the export is not legal or medical advice.' };
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, lamp:t.lamp,
+      navItems, caseItems, boardSvg:this.buildBoard(), timeline, sel, toast:this.state.toast,
+      caseTitle:c.title, caseKind:c.kind, caseRecipient:c.recipient,
+      inFileCount:inF.length, strengthPct:Math.round(strength*100)+'%', strengthLabel:sWord, strengthColor:this.strengthColor(strength>=0.8?0.92:strength>=0.65?0.78:strength>=0.5?0.62:strength>=0.35?0.48:0.3),
+      conflictNote: c.conflict?'1 conflict to flag':'no conflicts', gapNote: c.gaps.length+' gap'+(c.gaps.length===1?'':'s'),
+      onExport:()=>this.exportDossier()
+    };
+  }
+}
+</script>
+</body>
+</html>

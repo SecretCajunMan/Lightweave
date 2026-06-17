@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0a0d12}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(140,160,190,0.18);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwLed{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes lwLedSlow{0%,100%{opacity:.9}50%{opacity:.5}}
+  @keyframes lwFlow{to{stroke-dashoffset:-32}}
+  @keyframes lwScan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  @keyframes lwAlert{0%,100%{opacity:1}50%{opacity:.5}}
+  @keyframes lwStream{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .lwmono{font-family:'IBM Plex Mono',monospace}
+</style>
+</helmet>
+<div data-screen-label="Engine Room" style="height:100vh; overflow:hidden; color:#cdd6e4; font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; background:radial-gradient(1100px 600px at 60% -10%, rgba(40,70,90,0.18), transparent 60%), linear-gradient(180deg,#0b0e14,#090b10);">
+
+  <header style="flex:0 0 54px; display:flex; align-items:center; gap:15px; padding:0 16px; border-bottom:1px solid rgba(120,150,180,0.12); background:rgba(14,18,25,0.7);">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="24" height="24" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="#39e0a6" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#cdd6e4" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#46c8ff" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ffb43a" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff5d52" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.13em; font-size:13.5px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:20px; background:rgba(120,150,180,0.18);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13px;">Engine Room</span>
+      <span class="lwmono" style="font-size:10px; color:rgba(160,178,200,0.55);">operator · adapter pipeline</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="lwmono" style="display:flex; align-items:center; gap:7px; font-size:10.5px; color:rgba(180,196,216,0.6);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(120,150,180,0.16); border-radius:6px; background:rgba(20,26,34,0.6);">manifest <b style="color:#46c8ff; font-weight:600;">{{ sys.manifest }}</b></span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(120,150,180,0.16); border-radius:6px; background:rgba(20,26,34,0.6);">queue <b style="color:#cdd6e4; font-weight:600;">{{ sys.queue }}</b></span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(120,150,180,0.16); border-radius:6px; background:rgba(20,26,34,0.6);"><b style="color:#39e0a6; font-weight:600;">{{ sys.thru }}</b> rec/s</span>
+    </div>
+    <div onClick="{{ onToggleEngine }}" style="display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border-radius:7px; cursor:pointer; border:1px solid {{ engine.border }}; background:{{ engine.bg }};">
+      <span style="width:8px; height:8px; border-radius:50%; background:{{ engine.dot }}; box-shadow:0 0 8px {{ engine.dot }}; animation:{{ engine.anim }};"></span>
+      <span class="lwmono" style="font-size:11px; font-weight:600; color:{{ engine.txt }}; letter-spacing:0.06em;">{{ engine.label }}</span>
+    </div>
+    <div style="width:30px; height:30px; border-radius:7px; background:linear-gradient(135deg,#39e0a6,#46c8ff); box-shadow:0 0 12px rgba(57,224,166,0.3);"></div>
+  </header>
+
+  <div onClick="{{ onSelectFailures }}" style="flex:0 0 auto; display:flex; align-items:center; gap:12px; padding:7px 16px; background:rgba(255,93,82,0.08); border-bottom:1px solid rgba(255,93,82,0.22); cursor:pointer;">
+    <span style="width:8px; height:8px; border-radius:50%; background:#ff5d52; box-shadow:0 0 9px #ff5d52; animation:lwAlert 1.4s ease-in-out infinite; flex:0 0 auto;"></span>
+    <span style="font-size:11.5px; font-weight:600; color:#ff8077;">{{ alert.headline }}</span>
+    <span class="lwmono" style="font-size:10.5px; color:rgba(255,160,150,0.7);">{{ alert.detail }}</span>
+    <div style="flex:1;"></div>
+    <sc-for list="{{ alert.chips }}" as="ac" hint-placeholder-count="3">
+      <span onClick="{{ ac.onSelect }}" class="lwmono" style="display:inline-flex; align-items:center; gap:5px; font-size:9.5px; padding:3px 8px; border-radius:5px; background:rgba(255,93,82,0.12); border:1px solid rgba(255,93,82,0.3); color:#ffb0a8; cursor:pointer;"><span style="width:5px; height:5px; border-radius:50%; background:{{ ac.color }};"></span>{{ ac.label }}</span>
+    </sc-for>
+  </div>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="engine-room"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:9px; padding:11px 13px; overflow:hidden;">
+      <section style="flex:1; min-height:0; position:relative; border:1px solid rgba(120,150,180,0.14); border-radius:14px; overflow:hidden; background:linear-gradient(180deg,#0c1119,#0a0e15); ">
+        <div style="position:absolute; inset:0; opacity:0.4; background-image:linear-gradient(rgba(120,150,180,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(120,150,180,0.05) 1px, transparent 1px); background-size:34px 34px;"></div>
+        <div style="position:absolute; inset:0;">{{ graphSvg }}</div>
+        <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="13">
+          <div onClick="{{ n.onSelect }}" style="position:absolute; left:{{ n.leftPct }}; top:{{ n.topPct }}; transform:translate(-50%,-50%); width:{{ n.w }}; cursor:pointer; z-index:{{ n.z }};">
+            <div style="border:1px solid {{ n.border }}; border-radius:9px; padding:6px 8px 7px; background:{{ n.bg }}; box-shadow:{{ n.shadow }};">
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+                <span style="width:8px; height:8px; border-radius:50%; background:{{ n.led }}; box-shadow:0 0 7px {{ n.led }}; flex:0 0 auto; animation:{{ n.ledAnim }};"></span>
+                <span class="lwmono" style="font-size:9px; font-weight:600; color:{{ n.titleColor }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ n.label }}</span>
+              </div>
+              <sc-if value="{{ n.hasSpark }}" hint-placeholder-val="{{ true }}">
+                <div style="height:16px; margin-bottom:4px;">{{ n.spark }}</div>
+              </sc-if>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:5px;">
+                <span class="lwmono" style="font-size:8.5px; color:rgba(160,178,200,0.55);">{{ n.thru }}</span>
+                <span class="lwmono" style="font-size:8.5px; color:{{ n.statColor }};">{{ n.stat }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="position:absolute; left:13px; bottom:11px; display:flex; align-items:center; gap:11px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(180,196,216,0.6);">Projection adapter pipeline</span>
+          <span class="lwmono" style="font-size:9px; color:rgba(160,178,200,0.4);">tracing {{ sel.id }} · {{ engine.label }}</span>
+        </div>
+        <div style="position:absolute; right:13px; bottom:11px; display:flex; align-items:center; gap:10px;">
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(160,178,200,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#39e0a6;"></span>pass</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(160,178,200,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#ffb43a;"></span>warn</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(160,178,200,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#ff5d52;"></span>fail</span>
+        </div>
+      </section>
+
+      <footer style="flex:0 0 132px; display:flex; gap:9px; min-height:0;">
+        <div style="flex:1; min-width:0; border:1px solid rgba(120,150,180,0.14); border-radius:12px; background:rgba(14,18,25,0.5); padding:9px 11px; display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; gap:9px; margin-bottom:8px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(180,196,216,0.7);">Record stream</span>
+            <span class="lwmono" style="font-size:9px; color:rgba(160,178,200,0.4);">ledger trace · live ingest</span>
+            <div style="flex:1;"></div>
+            <span class="lwmono" style="font-size:9px; color:#39e0a6;">▲ {{ stream.rate }}/s</span>
+          </div>
+          <div style="flex:1; position:relative; overflow:hidden; border-radius:8px; background:rgba(8,11,16,0.6); border:1px solid rgba(120,150,180,0.1);">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; gap:7px; padding:0 10px; {{ stream.anim }}">
+              <sc-for list="{{ stream.chips }}" as="rc" hint-placeholder-count="16">
+                <span onClick="{{ rc.onSelect }}" class="lwmono" style="flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; font-size:9.5px; padding:5px 9px; border-radius:6px; background:{{ rc.bg }}; border:1px solid {{ rc.border }}; color:{{ rc.txt }}; cursor:pointer;"><span style="width:6px; height:6px; border-radius:50%; background:{{ rc.color }}; box-shadow:0 0 6px {{ rc.color }};"></span>{{ rc.id }}<span style="color:{{ rc.color }};">{{ rc.glyph }}</span></span>
+              </sc-for>
+            </div>
+            <div style="position:absolute; top:0; bottom:0; right:0; width:60px; background:linear-gradient(90deg, transparent, rgba(8,11,16,0.9)); pointer-events:none;"></div>
+          </div>
+        </div>
+        <div style="flex:0 0 384px; border:1px solid rgba(255,93,82,0.3); border-radius:12px; background:rgba(255,93,82,0.05); padding:9px 11px; display:flex; flex-direction:column; min-height:0;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; flex:0 0 auto;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#ff5d52; box-shadow:0 0 8px #ff5d52; animation:lwAlert 1.4s ease-in-out infinite;"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:#ff8077;">Failing records</span>
+            <span class="lwmono" style="font-size:9px; color:rgba(255,160,150,0.6);">{{ failTray.count }} need attention</span>
+          </div>
+          <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:5px; min-height:0;">
+            <sc-for list="{{ failTray.rows }}" as="fr" hint-placeholder-count="4">
+              <div onClick="{{ fr.onSelect }}" style="display:flex; align-items:center; gap:8px; padding:6px 9px; border-radius:7px; background:{{ fr.bg }}; border:1px solid {{ fr.border }}; cursor:pointer;">
+                <span class="lwmono" style="font-size:10px; font-weight:600; color:#cdd6e4;">{{ fr.id }}</span>
+                <span class="lwmono" style="font-size:8.5px; padding:1px 6px; border-radius:4px; background:{{ fr.tagBg }}; color:{{ fr.tagColor }};">{{ fr.stage }}</span>
+                <span style="flex:1; min-width:0; font-size:10px; color:rgba(200,212,228,0.75); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ fr.reason }}</span>
+                <span class="lwmono" style="font-size:9px; color:{{ fr.decColor }};">{{ fr.decision }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <aside style="flex:0 0 392px; display:flex; flex-direction:column; border-left:1px solid rgba(120,150,180,0.12); background:rgba(14,18,25,0.5); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:13px 16px 12px; border-bottom:1px solid rgba(120,150,180,0.12); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span class="lwmono" style="font-size:14px; font-weight:600; color:#e3e9f2;">{{ sel.id }}</span>
+          <span class="lwmono" style="font-size:9.5px; font-weight:600; padding:3px 9px; border-radius:6px; background:{{ sel.decBg }}; color:{{ sel.decColor }}; border:1px solid {{ sel.decBorder }};">{{ sel.decision }}</span>
+          <div style="flex:1;"></div>
+          <span onClick="{{ onRerun }}" class="lwmono" style="font-size:9.5px; padding:4px 9px; border-radius:6px; border:1px solid rgba(120,150,180,0.25); color:rgba(200,212,228,0.8); cursor:pointer;">↻ re-run</span>
+        </div>
+        <div class="lwmono" style="display:flex; align-items:center; gap:10px; margin-top:9px; font-size:10px;">
+          <span style="color:rgba(160,178,200,0.5);">conf <b style="color:{{ sel.confColor }};">{{ sel.conf }}</b></span>
+          <span style="color:rgba(160,178,200,0.5);">lifecycle <b style="color:#cdd6e4;">{{ sel.lifecycle }}</b></span>
+          <span style="color:rgba(160,178,200,0.5);">vis <b style="color:{{ sel.visColor }};">{{ sel.visibility }}</b></span>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+        <div>
+          <div class="lwmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(160,178,200,0.45); margin-bottom:8px;">PIPELINE RESULT · {{ sel.passCount }}/9 STAGES</div>
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <sc-for list="{{ sel.stages }}" as="sg" hint-placeholder-count="9">
+              <div onClick="{{ sg.onSelect }}" style="border-radius:8px; overflow:hidden; border:1px solid {{ sg.rowBorder }};">
+                <div style="display:flex; align-items:center; gap:9px; padding:7px 10px; background:{{ sg.rowBg }}; cursor:pointer;">
+                  <span style="width:14px; height:14px; border-radius:4px; display:flex; align-items:center; justify-content:center; background:{{ sg.iconBg }}; flex:0 0 auto;"><span class="lwmono" style="font-size:9px; color:{{ sg.iconColor }};">{{ sg.glyph }}</span></span>
+                  <span class="lwmono" style="font-size:10.5px; color:{{ sg.labelColor }}; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sg.label }}</span>
+                  <span class="lwmono" style="font-size:9px; color:{{ sg.stColor }};">{{ sg.stTag }}</span>
+                </div>
+                <sc-if value="{{ sg.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:9px 11px 10px; background:rgba(8,11,16,0.5); border-top:1px solid {{ sg.rowBorder }};">
+                    <div style="font-size:11px; line-height:1.5; color:rgba(206,217,232,0.82);">{{ sg.detail }}</div>
+                    <sc-if value="{{ sg.rows }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex; flex-direction:column; gap:5px; margin-top:8px;">
+                        <sc-for list="{{ sg.rows }}" as="dr" hint-placeholder-count="3">
+                          <div style="display:flex; align-items:center; gap:8px; padding:5px 8px; border-radius:6px; background:{{ dr.bg }}; border:1px solid {{ dr.border }};">
+                            <span class="lwmono" style="font-size:9px; color:{{ dr.kColor }}; flex:0 0 auto;">{{ dr.k }}</span>
+                            <span style="flex:1;"></span>
+                            <span class="lwmono" style="font-size:9px; color:{{ dr.vColor }};">{{ dr.v }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,93,82,0.06); border:1px solid rgba(255,93,82,0.3); border-radius:11px; padding:10px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:8px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff5d52;"></span><span class="lwmono" style="font-size:10px; font-weight:600;">{{ sel.contradiction.title }}</span></div>
+            <div style="font-size:10.5px; color:rgba(206,217,232,0.7); line-height:1.5;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span class="lwmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(160,178,200,0.45);">RAW CANONICAL JSON</span>
+            <span class="lwmono" style="font-size:8.5px; padding:1px 6px; border-radius:4px; background:rgba(70,200,255,0.12); color:#46c8ff;">read-only</span>
+            <div style="flex:1;"></div>
+            <span class="lwmono" style="font-size:8.5px; color:rgba(160,178,200,0.4);">contract_v1.5</span>
+          </div>
+          <div style="border:1px solid rgba(120,150,180,0.16); border-radius:9px; background:#070a0f; padding:11px 12px; overflow-x:auto;">{{ sel.json }}</div>
+          <div class="lwmono" style="font-size:9px; color:rgba(160,178,200,0.42); margin-top:7px; line-height:1.45;">This is the canonical record. The theme can restyle its projection — it cannot change a field here.</div>
+        </div>
+
+        <div style="background:rgba(8,11,16,0.5); border:1px solid rgba(120,150,180,0.16); border-radius:11px; padding:11px 12px;">
+          <div class="lwmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(160,178,200,0.45); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div class="lwmono" style="display:flex; flex-direction:column; gap:5px; font-size:10px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(160,178,200,0.45);">record</span><span style="color:#46c8ff;">{{ sel.id }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(160,178,200,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(160,178,200,0.45);">manifest</span><span>{{ sel.manifest }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(160,178,200,0.45);">render</span><span style="color:{{ sel.decColor }};">{{ sel.decision }}</span></div>
+          </div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11px; font-weight:600; color:#0a0e14; background:linear-gradient(135deg,#39e0a6,#46c8ff); padding:8px; border-radius:7px; cursor:pointer;">Open canonical record</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11px; color:rgba(200,212,228,0.8); border:1px solid rgba(120,150,180,0.22); padding:8px 11px; border-radius:7px; cursor:pointer;">Copy JSON</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960},&quot;startFrozen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { rec:'rec_4468', stage:'visibility', engine: props.startFrozen?'frozen':'running' };
+    this.NODES={
+      ingest:{x:70,y:288,w:88,label:'ingest',spark:1,seed:3},
+      adapter:{x:200,y:288,w:104,label:'adapter',spark:1,seed:7},
+      schema:{x:320,y:206,w:108,label:'schema.val',spark:1,seed:11},
+      manifest:{x:320,y:368,w:112,label:'manifest',spark:1,seed:17},
+      viewmodel:{x:440,y:288,w:108,label:'view-model',spark:1,seed:23},
+      primitives:{x:588,y:288,w:108,label:'primitives',spark:1,seed:31},
+      eligibility:{x:692,y:210,w:104,label:'eligibility',spark:1,seed:41},
+      visibility:{x:692,y:366,w:108,label:'visibility',spark:1,seed:43},
+      theme:{x:838,y:196,w:100,label:'theme pack',spark:1,seed:53},
+      render:{x:918,y:300,w:100,label:'render',spark:1,seed:61},
+      fail_schema:{x:316,y:476,w:104,label:'reject',spark:0,seed:0,branch:'fail'},
+      drift:{x:446,y:104,w:104,label:'drift',spark:0,seed:0,branch:'warn'},
+      blocked:{x:692,y:476,w:104,label:'blocked',spark:0,seed:0,branch:'fail'}
+    };
+    this.EDGES=[
+      ['ingest','adapter'],['adapter','schema'],['adapter','manifest'],['schema','viewmodel'],['manifest','viewmodel'],
+      ['viewmodel','primitives'],['primitives','eligibility'],['primitives','visibility'],['eligibility','theme'],
+      ['theme','render'],['visibility','render'],['schema','fail_schema'],['manifest','drift'],['visibility','blocked']
+    ];
+    // per-stage aggregate health (operator view): ok/warn/fail
+    this.HEALTH={ ingest:'ok',adapter:'ok',schema:'fail',manifest:'warn',viewmodel:'ok',primitives:'ok',eligibility:'warn',visibility:'fail',theme:'ok',render:'warn',fail_schema:'fail',drift:'warn',blocked:'fail' };
+    this.AGG={ ingest:'1284/s',adapter:'1284/s',schema:'1281✓ 3✗',manifest:'1280✓ 1⚠',viewmodel:'1280/s',primitives:'6 prim',eligibility:'1278✓ 2⤼',visibility:'1276✓ 2✗',theme:'1276/s',render:'1274✓ 2⚠',fail_schema:'',drift:'',blocked:'' };
+    this.STAGEMETA=[
+      {id:'adapter',label:'Adapter output'},{id:'schema',label:'Schema validation'},{id:'manifest',label:'Manifest compat'},
+      {id:'viewmodel',label:'View-model transform'},{id:'primitives',label:'Component primitives'},{id:'eligibility',label:'Projection eligibility'},
+      {id:'visibility',label:'Visibility policy'},{id:'theme',label:'Theme pack transform'},{id:'render',label:'Render decision'}
+    ];
+    const P='pass',F='fail',W='warn',S='skip',N='na';
+    this.RECS={
+      rec_4468:{ decision:'BLOCKED', conf:0.78, lifecycle:'confirmed', visibility:'private', resolver:'HIGHEST_CONF', manifest:'v2.4.1',
+        results:{ingest:P,adapter:P,schema:P,manifest:P,viewmodel:P,primitives:P,eligibility:P,visibility:F,theme:N,render:F,blocked:F,fail_schema:N,drift:N},
+        json:{record_id:'rec_4468',schema:'contract_v1.5',manifest:'v2.4.1',truth_mode:'PAT',confidence:0.78,lifecycle:'confirmed',visibility:'private',resolver:'HIGHEST_CONF',event_window:['2026-05-18','2026-06-15'],source_count:4,payload:{domain:'sleep',metric:'duration_h',value:6.4}},
+        detail:{ adapter:'Normalized 1 source record into adapter output. 12 fields mapped, 0 coerced.',
+          schema:'Valid against contract_v1.5. All required fields present and well-typed.',
+          manifest:'Compatible. Record built on v2.4.1, engine on v2.4.1 — no drift.',
+          viewmodel:'12 canonical fields mapped to view-model. Confidence → meter, lifecycle → badge.',
+          primitives:'Emitted 6 component primitives: title, meter, badge, sparkline, tagrow, footer.',
+          eligibility:'Eligible. projection=engine accepts truth_mode=PAT.',
+          visibility:'BLOCKED by policy redact_private. Record visibility=private; viewer scope=team. The theme cannot override this.',
+          theme:'Not reached — render blocked upstream at visibility.',
+          render:'BLOCKED. Record withheld from projection; a redaction placeholder is shown instead.' },
+        rows:{ visibility:[{k:'policy',v:'redact_private'},{k:'record.visibility',v:'private'},{k:'viewer.scope',v:'team'},{k:'override',v:'denied'}],
+          viewmodel:[{k:'confidence 0.78',v:'→ meter'},{k:'lifecycle',v:'→ badge'},{k:'event_window',v:'→ timespan'}],
+          primitives:[{k:'title',v:'text'},{k:'meter',v:'0.78'},{k:'badge',v:'confirmed'}] } },
+      rec_4471:{ decision:'REJECTED', conf:null, lifecycle:'draft', visibility:'private', resolver:'—', manifest:'v2.4.1',
+        results:{ingest:P,adapter:P,schema:F,fail_schema:F,manifest:N,viewmodel:N,primitives:N,eligibility:N,visibility:N,theme:N,render:F,blocked:N,drift:N},
+        json:{record_id:'rec_4471',schema:'contract_v1.5',manifest:'v2.4.1',truth_mode:'PAT',confidence:'high',lifecycle:'draft',visibility:'private',resolver:null,source_count:2,payload:{domain:'mood',metric:'score'}},
+        contradiction:{title:'SCHEMA REJECT · 2 ERRORS',note:'confidence is a string ("high") where contract_v1.5 requires a number; event_window is missing. The record is rejected, not coerced — Engine Room never invents a value to make a record pass.'},
+        detail:{ adapter:'Normalized 1 source record. 9 fields mapped, 1 unmappable.',
+          schema:'INVALID. 2 violations against contract_v1.5 — see below.',
+          manifest:'Not reached — rejected at schema.', viewmodel:'Not reached.', primitives:'Not reached.', eligibility:'Not reached.', visibility:'Not reached.', theme:'Not reached.',
+          render:'REJECTED. The record never enters the projection. It stays in the ledger, flagged.' },
+        rows:{ schema:[{k:'confidence',v:'string ✗ number',bad:true},{k:'event_window',v:'missing ✗ required',bad:true},{k:'rule',v:'contract_v1.5'}],
+          adapter:[{k:'mapped',v:'9 fields'},{k:'unmappable',v:'confidence'}] } },
+      rec_4470:{ decision:'DEGRADED', conf:0.66, lifecycle:'confirmed', visibility:'team', resolver:'LATEST', manifest:'v2.3.0',
+        results:{ingest:P,adapter:P,schema:P,manifest:W,drift:W,viewmodel:P,primitives:P,eligibility:P,visibility:P,theme:P,render:W,blocked:N,fail_schema:N},
+        json:{record_id:'rec_4470',schema:'contract_v1.5',manifest:'v2.3.0',truth_mode:'PAT',confidence:0.66,lifecycle:'confirmed',visibility:'team',resolver:'LATEST',event_window:['2026-04-02','2026-06-10'],source_count:3,payload:{domain:'finance',metric:'late_pct',value:0.31}},
+        detail:{ adapter:'Normalized 1 record. 11 fields mapped.',
+          schema:'Valid against contract_v1.5.',
+          manifest:'DRIFT. Record built on manifest v2.3.0; engine runs v2.4.1. One field renamed since — rendered with a compatibility shim.',
+          viewmodel:'10 fields mapped; 1 field via shim (spend_pct→late_pct).',
+          primitives:'Emitted 5 primitives.', eligibility:'Eligible.', visibility:'Pass · team scope satisfied.',
+          theme:'Theme pack applied: palette + labels only. Canonical fields locked.',
+          render:'DEGRADED. Renders with a drift badge so the operator knows a shim was used.' },
+        rows:{ manifest:[{k:'record.manifest',v:'v2.3.0'},{k:'engine.manifest',v:'v2.4.1'},{k:'shim',v:'spend_pct→late_pct'},{k:'status',v:'degraded'}],
+          theme:[{k:'palette',v:'themed ✓'},{k:'labels',v:'themed ✓'},{k:'confidence',v:'🔒 locked'},{k:'lifecycle',v:'🔒 locked'}] } },
+      rec_4469:{ decision:'RENDERED', conf:0.91, lifecycle:'confirmed', visibility:'team', resolver:'HIGHEST_CONF', manifest:'v2.4.1',
+        results:{ingest:P,adapter:P,schema:P,manifest:P,viewmodel:P,primitives:P,eligibility:P,visibility:P,theme:P,render:P,blocked:N,drift:N,fail_schema:N},
+        json:{record_id:'rec_4469',schema:'contract_v1.5',manifest:'v2.4.1',truth_mode:'PAT',confidence:0.91,lifecycle:'confirmed',visibility:'team',resolver:'HIGHEST_CONF',event_window:['2026-05-01','2026-06-15'],source_count:5,payload:{domain:'fitness',metric:'rhr_delta',value:-4}},
+        detail:{ adapter:'Normalized 1 record. 12 fields mapped.', schema:'Valid.', manifest:'Compatible · v2.4.1.', viewmodel:'12 fields mapped.', primitives:'Emitted 6 primitives.', eligibility:'Eligible.', visibility:'Pass · team scope.', theme:'Theme pack applied; canonical locked.', render:'RENDERED. Clean pass through every stage.' },
+        rows:{ theme:[{k:'palette',v:'themed ✓'},{k:'confidence',v:'🔒 locked'}] } },
+      rec_4466:{ decision:'SKIPPED', conf:0.7, lifecycle:'confirmed', visibility:'team', resolver:'LATEST', manifest:'v2.4.1',
+        results:{ingest:P,adapter:P,schema:P,manifest:P,viewmodel:P,primitives:P,eligibility:S,visibility:N,theme:N,render:S,blocked:N,drift:N,fail_schema:N},
+        json:{record_id:'rec_4466',schema:'contract_v1.5',manifest:'v2.4.1',truth_mode:'REL',confidence:0.7,lifecycle:'confirmed',visibility:'team',resolver:'LATEST',event_window:['2026-06-01','2026-06-14'],source_count:2,payload:{domain:'relationships',kind:'edge'}},
+        detail:{ adapter:'Normalized 1 record.', schema:'Valid.', manifest:'Compatible.', viewmodel:'8 fields mapped.', primitives:'Emitted 4 primitives.',
+          eligibility:'NOT ELIGIBLE. truth_mode=REL is not projected by engine view. Record is skipped, not failed — it is simply out of scope here.',
+          visibility:'Not reached.', theme:'Not reached.', render:'SKIPPED. Eligible elsewhere (Resonance Atlas), not in Engine Room.' },
+        rows:{ eligibility:[{k:'truth_mode',v:'REL'},{k:'projection',v:'engine'},{k:'accepts',v:'PAT, INF'},{k:'verdict',v:'skip'}] } },
+      rec_4467:{ decision:'RENDERED', conf:0.83, lifecycle:'confirmed', visibility:'public', resolver:'HIGHEST_CONF', manifest:'v2.4.1',
+        results:{ingest:P,adapter:P,schema:P,manifest:P,viewmodel:P,primitives:P,eligibility:P,visibility:P,theme:P,render:P,blocked:N,drift:N,fail_schema:N},
+        json:{record_id:'rec_4467',schema:'contract_v1.5',manifest:'v2.4.1',truth_mode:'PAT',confidence:0.83,lifecycle:'confirmed',visibility:'public',resolver:'HIGHEST_CONF',event_window:['2026-05-10','2026-06-12'],source_count:4,payload:{domain:'sleep',metric:'onset_var',value:0.22}},
+        detail:{ adapter:'Normalized 1 record. 12 fields mapped.', schema:'Valid.', manifest:'Compatible.', viewmodel:'12 fields mapped.', primitives:'Emitted 6 primitives.', eligibility:'Eligible.', visibility:'Pass · public.', theme:'Theme applied; canonical locked.', render:'RENDERED.' },
+        rows:{} }
+    };
+    this.STREAM=['rec_4471','rec_4470','rec_4469','rec_4468','rec_4467','rec_4466','rec_4469','rec_4467','rec_4470','rec_4468','rec_4469','rec_4467','rec_4471','rec_4469'];
+    this.FAIL_ORDER=['rec_4471','rec_4468','rec_4466','rec_4470'];
+  }
+  sc(s){ return s==='pass'?'#39e0a6': s==='warn'?'#ffb43a': s==='fail'?'#ff5d52': s==='skip'?'#d8a24a':'#5b6678'; }
+  hc(h){ return h==='ok'?'#39e0a6': h==='warn'?'#ffb43a':'#ff5d52'; }
+  decColor(d){ return d==='RENDERED'?'#39e0a6': d==='DEGRADED'?'#ffb43a': d==='SKIPPED'?'#d8a24a':'#ff5d52'; }
+  confColor(c){ if(c==null) return '#ff5d52'; return c>=0.85?'#39e0a6': c>=0.7?'#7fd99a': c>=0.55?'#ffce4d':'#ff5d52'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  spark(seed,color){ const h=React.createElement; let s=seed*7+3; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    const n=14, pts=[]; for(let i=0;i<n;i++){ pts.push([i*(72/(n-1)), 14-(rnd()*10+1)]); }
+    let d='M '+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1); for(let i=1;i<n;i++){ d+=' L '+pts[i][0].toFixed(1)+' '+pts[i][1].toFixed(1); }
+    return h('svg',{viewBox:'0 0 72 16',width:'100%',height:'16',preserveAspectRatio:'none',style:{display:'block'}},
+      h('path',{d:d,fill:'none',stroke:color,strokeWidth:1,opacity:0.85}),
+      h('path',{d:d,fill:'none',stroke:color,strokeWidth:3,opacity:0.18}));
+  }
+
+  buildGraph(rec){
+    const h=React.createElement, R=[], NO=this.NODES, run=this.state.engine==='running';
+    R.push(h('defs',{key:'d'},h('filter',{id:'eglow',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'2'}))));
+    this.EDGES.forEach((e,i)=>{ const a=NO[e[0]], b=NO[e[1]]; const ra=rec.results[e[0]], rb=rec.results[e[1]];
+      const active = ra && ra!=='na' && rb && rb!=='na';
+      const col = active? this.sc(rb) : 'rgba(120,145,175,0.16)';
+      const mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy)||1, off=14;
+      const cx=mx+(-dy/len)*off, cy=my+(dx/len)*off, d='M '+a.x+' '+a.y+' Q '+cx+' '+cy+' '+b.x+' '+b.y;
+      R.push(h('path',{key:'e'+i,d:d,fill:'none',stroke:col,strokeWidth:active?2:1.2,strokeLinecap:'round',opacity:active?0.9:1}));
+      if(active && run) R.push(h('path',{key:'fl'+i,d:d,fill:'none',stroke:col,strokeWidth:2.4,strokeLinecap:'round',strokeDasharray:'1 10',style:{animation:'lwFlow 1.4s linear infinite'}}));
+      // arrowhead
+      const ang=Math.atan2(b.y-cy,b.x-cx), ax=b.x-Math.cos(ang)*((b.w/2)*0.9+6), ay=b.y-Math.sin(ang)*16;
+      R.push(h('path',{key:'ar'+i,d:'M '+(ax-Math.cos(ang-0.5)*6)+' '+(ay-Math.sin(ang-0.5)*6)+' L '+ax+' '+ay+' L '+(ax-Math.cos(ang+0.5)*6)+' '+(ay-Math.sin(ang+0.5)*6),fill:'none',stroke:col,strokeWidth:active?1.6:1,opacity:active?0.85:0.5}));
+    });
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  renderVals(){
+    const NO=this.NODES, rec=this.RECS[this.state.rec]||this.RECS.rec_4468, run=this.state.engine==='running';
+    const setRec=id=>()=>{ const r=this.RECS[id]; const fail=r?Object.keys(r.results).find(k=>this.STAGEMETA.some(s=>s.id===k)&&(r.results[k]==='fail'||r.results[k]==='warn'||r.results[k]==='skip')):null; this.setState({rec:id, stage:fail||'render'}); };
+    const setStage=id=>()=>this.setState({stage:id});
+    // nodes
+    const nodes=Object.keys(NO).map(k=>{ const nd=NO[k], st=rec.results[k]||'na', isBranch=!!nd.branch, dimNa=(st==='na');
+      const ledColor = isBranch? (nd.branch==='fail'?'#ff5d52':'#ffb43a') : this.sc(st);
+      const led = dimNa? '#3a4452' : ledColor;
+      const active = st!=='na' && st!=null;
+      const border = (st==='fail')?'rgba(255,93,82,0.6)': (st==='warn')?'rgba(255,180,58,0.55)': (st==='pass')?'rgba(57,224,166,0.4)': isBranch?'rgba(255,93,82,0.3)':'rgba(120,150,180,0.16)';
+      const stStr = active? (st==='pass'?'✓':st==='warn'?'⚠':st==='fail'?'✗':st==='skip'?'⤼':'') : '';
+      return { id:k, label:nd.label, w:nd.w+'px', leftPct:(nd.x/1000*100)+'%', topPct:(nd.y/560*100)+'%', z:(this.state.stage===k)?12:(active?7:4),
+        led, ledAnim: run&&active? (st==='fail'||st==='warn'?'lwLed 1s ease-in-out infinite':'lwLedSlow 2s ease-in-out infinite'):'none',
+        border: (this.state.stage===k)? '#46c8ff' : border,
+        bg: dimNa? 'rgba(16,20,27,0.7)' : (st==='fail'?'rgba(30,16,18,0.92)':st==='warn'?'rgba(30,24,14,0.9)':'rgba(15,21,24,0.92)'),
+        shadow: (this.state.stage===k)?'0 0 0 1px #46c8ff, 0 6px 18px rgba(0,0,0,0.5)':(active?'0 4px 12px rgba(0,0,0,0.4)':'none'),
+        titleColor: dimNa?'rgba(160,178,200,0.4)':'#dbe3ee', hasSpark:!!nd.spark, spark:nd.spark?this.spark(nd.seed, dimNa?'#3a4452':led):null,
+        thru: this.AGG[k]? (nd.spark?'live':'') :'', stat: isBranch? (nd.branch==='fail'?'TRAP':'WARN') : stStr, statColor: ledColor,
+        onSelect:setStage(k) }; });
+    // stage nav (left)
+    const stageNav=this.STAGEMETA.map(s=>{ const on=this.state.stage===s.id; const h=this.HEALTH[s.id];
+      return { label:s.label, led:this.hc(h), onSelect:setStage(s.id), bg:on?'rgba(70,200,255,0.1)':'transparent', txt:on?'#e3e9f2':'rgba(200,212,228,0.62)', stat:this.AGG[s.id]||'' }; });
+    // aside stages
+    const passCount=this.STAGEMETA.filter(s=>{ const r=rec.results[s.id]; return r==='pass'; }).length;
+    const stages=this.STAGEMETA.map(s=>{ const st=rec.results[s.id]||'na', open=this.state.stage===s.id, col=this.sc(st);
+      const glyph= st==='pass'?'✓': st==='warn'?'⚠': st==='fail'?'✗': st==='skip'?'⤼':'·';
+      const rows=(rec.rows&&rec.rows[s.id])? rec.rows[s.id].map(r=>({ k:r.k, v:r.v, kColor:'rgba(160,178,200,0.6)', vColor:r.bad?'#ff8077':(/🔒|locked/.test(r.v)?'#ffce4d':'#9fe0c0'), bg:r.bad?'rgba(255,93,82,0.07)':'rgba(120,150,180,0.05)', border:r.bad?'rgba(255,93,82,0.25)':'rgba(120,150,180,0.12)' })):null;
+      return { id:s.id, label:s.label, onSelect:setStage(s.id), open,
+        rowBorder: open? (st==='fail'?'rgba(255,93,82,0.4)':st==='warn'?'rgba(255,180,58,0.4)':'rgba(70,200,255,0.35)') : 'rgba(120,150,180,0.12)',
+        rowBg: open?'rgba(70,200,255,0.05)':(st==='fail'?'rgba(255,93,82,0.05)':st==='warn'?'rgba(255,180,58,0.04)':'rgba(255,255,255,0.01)'),
+        iconBg:this.hexA(col,0.18), iconColor:col, glyph, labelColor: st==='na'?'rgba(160,178,200,0.45)':'#dbe3ee',
+        stColor:col, stTag: st==='na'?'—':st.toUpperCase(), detail:(rec.detail&&rec.detail[s.id])||'—', rows }; });
+    // stream
+    const streamChips=this.STREAM.concat(this.STREAM).map((id,i)=>{ const r=this.RECS[id], d=r?r.decision:'RENDERED', c=this.decColor(d);
+      return { id:id.replace('rec_',''), color:c, glyph:(d==='RENDERED'?'✓':d==='DEGRADED'?'⚠':d==='SKIPPED'?'⤼':'✗'), bg:this.hexA(c,0.08), border:this.hexA(c,0.25), txt:'rgba(206,217,232,0.85)', onSelect:setRec(id) }; });
+    // fail tray
+    const stageOf={rec_4471:{stage:'SCHEMA',reason:'confidence type + missing event_window'},rec_4468:{stage:'VISIBILITY',reason:'private · viewer scope=team'},rec_4466:{stage:'ELIGIBILITY',reason:'truth_mode REL not in scope'},rec_4470:{stage:'MANIFEST',reason:'built v2.3.0 vs engine v2.4.1'}};
+    const failRows=this.FAIL_ORDER.map(id=>{ const r=this.RECS[id], info=stageOf[id], dc=this.decColor(r.decision), seld=this.state.rec===id;
+      return { id:id.replace('rec_',''), stage:info.stage, reason:info.reason, decision:r.decision, decColor:dc, onSelect:setRec(id),
+        bg:seld?this.hexA(dc,0.12):'rgba(255,93,82,0.04)', border:seld?dc:'rgba(255,93,82,0.18)', tagBg:this.hexA(dc,0.14), tagColor:dc }; });
+    // nav
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Resonance Atlas'},{label:'Constellation Recall'},{label:'Aurora Proof'},{label:'Memory Conservatory'},{label:'Engine Room',active:true}
+    ].map(n=>({ label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(70,200,255,0.09)':'transparent', bar:n.active?'inset 2px 0 0 #39e0a6':'none', txt:n.active?'#e3e9f2':'rgba(200,212,228,0.6)', dot:n.active?'#39e0a6':'rgba(160,178,200,0.35)' }));
+    // selected aside
+    const dc=this.decColor(rec.decision);
+    const sel={ id:this.state.rec, decision:rec.decision, decColor:dc, decBg:this.hexA(dc,0.12), decBorder:this.hexA(dc,0.4), headerBg:this.hexA(dc,0.05),
+      conf:rec.conf==null?'—':rec.conf.toFixed(2), confColor:this.confColor(rec.conf), lifecycle:rec.lifecycle, visibility:rec.visibility,
+      visColor: rec.visibility==='private'?'#ff5d52':rec.visibility==='public'?'#39e0a6':'#ffce4d',
+      resolver:rec.resolver, manifest:rec.manifest, passCount, stages, contradiction:rec.contradiction||null, json:this.buildJson(rec.json) };
+    const engineMap = run? {label:'LIVE',dot:'#39e0a6',txt:'#39e0a6',border:'rgba(57,224,166,0.4)',bg:'rgba(57,224,166,0.08)',anim:'lwLed 1.2s ease-in-out infinite'} : {label:'FROZEN',dot:'#46c8ff',txt:'#46c8ff',border:'rgba(70,200,255,0.4)',bg:'rgba(70,200,255,0.08)',anim:'none'};
+    return {
+      sys:{ manifest:'v2.4.1', queue:'38', thru:'1,284' },
+      engine:engineMap, onToggleEngine:()=>this.setState(s=>({engine:s.engine==='running'?'frozen':'running'})),
+      alert:{ headline:'3 records failing · 1 manifest drift', detail:'schema reject · visibility block · eligibility skip — review required',
+        chips:this.FAIL_ORDER.slice(0,3).map(id=>({ label:id.replace('rec_',''), color:this.decColor(this.RECS[id].decision), onSelect:setRec(id) })) },
+      onSelectFailures:setRec('rec_4471'),
+      graphSvg:this.buildGraph(rec), nodes, stageNav, navItems,
+      stream:{ rate:'1,284', chips:streamChips, anim: run? 'animation:lwStream 26s linear infinite;':'' },
+      failTray:{ count:this.FAIL_ORDER.length, rows:failRows },
+      onRerun:()=>this.setState({}), sel
+    };
+  }
+
+  buildJson(obj){
+    const h=React.createElement; const s=JSON.stringify(obj,null,2); const out=[]; let li=0;
+    const re=/("(?:\\.|[^"\\])*")(\s*:)?|\b(true|false|null)\b|(-?\d+\.?\d*)/g; let last=0, m;
+    const push=(txt,color)=>{ out.push(h('span',{key:li++,style:color?{color}:undefined},txt)); };
+    while((m=re.exec(s))){ if(m.index>last) push(s.slice(last,m.index),'rgba(140,160,185,0.7)');
+      if(m[1]!==undefined){ if(m[2]!==undefined){ push(m[1],'#46c8ff'); push(m[2],'rgba(140,160,185,0.7)'); } else push(m[1],'#7fe0a8'); }
+      else if(m[3]!==undefined) push(m[3],'#b89cff');
+      else if(m[4]!==undefined) push(m[4],'#ffce4d');
+      last=re.lastIndex; }
+    if(last<s.length) push(s.slice(last),'rgba(140,160,185,0.7)');
+    return h('pre',{style:{margin:0,fontFamily:"'IBM Plex Mono',monospace",fontSize:'10.5px',lineHeight:1.6,whiteSpace:'pre',color:'rgba(140,160,185,0.7)'}},out);
+  }
+}
+</script>
+</body>
+</html>

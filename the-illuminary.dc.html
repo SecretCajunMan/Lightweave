@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0a0a0f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(200,190,220,0.16);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes ilShimmer{0%,100%{opacity:.82}50%{opacity:1}}
+  @keyframes ilDust{0%{opacity:0;transform:translateY(0)}40%{opacity:.6}100%{opacity:0;transform:translateY(-18px)}}
+  @keyframes ilPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:.1;transform:scale(1.4)}}
+  @keyframes ilFlick{0%,100%{opacity:.5}50%{opacity:.85}}
+  .ilmono{font-family:'IBM Plex Mono',monospace}
+</style>
+</helmet>
+<div data-screen-label="The Illuminary" style="height:100vh; overflow:hidden; color:#e7e2ee; font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ style.accent }}; --lead:{{ style.lead }}; background:radial-gradient(1100px 560px at 50% -6%, {{ style.wallGlow }}, transparent 62%), {{ style.wall }};">
+
+  <header style="flex:0 0 54px; display:flex; align-items:center; gap:15px; padding:0 16px; border-bottom:1px solid rgba(200,190,220,0.12); background:rgba(18,16,24,0.6);">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="24" height="24" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#e7e2ee" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#9b8cff" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7ad0" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.13em; font-size:13.5px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:20px; background:rgba(200,190,220,0.18);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13px;">The Illuminary</span>
+      <span class="ilmono" style="font-size:10px; color:rgba(205,196,224,0.55);">illuminated narrative · this year</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="ilmono" style="display:flex; align-items:center; gap:7px; font-size:10.5px; color:rgba(210,200,228,0.6);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(200,190,220,0.16); border-radius:6px; background:rgba(24,20,32,0.6);">92 records glazed</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(200,190,220,0.16); border-radius:6px; background:rgba(24,20,32,0.6);">mean light <b style="color:var(--accent); font-weight:600;">0.71</b></span>
+    </div>
+    <div style="display:flex; align-items:center; gap:0; background:rgba(0,0,0,0.28); border:1px solid rgba(200,190,220,0.14); border-radius:8px; padding:3px;">
+      <sc-for list="{{ styleTabs }}" as="sb" hint-placeholder-count="3">
+        <span onClick="{{ sb.onSelect }}" class="ilmono" style="font-size:10.5px; font-weight:500; padding:5px 11px; border-radius:6px; cursor:pointer; background:{{ sb.bg }}; color:{{ sb.txt }};">{{ sb.label }}</span>
+      </sc-for>
+    </div>
+    <div style="width:30px; height:30px; border-radius:7px; background:linear-gradient(135deg,#9b8cff,#ff7ad0); box-shadow:0 0 12px rgba(155,140,255,0.35);"></div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-illuminary"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:9px; padding:11px 13px; overflow:hidden;">
+      <section style="flex:1; min-height:0; position:relative; border:1px solid rgba(200,190,220,0.14); border-radius:14px; overflow:hidden; background:radial-gradient(64% 80% at 50% 14%, {{ style.back }}, transparent 64%), {{ style.wallInner }};">
+        <div style="position:absolute; inset:0; margin:auto; aspect-ratio:1000/620; max-width:100%; max-height:100%;">
+          <div style="position:absolute; inset:0;">{{ windowSvg }}</div>
+          <sc-for list="{{ paneLabels }}" as="pl" hint-placeholder-count="11">
+            <div onClick="{{ pl.onSelect }}" style="position:absolute; left:{{ pl.leftPct }}; top:{{ pl.topPct }}; transform:{{ pl.transform }}; width:128px; text-align:center; cursor:pointer; z-index:{{ pl.z }}; opacity:{{ pl.op }};">
+              <div style="font-size:10px; font-weight:600; line-height:1.15; color:{{ pl.txt }}; text-shadow:0 1px 7px rgba(0,0,0,0.95);">{{ pl.title }}</div>
+              <div style="display:inline-flex; align-items:center; gap:4px; margin-top:2px; padding:1px 6px; border-radius:5px; background:{{ pl.badgeBg }};">
+                <span class="ilmono" style="font-size:7.5px; color:{{ pl.badgeColor }};">{{ pl.badge }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute; left:14px; bottom:11px; display:flex; align-items:center; gap:10px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(220,210,235,0.6);">This Year, Illuminated</span>
+          <span class="ilmono" style="font-size:9px; color:rgba(205,196,224,0.4);">read in {{ style.name }} glass · brightness = confidence</span>
+        </div>
+        <div style="position:absolute; right:14px; bottom:11px; display:flex; align-items:center; gap:9px;">
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(205,196,224,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#fff; box-shadow:0 0 7px #fff;"></span>clear</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(205,196,224,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:rgba(200,205,230,0.45);"></span>frosted</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(205,196,224,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#ff5d6c;"></span>cracked</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(205,196,224,0.55);"><span style="width:8px; height:8px; border-radius:2px; background:#3a3a46;"></span>leaded-over</span>
+        </div>
+      </section>
+
+      <footer style="flex:0 0 96px; border:1px solid rgba(200,190,220,0.14); border-radius:12px; background:rgba(18,16,24,0.5); padding:9px 13px; display:flex; flex-direction:column;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:7px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(220,210,235,0.7);">Firing log</span>
+          <span class="ilmono" style="font-size:9px; color:rgba(205,196,224,0.4);">when each pane was set, fired &amp; refired · lifecycle trace</span>
+          <div style="flex:1;"></div>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(205,196,224,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:var(--accent);"></span>set</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(205,196,224,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff5d6c;"></span>cracked / leaded</span>
+        </div>
+        <div style="flex:1; position:relative; border-radius:9px; background:linear-gradient(90deg, rgba(155,140,255,0.05), rgba(255,122,208,0.05)); border:1px solid rgba(200,190,220,0.08); overflow:hidden;">
+          <div style="position:absolute; inset:0;">{{ firingSvg }}</div>
+          <sc-for list="{{ firingMarks }}" as="m" hint-placeholder-count="6">
+            <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:120px;">
+              <div style="font-size:8.5px; color:rgba(220,210,235,0.62); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:120px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+              <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 8px {{ m.color }}; border:2px solid {{ m.ring }};"></div>
+              <div class="ilmono" style="font-size:7.5px; color:rgba(205,196,224,0.4); margin-top:3px;">{{ m.date }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </footer>
+    </main>
+
+    <aside style="flex:0 0 384px; display:flex; flex-direction:column; border-left:1px solid rgba(200,190,220,0.12); background:rgba(18,16,24,0.5); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 17px 13px; border-bottom:1px solid rgba(200,190,220,0.12); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="width:11px; height:11px; border-radius:50%; background:{{ sel.toneColor }}; box-shadow:0 0 10px {{ sel.toneColor }};"></span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; line-height:1.2;">{{ sel.title }}</span>
+          <span class="ilmono" style="font-size:9px; font-weight:600; padding:2px 8px; border-radius:6px; background:{{ sel.stateBg }}; color:{{ sel.stateColor }};">{{ sel.stateLabel }}</span>
+        </div>
+        <div class="ilmono" style="font-size:10px; color:rgba(205,196,224,0.5); margin-top:6px;">{{ sel.subtitle }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:13px 17px 16px; display:flex; flex-direction:column; gap:15px;">
+
+        <div style="background:{{ sel.headerBg }}; border:1px solid {{ sel.softBorder }}; border-radius:11px; padding:11px 12px;">
+          <div class="ilmono" style="font-size:9px; letter-spacing:0.12em; color:rgba(205,196,224,0.42); margin-bottom:6px;">WHY THIS LIGHT</div>
+          <div style="font-size:12px; line-height:1.55; color:rgba(231,226,238,0.9);">{{ sel.whyLight }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:10px;">
+            <span style="font-size:9.5px; color:rgba(205,196,224,0.45); flex:0 0 auto;">{{ sel.lightLabel }}</span>
+            <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.lightPct }}; background:{{ sel.lightColor }}; box-shadow:0 0 9px {{ sel.lightColor }};"></div></div>
+            <span class="ilmono" style="font-size:11px; color:{{ sel.lightColor }};">{{ sel.light }}</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="ilmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(205,196,224,0.42); margin-bottom:8px;">{{ sel.traceLabel }}</div>
+          <sc-if value="{{ sel.governanceNote }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:9px; padding:10px 11px; border-radius:9px; background:rgba(107,114,128,0.08); border:1px solid rgba(107,114,128,0.3);">
+              <svg width="13" height="13" viewBox="0 0 14 14" style="flex:0 0 auto; margin-top:1px;"><rect x="3" y="6" width="8" height="6" rx="1" fill="none" stroke="#aab0bd" stroke-width="1"></rect><path d="M4.5 6 V4.3 a2.5 2.5 0 0 1 5 0 V6" fill="none" stroke="#aab0bd" stroke-width="1"></path></svg>
+              <span style="font-size:11px; line-height:1.5; color:rgba(210,200,228,0.72);">{{ sel.governanceNote }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sel.sources }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <sc-for list="{{ sel.sources }}" as="src" hint-placeholder-count="3">
+                <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid rgba(200,190,220,0.09); border-radius:9px;">
+                  <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ src.dot }}; box-shadow:0 0 6px {{ src.dot }};"></span>
+                  <div style="flex:1; min-width:0;"><div style="font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.label }}</div><div class="ilmono" style="font-size:9px; color:rgba(205,196,224,0.42);">{{ src.role }}</div></div>
+                  <span class="ilmono" style="font-size:9.5px; color:{{ src.confColor }};">{{ src.conf }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,93,108,0.06); border:1px solid rgba(255,93,108,0.32); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff5d6c;"></span><span class="ilmono" style="font-size:10px; font-weight:600;">{{ sel.contradiction.title }}</span></div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(210,200,228,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(210,200,228,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(210,200,228,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div class="ilmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(205,196,224,0.42); margin-bottom:8px;">TIME WINDOW</div>
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(200,190,220,0.1); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(205,196,224,0.4);">span</div><div style="font-size:12px;">{{ sel.window }}</div></div>
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(200,190,220,0.1); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(205,196,224,0.4);">last fired</div><div style="font-size:12px;">{{ sel.lastFired }}</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="ilmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(205,196,224,0.42); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(218,210,232,0.78);">{{ step }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:7px;">
+          <div style="flex:1; text-align:center; padding:8px 4px; border-radius:9px; background:{{ sel.lifeBg }}; border:1px solid {{ sel.lifeBorder }};"><div class="ilmono" style="font-size:8px; color:rgba(205,196,224,0.45);">LIFECYCLE</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</div></div>
+          <div style="flex:1; text-align:center; padding:8px 4px; border-radius:9px; background:rgba(255,255,255,0.03); border:1px solid rgba(200,190,220,0.12);"><div class="ilmono" style="font-size:8px; color:rgba(205,196,224,0.45);">VISIBILITY</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.visColor }};">{{ sel.visibility }}</div></div>
+          <div style="flex:1; text-align:center; padding:8px 4px; border-radius:9px; background:rgba(255,255,255,0.03); border:1px solid rgba(200,190,220,0.12);"><div class="ilmono" style="font-size:8px; color:rgba(205,196,224,0.45);">RESOLVER</div><div class="ilmono" style="font-size:9.5px; font-weight:600; color:rgba(231,226,238,0.85);">{{ sel.resolver }}</div></div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(200,190,220,0.1); border-radius:11px; padding:11px 12px;">
+          <div class="ilmono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(205,196,224,0.42); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div class="ilmono" style="display:flex; flex-direction:column; gap:5px; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(205,196,224,0.45);">pane</span><span style="color:{{ sel.toneColor }};">{{ sel.canonId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(205,196,224,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(205,196,224,0.45);">records</span><span>{{ sel.recordCount }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(205,196,224,0.45);">schema</span><span>contract_v1.5</span></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(210,200,228,0.5); margin-top:9px; line-height:1.45;">{{ sel.canonNote }}</div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:600; color:#15121c; background:linear-gradient(135deg, var(--accent), #ff9ed6); padding:9px; border-radius:8px; cursor:pointer;">{{ sel.cta }}</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(210,200,228,0.8); border:1px solid rgba(200,190,220,0.18); padding:9px 12px; border-radius:8px; cursor:pointer;">Plain view</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960},&quot;glassStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cathedral&quot;,&quot;prairie&quot;,&quot;antique&quot;],&quot;default&quot;:&quot;cathedral&quot;,&quot;tsType&quot;:&quot;'cathedral' | 'prairie' | 'antique'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'p_dinner', style: props.glassStyle||'cathedral' };
+    this.STYLES={
+      cathedral:{ name:'Cathedral', accent:'#c9a23a', lead:'#13110c', leadHi:'#2c2620', back:'rgba(150,110,40,0.22)', wall:'#0a0908', wallInner:'#0b0a09', wallGlow:'rgba(120,80,30,0.16)', quarry:'rgba(70,90,170,0.10)' },
+      prairie:{ name:'Prairie', accent:'#9bb85a', lead:'#241a12', leadHi:'#3e3022', back:'rgba(80,100,50,0.18)', wall:'#090b08', wallInner:'#0a0c09', wallGlow:'rgba(70,90,40,0.14)', quarry:'rgba(120,150,90,0.08)' },
+      antique:{ name:'Antique', accent:'#d99a4e', lead:'#241810', leadHi:'#42301c', back:'rgba(150,95,35,0.22)', wall:'#0b0806', wallInner:'#0c0907', wallGlow:'rgba(140,85,30,0.16)', quarry:'rgba(160,115,60,0.10)' }
+    };
+    this.TONE={ gold:'#ffce6a', amber:'#ff9e57', teal:'#34e1b4', violet:'#9b8cff', rose:'#ff7ad0', deep:'#5b78c8', slate:'#6b7280' };
+    // panes in window space 1000x620
+    this.PANES={
+      p_crown:{x:500,y:96,r:54,title:'A steadier year',tone:'gold',light:0.84,state:'clear',mode:'AGG · narrative',recordCount:92,lifecycle:'Aggregate',visibility:'private',resolver:'MEAN_WEIGHTED',window:'Jan – Dec',lastFired:'today',canonId:'pane_year_00',
+        whyLight:'The crown pane gathers the whole window. It glows at 0.84 — most chapters this year are well-sourced, with a few dim and one withheld.',
+        sources:[{label:'all 11 chapter panes',role:'aggregated',conf:'0.71 mean'},{label:'92 canonical records',role:'underlying',conf:'—'}],
+        reasoning:['Weights each chapter\u2019s light by its record support.','Two frosted chapters and one redaction pull the mean down honestly.','Confidence 0.84 for the headline; the year reads steadier than last.'],
+        canonNote:'A derived headline over the whole window. It is a reading of the panes, never a substitute for them.' },
+      p_move:{x:175,y:248,r:42,title:'The move',tone:'amber',light:0.80,state:'clear',mode:'PAT · chapter',recordCount:9,lifecycle:'Preserved',visibility:'team',resolver:'HIGHEST_CONF',window:'Oct',lastFired:'Oct 18',canonId:'pane_move_04',
+        whyLight:'Bright. The move is photographed, journalled, and on the calendar — little is inferred.',
+        sources:[{label:'12 photos · empty rooms',role:'primary',conf:'0.84'},{label:'Journal · moving week',role:'narrative',conf:'0.72'},{label:'Calendar · van booking',role:'anchor',conf:'0.95'}],
+        reasoning:['Three independent sources agree on date and place.','Tense at the time, settled in hindsight — tone amber.','Confidence 0.80; set as a clear pane.'],
+        canonNote:'A preserved chapter over 9 canonical records.' },
+      p_5k:{x:175,y:388,r:42,title:'First 5k',tone:'gold',light:0.84,state:'clear',mode:'PAT · chapter',recordCount:4,lifecycle:'Preserved',visibility:'public',resolver:'HIGHEST_CONF',window:'Apr 14',lastFired:'Apr 14',canonId:'pane_5k_07',
+        whyLight:'Device-tracked and photographed at the line. Almost nothing is reconstructed.',
+        sources:[{label:'GPS track · 5.02 km',role:'primary',conf:'0.95'},{label:'Finish-line photo',role:'anchor',conf:'0.88'}],
+        reasoning:['A single, sharply-sourced moment.','Confidence 0.84; bright gold glass.'],
+        canonNote:'A preserved chapter over 4 canonical records.' },
+      p_december:{x:175,y:528,r:42,title:'The quiet December',tone:'deep',light:0.60,state:'clear',mode:'PAT · chapter',recordCount:5,lifecycle:'Preserved',visibility:'private',resolver:'HIGHEST_CONF',window:'Dec',lastFired:'Dec 30',canonId:'pane_dec_09',
+        whyLight:'Deliberately few records — kept dim on purpose, not for want of light. Held with care.',
+        sources:[{label:'Journal · December',role:'narrative',conf:'0.70'},{label:'Messages · family',role:'context',conf:'0.60'}],
+        reasoning:['Sparse by choice; the dimness is honest, not a gap.','Tone deep-blue; lifecycle Preserved.','Confidence 0.60 — low light, fully intact.'],
+        canonNote:'A preserved chapter over 5 canonical records, glazed with restraint.' },
+      p_dinner:{x:500,y:282,r:60,title:'Where we ate that night',tone:'rose',light:0.60,state:'cracked',mode:'PAT · chapter',recordCount:2,lifecycle:'Disputed',visibility:'team',resolver:'HIGHEST_CONF',window:'early Jun',lastFired:'Jun 6',canonId:'pane_dinner_05',
+        whyLight:'The night is vivid, but two sources disagree on where it happened. The pane is set, then cracked across the dispute — the lead holds both halves.',
+        sources:[{label:'Photo metadata · Lisbon',role:'place A',conf:'0.85'},{label:'Journal · "Porto rooftop"',role:'place B',conf:'0.60'}],
+        contradiction:{title:'CRACKED · PLACE DISPUTED',a:{label:'Photo EXIF',val:'Lisbon · Jun 3',color:'#56b8ff'},b:{label:'Journal',val:'Porto · Jun 5',color:'#ff9e57'},note:'Two sources place the same night differently. The crack stays — the window will not pick a side to look prettier.'},
+        reasoning:['Emotion is well-sourced; the coordinates are not.','A contradiction held in lead, not painted over.','Confidence 0.60; lifecycle Disputed.'],
+        canonNote:'A disputed chapter over 2 conflicting canonical records.' },
+      p_lake:{x:500,y:452,r:48,title:'The lake, remembered',tone:'violet',light:0.42,state:'frosted',mode:'PAT · chapter',recordCount:3,lifecycle:'Reconstructed',visibility:'private',resolver:'HIGHEST_CONF',window:'~Jul 2019',lastFired:'reglazed Jun',canonId:'pane_lake_11',
+        whyLight:'Frosted on purpose. Only three thin records survive, partly in conflict — most of this pane is inferred, so the glass stays misted.',
+        sources:[{label:'3 photos · cabin dock',role:'sparse',conf:'0.70'},{label:'Journal · "the rain"',role:'contested',conf:'0.55'}],
+        reasoning:['Too little glass to set it clear — frosted is the truthful finish.','40% of the scene is reconstructed and labelled so.','Confidence 0.42; lifecycle Reconstructed.'],
+        canonNote:'A reconstructed chapter over 3 thin records. The frost is honest, not decorative.' },
+      p_routine:{x:825,y:248,r:42,title:'A new morning routine',tone:'teal',light:0.86,state:'clear',mode:'PAT · chapter',recordCount:14,lifecycle:'Preserved',visibility:'team',resolver:'HIGHEST_CONF',window:'Feb – Dec',lastFired:'Dec 12',canonId:'pane_routine_02',
+        whyLight:'The brightest pane in the window — fourteen records, device and journal, agree on the new rhythm.',
+        sources:[{label:'Wearable · wake times',role:'primary',conf:'0.91'},{label:'Journal · routine notes',role:'narrative',conf:'0.78'}],
+        reasoning:['A composite of a recurring habit, strongly sourced.','Confidence 0.86; clear teal glass.'],
+        canonNote:'A preserved composite over 14 canonical records.' },
+      p_private:{x:825,y:388,r:42,title:'A private chapter',tone:'slate',light:0.0,state:'redacted',mode:'PAT · chapter',recordCount:6,lifecycle:'Withheld',visibility:'private',resolver:'—',window:'(sealed)',lastFired:'leaded Jun',canonId:'pane_private_08',
+        whyLight:'The pane is set and real — six records back it — but its glass is leaded over by visibility policy. You can see the shape; the light is withheld, not absent.',
+        governanceNote:'Light withheld by visibility=private. The records exist and are counted; their content is not projected here. The theme cannot reopen this — only governance can.',
+        reasoning:['The chapter is included in the window (its shape is glazed).','Its content is redacted by policy, not dropped.','No confidence is shown — that, too, is governed.'],
+        canonNote:'A withheld chapter over 6 canonical records. Its existence is provable; its content is sealed.' },
+      p_spring:{x:825,y:528,r:42,title:'Spring, thinly recorded',tone:'slate',light:0.0,state:'empty',mode:'PAT · gap',recordCount:0,lifecycle:'Unglazed',visibility:'—',resolver:'—',window:'Mar – May',lastFired:'never set',canonId:'pane_spring_99',
+        whyLight:'An empty pane — there is no glass to set. Only a handful of records fall in this span, too few to glaze a chapter. The lead outline marks the gap rather than hiding it.',
+        governanceNote:'Coverage gap: 0 chapter-grade records in Mar–May. The window leaves the pane unglazed rather than inventing a scene to fill it.',
+        reasoning:['Lightweave will not paint glass it does not have.','The empty pane is the honest rendering of a coverage gap.','Add records to this span and the pane can be glazed later.'],
+        canonNote:'An unglazed pane — a coverage gap held open in lead.' },
+      p_pancakes:{x:340,y:560,r:38,above:true,title:'Pancakes, every Sunday',tone:'rose',light:0.80,state:'clear',mode:'PAT · recurring',recordCount:14,lifecycle:'Recurring',visibility:'team',resolver:'HIGHEST_CONF',window:'all year',lastFired:'Dec 22',canonId:'pane_panc_10',
+        whyLight:'Strong as a ritual — fourteen Sundays glow together. Bright in aggregate, though any single Sunday is faint.',
+        sources:[{label:'Photos · 14 mornings',role:'aggregate',conf:'0.82'},{label:'Calendar · recurring',role:'anchor',conf:'0.70'}],
+        reasoning:['Repetition is the light here, not any one instance.','Confidence 0.80 aggregate; lifecycle Recurring.'],
+        canonNote:'A recurring chapter over 14 instances; aggregate light only.' },
+      p_sources:{x:660,y:560,r:38,above:true,title:'Set in lead',tone:'gold',light:0.90,state:'clear',mode:'AGG · provenance',recordCount:92,lifecycle:'Aggregate',visibility:'private',resolver:'—',window:'the window',lastFired:'today',canonId:'pane_prov_01',
+        whyLight:'The base pane carries the window\u2019s provenance: 92 records set across 11 panes, 1 cracked, 1 frosted, 1 leaded-over, 1 unglazed.',
+        sources:[{label:'92 canonical records',role:'glazed',conf:'—'},{label:'4 non-clear panes',role:'flagged honestly',conf:'—'}],
+        reasoning:['Every lit pane traces to records; nothing is decorative glass.','The flaws are shown, not buffed out.','This pane is the window\u2019s own receipt.'],
+        canonNote:'A provenance pane summarising how the window was glazed.' }
+    };
+    this.PANE_ORDER=['p_crown','p_move','p_5k','p_december','p_dinner','p_lake','p_routine','p_private','p_spring','p_pancakes','p_sources'];
+  }
+  cur(){ return this.STYLES[this.state.style]||this.STYLES.cathedral; }
+  tone(t){ return this.TONE[t]||'#9b8cff'; }
+  stateColor(s){ return s==='clear'?'#e8e2d0': s==='frosted'?'#9fb0d6': s==='cracked'?'#ff5d6c': s==='redacted'?'#6b7280':'#8a8f9c'; }
+  stateLabel(s){ return s==='clear'?'CLEAR': s==='frosted'?'FROSTED': s==='cracked'?'CRACKED': s==='redacted'?'LEADED-OVER':'UNGLAZED'; }
+  lifeColor(l){ return l==='Preserved'?'#39e0a6': l==='Recurring'?'#9b8cff': l==='Reconstructed'?'#ff9e57': l==='Disputed'?'#ff5d6c': l==='Withheld'?'#6b7280': l==='Unglazed'?'#8a8f9c':'#c9a23a'; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#9fd97a': c>=0.55?'#ffce4d':'#ff8a5e'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  arcPath(){ return 'M60 600 L60 196 Q60 44 500 44 Q940 44 940 196 L940 600 Z'; }
+
+  buildWindow(){
+    const h=React.createElement, R=[], P=this.PANES, st=this.cur(), sel=this.state.sel;
+    R.push(h('defs',{key:'d'},
+      h('clipPath',{id:'ilArch'},h('path',{d:this.arcPath()})),
+      h('filter',{id:'ilFrost',x:'-30%',y:'-30%',width:'160%',height:'160%'},h('feGaussianBlur',{stdDeviation:'3.4'})),
+      h('filter',{id:'ilSoft',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'2'})),
+      ...this.PANE_ORDER.map(id=>{ const p=P[id], tc=this.tone(p.tone);
+        return h('radialGradient',{key:'rg'+id,id:'g_'+id,cx:'42%',cy:'38%',r:'68%'},
+          h('stop',{offset:'0%',stopColor:'#fff',stopOpacity:0.5*p.light+0.2}),
+          h('stop',{offset:'42%',stopColor:tc,stopOpacity:0.55+0.35*p.light}),
+          h('stop',{offset:'100%',stopColor:tc,stopOpacity:0.85})); })
+    ));
+    // backlight wash + quarry grid clipped to arch
+    const clip=[];
+    clip.push(h('rect',{key:'bg',x:60,y:44,width:880,height:556,fill:st.wallInner}));
+    clip.push(h('ellipse',{key:'sun',cx:500,cy:150,rx:420,ry:300,fill:this.hexA(st.accent,0.14),style:{filter:'blur(8px)'}}));
+    // quarry diamonds
+    let qi=0;
+    for(let yy=70;yy<600;yy+=64){ for(let xx=70;xx<940;xx+=52){ const ox=((Math.floor((yy-70)/64))%2)? 26:0; const cx=xx+ox; if(cx>930) continue;
+      clip.push(h('path',{key:'q'+(qi++),d:'M '+cx+' '+(yy-30)+' L '+(cx+24)+' '+yy+' L '+cx+' '+(yy+30)+' L '+(cx-24)+' '+yy+' Z',fill:st.quarry,stroke:this.hexA(st.lead,0.5),strokeWidth:1})); } }
+    R.push(h('g',{key:'clip',clipPath:'url(#ilArch)'},clip));
+    // mullions (lancet leads) + transom
+    [337,663].forEach((mx,i)=>R.push(h('line',{key:'mul'+i,x1:mx,y1:200,x2:mx,y2:600,stroke:st.lead,strokeWidth:7})));
+    R.push(h('line',{key:'spring',x1:60,y1:200,x2:940,y2:200,stroke:st.lead,strokeWidth:6}));
+    // feature panes
+    this.PANE_ORDER.forEach(id=>{ const p=P[id], tc=this.tone(p.tone), seld=id===sel, r=p.r;
+      const g=[];
+      if(p.state!=='empty'&&p.state!=='redacted'){ g.push(h('circle',{key:'halo',cx:p.x,cy:p.y,r:r*1.5,fill:this.hexA(tc,0.06+0.16*p.light),style:p.state==='clear'?{animation:'ilShimmer '+(3+r*0.05)+'s ease-in-out infinite'}:undefined})); }
+      if(p.state==='empty'){
+        g.push(h('circle',{key:'eo',cx:p.x,cy:p.y,r:r,fill:'rgba(20,18,16,0.5)',stroke:this.hexA(st.lead,0.9),strokeWidth:3,strokeDasharray:'5 5'}));
+        for(let i=-2;i<=2;i++) g.push(h('line',{key:'eh'+i,x1:p.x-r*0.7,y1:p.y+i*9,x2:p.x+r*0.7,y2:p.y+i*9,stroke:this.hexA(st.lead,0.4),strokeWidth:1}));
+      } else if(p.state==='redacted'){
+        g.push(h('circle',{key:'rf',cx:p.x,cy:p.y,r:r,fill:'#15151b',stroke:this.hexA('#8a8f9c',0.7),strokeWidth:3}));
+        for(let i=-3;i<=3;i++) g.push(h('line',{key:'rh'+i,x1:p.x-r*0.72,y1:p.y+i*7,x2:p.x+r*0.72,y2:p.y+i*7,stroke:'rgba(120,126,138,0.18)',strokeWidth:3}));
+        g.push(h('rect',{key:'lk',x:p.x-7,y:p.y-4,width:14,height:11,rx:2,fill:'#15151b',stroke:'#aab0bd',strokeWidth:1.2}));
+        g.push(h('path',{key:'lka',d:'M '+(p.x-4)+' '+(p.y-4)+' V '+(p.y-8)+' a4 4 0 0 1 8 0 V '+(p.y-4),fill:'none',stroke:'#aab0bd',strokeWidth:1.2}));
+      } else {
+        // glass
+        g.push(h('circle',{key:'glass',cx:p.x,cy:p.y,r:r,fill:'url(#g_'+id+')',filter:p.state==='frosted'?'url(#ilFrost)':undefined}));
+        // facets (internal leadwork)
+        [[-0.5,-0.86],[0.86,-0.5],[0.5,0.86]].forEach((d,i)=>g.push(h('line',{key:'fc'+i,x1:p.x,y1:p.y,x2:p.x+d[0]*r,y2:p.y+d[1]*r,stroke:this.hexA(st.lead,0.45),strokeWidth:1.4})));
+        g.push(h('circle',{key:'shine',cx:p.x-r*0.32,cy:p.y-r*0.36,r:r*0.22,fill:'rgba(255,255,255,'+(0.18+0.25*p.light)+')',style:{filter:'blur(2px)'}}));
+        if(p.state==='frosted'){ g.push(h('circle',{key:'frost',cx:p.x,cy:p.y,r:r,fill:'rgba(225,232,248,0.28)'}));
+          for(let i=-2;i<=2;i++) g.push(h('line',{key:'frl'+i,x1:p.x-r*0.7,y1:p.y+i*10,x2:p.x+r*0.7,y2:p.y+i*10,stroke:'rgba(230,236,250,0.18)',strokeWidth:1})); }
+        if(p.state==='cracked'){ ['M {a} {b} L {c} {d} L {e} {f}'].forEach(()=>{});
+          g.push(h('path',{key:'cr1',d:'M '+(p.x-r*0.8)+' '+(p.y-r*0.3)+' L '+(p.x-r*0.1)+' '+(p.y+r*0.1)+' L '+(p.x+r*0.5)+' '+(p.y-r*0.5),fill:'none',stroke:'rgba(20,16,14,0.85)',strokeWidth:2.4,strokeLinejoin:'round'}));
+          g.push(h('path',{key:'cr1b',d:'M '+(p.x-r*0.8)+' '+(p.y-r*0.3)+' L '+(p.x-r*0.1)+' '+(p.y+r*0.1)+' L '+(p.x+r*0.5)+' '+(p.y-r*0.5),fill:'none',stroke:'rgba(255,255,255,0.4)',strokeWidth:0.8}));
+          g.push(h('path',{key:'cr2',d:'M '+(p.x-r*0.1)+' '+(p.y+r*0.1)+' L '+(p.x+r*0.2)+' '+(p.y+r*0.8),fill:'none',stroke:'rgba(20,16,14,0.85)',strokeWidth:2.2}));
+          g.push(h('circle',{key:'crm',cx:p.x+r*0.5,cy:p.y-r*0.5,r:3,fill:'#ff5d6c'})); }
+      }
+      // lead rim (double)
+      g.push(h('circle',{key:'rim',cx:p.x,cy:p.y,r:r,fill:'none',stroke:st.lead,strokeWidth:5}));
+      g.push(h('circle',{key:'rim2',cx:p.x,cy:p.y,r:r-2.5,fill:'none',stroke:this.hexA(st.leadHi,0.7),strokeWidth:1}));
+      if(seld){ g.push(h('circle',{key:'selr',cx:p.x,cy:p.y,r:r+7,fill:'none',stroke:st.accent,strokeWidth:2,style:{transformOrigin:p.x+'px '+p.y+'px',animation:'ilPulse 1.9s ease-in-out infinite'}})); }
+      R.push(h('g',{key:'p'+id,onClick:()=>this.setState({sel:id}),style:{cursor:'pointer'}},g));
+    });
+    // decorative tracery foils
+    [[360,150,'#9b8cff'],[640,150,'#ff7ad0']].forEach((f,i)=>{ R.push(h('circle',{key:'tf'+i,cx:f[0],cy:f[1],r:24,fill:this.hexA(f[2],0.3),stroke:st.lead,strokeWidth:4}));
+      R.push(h('circle',{key:'tf2'+i,cx:f[0],cy:f[1],r:9,fill:this.hexA(f[2],0.6),stroke:st.lead,strokeWidth:2})); });
+    // arch frame (thick lead)
+    R.push(h('path',{key:'frame',d:this.arcPath(),fill:'none',stroke:st.lead,strokeWidth:12}));
+    R.push(h('path',{key:'frame2',d:this.arcPath(),fill:'none',stroke:this.hexA(st.leadHi,0.6),strokeWidth:2}));
+    // floating dust motes in the light
+    for(let i=0;i<7;i++){ R.push(h('circle',{key:'mote'+i,cx:200+i*90,cy:140+((i*53)%200),r:1.3,fill:this.hexA(st.accent,0.6),style:{animation:'ilDust '+(3+i*0.6)+'s ease-in-out infinite',animationDelay:(i*0.5)+'s'}})); }
+    return h('svg',{viewBox:'0 0 1000 620',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  buildFiring(){
+    const h=React.createElement, vals=[0.5,0.6,0.42,0.7,0.6,0.74,0.66,0.84], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>40-(v-0.35)*54;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const a=this.cur().accent;
+    return h('svg',{viewBox:'0 0 1000 48',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 48 L 0 48 Z',fill:this.hexA(a,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(a,0.55),strokeWidth:1.4}));
+  }
+
+  renderVals(){
+    const st=this.cur(), P=this.PANES, sel=P[this.state.sel]||P.p_dinner, setSel=id=>()=>this.setState({sel:id});
+    const navItems=[
+      {label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Resonance Atlas'},{label:'Constellation Recall'},{label:'Aurora Proof'},{label:'Memory Conservatory'},{label:'Engine Room'},{label:'Archive Mine'},{label:'The Illuminary',active:true}
+    ].map(n=>({ label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(201,162,58,0.1)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'#f2ecdc':'rgba(210,200,228,0.6)', dot:n.active?'var(--accent)':'rgba(205,196,224,0.35)' }));
+    const styleTabs=Object.keys(this.STYLES).map(k=>({ label:this.STYLES[k].name, onSelect:()=>this.setState({style:k}), bg:this.state.style===k?this.hexA(this.STYLES[k].accent,0.22):'transparent', txt:this.state.style===k?'#f2ecdc':'rgba(210,200,228,0.55)' }));
+    const legend=[
+      {label:'clear · well-sourced',swatch:this.hexA('#ffce6a',0.7),rim:st.lead,glow:'0 0 7px rgba(255,206,106,0.5)'},
+      {label:'frosted · reconstructed',swatch:'rgba(200,210,235,0.35)',rim:st.lead,glow:'none'},
+      {label:'cracked · contradiction',swatch:this.hexA('#ff7ad0',0.5),rim:'#ff5d6c',glow:'0 0 6px rgba(255,93,108,0.5)'},
+      {label:'leaded-over · redacted',swatch:'#15151b',rim:'#8a8f9c',glow:'none'},
+      {label:'unglazed · coverage gap',swatch:'rgba(20,18,16,0.4)',rim:this.hexA(st.lead,0.9),glow:'none'}
+    ];
+    const paneLabels=this.PANE_ORDER.map(id=>{ const p=P[id], seld=id===this.state.sel, tc=this.tone(p.tone);
+      const badge = p.state==='redacted'?'sealed': p.state==='empty'?'no glass': p.state==='cracked'?'disputed': p.state==='frosted'?('light '+p.light.toFixed(2)):('light '+p.light.toFixed(2));
+      const bc = p.state==='cracked'?'#ff5d6c': p.state==='redacted'?'#8a8f9c': p.state==='empty'?'#8a8f9c': p.state==='frosted'?'#9fb0d6':this.confColor(p.light);
+      return { id, title:p.title, leftPct:(p.x/1000*100)+'%', topPct:((p.above?(p.y-p.r-6):(p.y+p.r+6))/620*100)+'%', transform:p.above?'translate(-50%,-100%)':'translate(-50%,0)', z:seld?12:6, op:seld?1:0.92,
+        txt:seld?'#fff':'rgba(231,226,238,0.85)', badge, badgeColor:bc, badgeBg:this.hexA(bc,0.16), onSelect:setSel(id) }; });
+    const firingMarks=[
+      {id:'p_move',subj:'Move pane set',date:'Oct',leftPct:'14%',color:st.accent,ring:'rgba(255,255,255,0.3)'},
+      {id:'p_dinner',subj:'Dinner pane cracked',date:'Jun',leftPct:'34%',color:'#ff5d6c',ring:'#ff5d6c'},
+      {id:'p_lake',subj:'Lake reglazed (frosted)',date:'Jun',leftPct:'52%',color:'#ff9e57',ring:'rgba(255,255,255,0.3)'},
+      {id:'p_private',subj:'Private chapter leaded over',date:'Jun',leftPct:'70%',color:'#6b7280',ring:'#6b7280'},
+      {id:'p_spring',subj:'Spring left unglazed',date:'May',leftPct:'86%',color:'#8a8f9c',ring:'rgba(255,255,255,0.3)'}
+    ].map(m=>({ ...m, onSelect:setSel(m.id) }));
+    // selected view
+    const sc=this.stateColor(sel.state), tc=this.tone(sel.tone);
+    const lightHidden = sel.state==='redacted'||sel.state==='empty';
+    const view={ title:sel.title, toneColor:tc, subtitle:(sel.mode)+' · '+(sel.recordCount)+' records · '+sel.window,
+      stateLabel:this.stateLabel(sel.state), stateColor:sc, stateBg:this.hexA(sc,0.16),
+      headerBg:this.hexA(sel.state==='cracked'?'#ff5d6c':sel.state==='redacted'?'#6b7280':tc,0.06), softBorder:this.hexA(tc,0.24),
+      whyLight:sel.whyLight, lightLabel:lightHidden?'light':'confidence · light',
+      light: lightHidden? (sel.state==='redacted'?'withheld':'—') : sel.light.toFixed(2),
+      lightPct: lightHidden?'0%':Math.round(sel.light*100)+'%', lightColor: lightHidden?'#6b7280':this.confColor(sel.light),
+      traceLabel: sel.state==='redacted'?'SOURCE TRACE · GOVERNED': sel.state==='empty'?'SOURCE TRACE · EMPTY':'SOURCE TRACE',
+      governanceNote: sel.governanceNote||null,
+      sources: (sel.sources&&!sel.governanceNote)? sel.sources.map(s=>({ label:s.label, role:s.role, conf:s.conf, dot:tc, confColor: s.conf&&s.conf[0]==='0'? this.confColor(parseFloat(s.conf)) : 'rgba(205,196,224,0.5)' })) : null,
+      contradiction:sel.contradiction||null,
+      window:sel.window, lastFired:sel.lastFired, reasoning:sel.reasoning,
+      lifecycle:sel.lifecycle, lifeColor:this.lifeColor(sel.lifecycle), lifeBg:this.hexA(this.lifeColor(sel.lifecycle),0.12), lifeBorder:this.hexA(this.lifeColor(sel.lifecycle),0.3),
+      visibility:sel.visibility, visColor: sel.visibility==='private'?'#ff8a9a':sel.visibility==='public'?'#39e0a6':'#ffce4d', resolver:sel.resolver,
+      canonId:sel.canonId, mode:sel.mode, recordCount:sel.recordCount, canonNote:sel.canonNote,
+      cta: sel.state==='redacted'?'Request access': sel.state==='empty'?'Add records':'Open '+sel.recordCount+' records' };
+    return {
+      style:{ name:st.name, accent:st.accent, lead:st.lead, back:st.back, wall:st.wall, wallInner:st.wallInner, wallGlow:st.wallGlow },
+      windowSvg:this.buildWindow(), firingSvg:this.buildFiring(),
+      navItems, styleTabs, legend, paneLabels, firingMarks, sel:view
+    };
+  }
+}
+</script>
+</body>
+</html>

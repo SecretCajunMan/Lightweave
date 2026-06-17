@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwFlow{to{stroke-dashoffset:-44}}
+  @keyframes lwGlow{0%,100%{opacity:.5}50%{opacity:.95}}
+  @keyframes lwShimmer{0%,100%{opacity:.6}50%{opacity:1}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="The Counting House" style="height:100vh; overflow:hidden; color:rgba(232,238,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 28% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 116% 122%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><path d="M14 4 L14 24" stroke="var(--accent)" stroke-width="1.1" opacity="0.5"></path><path d="M5.5 9 L22.5 19 M5.5 19 L22.5 9" stroke="var(--accent2)" stroke-width="1.1" opacity="0.55"></path><circle cx="14" cy="14" r="2.6" fill="var(--accent2)"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">The Counting House</span>
+      <span style="font-size:10.5px; color:rgba(232,238,247,0.42);">money in, money out — every figure traced to a feed</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(232,238,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(70,224,180,0.3); border-radius:7px; background:rgba(70,224,180,0.06); color:#7fe0c0;"><svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="#7fe0c0" stroke-width="1"></rect><path d="M3.6 5 V3.7 a2.4 2.4 0 0 1 4.8 0 V5" fill="none" stroke="#7fe0c0" stroke-width="1"></path></svg>truth layer · locked</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>reconciled {{ reconciledPct }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,138,122,0.3); border-radius:7px; background:rgba(255,138,122,0.06); color:#ff9a8a;"><span style="width:6px;height:6px;border-radius:50%;background:#ff7a6a;box-shadow:0 0 7px #ff7a6a;"></span>{{ flaggedCount }} contested</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Treasurer</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42); font-family:'IBM Plex Mono',monospace;">record owner</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0; position:relative;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-counting-house"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:0;">
+      <div style="flex:0 0 auto; padding:13px 18px 12px; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex; align-items:flex-end; gap:12px; margin-bottom:11px;">
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600;">The watershed · this month</div>
+            <div style="font-size:12px; color:rgba(232,238,247,0.6); margin-top:3px;">Money springs in, pools in the reserve, drains to where it goes. Tap any stream to trace it.</div>
+          </div>
+          <div style="flex:0 0 auto; display:flex; gap:6px;">
+            <sc-for list="{{ viewTabs }}" as="vt" hint-placeholder-count="2">
+              <span onClick="{{ vt.onClick }}" style="cursor:pointer; font-size:11px; padding:7px 13px; border-radius:9px; background:{{ vt.bg }}; border:1px solid {{ vt.border }}; color:{{ vt.txt }};">{{ vt.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex; gap:9px;">
+          <sc-for list="{{ statTiles }}" as="st" hint-placeholder-count="4">
+            <div style="flex:1; border-radius:11px; padding:9px 12px; background:{{ st.bg }}; border:1px solid {{ st.border }};">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:9px; letter-spacing:0.1em; color:rgba(232,238,247,0.5);">{{ st.label }}</span>
+                <sc-if value="{{ st.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ st.badgeBg }}; color:{{ st.badgeColor }};">{{ st.badge }}</span></sc-if>
+              </div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:700; color:{{ st.color }}; line-height:1.1; margin-top:3px;">{{ st.value }}</div>
+              <div style="font-size:9.5px; color:rgba(232,238,247,0.5); margin-top:2px;">{{ st.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1; min-height:0; display:flex; flex-direction:column; padding:14px 18px 16px;">
+        <div style="flex:1; min-height:0; position:relative; border:1px solid rgba(255,255,255,0.09); border-radius:16px; overflow:hidden; background:radial-gradient(120% 120% at 50% 40%, rgba(40,60,110,0.12), transparent 62%), linear-gradient(160deg, #0a0e16, #070910);">
+          <div style="position:absolute; inset:0;">{{ streamsSvg }}</div>
+          <div style="position:absolute; top:11px; left:16px; font-size:9px; letter-spacing:0.14em; color:rgba(232,238,247,0.4);">INFLOWS · /mo</div>
+          <div style="position:absolute; top:11px; right:16px; font-size:9px; letter-spacing:0.14em; color:rgba(232,238,247,0.4);">OUTFLOWS · /mo</div>
+          <div style="position:absolute; inset:0; display:flex; align-items:center; padding:30px 16px 16px;">
+            <div style="flex:0 0 168px; display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ inflowChips }}" as="ic" hint-placeholder-count="3">
+                <div onClick="{{ ic.onSelect }}" style="cursor:pointer; display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:11px; background:{{ ic.bg }}; border:1px solid {{ ic.border }}; box-shadow:{{ ic.ring }};">
+                  <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ ic.color }}; box-shadow:0 0 7px {{ ic.color }};"></span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ ic.name }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.5);">conf {{ ic.confStr }} · {{ ic.status }}</div>
+                  </div>
+                  <span style="flex:0 0 auto; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:#7fe0c0;">{{ ic.amount }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+              <div onClick="{{ reserve.onSelect }}" style="cursor:pointer; width:188px; border-radius:16px; padding:15px 16px; text-align:center; background:{{ reserve.bg }}; border:1px solid {{ reserve.border }}; box-shadow:{{ reserve.ring }}, 0 10px 34px rgba(0,0,0,0.4); backdrop-filter:blur(2px);">
+                <div style="font-size:9px; letter-spacing:0.16em; color:rgba(232,238,247,0.5);">THE RESERVE</div>
+                <div style="font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:700; color:#ffd98a; line-height:1.1; margin-top:4px;">{{ reserve.balance }}</div>
+                <div style="height:9px; border-radius:6px; background:rgba(0,0,0,0.35); overflow:hidden; margin-top:9px;">
+                  <div style="height:100%; width:{{ reserve.runwayPct }}; background:linear-gradient(90deg, #f0c45a, #ffd98a); border-radius:6px;"></div>
+                </div>
+                <div style="font-size:10px; color:rgba(232,238,247,0.62); margin-top:7px; line-height:1.35;">{{ reserve.runway }} runway · conf {{ reserve.confStr }}</div>
+              </div>
+            </div>
+            <div style="flex:0 0 192px; display:flex; flex-direction:column; gap:7px;">
+              <sc-for list="{{ outflowChips }}" as="oc" hint-placeholder-count="6">
+                <div onClick="{{ oc.onSelect }}" style="cursor:pointer; display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:10px; background:{{ oc.bg }}; border:1px solid {{ oc.border }}; box-shadow:{{ oc.ring }};">
+                  <span style="flex:0 0 auto; width:16px; height:16px; display:flex; align-items:center; justify-content:center;">{{ oc.icon }}</span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:10.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ oc.name }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:rgba(232,238,247,0.5);">conf {{ oc.confStr }} · {{ oc.status }}</div>
+                  </div>
+                  <span style="flex:0 0 auto; font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:600; color:{{ oc.amountColor }};">{{ oc.amount }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:absolute; left:50%; bottom:11px; transform:translateX(-50%); display:flex; align-items:center; gap:14px; font-size:9.5px; color:rgba(232,238,247,0.5);">
+            <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#7fe0c0" stroke-width="3" stroke-linecap="round"></line></svg>settled</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="#e8c75a" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 3"></line></svg>estimated</span>
+            <span style="font-style:italic;">The theme can recolor the river. It can't move a cent.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside style="flex:0 0 374px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 17px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Trace</span>
+          <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.statusBg }}; color:{{ sel.statusColor }};">{{ sel.statusLabel }}</span>
+        </div>
+        <div style="font-size:10.5px; color:rgba(232,238,247,0.45); margin-top:3px;">where this figure comes from — to the cent</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:15px 17px 18px; display:flex; flex-direction:column; gap:14px;">
+
+        <div style="display:flex; align-items:center; gap:13px;">
+          <div style="flex:0 0 64px; height:64px; border-radius:14px; background:{{ sel.iconBg }}; border:1px solid {{ sel.iconBorder }}; display:flex; align-items:center; justify-content:center;">
+            <span style="width:30px; height:30px;">{{ sel.icon }}</span>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600;">{{ sel.name }}</div>
+            <div style="font-size:11px; color:rgba(232,238,247,0.6); margin-top:2px;">{{ sel.kindLabel }}</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:{{ sel.amountColor }}; margin-top:4px;">{{ sel.amount }} <span style="font-size:11px; font-weight:400; color:rgba(232,238,247,0.45);">{{ sel.cadence }}</span></div>
+          </div>
+        </div>
+
+        <div style="border-radius:11px; padding:11px 12px; background:{{ sel.transBg }}; border:1px solid {{ sel.transBorder }};">
+          <div style="font-size:9px; letter-spacing:0.1em; color:{{ sel.statusColor }}; margin-bottom:6px;">WHAT THIS IS</div>
+          <div style="font-size:11.5px; line-height:1.55; color:rgba(232,238,247,0.8); text-wrap:pretty;">{{ sel.blurb }}</div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">CONFIDENCE</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.confColor }};">{{ sel.confStr }} · {{ sel.confWord }}</span>
+          </div>
+          <div style="height:8px; border-radius:6px; background:rgba(255,255,255,0.08); overflow:hidden;">
+            <div style="height:100%; width:{{ sel.confPct }}; background:linear-gradient(90deg, {{ sel.confColor }}, {{ sel.color }}); border-radius:6px;"></div>
+          </div>
+          <sc-if value="{{ sel.confNote }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:9.5px; color:rgba(232,238,247,0.5); margin-top:5px;">{{ sel.confNote }}</div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">STATUS</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.statusColor }};">{{ sel.statusLabel }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">RESOLVER</div><div style="font-size:10px; font-weight:600; font-family:'IBM Plex Mono',monospace; color:rgba(232,238,247,0.85);">{{ sel.resolver }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">WINDOW</div><div style="font-size:10px; font-weight:500; color:rgba(232,238,247,0.82);">{{ sel.window }}</div></div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">SOURCE FEEDS · PROVENANCE</div>
+          <div style="border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+            <sc-for list="{{ sel.sources }}" as="sr" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; padding:8px 11px; border-top:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.15);">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(232,238,247,0.85);">{{ sr.rec }}</span><span style="font-size:9px; color:rgba(232,238,247,0.45);">{{ sr.kind }} · {{ sr.note }}</span></span>
+                <sc-if value="{{ sr.flag }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto; font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; margin-right:8px; background:rgba(255,158,87,0.16); color:#ff9e57;">{{ sr.flag }}</span></sc-if>
+                <span style="flex:0 0 54px; font-size:10px; color:rgba(232,238,247,0.6);">{{ sr.source }}</span>
+                <span style="flex:0 0 34px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ sr.confColor }};">{{ sr.confStr }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,107,138,0.06); border:1px solid rgba(255,107,138,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="5" cy="6" r="4" fill="#ffd9a0"></circle><circle cx="7.4" cy="6" r="4" fill="#1a0f14" stroke="#ff6b8a" stroke-width="0.8"></circle></svg>
+              <span style="font-size:11px; font-weight:600;">{{ sel.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(232,238,247,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="rp" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(232,238,247,0.72);">{{ rp }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:9px;">CANONICAL RECORD LINK</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">id</span><span style="color:{{ sel.color }};">{{ sel.canonicalId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">visibility</span><span>Private</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">governance</span><span>{{ sel.governance }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">records</span><span>{{ sel.records }} canonical</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">ACTIONS</span>
+            <span style="font-size:9.5px; color:rgba(232,238,247,0.42);">recommended: <span style="color:var(--accent2); font-weight:600;">{{ sel.recLabel }}</span></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ sel.actions }}" as="ca" hint-placeholder-count="2">
+              <div onClick="{{ ca.onClick }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:10px; background:{{ ca.bg }}; border:1px solid {{ ca.border }}; box-shadow:{{ ca.ring }};">
+                <span style="flex:1; min-width:0;">
+                  <span style="display:flex; align-items:center; gap:6px;"><span style="font-size:12px; font-weight:600; color:{{ ca.labelColor }};">{{ ca.label }}</span><sc-if value="{{ ca.recommended }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:rgba(70,224,180,0.16); color:#7fe0c0;">REC</span></sc-if></span>
+                  <span style="display:block; font-size:9.5px; line-height:1.35; color:rgba(232,238,247,0.5); margin-top:3px;">{{ ca.help }}</span>
+                </span>
+                <span style="flex:0 0 auto; font-size:9px; font-family:'IBM Plex Mono',monospace; color:{{ ca.writesColor }};">{{ ca.writes }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:9px; padding-top:9px; border-top:1px solid rgba(255,255,255,0.06);">
+            <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></rect><path d="M4 5 V3.6 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></path></svg>
+            <span style="font-size:10px; color:rgba(232,238,247,0.55); line-height:1.4;">Reconcile, flag, estimate, pin — all annotations. Not one of them edits a transaction.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 132px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px; min-height:0;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:11px; margin-bottom:8px; flex:0 0 auto;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:rgba(232,238,247,0.7);">Recent reckonings · ledger trace</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42);">straight from the feeds · tap to trace one</span>
+      </div>
+      <div style="flex:1; min-height:0; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ reckonings }}" as="rk" hint-placeholder-count="6">
+          <div onClick="{{ rk.onSelect }}" style="flex:0 0 auto; min-width:182px; cursor:pointer; display:flex; gap:9px; align-items:flex-start; background:{{ rk.bg }}; border:1px solid {{ rk.border }}; border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ rk.color }}; box-shadow:0 0 6px {{ rk.color }}; margin-top:4px;"></span>
+            <div style="min-width:0; flex:1;">
+              <div style="display:flex; align-items:baseline; gap:6px;"><span style="font-size:10.5px; color:rgba(232,238,247,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:104px;">{{ rk.title }}</span><span style="flex:1;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:{{ rk.amountColor }};">{{ rk.amount }}</span></div>
+              <div style="font-size:9px; color:rgba(232,238,247,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ rk.detail }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ rk.statusColor }}; margin-top:1px;">{{ rk.status }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 240px; display:flex; align-items:center; gap:12px; background:rgba(70,224,180,0.05); border:1px solid rgba(70,224,180,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:#7fe0c0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px;">transactions edited</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:rgba(232,238,247,0.92); line-height:1;">{{ annotationCount }}</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px; line-height:1.3;">annotations · the zero is the one that matters</div>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; bottom:148px; left:50%; z-index:40; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(16,22,32,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:560px;">
+      <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+      <span style="font-size:11.5px; line-height:1.45; color:rgba(232,238,247,0.9);">{{ toast }}</span>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;treasury&quot;,&quot;emerald&quot;,&quot;violet&quot;],&quot;default&quot;:&quot;treasury&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;livingMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.STATUS = {
+      settled:  { label:'Settled',   color:'#39e0a6', bg:'rgba(57,224,166,0.14)' },
+      cleared:  { label:'Cleared',   color:'#7fd99a', bg:'rgba(127,217,154,0.14)' },
+      estimated:{ label:'Estimated', color:'#e8c75a', bg:'rgba(232,199,90,0.14)' },
+      contested:{ label:'Contested', color:'#ff6b8a', bg:'rgba(255,107,138,0.14)' }
+    };
+    this.ITEMS = {
+      in_primary:{ flow:'in', name:'Primary income', kindLabel:'Inflow · salary', amt:4200, color:'#46e0b4', status:'settled', conf:0.95, cadence:'/mo', resolver:'LATEST', window:'monthly · last 6', records:6, canonicalId:'src_payroll', governance:'User-owned', y:118, w:4200,
+        blurb:'Your salary, read straight off the payroll feed. The steadiest stream in the house — settled and on time for six months running.',
+        sources:[{rec:'rec_pay_jun',kind:'Payroll deposit',source:'Bank feed',note:'settled Jun 1',conf:0.97}],
+        reasoning:['Direct-deposit feed posts on the 1st, six months consistent.','No contradictions; amount matches the last five to the cent.','High confidence — this is the bedrock of the runway figure.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      in_side:{ flow:'in', name:'Side ledger', kindLabel:'Inflow · freelance', amt:850, color:'#7fd99a', status:'estimated', conf:0.68, cadence:'/mo avg', resolver:'LATEST', window:'rolling 3mo avg', records:7, canonicalId:'src_freelance', governance:'User-owned', y:198, w:850,
+        blurb:'Freelance deposits, averaged. Irregular by nature, so this stream is an estimate — drawn dashed. Real deposits settle; the average between them does not.',
+        sources:[{rec:'rec_fl_1',kind:'Freelance deposit',source:'Bank feed',note:'cleared Jun 9',conf:0.80},{rec:'rec_fl_avg',kind:'3-mo average',source:'Derived',note:'estimate',conf:0.60}],
+        reasoning:['Two deposits in the window; the rest is a 3-month average.','Marked estimated — the projection never asserts an unsettled figure as fact.','Confidence held at 0.68 to reflect the irregularity honestly.'], contradiction:null, actions:['estimate','reconcile'], rec:'estimate' },
+      in_interest:{ flow:'in', name:'Interest dribble', kindLabel:'Inflow · interest', amt:35, color:'#9ff0d4', status:'settled', conf:0.92, cadence:'/mo', resolver:'LATEST', window:'monthly', records:6, canonicalId:'src_interest', governance:'User-owned', y:268, w:35,
+        blurb:'A trickle of interest on the reserve. Small, settled, and reliable — the thinnest stream on the wall, and honest about it.',
+        sources:[{rec:'rec_int_jun',kind:'Interest posting',source:'Bank feed',note:'settled Jun 1',conf:0.92}],
+        reasoning:['Posted monthly by the bank on the reserve balance.','Tiny but settled; no contradictions.','Rounds out inflow without moving the runway much.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      reserve:{ flow:'reserve', name:'The Reserve', kindLabel:'Held balance', amt:18400, color:'#f0c45a', status:'settled', conf:0.97, cadence:'', resolver:'LATEST', window:'as of Jun 16', records:1, canonicalId:'bal_reserve', governance:'User-owned', y:175, w:0,
+        blurb:'Everything you have banked, right now. Read from the account balance feed at 0.97. Runway is this divided by burn — a projection, clearly labelled, that moves only when the balance does.',
+        sources:[{rec:'rec_bal',kind:'Account balance',source:'Bank feed',note:'synced 2h ago',conf:0.97}],
+        reasoning:['Balance feed synced two hours ago.','Runway = reserve / monthly burn = 5.2 months at today\u2019s outflow.','The runway number is derived; the balance under it is canonical.'], contradiction:null, actions:['pin','reconcile'], rec:'pin' },
+      out_housing:{ flow:'out', name:'Housing', kindLabel:'Outflow · housing', amt:1650, color:'#9b8cff', status:'settled', conf:0.97, cadence:'/mo', resolver:'GOVERNED', window:'monthly', records:6, canonicalId:'cat_housing', governance:'User-owned', y:64, w:1650, hosting:false,
+        blurb:'Rent and the fixed costs of having a roof. The biggest outflow, settled by standing order — no surprises, high confidence.',
+        sources:[{rec:'rec_rent',kind:'Standing order',source:'Bank feed',note:'settled Jun 1',conf:0.97}],
+        reasoning:['Fixed standing order, identical six months running.','Settled and reconciled; no contradictions.','Largest single drain on the reserve.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      out_food:{ flow:'out', name:'Sustenance', kindLabel:'Outflow · food', amt:620, color:'#5fd39a', status:'settled', conf:0.90, cadence:'/mo', resolver:'LATEST', window:'monthly', records:23, canonicalId:'cat_food', governance:'User-owned', y:118, w:620, hosting:false,
+        blurb:'Groceries and the occasional indulgence, summed from card transactions. Settled, with normal month-to-month wobble.',
+        sources:[{rec:'rec_food',kind:'Card transactions',source:'Bank feed',note:'23 settled',conf:0.90}],
+        reasoning:['Aggregated from 23 settled card transactions.','Variance is ordinary; confidence solid at 0.90.','No duplicates flagged this cycle.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      out_storage:{ flow:'out', name:'Cold storage array', kindLabel:'Outflow · hosting · drives', amt:180, color:'#46c8ff', status:'settled', conf:0.88, cadence:'/mo', resolver:'GOVERNED', window:'monthly', records:1, canonicalId:'cat_storage', governance:'User-owned', y:172, w:180, hosting:true,
+        blurb:'The hard drives that hold every projection you\u2019ve built. A fixed monthly lease on the storage array — settled invoice, matched to the bank line.',
+        sources:[{rec:'rec_store_inv',kind:'Storage invoice',source:'Vendor feed',note:'settled Jun 5',conf:0.92},{rec:'rec_store_tx',kind:'Card payment',source:'Bank feed',note:'matched',conf:0.96}],
+        reasoning:['Fixed array lease, invoice matched to the bank line.','Half of \u201ckeeping the lights on.\u201d Settled and reconciled.','No drift; this is the predictable half of hosting.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' },
+      out_compute:{ flow:'out', name:'Compute & current', kindLabel:'Outflow · hosting · electricity', amt:240, color:'#7fb6e8', status:'estimated', conf:0.76, cadence:'/mo est', resolver:'LATEST', window:'3mo avg · this cycle est', records:4, canonicalId:'cat_compute', governance:'User-owned', y:226, w:240, hosting:true,
+        blurb:'Electricity and compute to actually run the machines. This one breathes with the weather and the workload, so this cycle is an estimate until the utility bills. The last bill settled at $224.10.',
+        sources:[{rec:'rec_power',kind:'Utility bill',source:'Utility feed',note:'last settled $224.10',conf:0.94},{rec:'rec_power_est',kind:'This-cycle estimate',source:'Derived',note:'not yet billed',conf:0.62}],
+        reasoning:['Last utility bill settled at $224.10; this cycle is estimated from a 3-month average.','Marked estimated and drawn dashed — never asserted as settled.','The variable half of hosting; request the statement to settle it.'], contradiction:null, actions:['statement','estimate'], rec:'statement' },
+      out_subs:{ flow:'out', name:'Subscriptions', kindLabel:'Outflow · subscriptions', amt:310, color:'#ff7aa8', status:'contested', conf:0.70, cadence:'/mo', resolver:'GOVERNED', window:'monthly', records:9, canonicalId:'cat_subs', governance:'Governed', y:280, w:310, hosting:false,
+        blurb:'The pile of recurring charges. Contested this month: one $42.10 stream subscription arrived from two feeds and got counted twice. The total reads high until governance settles inclusion.',
+        sources:[{rec:'tx_9921 \u00b7 feed A',kind:'Subscription',source:'Bank A',note:'',conf:0.96,flag:'DUP?'},{rec:'tx_9921 \u00b7 feed B',kind:'Subscription',source:'Bank B',note:'',conf:0.95,flag:'DUP?'},{rec:'rec_subs_rest',kind:'Other subs',source:'Bank feed',note:'7 settled',conf:0.90}],
+        reasoning:['Two records share amount, merchant, and timestamp exactly.','Counting both inflates the category by $42.10 \u2014 confidence dinged to 0.70.','Inclusion is governed: flag for QC, never silently delete a record.'],
+        contradiction:{ title:'SAME CHARGE \u00b7 TWO FEEDS', a:{label:'Feed A \u00b7 tx_9921',val:'$42.10',conf:'conf 0.96',color:'#4fd0e0'}, b:{label:'Feed B \u00b7 tx_9921',val:'$42.10',conf:'conf 0.95',color:'#f0a85c'}, note:'Identical amount, merchant, and timestamp. Almost certainly one charge ingested twice \u2014 but the Counting House cannot delete a canonical transaction. QC and governance decide inclusion.' }, actions:['qc','reconcile'], rec:'qc' },
+      out_else:{ flow:'out', name:'Everything else', kindLabel:'Outflow · misc', amt:540, color:'#9aa6c0', status:'settled', conf:0.80, cadence:'/mo', resolver:'LATEST', window:'monthly', records:14, canonicalId:'cat_misc', governance:'User-owned', y:330, w:540, hosting:false,
+        blurb:'The honest junk drawer — transport, one-offs, things that don\u2019t earn their own stream yet. Settled, lower confidence only because it\u2019s a grab bag.',
+        sources:[{rec:'rec_misc',kind:'Mixed transactions',source:'Bank feed',note:'14 settled',conf:0.80}],
+        reasoning:['Catch-all for 14 uncategorised settled transactions.','Confidence at 0.80 reflects mixed provenance, not bad data.','Split into its own categories once a pattern emerges.'], contradiction:null, actions:['reconcile','pin'], rec:'reconcile' }
+    };
+    this.ORDER_IN=['in_primary','in_side','in_interest'];
+    this.ORDER_OUT=['out_housing','out_food','out_storage','out_compute','out_subs','out_else'];
+    this.ACTIONS = {
+      reconcile:{label:'Reconcile',         help:'Mark matched to the statement.',                writes:'+1 annotation'},
+      pin:      {label:'Pin to runway watch',help:'Keep an eye on this figure.',                    writes:'+1 annotation'},
+      statement:{label:'Request statement', help:'Ask the feed for the settled number.',           writes:'+1 annotation'},
+      estimate: {label:'Mark estimate',     help:'Label as not-yet-settled. Honest, not hidden.',  writes:'+1 annotation'},
+      qc:       {label:'Flag for QC',       help:'Governed review of the duplicate.',              writes:'\u2192 QC \u00b7 +1 annotation'}
+    };
+    this.TOASTS = {
+      reconcile:'Reconciled. Logged as an annotation \u2014 the transaction is exactly as the bank reported it.',
+      pin:'Pinned to your runway watch. Nothing changed in the ledger but a note that you\u2019re watching.',
+      statement:'Statement requested. The estimate stays an estimate until the real number settles.',
+      estimate:'Marked estimate. Calling an unsettled figure \u201cestimated\u201d is the honest move.',
+      qc:'Flagged for QC. Inclusion is governed \u2014 we surface the duplicate, we never delete a record.'
+    };
+    this.RECK = [
+      { id:'rk_pay',  title:'Payroll', detail:'salary \u00b7 Bank feed', amt:'+$4,200.00', status:'settled',  item:'in_primary' },
+      { id:'rk_store',title:'Cold storage invoice', detail:'hosting \u00b7 drives', amt:'\u2212$180.00', status:'settled', item:'out_storage' },
+      { id:'rk_pow',  title:'Utility \u2014 power', detail:'hosting \u00b7 electricity', amt:'\u2212$224.10', status:'settled', item:'out_compute' },
+      { id:'rk_sub',  title:'Stream subscription', detail:'two feeds \u00b7 possible dup', amt:'\u2212$42.10', status:'contested', item:'out_subs' },
+      { id:'rk_food', title:'Grocery run', detail:'food \u00b7 card', amt:'\u2212$86.40', status:'settled', item:'out_food' },
+      { id:'rk_fl',   title:'Freelance deposit', detail:'side ledger \u00b7 cleared', amt:'+$500.00', status:'cleared', item:'in_side' }
+    ];
+    this.state = { sel:'out_compute', view:'flow', annos:{}, toast:null };
+  }
+
+  cur(){ return this.ITEMS[this.state.sel] || this.ITEMS.reserve; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.9?'#39e0a6': c>=0.75?'#7fd99a': c>=0.6?'#e8c75a': c>=0.45?'#ff9e57':'#ff6b5e'; }
+  confWord(c){ return c>=0.9?'high': c>=0.75?'solid': c>=0.6?'fair': c>=0.45?'low':'very low'; }
+  motionOn(){ return this.props.livingMotion!==false; }
+  money(n){ return '$'+n.toLocaleString('en-US'); }
+  sw(amt){ return Math.max(3, Math.min(26, amt/85)); }
+
+  bulbIcon(col){ const h=React.createElement; return h('svg',{viewBox:'0 0 16 16',width:'100%',height:'100%'},h('path',{d:'M8 1.5 a4.5 4.5 0 0 1 2.6 8.1 V11 H5.4 V9.6 A4.5 4.5 0 0 1 8 1.5 Z',fill:'none',stroke:col,strokeWidth:1.2}),h('line',{x1:6,y1:12.4,x2:10,y2:12.4,stroke:col,strokeWidth:1.2,strokeLinecap:'round'}),h('line',{x1:6.6,y1:14,x2:9.4,y2:14,stroke:col,strokeWidth:1.2,strokeLinecap:'round'})); }
+  diskIcon(col){ const h=React.createElement; return h('svg',{viewBox:'0 0 16 16',width:'100%',height:'100%'},h('ellipse',{cx:8,cy:4.5,rx:5.2,ry:2.2,fill:'none',stroke:col,strokeWidth:1.2}),h('path',{d:'M2.8 4.5 V11.5 a5.2 2.2 0 0 0 10.4 0 V4.5',fill:'none',stroke:col,strokeWidth:1.2}),h('path',{d:'M2.8 8 a5.2 2.2 0 0 0 10.4 0',fill:'none',stroke:col,strokeWidth:1,opacity:0.6})); }
+  catIcon(item){ const h=React.createElement, col=item.color;
+    if(item.canonicalId==='cat_storage') return this.diskIcon(col);
+    if(item.canonicalId==='cat_compute') return this.bulbIcon(col);
+    const map={cat_housing:'M3 8 L8 3 L13 8 V13 H3 Z', cat_food:'M5 2 V7 M7 2 V7 M6 7 V14 M11 2 C9 2 9 7 11 7 V14', cat_subs:'M2 5 H14 M2 9 H14 M2 13 H10', cat_misc:'M3 3 H13 V13 H3 Z M3 7 H13'};
+    const d=map[item.canonicalId]||'M3 8 H13';
+    return h('svg',{viewBox:'0 0 16 16',width:'100%',height:'100%'},h('path',{d:d,fill:'none',stroke:col,strokeWidth:1.2,strokeLinecap:'round',strokeLinejoin:'round'}));
+  }
+  bigIcon(item){ const h=React.createElement, col=item.color;
+    if(item.flow==='in') return h('svg',{viewBox:'0 0 30 30',width:'100%',height:'100%'},h('path',{d:'M15 22 V6 M9 12 L15 6 L21 12',fill:'none',stroke:col,strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}),h('path',{d:'M7 24 H23',stroke:this.hexA(col,0.5),strokeWidth:1.6,strokeLinecap:'round'}));
+    if(item.flow==='reserve') return h('svg',{viewBox:'0 0 30 30',width:'100%',height:'100%'},h('ellipse',{cx:15,cy:9,rx:9,ry:3.4,fill:'none',stroke:col,strokeWidth:1.6}),h('path',{d:'M6 9 V21 a9 3.4 0 0 0 18 0 V9',fill:'none',stroke:col,strokeWidth:1.6}),h('path',{d:'M6 15 a9 3.4 0 0 0 18 0',fill:'none',stroke:this.hexA(col,0.6),strokeWidth:1.3}));
+    if(item.canonicalId==='cat_storage'){ return h('div',{style:{width:'100%',height:'100%'}},this.diskIcon(col)); }
+    if(item.canonicalId==='cat_compute'){ return h('div',{style:{width:'100%',height:'100%'}},this.bulbIcon(col)); }
+    return h('svg',{viewBox:'0 0 30 30',width:'100%',height:'100%'},h('path',{d:'M15 8 V24 M9 18 L15 24 L21 18',fill:'none',stroke:col,strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}),h('path',{d:'M7 6 H23',stroke:this.hexA(col,0.5),strokeWidth:1.6,strokeLinecap:'round'}));
+  }
+
+  buildStreams(){
+    const h=React.createElement, m=this.motionOn(), sel=this.state.sel, R=[];
+    R.push(h('defs',null,h('filter',{id:'cg',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'4',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'})))));
+    // reservoir glow pool behind center card
+    R.push(h('ellipse',{key:'pool',cx:500,cy:200,rx:150,ry:118,fill:this.hexA('#f0c45a',0.06),filter:'url(#cg)',style:m?{animation:'lwGlow 4s ease-in-out infinite'}:undefined}));
+    const drawStream=(id,d,col,amt,dashed)=>{
+      const on=id===sel, w=this.sw(amt), op=on?0.95:0.42;
+      R.push(h('path',{key:id+'b',d:d,fill:'none',stroke:this.hexA(col,op),strokeWidth:on?w+2:w,strokeLinecap:'round',strokeDasharray:dashed?'2 7':undefined,filter:on?'url(#cg)':undefined}));
+      if(m) R.push(h('path',{key:id+'f',d:d,fill:'none',stroke:this.hexA('#ffffff',on?0.5:0.22),strokeWidth:Math.max(1.5,w*0.3),strokeLinecap:'round',strokeDasharray:'5 22',style:{animation:'lwFlow '+(2.4-(on?0.8:0))+'s linear infinite'}}));
+    };
+    // inflows: left edge -> pool (approx x430,y200)
+    this.ORDER_IN.forEach(id=>{ const it=this.ITEMS[id]; const d='M0 '+it.y+' C 200 '+it.y+', 330 200, 470 200'; drawStream(id,d,it.color,it.amt,it.status==='estimated'); });
+    // outflows: pool (x530,y200) -> right edge
+    this.ORDER_OUT.forEach(id=>{ const it=this.ITEMS[id]; const d='M530 200 C 700 200, 800 '+it.y+', 1000 '+it.y; drawStream(id,d,it.color,it.amt,it.status==='estimated'||it.status==='contested'); });
+    return h('svg',{viewBox:'0 0 1000 400',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  select(id){ this.setState({sel:id}); }
+  setView(v){ this.setState({view:v}); }
+  act(id,key){
+    const it=this.ITEMS[id], a=this.ACTIONS[key];
+    this.setState(st=>({ annos:{...st.annos,[id]:key}, toast:this.TOASTS[key] }));
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),3800);
+  }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const pal = this.props.palette==='emerald'?{accent:'#46e0b4',accent2:'#9b8cff'}: this.props.palette==='violet'?{accent:'#9b8cff',accent2:'#46e0b4'}:{accent:'#f0c45a',accent2:'#46c8ff'};
+    const navItems = ['Prism Intake','Spectrum Recall','Lattice Vault','The Counting House','Weatherglass Flux','Tide Room','Resonance Atlas','Signal Menagerie','Lumen Apothecary']
+      .map(l=>{ const on=l==='The Counting House'; return {label:l, weight:on?'600':'400', bg:on?'rgba(255,255,255,0.07)':'transparent', bar:on?'inset 2px 0 0 var(--accent)':'none', txt:on?'rgba(232,238,247,0.95)':'rgba(232,238,247,0.6)', dot:on?'var(--accent)':'rgba(232,238,247,0.32)'}; });
+
+    const totalIn = this.ORDER_IN.reduce((s,id)=>s+this.ITEMS[id].amt,0);
+    const totalOut = this.ORDER_OUT.reduce((s,id)=>s+this.ITEMS[id].amt,0);
+    const net = totalIn-totalOut;
+    const hosting = this.ITEMS.out_storage.amt + this.ITEMS.out_compute.amt;
+    const reserveBal = this.ITEMS.reserve.amt;
+    const runwayMo = (reserveBal/totalOut);
+    const hostingMo = (reserveBal/hosting);
+    const hostingPct = Math.round(hosting/totalOut*100);
+
+    const statTiles = [
+      { label:'IN / MO', value:this.money(totalIn), color:'#7fe0c0', note:'3 streams · 1 estimated', bg:'rgba(70,224,180,0.05)', border:'rgba(70,224,180,0.2)' },
+      { label:'BURN / MO', value:this.money(totalOut), color:'rgba(232,238,247,0.92)', note:'net '+(net>=0?'+':'')+this.money(net)+' surplus', bg:'rgba(255,255,255,0.025)', border:'rgba(255,255,255,0.09)' },
+      { label:'RUNWAY', value:runwayMo.toFixed(1)+' mo', color:'#ffd98a', note:'if inflow paused today', bg:'rgba(240,196,90,0.05)', border:'rgba(240,196,90,0.22)' },
+      { label:'KEEPING THE LIGHTS ON', value:this.money(hosting)+'/mo', color:'#7fcfff', note:hostingPct+'% of burn · '+hostingMo.toFixed(0)+' mo of hosting in reserve', badge:'HOSTING', badgeBg:'rgba(70,200,255,0.16)', badgeColor:'#7fcfff', bg:'rgba(70,200,255,0.06)', border:'rgba(70,200,255,0.28)' }
+    ];
+
+    const viewTabs=[['flow','Watershed'],['flow2','Ledger']].map((g,i)=>{ const on=this.state.view===g[0];
+      return { label:g[1], onClick:()=>this.setView(g[0]), bg:on?this.hexA(pal.accent,0.16):'rgba(255,255,255,0.03)', border:on?this.hexA(pal.accent,0.5):'rgba(255,255,255,0.1)', txt:on?'#fff':'rgba(232,238,247,0.65)' }; });
+
+    const mkChip=(id)=>{ const it=this.ITEMS[id], on=id===this.state.sel, sc=this.STATUS[it.status];
+      return { name:it.name, color:it.color, confStr:it.conf.toFixed(2), status:sc.label, amount:(it.flow==='in'?'+':'\u2212')+this.money(it.amt), amountColor:it.flow==='in'?'#7fe0c0':'rgba(232,238,247,0.9)',
+        icon:this.catIcon(it), onSelect:()=>this.select(id),
+        bg:on?this.hexA(it.color,0.12):(it.hosting?'rgba(70,200,255,0.05)':'rgba(255,255,255,0.025)'),
+        border:on?this.hexA(it.color,0.55):(it.hosting?'rgba(70,200,255,0.28)':'rgba(255,255,255,0.08)'),
+        ring:on?'0 0 0 1px '+this.hexA(it.color,0.4):(it.hosting?'0 0 14px rgba(70,200,255,0.12)':'none') }; };
+
+    const inflowChips=this.ORDER_IN.map(mkChip);
+    const outflowChips=this.ORDER_OUT.map(mkChip);
+
+    const rv=this.ITEMS.reserve, rvOn=this.state.sel==='reserve';
+    const reserve={ balance:this.money(reserveBal), runway:runwayMo.toFixed(1)+' mo', confStr:rv.conf.toFixed(2), runwayPct:Math.min(100,Math.round(runwayMo/12*100))+'%',
+      onSelect:()=>this.select('reserve'), bg:rvOn?'rgba(240,196,90,0.12)':'rgba(20,18,12,0.66)', border:rvOn?this.hexA('#f0c45a',0.6):'rgba(240,196,90,0.3)', ring:rvOn?'0 0 0 1px '+this.hexA('#f0c45a',0.5):'0 0 0 1px rgba(240,196,90,0.12)' };
+
+    const it=this.cur(), sc=this.STATUS[it.status];
+    const actions=it.actions.map(k=>{ const a=this.ACTIONS[k], rec=k===it.rec, taken=this.state.annos[it.canonicalId? it.canonicalId:this.state.sel]; const wasTaken=this.state.annos[this.state.sel]===k;
+      return { label:a.label, help:a.help, writes:a.writes, recommended:rec, onClick:()=>this.act(this.state.sel,k),
+        bg:wasTaken?this.hexA(pal.accent2,0.14):(rec?this.hexA(pal.accent2,0.08):'rgba(255,255,255,0.03)'),
+        border:wasTaken?this.hexA(pal.accent2,0.55):(rec?this.hexA(pal.accent2,0.4):'rgba(255,255,255,0.1)'),
+        ring:rec?'0 0 0 1px '+this.hexA(pal.accent2,0.3):'none', labelColor:rec?'#bfe9e0':'rgba(232,238,247,0.9)',
+        writesColor:'#7fe0c0' }; });
+
+    const sel={ name:it.name, kindLabel:it.kindLabel, amount:(it.flow==='in'?'+':it.flow==='reserve'?'':'\u2212')+this.money(it.amt), cadence:it.cadence,
+      amountColor:it.flow==='in'?'#7fe0c0':(it.flow==='reserve'?'#ffd98a':'rgba(232,238,247,0.92)'),
+      icon:this.bigIcon(it), iconBg:this.hexA(it.color,0.08), iconBorder:this.hexA(it.color,0.3), color:it.color,
+      statusLabel:sc.label, statusColor:sc.color, statusBg:sc.bg, blurb:it.blurb,
+      transBg:this.hexA(sc.color,0.05), transBorder:this.hexA(sc.color,0.26),
+      confStr:it.conf.toFixed(2), confColor:this.confColor(it.conf), confWord:this.confWord(it.conf), confPct:Math.round(it.conf*100)+'%',
+      confNote:it.status==='estimated'?'Partly estimated — not every figure has settled yet.':(it.status==='contested'?'Inflated by a duplicate — held until QC settles inclusion.':null),
+      resolver:it.resolver, window:it.window, governance:it.governance, records:it.records, canonicalId:it.canonicalId,
+      sources:it.sources.map(s=>({rec:s.rec, kind:s.kind, note:s.note, source:s.source, flag:s.flag||null, confStr:s.conf.toFixed(2), confColor:this.confColor(s.conf)})),
+      contradiction:it.contradiction, reasoning:it.reasoning, actions, recLabel:this.ACTIONS[it.rec].label };
+
+    const reckonings=this.RECK.map(r=>{ const sc2=this.STATUS[r.status], inflow=r.amt[0]==='+';
+      return { title:r.title, detail:r.detail, amount:r.amt, amountColor:inflow?'#7fe0c0':'rgba(232,238,247,0.88)', status:sc2.label, statusColor:sc2.color, color:sc2.color, onSelect:()=>this.select(r.item),
+        bg:'rgba(255,255,255,0.025)', border:'rgba(255,255,255,0.07)' }; });
+
+    const annotationCount=Object.keys(this.state.annos).length;
+
+    return {
+      accent:pal.accent, accent2:pal.accent2, base:'#06070e', bg1:this.hexA(pal.accent,0.16), bg2:this.hexA(pal.accent2,0.09), glow:this.hexA(pal.accent,0.3),
+      navItems, statTiles, viewTabs, streamsSvg:this.buildStreams(), inflowChips, outflowChips, reserve, sel, reckonings, annotationCount,
+      reconciledPct:'92%', flaggedCount:1, toast:this.state.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

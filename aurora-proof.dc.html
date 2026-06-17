@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwFlux{to{stroke-dashoffset:-60}}
+  @keyframes lwShimmer{0%,100%{opacity:.30}50%{opacity:.75}}
+  @keyframes lwPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:.15;transform:scale(1.6)}}
+  @keyframes lwTwinkle{0%,100%{opacity:.3}50%{opacity:.9}}
+</style>
+</helmet>
+<div data-screen-label="Aurora Proof" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; background:radial-gradient(1200px 660px at 40% -16%, var(--bg1), transparent 60%), radial-gradient(1000px 740px at 108% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Aurora Proof</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Provenance · Layer 0 · why this exists</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>read-only projection</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">4 sources · 1 conflict</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>integrity verified</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">PROOF · Mon Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="aurora-proof"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(238,241,251,0.42); margin-bottom:4px;">PROJECTED ANSWER</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; color:rgba(238,241,251,0.97);">{{ answer.text }}</div>
+          <div style="font-size:11px; color:rgba(238,241,251,0.5); margin-top:4px;">{{ answer.sub }}</div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:14px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">DISTORTIONS</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 10px; border-radius:8px; background:rgba(255,107,94,0.12); border:1px solid rgba(255,107,94,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#ff6b5e; box-shadow:0 0 7px #ff6b5e;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:#ff8a7e;">1</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">LIFECYCLE</span>
+            <span style="font-size:12px; font-weight:600; color:#39e0a6; padding:5px 10px; border-radius:8px; background:rgba(57,224,166,0.12); border:1px solid rgba(57,224,166,0.3);">Confirmed</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">CONFIDENCE</span>
+            <div style="position:relative; width:44px; height:44px; border-radius:50%; background:conic-gradient(#39e0a6 81%, rgba(255,255,255,0.08) 0); display:flex; align-items:center; justify-content:center;"><div style="width:34px; height:34px; border-radius:50%; background:#0a0c14; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;">.81</span></div></div>
+          </div>
+          <div style="width:1px; height:46px; background:rgba(255,255,255,0.12);"></div>
+          <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">VIEW</span>
+            <div style="display:flex; background:rgba(0,0,0,0.28); border:1px solid rgba(255,255,255,0.12); border-radius:9px; padding:3px;">
+              <span onClick="{{ onProjection }}" style="font-size:11.5px; font-weight:500; padding:6px 13px; border-radius:7px; cursor:pointer; background:{{ view.projBg }}; color:{{ view.projTxt }};">Projection</span>
+              <span onClick="{{ onProof }}" style="font-size:11.5px; font-weight:500; padding:6px 13px; border-radius:7px; cursor:pointer; background:{{ view.proofBg }}; color:{{ view.proofTxt }};">Proof</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 50% 0%, rgba(60,120,140,0.10), transparent 55%), linear-gradient(180deg, #070b14, #06080f 55%, #080610);">
+
+          <sc-if value="{{ isProof }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute; inset:0;">
+              <div style="position:absolute; inset:0;">{{ flowSvg }}</div>
+              <sc-for list="{{ stageHeaders }}" as="sh" hint-placeholder-count="6">
+                <div style="position:absolute; left:{{ sh.leftPct }}; top:8px; transform:translateX(-50%); text-align:center; width:112px;">
+                  <div style="font-size:9px; letter-spacing:0.12em; font-weight:600; color:{{ sh.color }};">{{ sh.label }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4); margin-top:2px;">{{ sh.count }}</div>
+                </div>
+              </sc-for>
+              <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="16">
+                <div onClick="{{ n.onSelect }}" style="position:absolute; left:{{ n.leftPct }}; top:{{ n.topPct }}; transform:translate(-50%,-50%); width:{{ n.w }}; cursor:pointer; z-index:{{ n.z }}; opacity:{{ n.op }};">
+                  <div style="background:{{ n.cardBg }}; border:1px solid {{ n.border }}; border-radius:11px; padding:7px 9px; box-shadow:{{ n.shadow }}; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
+                    <div style="display:flex; align-items:center; gap:5px; margin-bottom:3px;">
+                      <span style="width:7px; height:7px; border-radius:2px; background:{{ n.color }}; box-shadow:0 0 7px {{ n.color }}; flex:0 0 auto;"></span>
+                      <span style="font-size:7.5px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.06em; color:{{ n.color }}; white-space:nowrap;">{{ n.kindTag }}</span>
+                      <sc-if value="{{ n.flag }}" hint-placeholder-val="{{ false }}"><span style="margin-left:auto; width:6px; height:6px; border-radius:50%; background:#ff6b5e; box-shadow:0 0 6px #ff6b5e;"></span></sc-if>
+                    </div>
+                    <div style="font-size:10.5px; font-weight:600; line-height:1.2; color:rgba(238,241,251,0.95);">{{ n.title }}</div>
+                    <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; margin-top:2px;">
+                      <span style="font-size:8.5px; color:rgba(238,241,251,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ n.sub }}</span>
+                      <span style="flex:0 0 auto; font-family:'IBM Plex Mono',monospace; font-size:8px; color:{{ n.metaColor }};">{{ n.meta }}</span>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="position:absolute; left:14px; bottom:11px; display:flex; align-items:center; gap:12px;">
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(238,241,251,0.6);">Aurora evidence chain</span>
+                <div style="display:flex; align-items:center; gap:6px;"><span style="width:16px; height:3px; border-radius:2px; background:linear-gradient(90deg,#46c8ff,#9b8cff);"></span><span style="font-size:9px; color:rgba(238,241,251,0.45);">verified flow</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span style="width:16px; height:3px; border-radius:2px; background:#ff6b5e;"></span><span style="font-size:9px; color:rgba(238,241,251,0.45);">contradictory signal</span></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isProjection }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:24px;">
+              <div style="width:420px; max-width:90%; border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:26px 26px 22px; background:radial-gradient(80% 80% at 50% 0%, rgba(155,140,255,0.12), transparent 60%), rgba(255,255,255,0.03); text-align:center; backdrop-filter:blur(14px);">
+                <div style="position:relative; width:96px; height:96px; margin:0 auto 16px;">
+                  <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.9), rgba(155,140,255,0.5) 36%, transparent 66%);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:2px; height:84px; transform:translate(-50%,-50%); background:linear-gradient(transparent,rgba(255,255,255,0.7),transparent);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:84px; height:2px; transform:translate(-50%,-50%); background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent);"></div>
+                </div>
+                <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(238,241,251,0.45);">DISPLAY · CONSTELLATION RECALL</div>
+                <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; margin-top:6px;">The Long Morning</div>
+                <div style="font-size:12px; color:rgba(238,241,251,0.62); margin-top:8px; line-height:1.5;">{{ answer.text }}</div>
+                <div style="display:flex; gap:8px; justify-content:center; margin-top:16px;">
+                  <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; padding:5px 10px; border-radius:7px; background:rgba(57,224,166,0.12); border:1px solid rgba(57,224,166,0.3); color:#39e0a6;">conf 0.81</span>
+                  <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; padding:5px 10px; border-radius:7px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); color:rgba(238,241,251,0.7);">Confirmed</span>
+                </div>
+                <div onClick="{{ onProof }}" style="margin-top:18px; font-size:11.5px; color:rgba(238,241,251,0.55); cursor:pointer; display:inline-flex; align-items:center; gap:7px;">Every pixel traces to records — <span style="color:var(--accent2); font-weight:600;">switch to Proof view →</span></div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+
+        <aside style="flex:0 0 374px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.title }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.kind }} · {{ sel.sub }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:11px; padding:11px 12px;">
+              <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L10 2.5 V6 C10 8.5 8 10.4 6 11 C4 10.4 2 8.5 2 6 V2.5 Z" fill="none" stroke="{{ sel.integColor }}" stroke-width="1"></path><path d="M4.2 6 L5.5 7.4 L8 4.4" fill="none" stroke="{{ sel.integColor }}" stroke-width="1"></path></svg>
+                <span style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.45);">SOURCE INTEGRITY</span>
+                <span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.integColor }};">{{ sel.integ }}</span>
+              </div>
+              <div style="height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.integPct }}; background:{{ sel.integColor }}; box-shadow:0 0 8px {{ sel.integColor }};"></div></div>
+              <div style="font-size:10.5px; color:rgba(238,241,251,0.55); margin-top:8px; line-height:1.45;">{{ sel.integNote }}</div>
+            </div>
+
+            <sc-if value="{{ sel.hasConf }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="font-size:9.5px; color:rgba(238,241,251,0.45); flex:0 0 auto;">canonical confidence</span>
+                <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ sel.noConf }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:10.5px; color:rgba(238,241,251,0.5); line-height:1.45; padding:9px 11px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:9px;">Confidence is assigned at <b style="color:rgba(238,241,251,0.8);">normalization</b>, not here. Sources carry <b style="color:rgba(238,241,251,0.8);">integrity</b>; meaning enters the ledger only once a record is formed.</div>
+            </sc-if>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e; box-shadow:0 0 7px #ff6b5e;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em;">CONTRADICTORY SIGNALS</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(238,241,251,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sel.hasDistortion }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,158,87,0.05); border:1px solid rgba(255,158,87,0.28); border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L11 10.5 H1 Z" fill="none" stroke="#ff9e57" stroke-width="1"></path><line x1="6" y1="4.5" x2="6" y2="7.5" stroke="#ff9e57" stroke-width="1"></line><circle cx="6" cy="9" r="0.6" fill="#ff9e57"></circle></svg><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#ffb27a;">DISTORTION WARNINGS</span></div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <sc-for list="{{ sel.distortions }}" as="dw" hint-placeholder-count="2">
+                    <div style="font-size:10.5px; color:rgba(238,241,251,0.65); line-height:1.4; display:flex; gap:7px;"><span style="color:#ff9e57;">•</span><span>{{ dw }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">RECORD LINEAGE</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.lineage }}" as="lg" hint-placeholder-count="4">
+                  <div onClick="{{ lg.onSelect }}" style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative; cursor:pointer;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ lg.radius }}; background:{{ lg.color }}; border:2px solid #0a0c16; box-shadow:0 0 7px {{ lg.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(238,241,251,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ lg.title }}</div><div style="font-size:9px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">{{ lg.stage }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">node</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>contract_v1.5</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical record</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Export</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Evidence timeline · 16 days</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.38);">ingestion → attestation → normalization → insight → projection</span>
+        <div style="flex:1;"></div>
+        <sc-for list="{{ stageHeaders }}" as="lg" hint-placeholder-count="6">
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:{{ lg.color }};"></span>{{ lg.short }}</span>
+        </sc-for>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(70,200,255,0.05), rgba(255,122,208,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ evidenceSvg }}</div>
+        <sc-for list="{{ evidenceMarks }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:104px;">
+            <div style="font-size:8.5px; color:rgba(238,241,251,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:104px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ m.date }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(238,241,251,0.66);">NOTHING HIDDEN. NOTHING ASSUMED. EVERYTHING PROVABLE.</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'proj_lm', view:'proof' };
+    this.STAGES={ raw:{i:0,x:74,label:'RAW SOURCES',short:'sources',color:'#46c8ff'}, att:{i:1,x:236,label:'ATTESTATIONS',short:'attest',color:'#34e1b4'}, rec:{i:2,x:397,label:'NORMALIZED RECORDS',short:'records',color:'#6fe06a'}, ins:{i:3,x:569,label:'INSIGHTS',short:'insights',color:'#9b8cff'}, proj:{i:4,x:750,label:'PROJECTION',short:'projection',color:'#ff7ad0'}, disp:{i:5,x:922,label:'DISPLAY',short:'display',color:'#ffd27a'} };
+    this.STAGEW={ raw:104, att:100, rec:104, ins:116, proj:120, disp:104 }; // card px widths, calibrated to ~811px canvas at 1440
+    this.NODES={
+      src_band:{stage:'raw',y:118,w:'128px',title:'Sleep band export',sub:'Wearable API',integ:0.94,mode:'SRC · raw',resolver:'—',window:'streamed nightly',canonId:'src_band_e1',
+        integNote:'Signed by the device at capture. Encrypted in transit, hash-verified on import.',
+        reasoning:['Origin source — a nightly export from the wearable.','Carries a device signature; not yet a canonical record.'], lineage:[] },
+      src_timer:{stage:'raw',y:228,w:'128px',title:'Focus timer log',sub:'Focus app',integ:0.88,mode:'SRC · raw',resolver:'—',window:'per session',canonId:'src_timer_e1',
+        integNote:'Logged by the focus app with a TLS receipt. App-level trust, not device-signed.',
+        reasoning:['Origin source — session timings from the focus app.'], lineage:[] },
+      src_journal:{stage:'raw',y:338,w:'128px',title:'Journal entries',sub:'Self-written',integ:0.62,mode:'SRC · raw',resolver:'—',window:'irregular',canonId:'src_journal_e1', flag:true,
+        integNote:'Self-written, no third-party attestation. Useful, but the weakest link in the chain.',
+        distortions:['Self-reported with no external corroboration.'], hasDistortion:true,
+        reasoning:['Origin source — free-text self report.','Integrity floor for everything derived from it.'], lineage:[] },
+      src_cal:{stage:'raw',y:448,w:'128px',title:'Calendar feed',sub:'OAuth · work',integ:0.90,mode:'SRC · raw',resolver:'—',window:'live sync',canonId:'src_cal_e1',
+        integNote:'Imported over OAuth from the calendar provider; provider-attested.',
+        reasoning:['Origin source — meeting blocks via OAuth.'], lineage:[] },
+      att_device:{stage:'att',y:118,w:'120px',title:'Device signature',sub:'Ed25519 · verified',integ:0.96,mode:'ATT · attestation',resolver:'SIGNATURE',window:'at capture',canonId:'att_dev_44',
+        integNote:'Ed25519 signature checks out against the registered device key. Tamper-evident.',
+        reasoning:['Cryptographic attestation of the band export.','Signature verified — the strongest evidence in the chain.'] },
+      att_app:{stage:'att',y:228,w:'120px',title:'App-logged',sub:'TLS receipt',integ:0.85,mode:'ATT · attestation',resolver:'RECEIPT',window:'at capture',canonId:'att_app_19',
+        integNote:'TLS receipt confirms the log reached the app server unaltered.',
+        reasoning:['Receipt-level attestation of the timer log.'] },
+      att_self:{stage:'att',y:338,w:'120px',title:'Self-attested',sub:'No third party',integ:0.55,mode:'ATT · attestation',resolver:'NONE',window:'at entry',canonId:'att_self_07', flag:true,
+        integNote:'No external party vouches for this. Lightweave still admits it — flagged, never silently trusted.',
+        distortions:['No third-party attestation.','Carries the lowest integrity in the chain (0.55).'], hasDistortion:true,
+        reasoning:['There is no cryptographic attestation here.','Admitted with a visible flag so trust is never assumed.'] },
+      att_oauth:{stage:'att',y:448,w:'120px',title:'OAuth import',sub:'Provider token',integ:0.92,mode:'ATT · attestation',resolver:'TOKEN',window:'at sync',canonId:'att_oauth_31',
+        integNote:'Provider-issued token attests the calendar data is authentic.',
+        reasoning:['Provider attestation of the calendar feed.'] },
+      rec_sl_band:{stage:'rec',y:130,w:'120px',title:'rec_sl_band',sub:'Sleep · 9 nights',integ:0.92,conf:0.92,life:'Confirmed',mode:'PAT · record',resolver:'HIGHEST_CONF',window:'May 18 – Jun 15',canonId:'rec_sl_band',
+        integNote:'Normalized from device-signed exports. High integrity carried forward.',
+        reasoning:['Nine nightly sleep durations normalized to the canonical schema.','Inherits device-signature integrity.'] },
+      rec_fo:{stage:'rec',y:240,w:'120px',title:'rec_fo_22',sub:'Focus blocks',integ:0.86,conf:0.88,life:'Confirmed',mode:'PAT · record',resolver:'HIGHEST_CONF',window:'May 18 – Jun 15',canonId:'rec_fo_22',
+        integNote:'Focus-block durations normalized from app logs.',
+        reasoning:['Focus sessions normalized into comparable blocks.'] },
+      rec_sl_self:{stage:'rec',y:350,w:'120px',title:'rec_sl_self',sub:'Sleep · self',integ:0.58,conf:0.60,life:'Disputed',mode:'PAT · record',resolver:'HIGHEST_CONF',window:'May 18 – Jun 15',canonId:'rec_sl_self', flag:true,
+        integNote:'Normalized from journal text. Disagrees with the band on 2 nights — kept, not dropped.',
+        contradiction:{ a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'The same night, two records disagree. The resolver surfaces the conflict; it does not pick a winner silently.' },
+        distortions:['Conflicts with rec_sl_band on 2 of 9 nights.','Low integrity (0.58) — self-attested origin.'], hasDistortion:true,
+        reasoning:['Self-reported durations normalized alongside the band.','Conflict on 2 nights is preserved as a contradictory signal.','Weakens downstream confidence rather than being discarded.'] },
+      rec_cal:{stage:'rec',y:455,w:'120px',title:'rec_cal_17',sub:'Meetings',integ:0.90,conf:0.90,life:'Confirmed',mode:'PAT · record',resolver:'LATEST',window:'May 18 – Jun 15',canonId:'rec_cal_17',
+        integNote:'Meeting blocks normalized from the calendar feed.',
+        reasoning:['Calendar blocks normalized into a meeting-density record.'] },
+      ins_focus:{stage:'ins',y:185,w:'150px',title:'Short sleep → focus dip',sub:'Derived pattern',integ:0.80,conf:0.81,life:'Confirmed',mode:'PAT · insight',resolver:'HIGHEST_CONF',window:'May 18 – Jun 15',canonId:'pat_lm_204', flag:true,
+        integNote:'Integrity bounded by its weakest record — held honest by the disputed self-report.',
+        contradiction:{ a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'Two of nine supporting nights rest on disputed records. The insight is shown anyway, with the conflict attached.' },
+        distortions:['2 of 9 supporting nights are disputed.'], hasDistortion:true,
+        reasoning:['Pairs nightly sleep against next-day focus duration across 9 nights.','Holds across band and timer; self-report adds and partly disputes it.','Directional only — causation is not asserted.','Confidence 0.81 after the disputed pairs are weighed in.'] },
+      ins_strain:{stage:'ins',y:380,w:'150px',title:'Work → sleep strain',sub:'Derived pattern',integ:0.66,conf:0.60,life:'Watching',mode:'PAT · insight',resolver:'LATEST',window:'Jun 2 – Jun 16',canonId:'pat_ws_088',
+        integNote:'Single-domain, modest sample. Surfaced as a secondary, lower-weight thread.',
+        reasoning:['Meeting-dense days precede shorter sleep on 4 nights.','Single-source and small — confidence held at 0.60.','Feeds the projection as a thin, secondary influence.'] },
+      proj_lm:{stage:'proj',y:262,w:'156px',title:'The Long Morning',sub:'Constellation Recall',integ:0.80,conf:0.81,life:'Confirmed',mode:'PRJ · projection',resolver:'HIGHEST_CONF',window:'May 18 – Jun 15',canonId:'prj_lm_512', flag:true,
+        integNote:'A projection inherits the integrity of its chain — 0.80, gated by the disputed record.',
+        contradiction:{ a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'The projection carries its insight\u2019s conflict forward intact. The theme renders it; it cannot resolve it.' },
+        distortions:['Inherits the 2-of-9 disputed-night conflict.'], hasDistortion:true,
+        reasoning:['Renders the focus insight as a bright named star.','Adds the work\u2192sleep strain as a faint secondary thread.','Every visual property maps to a canonical field — nothing invented.','Lifecycle, confidence and provenance pass through unchanged.'] },
+      disp_star:{stage:'disp',y:262,w:'150px',title:'Bright named star',sub:'Rendered output',integ:0.80,conf:0.81,life:'Confirmed',mode:'DSP · display',resolver:'—',window:'live',canonId:'dsp_star_77',
+        integNote:'The pixels you see. Brightness = confidence, name = insight — both read straight from the ledger.',
+        reasoning:['The display is the last hop, not the source of truth.','Its brightness and label are bound to canonical fields.'] }
+    };
+    this.EDGES=[
+      {f:'src_band',t:'att_device',w:0.9},{f:'src_timer',t:'att_app',w:0.7},{f:'src_journal',t:'att_self',w:0.5},{f:'src_cal',t:'att_oauth',w:0.7},
+      {f:'att_device',t:'rec_sl_band',w:0.9},{f:'att_app',t:'rec_fo',w:0.7},{f:'att_self',t:'rec_sl_self',w:0.5},{f:'att_oauth',t:'rec_cal',w:0.7},
+      {f:'rec_sl_band',t:'ins_focus',w:0.95},{f:'rec_fo',t:'ins_focus',w:0.8},{f:'rec_sl_self',t:'ins_focus',w:0.5,red:true},{f:'rec_cal',t:'ins_strain',w:0.6},{f:'rec_sl_band',t:'ins_strain',w:0.4},
+      {f:'ins_focus',t:'proj_lm',w:0.95},{f:'ins_strain',t:'proj_lm',w:0.4},
+      {f:'proj_lm',t:'disp_star',w:0.95}
+    ];
+    // precompute parents/children
+    this.parents={}; this.children={};
+    Object.keys(this.NODES).forEach(k=>{ this.parents[k]=[]; this.children[k]=[]; });
+    this.EDGES.forEach(e=>{ this.children[e.f].push(e.t); this.parents[e.t].push(e.f); });
+  }
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#06070e', bg1:'rgba(124,90,255,0.18)', bg2:'rgba(40,200,170,0.10)', glow:'rgba(124,90,255,0.30)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#04070e', bg1:'rgba(40,130,210,0.20)', bg2:'rgba(40,210,190,0.10)', glow:'rgba(70,200,255,0.30)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#050a07', bg1:'rgba(70,170,100,0.18)', bg2:'rgba(180,205,90,0.10)', glow:'rgba(95,211,154,0.30)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#7fd99a': c>=0.55?'#e8c75a': c>=0.4?'#ff9e57':'#ff6b5e'; }
+  lifeColor(l){ return l==='Confirmed'?'#39e0a6': l==='Watching'?'#e8c75a': l==='Disputed'?'#ff6b5e': l==='Attested'?'#34e1b4': l==='Imported'?'#56b8ff':'#9aa6c0'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  ancestors(id){ const out=new Set(); const stack=[...this.parents[id]]; while(stack.length){ const n=stack.pop(); if(out.has(n))continue; out.add(n); this.parents[n].forEach(p=>stack.push(p)); } return out; }
+  descendants(id){ const out=new Set(); const stack=[...this.children[id]]; while(stack.length){ const n=stack.pop(); if(out.has(n))continue; out.add(n); this.children[n].forEach(c=>stack.push(c)); } return out; }
+
+  buildFlow(sel){
+    const h=React.createElement, R=[], N=this.NODES, S=this.STAGES;
+    const up=this.ancestors(sel); up.add(sel); const down=this.descendants(sel); down.add(sel);
+    const litNode=new Set([...up,...down]);
+    const defs=[];
+    // soft drifting aurora background bands
+    R.push(h('defs',{key:'d'},
+      h('filter',{id:'rglow',x:'-40%',y:'-40%',width:'180%',height:'180%'},h('feGaussianBlur',{stdDeviation:'5'})),
+      ...this.EDGES.map((e,i)=>{ const a=N[e.f], b=N[e.t]; const c1=e.red?'#ff9e57':S[a.stage].color, c2=e.red?'#ff6b5e':S[b.stage].color;
+        return h('linearGradient',{key:'g'+i,id:'rg'+i,gradientUnits:'userSpaceOnUse',x1:S[a.stage].x,y1:a.y,x2:S[b.stage].x,y2:b.y},
+          h('stop',{offset:'0%',stopColor:c1}),h('stop',{offset:'100%',stopColor:c2})); })
+    ));
+    // faint star dust
+    let s=11; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<70;i++){ R.push(h('circle',{key:'dust'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*0.8+0.2).toFixed(2),fill:'#cdd6f5',opacity:(rnd()*0.3+0.08).toFixed(2)})); }
+    // ribbons
+    const off=k=>(this.STAGEW[N[k].stage]/2 + 3)/811*1000;
+    this.EDGES.forEach((e,i)=>{ const a=N[e.f], b=N[e.t]; const ax=S[a.stage].x+off(e.f), bx=S[b.stage].x-off(e.t), ay=a.y, by=b.y;
+      const lit = (up.has(e.f)&&up.has(e.t)) || (down.has(e.f)&&down.has(e.t));
+      const cpx=(bx-ax)*0.5; const d='M '+ax+' '+ay+' C '+(ax+cpx)+' '+ay+', '+(bx-cpx)+' '+by+', '+bx+' '+by;
+      const base=3.5+e.w*13, grad='url(#rg'+i+')', col=e.red?'#ff6b5e':grad;
+      R.push(h('path',{key:'gl'+i,d:d,stroke:col,strokeWidth:base*2.1,fill:'none',opacity:lit?(e.red?0.20:0.16):0.04,strokeLinecap:'round',filter:'url(#rglow)'}));
+      R.push(h('path',{key:'bd'+i,d:d,stroke:col,strokeWidth:base,fill:'none',opacity:lit?(e.red?0.7:0.62):0.10,strokeLinecap:'round'}));
+      R.push(h('path',{key:'cr'+i,d:d,stroke:'#ffffff',strokeWidth:Math.max(1,base*0.22),fill:'none',opacity:lit?0.45:0.06,strokeLinecap:'round'}));
+      if(lit) R.push(h('path',{key:'sh'+i,d:d,stroke:col,strokeWidth:Math.max(1.4,base*0.5),fill:'none',opacity:0.6,strokeLinecap:'round',strokeDasharray:'2 16',style:{animation:'lwFlux '+(2.6+i*0.18).toFixed(1)+'s linear infinite'}}));
+    });
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  buildEvidence(){
+    const h=React.createElement, vals=[0.18,0.30,0.30,0.52,0.50,0.66,0.72,0.78], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-(v)*46;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++){ d=d+' L '+X(i)+' '+Y(vals[i]); }
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.55),strokeWidth:1.4}));
+  }
+
+  renderVals(){
+    const t=this.cur(), N=this.NODES, S=this.STAGES, selKey=this.state.sel, node=N[selKey], view=this.state.view;
+    const pick=id=>()=>this.setState({sel:id});
+    const up=this.ancestors(selKey); up.add(selKey); const down=this.descendants(selKey); down.add(selKey);
+    const litNode=new Set([...up,...down]);
+    // stage counts
+    const counts={}; Object.keys(S).forEach(k=>counts[k]=0); Object.keys(N).forEach(k=>counts[N[k].stage]++);
+    const stageHeaders=Object.keys(S).map(k=>({ key:k, label:S[k].label, short:S[k].short, color:S[k].color, count:counts[k]+(counts[k]===1?' node':' nodes'), leftPct:(S[k].x/1000*100)+'%' }));
+    // nodes
+    const radiusByStage={raw:'2px',att:'2px',rec:'3px',ins:'50%',proj:'50%',disp:'50%'};
+    const nodes=Object.keys(N).map(k=>{ const nd=N[k], st=S[nd.stage], seld=k===selKey, dim=!litNode.has(k), col=st.color;
+      const metaVal = nd.conf!=null ? ('conf '+nd.conf.toFixed(2)) : ('intg '+nd.integ.toFixed(2));
+      const metaColor = nd.conf!=null ? this.confColor(nd.conf) : this.confColor(nd.integ);
+      return { id:k, title:nd.title, sub:nd.sub, w:this.STAGEW[nd.stage]+'px', color:col, kindTag:S[nd.stage].label.split(' ')[0],
+        leftPct:(st.x/1000*100)+'%', topPct:(nd.y/560*100)+'%', z:seld?12:(nd.stage==='proj'?9:6), op:dim?0.34:1,
+        flag:!!nd.flag, meta:metaVal, metaColor:metaColor,
+        cardBg:seld?this.hexA(col,0.14):(nd.stage==='proj'?'rgba(24,18,32,0.92)':'rgba(13,16,26,0.88)'),
+        border:seld?col:(nd.flag?'rgba(255,107,94,0.4)':'rgba(255,255,255,0.12)'),
+        shadow:seld?('0 0 0 1px '+col+', 0 8px 22px rgba(0,0,0,0.5)'):(nd.stage==='proj'?'0 0 18px '+this.hexA(col,0.3):'0 4px 12px rgba(0,0,0,0.4)'),
+        onSelect:pick(k) }; });
+    // lineage (ancestors ordered by stage)
+    const anc=[...this.ancestors(selKey)].map(id=>N[id]); anc.sort((a,b)=>S[a.stage].i-S[b.stage].i);
+    let lineage=anc.map(nd=>{ const id=Object.keys(N).find(k=>N[k]===nd); return { title:nd.title, stage:S[nd.stage].label.toLowerCase(), color:S[nd.stage].color, radius:radiusByStage[nd.stage], onSelect:pick(id) }; });
+    if(lineage.length===0) lineage=[{title:'— origin source —', stage:'no upstream', color:'rgba(238,241,251,0.4)', radius:'2px', onSelect:pick(selKey)}];
+    // selected view
+    const sel={ title:node.title, sub:node.sub, color:S[node.stage].color, kind:node.mode,
+      life:node.life||S[node.stage].label.split(' ')[0].charAt(0)+S[node.stage].label.split(' ')[0].slice(1).toLowerCase(),
+      lifeColor:this.lifeColor(node.life|| (node.stage==='raw'?'Imported':node.stage==='att'?'Attested':'Confirmed')),
+      lifeBg:this.hexA(this.lifeColor(node.life||(node.stage==='raw'?'Imported':node.stage==='att'?'Attested':'Confirmed')),0.16),
+      headerBg:this.hexA(S[node.stage].color,0.07),
+      integ:node.integ.toFixed(2), integPct:Math.round(node.integ*100)+'%', integColor:this.confColor(node.integ), integNote:node.integNote,
+      hasConf: node.conf!=null, noConf: node.conf==null, conf:node.conf!=null?node.conf.toFixed(2):'', confPct:node.conf!=null?Math.round(node.conf*100)+'%':'0%', confColor:node.conf!=null?this.confColor(node.conf):'#888',
+      contradiction:node.contradiction||null, hasDistortion:!!node.hasDistortion, distortions:node.distortions||[],
+      reasoning:node.reasoning||['Part of the verified chain.'], lineage,
+      canonId:node.canonId, mode:node.mode, resolver:node.resolver, window:node.window };
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Resonance Atlas'},{label:'Constellation Recall'},{label:'Aurora Proof',active:true}
+    ].map(n=>({ label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,255,255,0.07)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:n.active?'var(--accent)':'rgba(238,241,251,0.35)' }));
+    const evidenceMarks=[
+      {id:'src_band',subj:'Sources ingested',date:'Jun 1',leftPct:'8%',color:'#46c8ff',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'att_device',subj:'Attestations signed',date:'Jun 1',leftPct:'25%',color:'#34e1b4',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'rec_sl_band',subj:'Records normalized',date:'Jun 5',leftPct:'44%',color:'#6fe06a',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'rec_sl_self',subj:'Conflict flagged',date:'Jun 11',leftPct:'60%',color:'#ff6b5e',ringColor:'#ff6b5e'},
+      {id:'ins_focus',subj:'Insight derived',date:'Jun 13',leftPct:'77%',color:'#9b8cff',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'proj_lm',subj:'Projection rendered',date:'Jun 16',leftPct:'93%',color:'#ff7ad0',ringColor:'rgba(255,255,255,0.3)'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+    const activeBg='linear-gradient(135deg, var(--accent), var(--accent2))';
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      flowSvg:this.buildFlow(selKey), evidenceSvg:this.buildEvidence(),
+      isProof:view==='proof', isProjection:view==='projection',
+      onProof:()=>this.setState({view:'proof'}), onProjection:()=>this.setState({view:'projection'}),
+      view:{ proofBg:view==='proof'?activeBg:'transparent', proofTxt:view==='proof'?'#0b0d16':'rgba(238,241,251,0.6)', projBg:view==='projection'?activeBg:'transparent', projTxt:view==='projection'?'#0b0d16':'rgba(238,241,251,0.6)' },
+      answer:{ text:'You focus best the morning after 7 or more hours of sleep.', sub:'Projection · The Long Morning · derived from 14 canonical records across 4 sources' },
+      navItems, stageHeaders, nodes, evidenceMarks, sel
+    };
+  }
+}
+</script>
+</body>
+</html>

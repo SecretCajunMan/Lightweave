@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0d0a08}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(200,160,120,0.18);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes amFlicker{0%,100%{opacity:.85}45%{opacity:1}70%{opacity:.7}}
+  @keyframes amSpark{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(-14px)}}
+  @keyframes amFlow{to{stroke-dashoffset:-28}}
+  @keyframes amPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.1;transform:scale(1.5)}}
+  @keyframes amLed{0%,100%{opacity:1}50%{opacity:.4}}
+  @keyframes amHeat{0%,100%{opacity:.4}50%{opacity:.75}}
+  .ammono{font-family:'IBM Plex Mono',monospace}
+</style>
+</helmet>
+<div data-screen-label="Archive Mine" style="height:100vh; overflow:hidden; color:#e6ddd2; font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; background:radial-gradient(1100px 560px at 50% -8%, rgba(120,60,20,0.18), transparent 60%), linear-gradient(180deg,#100b08,#0c0907);">
+
+  <header style="flex:0 0 54px; display:flex; align-items:center; gap:15px; padding:0 16px; border-bottom:1px solid rgba(200,160,120,0.14); background:rgba(20,14,10,0.7);">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="24" height="24" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="#ffb43a" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#e6ddd2" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#34e1b4" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff8a3a" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff5d52" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.13em; font-size:13.5px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:20px; background:rgba(200,160,120,0.2);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13px;">Archive Mine</span>
+      <span class="ammono" style="font-size:10px; color:rgba(200,170,140,0.55);">refinery · old chats → decisions</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="ammono" style="display:flex; align-items:center; gap:7px; font-size:10.5px; color:rgba(210,185,160,0.62);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(200,160,120,0.18); border-radius:6px; background:rgba(26,18,13,0.6);">corpus <b style="color:#ff9e5a; font-weight:600;">8,420</b></span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(200,160,120,0.18); border-radius:6px; background:rgba(26,18,13,0.6);">yield <b style="color:#34e1b4; font-weight:600;">0.21%</b></span>
+    </div>
+    <div onClick="{{ onToggleEngine }}" style="display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border-radius:7px; cursor:pointer; border:1px solid {{ engine.border }}; background:{{ engine.bg }};">
+      <span style="width:8px; height:8px; border-radius:50%; background:{{ engine.dot }}; box-shadow:0 0 8px {{ engine.dot }}; animation:{{ engine.anim }};"></span>
+      <span class="ammono" style="font-size:11px; font-weight:600; color:{{ engine.txt }}; letter-spacing:0.06em;">{{ engine.label }}</span>
+    </div>
+    <div style="width:30px; height:30px; border-radius:7px; background:linear-gradient(135deg,#ff8a3a,#ffce6a); box-shadow:0 0 12px rgba(255,138,58,0.35);"></div>
+  </header>
+
+  <div style="flex:0 0 auto; display:flex; align-items:center; gap:0; padding:7px 16px; background:rgba(26,18,13,0.5); border-bottom:1px solid rgba(200,160,120,0.12);">
+    <span class="ammono" style="font-size:9.5px; letter-spacing:0.1em; color:rgba(200,170,140,0.45); margin-right:14px;">YIELD FUNNEL</span>
+    <sc-for list="{{ funnel }}" as="fn" hint-placeholder-count="5">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:7px;">
+          <span style="width:9px; height:9px; border-radius:2px; background:{{ fn.color }}; box-shadow:0 0 7px {{ fn.color }};"></span>
+          <span class="ammono" style="font-size:11px; font-weight:600; color:#e6ddd2;">{{ fn.count }}</span>
+          <span style="font-size:10px; color:rgba(200,170,140,0.6);">{{ fn.label }}</span>
+        </div>
+        <sc-if value="{{ fn.arrow }}" hint-placeholder-val="{{ true }}"><span style="color:rgba(200,170,140,0.3); margin:0 12px; font-size:11px;">→</span></sc-if>
+      </div>
+    </sc-for>
+    <div style="flex:1;"></div>
+    <span class="ammono" style="font-size:10px; color:rgba(210,185,160,0.5);">refining {{ sel.id }} · {{ engine.label }}</span>
+  </div>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="archive-mine"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:9px; padding:11px 13px; overflow:hidden;">
+      <section style="flex:1; min-height:0; position:relative; border:1px solid rgba(200,160,120,0.16); border-radius:14px; overflow:hidden; background:radial-gradient(60% 70% at 52% 52%, rgba(120,60,20,0.16), transparent 65%), linear-gradient(180deg,#150f0a,#100b08);">
+        <div style="position:absolute; inset:0; opacity:0.5; background-image:radial-gradient(rgba(200,160,120,0.05) 1px, transparent 1px); background-size:26px 26px;"></div>
+        <div style="position:absolute; inset:0; margin:auto; aspect-ratio:1000/560; max-width:100%; max-height:100%;">
+          <div style="position:absolute; inset:0;">{{ floorSvg }}</div>
+          <sc-for list="{{ stations }}" as="st" hint-placeholder-count="8">
+            <div style="position:absolute; left:{{ st.leftPct }}; top:{{ st.topPct }}; transform:translate(-50%,0); width:128px; text-align:center; z-index:5;">
+              <div style="display:inline-flex; align-items:center; gap:6px; padding:3px 9px; border-radius:8px; background:rgba(16,11,8,0.82); border:1px solid {{ st.border }}; backdrop-filter:blur(4px);">
+                <span style="width:7px; height:7px; border-radius:50%; background:{{ st.color }}; box-shadow:0 0 7px {{ st.color }};"></span>
+                <span class="ammono" style="font-size:10px; font-weight:600; color:#f0e7da; white-space:nowrap;">{{ st.label }}</span>
+              </div>
+              <div class="ammono" style="font-size:8.5px; color:rgba(200,170,140,0.62); margin-top:2px;">{{ st.stat }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute; right:13px; top:11px; display:flex; align-items:center; gap:10px;">
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(200,170,140,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#39e0a6;"></span>QC pass</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(200,170,140,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#ffb43a;"></span>hold</span>
+          <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(200,170,140,0.55);"><span style="width:8px; height:8px; border-radius:50%; background:#ff5d52;"></span>blocked</span>
+        </div>
+        <div style="position:absolute; left:13px; bottom:11px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(220,195,165,0.6);">Refinery floor</span>
+        </div>
+      </section>
+
+      <footer style="flex:0 0 150px; display:flex; flex-direction:column; gap:7px; min-height:0;">
+        <div style="flex:1; min-height:0; border:1px solid rgba(200,160,120,0.16); border-radius:12px; background:rgba(20,14,10,0.5); padding:9px 11px; display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; gap:9px; margin-bottom:8px; flex:0 0 auto;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:rgba(220,195,165,0.75);">Promotion queue</span>
+            <span class="ammono" style="font-size:9px; color:rgba(200,170,140,0.45);">candidates awaiting canon</span>
+            <span class="ammono" style="font-size:9px; color:#39e0a6;">{{ queue.ready }} ready</span>
+            <span class="ammono" style="font-size:9px; color:#ff5d52;">{{ queue.blocked }} blocked</span>
+            <div style="flex:1;"></div>
+            <span class="ammono" style="font-size:9px; color:rgba(200,170,140,0.4);">canon ledger · {{ queue.stamped }} stamped this cycle</span>
+          </div>
+          <div style="flex:1; min-height:0; display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;">
+            <sc-for list="{{ queue.cards }}" as="qc" hint-placeholder-count="6">
+              <div onClick="{{ qc.onSelect }}" style="flex:0 0 196px; border-radius:10px; border:1px solid {{ qc.border }}; background:{{ qc.bg }}; padding:8px 10px; cursor:pointer; display:flex; flex-direction:column; gap:6px;">
+                <div style="display:flex; align-items:center; gap:7px;">
+                  <span class="ammono" style="font-size:9px; color:rgba(200,170,140,0.6);">{{ qc.id }}</span>
+                  <span style="flex:1;"></span>
+                  <span class="ammono" style="font-size:8px; font-weight:600; padding:1px 6px; border-radius:4px; background:{{ qc.vBg }}; color:{{ qc.vColor }};">{{ qc.verdict }}</span>
+                </div>
+                <div style="font-size:11px; font-weight:500; line-height:1.25; color:#ede3d6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ qc.title }}</div>
+                <div style="display:flex; align-items:center; gap:5px; margin-top:auto;">
+                  <span class="ammono" style="font-size:8px; color:rgba(200,170,140,0.5);">QC</span>
+                  <sc-for list="{{ qc.gates }}" as="g" hint-placeholder-count="3">
+                    <span style="width:7px; height:7px; border-radius:50%; background:{{ g }};"></span>
+                  </sc-for>
+                  <span style="flex:1;"></span>
+                  <span class="ammono" style="font-size:8.5px; color:{{ qc.matColor }};">{{ qc.mat }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <aside style="flex:0 0 392px; display:flex; flex-direction:column; border-left:1px solid rgba(200,160,120,0.12); background:rgba(20,14,10,0.5); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:13px 16px 12px; border-bottom:1px solid rgba(200,160,120,0.12); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span class="ammono" style="font-size:11px; color:rgba(200,170,140,0.6);">{{ sel.id }}</span>
+          <span class="ammono" style="font-size:9.5px; font-weight:600; padding:3px 9px; border-radius:6px; background:{{ sel.vBg }}; color:{{ sel.vColor }}; border:1px solid {{ sel.vBorder }};">{{ sel.verdict }}</span>
+          <div style="flex:1;"></div>
+          <span class="ammono" style="font-size:10px; color:rgba(200,170,140,0.5);">conf <b style="color:{{ sel.confColor }};">{{ sel.conf }}</b></span>
+        </div>
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; line-height:1.3; margin-top:9px; color:#f2e9dc;">{{ sel.title }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+        <div>
+          <div class="ammono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(200,170,140,0.45); margin-bottom:8px;">REFINING TRACK</div>
+          <div style="display:flex; align-items:center; gap:0;">
+            <sc-for list="{{ sel.track }}" as="tk" hint-placeholder-count="4">
+              <div style="flex:1; display:flex; align-items:center;">
+                <div style="flex:1; text-align:center;">
+                  <div style="width:22px; height:22px; margin:0 auto; border-radius:6px; background:{{ tk.bg }}; border:1px solid {{ tk.border }}; display:flex; align-items:center; justify-content:center; box-shadow:{{ tk.glow }};"><span class="ammono" style="font-size:10px; color:{{ tk.iconColor }};">{{ tk.glyph }}</span></div>
+                  <div class="ammono" style="font-size:8px; color:{{ tk.txt }}; margin-top:3px;">{{ tk.label }}</div>
+                </div>
+                <sc-if value="{{ tk.connector }}" hint-placeholder-val="{{ true }}"><span style="width:14px; height:2px; background:{{ tk.connColor }}; margin-bottom:11px;"></span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div class="ammono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(200,170,140,0.45); margin-bottom:8px;">QC GATES · {{ sel.gatePass }}/3 PASS</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ sel.qcGates }}" as="g" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:9px; padding:9px 11px; border-radius:9px; background:{{ g.bg }}; border:1px solid {{ g.border }};">
+                <span style="width:16px; height:16px; border-radius:5px; background:{{ g.iconBg }}; display:flex; align-items:center; justify-content:center; flex:0 0 auto;"><span class="ammono" style="font-size:10px; color:{{ g.color }};">{{ g.glyph }}</span></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11px; font-weight:500; color:#ede3d6;">{{ g.label }}</div><div class="ammono" style="font-size:9px; color:rgba(200,170,140,0.55);">{{ g.detail }}</div></div>
+                <span class="ammono" style="font-size:9.5px; font-weight:600; color:{{ g.color }};">{{ g.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,93,82,0.06); border:1px solid rgba(255,93,82,0.32); border-radius:11px; padding:10px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff5d52;"></span><span class="ammono" style="font-size:10px; font-weight:600;">{{ sel.contradiction.title }}</span></div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(210,185,160,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-size:12px; font-weight:600; color:{{ sel.contradiction.a.color }}; line-height:1.3; margin-top:2px;">{{ sel.contradiction.a.val }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px 9px;"><div style="font-size:9.5px; color:rgba(210,185,160,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-size:12px; font-weight:600; color:{{ sel.contradiction.b.color }}; line-height:1.3; margin-top:2px;">{{ sel.contradiction.b.val }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(210,185,160,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div class="ammono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(200,170,140,0.45); margin-bottom:8px;">SOURCE CITATION TRAIL · {{ sel.citeLabel }}</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ sel.citations }}" as="ct" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; padding:8px 10px; background:rgba(12,9,6,0.5); border:1px solid {{ ct.border }}; border-radius:9px;">
+                <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ ct.dot }}; box-shadow:0 0 6px {{ ct.dot }}; margin-top:4px;"></span>
+                <div style="flex:1; min-width:0;">
+                  <div style="display:flex; align-items:center; gap:7px;"><span class="ammono" style="font-size:10px; color:#e6ddd2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ ct.src }}</span><span class="ammono" style="font-size:8.5px; color:rgba(200,170,140,0.45);">{{ ct.date }}</span></div>
+                  <div style="font-size:10.5px; color:rgba(210,185,160,0.65); line-height:1.4; margin-top:2px; font-style:italic;">{{ ct.excerpt }}</div>
+                </div>
+                <span class="ammono" style="font-size:9px; color:{{ ct.statusColor }}; flex:0 0 auto;">{{ ct.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div class="ammono" style="font-size:9.5px; letter-spacing:0.12em; color:rgba(200,170,140,0.45); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:#ffb43a; margin-top:6px; box-shadow:0 0 7px #ffb43a;"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(218,200,178,0.78);">{{ step }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="border:1px solid {{ sel.patch.border }}; border-radius:12px; overflow:hidden; background:{{ sel.patch.bg }};">
+          <div style="display:flex; align-items:center; gap:9px; padding:11px 13px; border-bottom:1px solid {{ sel.patch.border }};">
+            <svg width="22" height="22" viewBox="0 0 24 24" style="flex:0 0 auto;"><circle cx="12" cy="12" r="9.5" fill="none" stroke="{{ sel.patch.seal }}" stroke-width="1.3"></circle><circle cx="12" cy="12" r="6.5" fill="none" stroke="{{ sel.patch.seal }}" stroke-width="0.8" stroke-dasharray="1 2"></circle><path d="M8.5 12 L11 14.5 L15.8 9" fill="none" stroke="{{ sel.patch.seal }}" stroke-width="1.4"></path></svg>
+            <div style="flex:1; min-width:0;"><div class="ammono" style="font-size:9px; letter-spacing:0.1em; color:rgba(200,170,140,0.5);">CANON PATCH OUTPUT</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.patch.titleColor }};">{{ sel.patch.headline }}</div></div>
+          </div>
+          <div style="padding:11px 13px;">
+            <div style="font-size:11.5px; line-height:1.5; color:rgba(225,210,190,0.82);">{{ sel.patch.decision }}</div>
+            <div class="ammono" style="display:flex; flex-direction:column; gap:4px; margin-top:10px; font-size:10px;">
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(200,170,140,0.45);">patch</span><span style="color:{{ sel.patch.seal }};">{{ sel.patch.pid }}</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(200,170,140,0.45);">supersedes</span><span>{{ sel.patch.supersedes }}</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(200,170,140,0.45);">effective</span><span>{{ sel.patch.effective }}</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(200,170,140,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+            </div>
+            <div style="display:flex; gap:7px; margin-top:11px;">
+              <span style="flex:1; text-align:center; font-size:11.5px; font-weight:600; color:{{ sel.patch.btnColor }}; background:{{ sel.patch.btnBg }}; border:1px solid {{ sel.patch.btnBorder }}; padding:9px; border-radius:8px; cursor:{{ sel.patch.btnCursor }};">{{ sel.patch.btnLabel }}</span>
+              <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(210,185,160,0.8); border:1px solid rgba(200,160,120,0.22); padding:9px 12px; border-radius:8px; cursor:pointer;">{{ sel.patch.altLabel }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960},&quot;startFrozen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'ing_0317', engine: props.startFrozen?'frozen':'running' };
+    this.STATIONS={
+      import:{x:118,y:120,label:'Raw corpus',stat:'8,420 logs · ore',color:'#ff7a3a',mat:'ore'},
+      dedup:{x:118,y:360,label:'Dedup crusher',stat:'3,210 → 412 clusters',color:'#ff9e3a',mat:'cluster'},
+      extract:{x:330,y:430,label:'Extraction buckets',stat:'412 fragments → gems',color:'#34e1b4',mat:'gems'},
+      smelter:{x:520,y:270,label:'Smelter',stat:'48 candidates in melt',color:'#ffb02a',mat:'smelter',big:true},
+      slag:{x:392,y:480,label:'Slag heap',stat:'126 stale · superseded',color:'#6b7280',mat:'slag'},
+      candidates:{x:706,y:392,label:'Ingot caster',stat:'18 decision candidates',color:'#ffce6a',mat:'ingot'},
+      qc:{x:776,y:138,label:'QC assay',stat:'3 gates · dedup·cite·conflict',color:'#39e0a6',mat:'qc'},
+      stamp:{x:910,y:248,label:'Canon press',stat:'18 stamped patches',color:'#e8eaf0',mat:'stamp'}
+    };
+    this.CONVEYORS=[['import','dedup'],['dedup','extract'],['extract','smelter'],['smelter','candidates'],['smelter','slag'],['candidates','qc'],['qc','stamp']];
+    this.CANDS={
+      ing_0317:{ title:'Adopt a weekly async written standup, retiring the daily sync', verdict:'PROMOTABLE', conf:0.88, mat:'ingot', stage:'ingot', resolver:'HIGHEST_CONF',
+        gates:{dedup:'pass',cite:'pass',contra:'pass'}, dedupScore:0.92, dedupNote:'14 fragments · 3 threads → 1 decision', citeLabel:'3/3 complete',
+        citations:[
+          {src:'#planning',date:'2024-03-11',excerpt:'"let\u2019s try async standups for a sprint and see"',status:'cited',ok:true},
+          {src:'#planning',date:'2024-03-18',excerpt:'"async standup is working — let\u2019s keep it"',status:'cited',ok:true},
+          {src:'retro_notes.md',date:'2024-04-02',excerpt:'"Decision: weekly async written standup."',status:'cited',ok:true}
+        ],
+        contradiction:null,
+        reasoning:['14 near-duplicate fragments across 3 threads collapsed to one decision.','Dedup confidence 0.92 — the fragments clearly describe the same call.','All three sources cited and reachable; no dissent found.','Eligible to stamp as a canon patch.'],
+        patch:{pid:'PR_0142', decision:'The team replaces the daily synchronous standup with a weekly async written standup. Owners post updates by Monday 10:00.', supersedes:'\u2014', effective:'on promote'} },
+      ing_0316:{ title:'Move billing from flat tiers to usage-based pricing', verdict:'BLOCKED', conf:0.60, mat:'ingot', stage:'ingot', resolver:'HIGHEST_CONF',
+        gates:{dedup:'pass',cite:'pass',contra:'fail'}, dedupScore:0.84, dedupNote:'9 fragments · 2 threads → 1 decision', citeLabel:'4/4 complete',
+        citations:[
+          {src:'#finance',date:'2024-05-02',excerpt:'"usage-based is the way — tiers cap our upside"',status:'cited',ok:true},
+          {src:'#exec',date:'2024-05-09',excerpt:'"we agreed to keep flat tiers through FY"',status:'cited',ok:true},
+          {src:'pricing_v3.md',date:'2024-05-12',excerpt:'"open question: usage vs tiers"',status:'cited',ok:true}
+        ],
+        contradiction:{title:'CONTRADICTION · SOURCES DISAGREE', a:{label:'#finance · 2024-05-02',val:'Go usage-based',color:'#ff9e5a'}, b:{label:'#exec · 2024-05-09',val:'Keep flat tiers',color:'#46c8ff'}, note:'Two threads reach opposite decisions and neither supersedes the other. The candidate is blocked — the mine will not stamp a contested decision.'},
+        reasoning:['9 fragments merged, but two source threads conflict.','Contradiction check FAILS — #finance and #exec disagree.','Blocked at QC; cannot be promoted until the conflict is resolved upstream.'],
+        patch:null },
+      ing_0315:{ title:'Deprecate the legacy CSV export endpoint', verdict:'HOLD', conf:0.72, mat:'ingot', stage:'ingot', resolver:'LATEST',
+        gates:{dedup:'pass',cite:'fail',contra:'pass'}, dedupScore:0.80, dedupNote:'6 fragments · 2 threads → 1 decision', citeLabel:'2/3 \u2014 1 unreachable',
+        citations:[
+          {src:'#api',date:'2024-02-20',excerpt:'"legacy CSV export should go, nobody uses it"',status:'cited',ok:true},
+          {src:'#support',date:'2024-02-22',excerpt:'"+1, deprecate it next release"',status:'cited',ok:true},
+          {src:'(deleted thread)',date:'\u2014',excerpt:'source thread was deleted before citation could resolve',status:'missing',ok:false}
+        ],
+        contradiction:null,
+        reasoning:['6 fragments agree on deprecation.','Citation completeness FAILS — 1 of 3 source threads is unreachable.','On hold: a canon patch needs a complete, resolvable citation trail.'],
+        patch:null },
+      ing_0314:{ title:"Rename 'projects' to 'workspaces' across the product", verdict:'SLAG', conf:null, mat:'slag', stage:'slag', resolver:'\u2014',
+        gates:{dedup:'pass',cite:'pass',contra:'pass'}, dedupScore:0.86, dedupNote:'superseded by a later decision', citeLabel:'3/3 complete',
+        citations:[
+          {src:'#product',date:'2023-11-04',excerpt:'"rename projects → workspaces"',status:'cited',ok:true},
+          {src:'#product',date:'2024-06-01',excerpt:'"actually, \u2018spaces\u2019 — supersedes the earlier rename"',status:'supersedes',ok:true}
+        ],
+        contradiction:null,
+        reasoning:['A valid decision once — then explicitly superseded by ing_0309 (\u201cspaces\u201d).','Routed to slag, not deleted: it stays in the ledger as superseded.','Kept for lineage; never stamped as current canon.'],
+        patch:null },
+      ing_0313:{ title:'Run the security review on a quarterly cadence', verdict:'STAMPED', conf:0.90, mat:'artifact', stage:'artifact', resolver:'HIGHEST_CONF',
+        gates:{dedup:'pass',cite:'pass',contra:'pass'}, dedupScore:0.9, dedupNote:'8 fragments · 2 threads → 1 decision', citeLabel:'3/3 complete',
+        citations:[
+          {src:'#security',date:'2024-01-15',excerpt:'"quarterly review, not annual"',status:'cited',ok:true},
+          {src:'#eng',date:'2024-01-16',excerpt:'"agreed, quarterly"',status:'cited',ok:true},
+          {src:'sec_policy.md',date:'2024-02-01',excerpt:'"Cadence: quarterly."',status:'cited',ok:true}
+        ],
+        contradiction:null,
+        reasoning:['Clean merge, complete citations, no dissent.','Promoted and stamped as canon patch PR_0138.','Superseded the older annual-cadence patch PR_0091.'],
+        patch:{pid:'PR_0138', decision:'The security review runs quarterly (Q1\u2013Q4), replacing the prior annual cadence. Owner: Security lead.', supersedes:'PR_0091', effective:'2026-04-01'} },
+      ing_0312:{ title:'Default new accounts to the dark theme', verdict:'HOLD', conf:0.55, mat:'ingot', stage:'ingot', resolver:'LATEST',
+        gates:{dedup:'fail',cite:'pass',contra:'pass'}, dedupScore:0.55, dedupNote:'fragments may be two different decisions', citeLabel:'3/3 complete',
+        citations:[
+          {src:'#design',date:'2024-04-10',excerpt:'"dark by default looks better"',status:'cited',ok:true},
+          {src:'#design',date:'2024-04-28',excerpt:'"maybe respect system theme instead?"',status:'cited',ok:true}
+        ],
+        contradiction:null,
+        reasoning:['Dedup confidence is low (0.55) — the fragments may be two different ideas (dark-by-default vs follow-system).','Dedup gate FAILS; merging them would invent a decision no one made.','On hold until the fragments are confirmed as one decision.'],
+        patch:null }
+    };
+    this.QUEUE_ORDER=['ing_0317','ing_0316','ing_0315','ing_0312','ing_0313','ing_0314'];
+  }
+  vColor(v){ return v==='PROMOTABLE'?'#39e0a6': v==='STAMPED'?'#ffce6a': v==='BLOCKED'?'#ff5d52': v==='HOLD'?'#ffb43a':'#6b7280'; }
+  gc(s){ return s==='pass'?'#39e0a6': s==='fail'?'#ff5d52':'#ffb43a'; }
+  confColor(c){ if(c==null) return '#6b7280'; return c>=0.85?'#39e0a6': c>=0.7?'#9fd97a': c>=0.55?'#ffb43a':'#ff5d52'; }
+  matColor(m){ return m==='ore'?'#ff7a3a':m==='gems'?'#34e1b4':m==='ingot'?'#ffce6a':m==='artifact'?'#e8eaf0':m==='slag'?'#6b7280':'#ffb43a'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  poly(cx,cy,pts){ return pts.map((p,i)=>(i?'L':'M')+(cx+p[0]).toFixed(1)+' '+(cy+p[1]).toFixed(1)).join(' ')+' Z'; }
+
+  drawMaterial(st, run){
+    const h=React.createElement, k=[], cx=st.x, cy=st.y, col=st.color, m=st.mat;
+    // floor light pool
+    k.push(h('ellipse',{key:'pool',cx:cx,cy:cy+30,rx:st.big?78:54,ry:st.big?22:15,fill:this.hexA(col,0.12),style:{filter:'blur(3px)'}}));
+    if(m==='ore'){
+      [[-18,4,'#3a2418'],[6,-2,'#46291a'],[20,8,'#33211a']].forEach((r,i)=>{ k.push(h('path',{key:'r'+i,d:this.poly(cx+r[0],cy+r[1],[[-13,6],[-7,-9],[6,-11],[14,-2],[10,9],[-4,12]]),fill:r[2],stroke:this.hexA('#ff7a3a',0.5),strokeWidth:1}));
+        [[-6,-2],[3,2],[-2,5]].forEach((c,j)=>k.push(h('line',{key:'cr'+i+j,x1:cx+r[0]+c[0]-3,y1:cy+r[1]+c[1],x2:cx+r[0]+c[0]+3,y2:cy+r[1]+c[1]+2,stroke:'#ff8a3a',strokeWidth:1.1,style:{animation:'amFlicker '+(1.5+i*0.4+j*0.2)+'s ease-in-out infinite'}}))); });
+    } else if(m==='cluster'){
+      [[-12,0,0.9],[2,-6,0.8],[10,4,0.7],[-4,8,0.6]].forEach((c,i)=>k.push(h('circle',{key:'cl'+i,cx:cx+c[0],cy:cy+c[1],r:11*c[2],fill:this.hexA('#ff9e3a',0.14),stroke:this.hexA('#ff9e3a',0.5),strokeWidth:1})));
+      k.push(h('circle',{key:'core',cx:cx,cy:cy,r:5,fill:'#ff9e3a',opacity:0.7}));
+    } else if(m==='gems'){
+      const cols=['#34e1b4','#9b8cff','#ff7ad0','#ffd27a']; cols.forEach((c,i)=>{ const gx=cx-22+i*15, gy=cy+ (i%2?4:-4);
+        k.push(h('path',{key:'g'+i,d:this.poly(gx,gy,[[0,-9],[6,-2],[3,8],[-3,8],[-6,-2]]),fill:this.hexA(c,0.85),stroke:c,strokeWidth:0.8,style:run?{animation:'amHeat '+(2+i*0.3)+'s ease-in-out infinite'}:undefined}));
+        k.push(h('path',{key:'gh'+i,d:this.poly(gx,gy,[[0,-9],[6,-2],[0,-1]]),fill:'rgba(255,255,255,0.55)'})); });
+    } else if(m==='smelter'){
+      k.push(h('path',{key:'ves',d:this.poly(cx,cy+6,[[-44,18],[-34,-16],[34,-16],[44,18]]),fill:'#1c1208',stroke:this.hexA('#ffb02a',0.5),strokeWidth:1.4}));
+      k.push(h('ellipse',{key:'melt',cx:cx,cy:cy-10,rx:34,ry:9,fill:'#ffce6a'}));
+      k.push(h('ellipse',{key:'meltc',cx:cx,cy:cy-10,rx:34,ry:9,fill:'url(#amMelt)',style:{animation:'amHeat 1.6s ease-in-out infinite'}}));
+      k.push(h('ellipse',{key:'halo',cx:cx,cy:cy-10,rx:54,ry:20,fill:this.hexA('#ffb02a',0.16),style:{filter:'blur(5px)'}}));
+      if(run){ for(let i=0;i<5;i++){ k.push(h('circle',{key:'sp'+i,cx:cx-20+i*10,cy:cy-12,r:1.4,fill:'#ffe9a8',style:{animation:'amSpark '+(1.1+i*0.25)+'s ease-out infinite',animationDelay:(i*0.2)+'s'}})); } }
+    } else if(m==='slag'){
+      [[-14,4],[2,0],[14,5]].forEach((r,i)=>k.push(h('path',{key:'s'+i,d:this.poly(cx+r[0],cy+r[1],[[-11,7],[-5,-6],[8,-7],[12,3],[4,9]]),fill:'#26262b',stroke:this.hexA('#6b7280',0.5),strokeWidth:1})));
+      k.push(h('line',{key:'sc',x1:cx-8,y1:cy+2,x2:cx+8,y2:cy,stroke:'#3a3a42',strokeWidth:1}));
+    } else if(m==='ingot'){
+      [[-16,8,'#ffce6a'],[4,2,'#ffd27a'],[ -4,-6,'#ffe0a0']].forEach((b,i)=>{ k.push(h('path',{key:'in'+i,d:this.poly(cx+b[0],cy+b[1],[[-15,5],[-11,-3],[15,-5],[19,3]]),fill:b[2],stroke:this.hexA('#ff9e3a',0.6),strokeWidth:0.8,style:run?{animation:'amHeat '+(2.2+i*0.4)+'s ease-in-out infinite'}:undefined}));
+        k.push(h('line',{key:'sh'+i,x1:cx+b[0]-12,y1:cy+b[1]-2,x2:cx+b[0]+16,y2:cy+b[1]-4,stroke:'rgba(255,255,255,0.6)',strokeWidth:1})); });
+    } else if(m==='qc'){
+      ['#39e0a6','#ffb43a','#ff5d52'].forEach((c,i)=>{ const gx=cx-24+i*24; k.push(h('circle',{key:'q'+i,cx:gx,cy:cy,r:9,fill:'none',stroke:this.hexA(c,0.3),strokeWidth:2}));
+        k.push(h('path',{key:'qa'+i,d:'M '+gx+' '+(cy-9)+' A 9 9 0 0 1 '+(gx+9*Math.sin(2.2-i*0.5))+' '+(cy-9*Math.cos(2.2-i*0.5)),fill:'none',stroke:c,strokeWidth:2,strokeLinecap:'round'}));
+        k.push(h('circle',{key:'ql'+i,cx:gx,cy:cy,r:2,fill:c,style:run?{animation:'amLed '+(1+i*0.3)+'s ease-in-out infinite'}:undefined})); });
+    } else if(m==='stamp'){
+      k.push(h('circle',{key:'sealh',cx:cx,cy:cy,r:24,fill:this.hexA('#e8eaf0',0.1),style:{filter:'blur(3px)'}}));
+      k.push(h('circle',{key:'seal',cx:cx,cy:cy,r:17,fill:'#15110c',stroke:'#e8eaf0',strokeWidth:1.6}));
+      k.push(h('circle',{key:'seal2',cx:cx,cy:cy,r:12,fill:'none',stroke:this.hexA('#ffce6a',0.7),strokeWidth:0.8,strokeDasharray:'1.5 2.5'}));
+      k.push(h('path',{key:'chk',d:'M '+(cx-6)+' '+cy+' L '+(cx-1)+' '+(cy+5)+' L '+(cx+8)+' '+(cy-6),fill:'none',stroke:'#e8eaf0',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'}));
+    }
+    return k;
+  }
+
+  buildFloor(){
+    const h=React.createElement, R=[], S=this.STATIONS, run=this.state.engine==='running', cand=this.CANDS[this.state.sel];
+    R.push(h('defs',{key:'d'},
+      h('radialGradient',{id:'amMelt',cx:'50%',cy:'40%',r:'60%'},h('stop',{offset:'0%',stopColor:'#fff6dc'}),h('stop',{offset:'60%',stopColor:'#ffce6a'}),h('stop',{offset:'100%',stopColor:'#ff8a2a'}))
+    ));
+    // conveyors
+    this.CONVEYORS.forEach((c,i)=>{ const a=S[c[0]], b=S[c[1]]; const waste=(c[1]==='slag');
+      const col = waste? 'rgba(107,114,128,0.4)' : 'rgba(255,160,90,0.32)';
+      R.push(h('line',{key:'cb'+i,x1:a.x,y1:a.y+18,x2:b.x,y2:b.y+18,stroke:'#241810',strokeWidth:9,strokeLinecap:'round'}));
+      R.push(h('line',{key:'cl'+i,x1:a.x,y1:a.y+18,x2:b.x,y2:b.y+18,stroke:col,strokeWidth:1.4,strokeDasharray:'2 9',strokeLinecap:'round',style:run?{animation:'amFlow '+(1.4+i*0.2)+'s linear infinite'}:undefined}));
+    });
+    // stations: light pools + materials
+    Object.keys(S).forEach(sk=>{ const st=S[sk];
+      // selection pulse if candidate's current stage matches this station
+      const here = (cand.stage==='ingot'&&sk==='candidates')||(cand.stage==='artifact'&&sk==='stamp')||(cand.stage==='slag'&&sk==='slag');
+      if(here){ R.push(h('circle',{key:'pl'+sk,cx:st.x,cy:st.y+10,r:st.big?62:46,fill:'none',stroke:this.hexA(st.color,0.8),strokeWidth:1.4,style:{transformOrigin:st.x+'px '+(st.y+10)+'px',animation:'amPulse 1.8s ease-in-out infinite'}})); }
+      this.drawMaterial(st, run).forEach((el,i)=>R.push(h('g',{key:sk+'m'+i},el)));
+    });
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  renderVals(){
+    const S=this.STATIONS, run=this.state.engine==='running', cand=this.CANDS[this.state.sel]||this.CANDS.ing_0317;
+    const setSel=id=>()=>this.setState({sel:id});
+    const stations=Object.keys(S).map(sk=>{ const st=S[sk];
+      return { id:sk, label:st.label, stat:st.stat, color:st.color, border:this.hexA(st.color,0.4), leftPct:(st.x/1000*100)+'%', topPct:((st.y+40)/560*100)+'%' }; });
+    // funnel
+    const funnel=[
+      {label:'logs',count:'8,420',color:'#ff7a3a',arrow:true},
+      {label:'clusters',count:'412',color:'#ff9e3a',arrow:true},
+      {label:'gems',count:'412',color:'#34e1b4',arrow:true},
+      {label:'candidates',count:'18',color:'#ffce6a',arrow:true},
+      {label:'patches',count:'18',color:'#e8eaf0',arrow:false}
+    ];
+    const grades=[
+      {label:'ore · raw logs',swatch:'#ff7a3a',glow:'rgba(255,122,58,0.5)',n:'8,420'},
+      {label:'gem · fragment',swatch:'#34e1b4',glow:'rgba(52,225,180,0.5)',n:'412'},
+      {label:'ingot · candidate',swatch:'#ffce6a',glow:'rgba(255,206,106,0.5)',n:'18'},
+      {label:'slag · stale',swatch:'#6b7280',glow:'rgba(107,114,128,0.4)',n:'126'},
+      {label:'artifact · canon',swatch:'#e8eaf0',glow:'rgba(232,234,240,0.5)',n:'18'}
+    ];
+    // queue
+    const cards=this.QUEUE_ORDER.map(id=>{ const c=this.CANDS[id], v=c.verdict, vc=this.vColor(v), seld=id===this.state.sel;
+      return { id:id.replace('ing_',''), title:c.title, verdict:v, vColor:vc, vBg:this.hexA(vc,0.14), onSelect:setSel(id),
+        border:seld?vc:'rgba(200,160,120,0.16)', bg:seld?this.hexA(vc,0.08):'rgba(28,20,14,0.6)',
+        gates:[this.gc(c.gates.dedup),this.gc(c.gates.cite),this.gc(c.gates.contra)], mat:c.mat, matColor:this.matColor(c.mat) }; });
+    const ready=this.QUEUE_ORDER.filter(id=>this.CANDS[id].verdict==='PROMOTABLE').length;
+    const blocked=this.QUEUE_ORDER.filter(id=>this.CANDS[id].verdict==='BLOCKED').length;
+    const navItems=[
+      {label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Resonance Atlas'},{label:'Constellation Recall'},{label:'Aurora Proof'},{label:'Memory Conservatory'},{label:'Engine Room'},{label:'Archive Mine',active:true}
+    ].map(n=>({ label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,180,58,0.1)':'transparent', bar:n.active?'inset 2px 0 0 #ffb43a':'none', txt:n.active?'#f2e9dc':'rgba(210,185,160,0.6)', dot:n.active?'#ffb43a':'rgba(200,170,140,0.35)' }));
+    // selected aside
+    const v=cand.verdict, vc=this.vColor(v);
+    const trackDefs=[{key:'ore',glyph:'◆',label:'ore'},{key:'gem',glyph:'❖',label:'gem'},{key:'ingot',glyph:'▬',label:'ingot'},{key:'artifact',glyph:'✦',label:'stamped'}];
+    const stageIdx = cand.stage==='slag'?2: cand.stage==='artifact'?3: cand.stage==='ingot'?2: 1;
+    const isSlag=cand.stage==='slag';
+    const track=trackDefs.map((t,i)=>{ const done=i<=stageIdx && !isSlag || (isSlag&&i<=1); const cur=(i===stageIdx); const slagCur=isSlag&&i===2;
+      const c = slagCur? '#6b7280' : (cur? vc : done? '#ffb43a' : 'rgba(200,170,140,0.3)');
+      return { glyph:slagCur?'⚒':t.glyph, label:slagCur?'slag':t.label, iconColor:done||cur||slagCur?'#15110c':'rgba(200,170,140,0.4)',
+        bg:done||cur||slagCur?c:'rgba(40,30,20,0.6)', border:this.hexA(slagCur?'#6b7280':(done||cur?c:'#ffb43a'),0.5), glow:(cur||slagCur)?'0 0 10px '+this.hexA(c,0.6):'none',
+        txt:done||cur||slagCur?'#e6ddd2':'rgba(200,170,140,0.4)', connector:i<3, connColor:i<stageIdx?'#ffb43a':'rgba(200,170,140,0.2)' }; });
+    const gateMeta=[{k:'dedup',label:'Dedup confidence',d:cand.dedupNote},{k:'cite',label:'Citation completeness',d:cand.citeLabel+' sources reachable'},{k:'contra',label:'Contradiction check',d:cand.gates.contra==='fail'?'sources disagree':'no dissent found'}];
+    const qcGates=gateMeta.map(g=>{ const s=cand.gates[g.k], col=this.gc(s); return { label:g.label, detail: g.k==='dedup'? (cand.dedupScore.toFixed(2)+' · '+cand.dedupNote) : g.d,
+      status:s==='pass'?'PASS':s==='fail'?'FAIL':'HOLD', color:col, glyph:s==='pass'?'✓':'✗', iconBg:this.hexA(col,0.18),
+      bg:this.hexA(col,0.05), border:this.hexA(col,0.28) }; });
+    const gatePass=Object.values(cand.gates).filter(x=>x==='pass').length;
+    const citations=cand.citations.map(ct=>({ src:ct.src, date:ct.date, excerpt:ct.excerpt,
+      status:ct.status, statusColor: ct.ok? (ct.status==='supersedes'?'#ffb43a':'#39e0a6') : '#ff5d52',
+      dot: ct.ok? (ct.status==='supersedes'?'#ffb43a':'#34e1b4') : '#ff5d52', border: ct.ok?'rgba(200,160,120,0.14)':'rgba(255,93,82,0.3)' }));
+    // patch card
+    const canStamp = v==='PROMOTABLE', stamped = v==='STAMPED';
+    let patch;
+    if(cand.patch){ patch={ pid:cand.patch.pid, decision:cand.patch.decision, supersedes:cand.patch.supersedes, effective:cand.patch.effective,
+        headline: stamped?'Stamped canon patch':'Ready to stamp', titleColor: stamped?'#ffce6a':'#39e0a6', seal: stamped?'#ffce6a':'#39e0a6',
+        border: this.hexA(stamped?'#ffce6a':'#39e0a6',0.35), bg:this.hexA(stamped?'#ffce6a':'#39e0a6',0.05),
+        btnLabel: stamped?'View canon record':'Promote & stamp', btnColor:'#15110c', btnBg:'linear-gradient(135deg,#ffce6a,#ff9e3a)', btnBorder:'transparent', btnCursor:'pointer', altLabel: stamped?'Lineage':'Reject' };
+    } else { const reason = v==='BLOCKED'?'Blocked — resolve the contradiction first': v==='SLAG'?'Superseded — kept in ledger as slag':'On hold — clear the QC gate first';
+      patch={ pid:'\u2014', decision:reason, supersedes: v==='SLAG'?'ing_0309':'\u2014', effective:'\u2014',
+        headline:'Cannot stamp yet', titleColor:this.vColor(v), seal:this.hexA(this.vColor(v),0.7),
+        border:this.hexA(this.vColor(v),0.3), bg:this.hexA(this.vColor(v),0.05),
+        btnLabel: v==='SLAG'?'View supersede chain':'Stamp blocked', btnColor: v==='SLAG'?'rgba(230,221,210,0.85)':'rgba(255,150,140,0.8)', btnBg:'transparent', btnBorder:this.hexA(this.vColor(v),0.35), btnCursor:'not-allowed', altLabel:'Open sources' }; }
+    const sel={ id:this.state.sel, title:cand.title, verdict:v, vColor:vc, vBg:this.hexA(vc,0.14), vBorder:this.hexA(vc,0.4), headerBg:this.hexA(vc,0.05),
+      conf:cand.conf==null?'\u2014':cand.conf.toFixed(2), confColor:this.confColor(cand.conf), resolver:cand.resolver,
+      track, qcGates, gatePass, contradiction:cand.contradiction||null, citeLabel:cand.citeLabel, citations, reasoning:cand.reasoning, patch };
+    const engineMap = run? {label:'LIVE',dot:'#39e0a6',txt:'#39e0a6',border:'rgba(57,224,166,0.4)',bg:'rgba(57,224,166,0.08)',anim:'amLed 1.2s ease-in-out infinite'} : {label:'FROZEN',dot:'#ffb43a',txt:'#ffb43a',border:'rgba(255,180,58,0.4)',bg:'rgba(255,180,58,0.08)',anim:'none'};
+    return {
+      floorSvg:this.buildFloor(), stations, funnel, grades, navItems,
+      engine:engineMap, onToggleEngine:()=>this.setState(s=>({engine:s.engine==='running'?'frozen':'running'})),
+      queue:{ ready, blocked, stamped:14, cards }, sel
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:#07080f} a{text-decoration:none; color:inherit}
+  .sh-scroll{scroll-behavior:smooth}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(155,140,255,0.22);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  .shmono{font-family:'IBM Plex Mono',monospace}
+  .sh-nav a:hover{color:#fff}
+  .sh-room:hover{border-color:rgba(155,140,255,0.55) !important; transform:translateY(-2px)}
+  .sh-room{transition:transform .12s ease, border-color .12s ease}
+</style>
+</helmet>
+<div data-screen-label="Start Here" class="sh-scroll" style="height:100vh; overflow-y:auto; color:#e7eaf3; font-family:'IBM Plex Sans',system-ui,sans-serif; background:radial-gradient(1200px 700px at 50% -10%, rgba(124,90,255,0.16), transparent 60%), radial-gradient(1000px 800px at 100% 30%, rgba(40,200,170,0.08), transparent 55%), linear-gradient(180deg,#08090f,#070810);">
+
+  <div style="position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:16px; padding:0 22px; height:54px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(10,11,18,0.82); backdrop-filter:blur(14px);">
+    <a href="./Home.dc.html" style="display:flex; align-items:center; gap:10px;">
+      <svg width="24" height="24" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="#9b8cff" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="#34e1b4" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7ad0" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:13.5px;">LIGHTWEAVE</span>
+    </a>
+    <a href="./Home.dc.html" class="shmono" style="font-size:10px; color:rgba(200,205,230,0.5);">/ home / start here</a>
+    <div style="flex:1;"></div>
+    <div class="sh-nav shmono" style="display:flex; align-items:center; gap:18px; font-size:11px; color:rgba(200,205,230,0.62);">
+      <a href="#idea">the idea</a><a href="#promise">the promise</a><a href="#words">the words</a><a href="#anatomy">any room</a><a href="#rooms">all rooms</a>
+    </div>
+  </div>
+
+  <div style="max-width:920px; margin:0 auto; padding:0 24px 90px;">
+
+    <section style="padding:70px 0 44px;">
+      <div class="shmono" style="font-size:11px; letter-spacing:0.2em; color:#9b8cff; margin-bottom:18px;">ONE TRUTH · MANY WINDOWS</div>
+      <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:52px; line-height:1.05; margin:0; letter-spacing:-0.01em;">A single ledger of what's true,<br><span style="background:linear-gradient(100deg,#9b8cff,#34e1b4,#ff7ad0); -webkit-background-clip:text; background-clip:text; color:transparent;">seen through whatever window you like.</span></h1>
+      <p style="font-size:17px; line-height:1.6; color:rgba(220,224,240,0.78); max-width:660px; margin:22px 0 0;">Lightweave keeps the facts of your life and work in one canonical record book. Every screen here is a <b style="color:#e7eaf3;">window</b> onto that same book — a star map, a garden, a refinery, a newsroom. The window can be beautiful, weird, or funny. <b style="color:#e7eaf3;">What's underneath never bends to match it.</b></p>
+      <div style="display:flex; gap:12px; margin-top:30px; flex-wrap:wrap;">
+        <a href="#first5" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:#0c0d16; background:linear-gradient(135deg,#9b8cff,#34e1b4); padding:12px 20px; border-radius:11px;">Take the 5-minute tour →</a>
+        <a href="#rooms" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:rgba(220,224,240,0.9); border:1px solid rgba(255,255,255,0.16); padding:12px 20px; border-radius:11px;">Jump to all {{ roomCount }} rooms</a>
+      </div>
+    </section>
+
+    <section id="idea" style="padding:34px 0; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 20px; font-weight:600;">THE ONE IDEA</h2>
+      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <sc-for list="{{ idea }}" as="id" hint-placeholder-count="3">
+          <div style="flex:1; min-width:230px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px 18px 16px;">
+            <div style="width:30px; height:30px; border-radius:9px; background:{{ id.bg }}; display:flex; align-items:center; justify-content:center; margin-bottom:13px;">{{ id.icon }}</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; margin-bottom:7px;">{{ id.t }}</div>
+            <div style="font-size:13.5px; line-height:1.55; color:rgba(216,221,238,0.74);">{{ id.b }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="promise" style="padding:34px 0; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 8px; font-weight:600;">THE PROMISE</h2>
+      <p style="font-size:14px; color:rgba(216,221,238,0.66); margin:0 0 20px; max-width:640px;">Four rules every window obeys. They're the whole reason you can trust a screen this playful.</p>
+      <div style="display:flex; flex-direction:column; gap:11px;">
+        <sc-for list="{{ promises }}" as="p" hint-placeholder-count="4">
+          <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:13px; padding:16px 18px;">
+            <div onClick="{{ p.onToggle }}" style="display:flex; align-items:center; gap:13px; cursor:pointer;">
+              <span style="width:9px; height:9px; border-radius:50%; background:{{ p.color }}; box-shadow:0 0 9px {{ p.color }}; flex:0 0 auto;"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; flex:1;">{{ p.t }}</span>
+              <span class="shmono" style="font-size:11px; color:{{ p.color }};">{{ p.toggleLabel }}</span>
+            </div>
+            <div style="font-size:14px; line-height:1.55; color:rgba(216,221,238,0.78); margin-top:9px; padding-left:22px;">{{ p.b }}</div>
+            <sc-if value="{{ p.open }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px; line-height:1.6; color:rgba(200,206,228,0.6); margin-top:11px; padding:12px 14px; background:rgba(0,0,0,0.22); border-radius:10px; border-left:2px solid {{ p.color }};">{{ p.deep }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="words" style="padding:34px 0; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 8px; font-weight:600;">THE WORDS YOU'LL SEE EVERYWHERE</h2>
+      <p style="font-size:14px; color:rgba(216,221,238,0.66); margin:0 0 20px; max-width:640px;">Learn these seven once and every room reads like home. They look the same in all of them — that's the point.</p>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;">
+        <sc-for list="{{ concepts }}" as="c" hint-placeholder-count="8">
+          <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:13px; padding:15px 16px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:9px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ c.term }}</span>
+              <div style="flex:1;"></div>
+              <div style="display:flex; gap:4px;">{{ c.swatch }}</div>
+            </div>
+            <div style="font-size:13px; line-height:1.55; color:rgba(216,221,238,0.74);">{{ c.plain }}</div>
+            <div onClick="{{ c.onToggle }}" class="shmono" style="font-size:10.5px; color:#9b8cff; margin-top:10px; cursor:pointer;">{{ c.toggleLabel }}</div>
+            <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px; line-height:1.6; color:rgba(200,206,228,0.62); margin-top:9px;">{{ c.deep }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="anatomy" style="padding:34px 0; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 8px; font-weight:600;">HOW TO READ ANY ROOM</h2>
+      <p style="font-size:14px; color:rgba(216,221,238,0.66); margin:0 0 20px; max-width:640px;">Every window is built on the same skeleton. Learn it once; you can walk into any of the {{ roomCount }} and know where to look.</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:stretch;">
+        <div style="flex:1.4; min-width:330px; border:1px solid rgba(255,255,255,0.1); border-radius:14px; overflow:hidden; background:rgba(255,255,255,0.02);">
+          <div style="display:flex; align-items:center; gap:8px; padding:9px 12px; background:rgba(255,255,255,0.04); border-bottom:1px solid rgba(255,255,255,0.08);"><span style="width:7px;height:7px;border-radius:50%;background:#9b8cff;"></span><span class="shmono" style="font-size:10px; color:rgba(216,221,238,0.7);">top — status &amp; "ledger read-only"</span></div>
+          <div style="display:flex; min-height:150px;">
+            <div style="flex:0 0 96px; border-right:1px solid rgba(255,255,255,0.08); padding:10px; background:rgba(255,255,255,0.015);"><div class="shmono" style="font-size:8.5px; color:rgba(200,205,230,0.45); line-height:1.9;">left —<br>projections<br>(every room)</div></div>
+            <div style="flex:1; padding:14px; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 40%, rgba(124,90,255,0.12), transparent 65%);"><span class="shmono" style="font-size:9.5px; color:rgba(216,221,238,0.55); text-align:center;">main canvas —<br>the hero view</span></div>
+            <div style="flex:0 0 120px; border-left:1px solid rgba(255,255,255,0.08); padding:10px; background:rgba(255,255,255,0.015);"><div class="shmono" style="font-size:8.5px; color:rgba(52,225,180,0.7); line-height:1.9;">right —<br>proof drawer<br>(the receipts)</div></div>
+          </div>
+          <div style="padding:9px 12px; border-top:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02);"><span class="shmono" style="font-size:9px; color:rgba(216,221,238,0.5);">bottom — timeline / ledger trace · "records edited: 0"</span></div>
+        </div>
+        <div style="flex:1; min-width:240px; display:flex; flex-direction:column; gap:10px;">
+          <sc-for list="{{ anatomy }}" as="a" hint-placeholder-count="5">
+            <div style="display:flex; gap:11px; align-items:flex-start;">
+              <span style="flex:0 0 auto; width:8px; height:8px; border-radius:2px; background:{{ a.color }}; margin-top:5px;"></span>
+              <div><div style="font-size:13.5px; font-weight:600;">{{ a.t }}</div><div style="font-size:12.5px; line-height:1.5; color:rgba(216,221,238,0.66);">{{ a.b }}</div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="first5" style="padding:34px 0; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 8px; font-weight:600;">YOUR FIRST 5 MINUTES</h2>
+      <p style="font-size:14px; color:rgba(216,221,238,0.66); margin:0 0 20px; max-width:640px;">Don't try to see everything. Walk this path once and the whole system clicks.</p>
+      <div style="display:flex; flex-direction:column; gap:11px;">
+        <sc-for list="{{ first5 }}" as="f" hint-placeholder-count="4">
+          <a href="{{ f.href }}" style="display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:13px; padding:15px 18px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:{{ f.color }}; flex:0 0 auto; width:30px;">{{ f.n }}</span>
+            <div style="flex:1;"><div style="font-size:15px; font-weight:600;">{{ f.t }} <span class="shmono" style="font-size:11px; color:{{ f.color }}; font-weight:400;">· {{ f.room }}</span></div><div style="font-size:13px; line-height:1.5; color:rgba(216,221,238,0.66); margin-top:3px;">{{ f.b }}</div></div>
+            <span class="shmono" style="font-size:11px; color:{{ f.color }}; flex:0 0 auto;">open →</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="rooms" style="padding:34px 0 10px; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 8px; font-weight:600;">THE ROOMS · BY WHAT YOU WANT TO DO</h2>
+      <p style="font-size:14px; color:rgba(216,221,238,0.66); margin:0 0 24px; max-width:640px;">Every room reads the same ledger — it just answers a different question. Click any one to open it.</p>
+      <div style="display:flex; flex-direction:column; gap:26px;">
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="8">
+          <div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:13px;">
+              <span style="width:11px; height:11px; border-radius:3px; background:{{ g.color }}; box-shadow:0 0 9px {{ g.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600;">{{ g.title }}</span>
+              <span style="font-size:13px; color:rgba(216,221,238,0.5);">{{ g.sub }}</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:11px;">
+              <sc-for list="{{ g.rooms }}" as="r" hint-placeholder-count="4">
+                <a href="{{ r.href }}" class="sh-room" style="display:block; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.09); border-radius:12px; padding:14px 15px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-family:'Space Grotesk',sans-serif; font-size:14.5px; font-weight:600; flex:1;">{{ r.name }}</span>
+                    <span class="shmono" style="font-size:10px; color:{{ g.color }};">open →</span>
+                  </div>
+                  <div style="font-size:12.5px; line-height:1.5; color:rgba(216,221,238,0.7); margin-top:6px;">{{ r.blurb }}</div>
+                  <div class="shmono" style="font-size:10.5px; color:rgba(200,205,230,0.5); margin-top:8px;"><span style="color:{{ g.color }};">try:</span> {{ r.try }}</div>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="padding:30px 0 10px; border-top:1px solid rgba(255,255,255,0.07);">
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:13px; letter-spacing:0.16em; color:rgba(200,205,230,0.5); margin:0 0 16px; font-weight:600;">EVERY ROOM, A–Z</h2>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:7px 14px;">
+        <sc-for list="{{ az }}" as="r" hint-placeholder-count="38">
+          <a href="{{ r.href }}" style="display:flex; align-items:center; gap:8px; padding:6px 4px; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="width:6px; height:6px; border-radius:50%; background:{{ r.color }}; flex:0 0 auto;"></span>
+            <span style="font-size:12.5px; color:rgba(220,224,240,0.82); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="margin-top:46px; padding:22px; border-radius:14px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); text-align:center;">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:rgba(231,234,243,0.92);">Nothing on this page was written to the ledger.</div>
+      <div class="shmono" style="font-size:11px; color:rgba(200,205,230,0.5); margin-top:6px;">this is a map, not the territory · records edited: 0</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1080,&quot;height&quot;:960}}">
+class Component extends DCLogic {
+  constructor(props){ super(props); this.state={ open:{} }; }
+  toggle(id){ this.setState(s=>({open:{...s.open,[id]:!s.open[id]}})); }
+  href(name){ const s=name.replace(/ - Tend$/,'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); return './'+s+'.dc.html'; }
+
+  rooms(){ return [
+    {name:'Prism Intake',g:'capture',blurb:'Where everything starts — drop a note, file, or thought and it becomes a sourced record.',try:'paste anything and watch it get a confidence score'},
+    {name:'Delia',g:'capture',blurb:'The night desk. Say it plain and she keeps it — exactly, nothing added.',try:'tell her one thing in your own words'},
+    {name:'Rosetta',g:'capture',blurb:'The transmuter — feeds old ledger formats in, current spec out.',try:'hand it something in an older format'},
+    {name:'Constellation Recall',g:'pattern',blurb:'Your recurring patterns as a star map; bright named stars are strong, red dwarfs are distortions.',try:'click a named star to open its proof'},
+    {name:'Resonance Atlas',g:'pattern',blurb:'How your domains push and pull each other — sleep→mood, work→sleep.',try:'open a transit and read its confidence'},
+    {name:'Weatherglass Flux',g:'pattern',blurb:'Your patterns rendered as weather — fronts, pressure, and gathering storms.',try:'read today\u2019s forecast'},
+    {name:'Spectrum Recall',g:'pattern',blurb:'Ask the ledger a question; get sourced, ranked answers back.',try:'run a recall query'},
+    {name:'Dream Cartographer',g:'pattern',blurb:'Your ideas as an explorable atlas — every island charted from real notes.',try:'sail to an island'},
+    {name:'Thread Loom',g:'pattern',blurb:'Your relationships and connections woven as living threads.',try:'pull a thread to trace it'},
+    {name:'Aurora Proof',g:'trust',blurb:'The show-your-work room — ribbons flow raw sources → records → insight → projection.',try:'click the projection to light its whole lineage'},
+    {name:'Engine Room',g:'trust',blurb:'Under the hood — watch records validate, transform, and render; debug what fails.',try:'pick a failing record and step it through'},
+    {name:'Distortion Clinic',g:'trust',blurb:'The repair bay where ambiguous data confesses — triaged, never silently edited.',try:'open a contradiction'},
+    {name:'The Case File',g:'trust',blurb:'An evidence-only dossier. The file doesn\u2019t do hunches.',try:'open the dossier and follow the evidence'},
+    {name:'Source Aquarium',g:'trust',blurb:'Your sources as living creatures in tanks — integrity and health at a glance.',try:'tap a tank to inspect a source'},
+    {name:'Signal Menagerie',g:'trust',blurb:'The little creatures that flag data states — low quality, contradiction, coverage gaps.',try:'meet who shows up and why'},
+    {name:'Signal Forge',g:'decide',blurb:'What-if simulation — change an input, see projected outcomes with their confidence.',try:'run a scenario and compare'},
+    {name:'The Long Game',g:'decide',blurb:'Long-horizon planning across career and network.',try:'look down the timeline'},
+    {name:'Archive Mine',g:'decide',blurb:'Turns old chats and files into structured decisions — ore → gems → ingots → stamped canon.',try:'promote a candidate through QC'},
+    {name:'Lantern Desk',g:'daily',blurb:'A calm daily home base — today, gently, at a glance.',try:'just land here and breathe'},
+    {name:'Tide Room',g:'daily',blurb:'Your day\u2019s rhythms as tides coming in and going out.',try:'watch where the tide is now'},
+    {name:'Memory Conservatory',g:'daily',blurb:'Memories as glowing terrariums by season; reconstructed ones mist over.',try:'open a frosted memory and see why it\u2019s hazy'},
+    {name:'The Illuminary',g:'daily',blurb:'Your year as a stained-glass window — brightness is confidence, redactions are leaded over.',try:'switch the glass style and watch the facts hold'},
+    {name:'Shelf Life',g:'daily',blurb:'Your pantry as glowing jars — stock, expiry, gaps, plus a meal & glucose storyboard.',try:'open the Watch Shelf and click a jar'},
+    {name:'Lumen Apothecary',g:'daily',blurb:'Health-adjacent symptoms and patterns on an apothecary shelf — observation only.',try:'open a symptom bottle\u2019s proof'},
+    {name:'Carbs & Consequences',g:'daily',blurb:'The food-and-body desk — dry, honest, observation-only, never advice.',try:'read a pattern and its receipts'},
+    {name:'The Potting Shed',g:'daily',blurb:'The tending bench — habits as care, not compliance.',try:'tend something without being nagged'},
+    {name:'The Yield Garden',g:'daily',blurb:'Goals and habits as a garden that yields over time.',try:'check what the beds are growing'},
+    {name:'Verdant Harmonics',g:'daily',blurb:'Your routines as a living garden kept in harmony — walk the rows and tend them.',try:'tend a row and watch it respond'},
+    {name:'Ritual Circle',g:'daily',blurb:'Your routines and rituals drawn as a circle you can see and keep.',try:'trace a ritual around the circle'},
+    {name:'Mirror Hall',g:'daily',blurb:'Your data reflected back — yourself across time and lenses, honestly.',try:'look into a mirror'},
+    {name:'The Counting House',g:'money',blurb:'Money and finances, every figure sourced and traceable.',try:'open a balance and follow it back'},
+    {name:'Lattice Vault',g:'money',blurb:'Your high-value canonical records, kept in a vault.',try:'open the vault'},
+    {name:'Leeches',g:'money',blurb:'The quiet drains — subscriptions, time-sinks, and creeping costs, each one sourced.',try:'find a leech you forgot about'},
+    {name:'Iris',g:'control',blurb:'The visibility aperture — you decide who sees what, and it shows.',try:'turn the aperture open or closed'},
+    {name:'The Governor',g:'control',blurb:'The authority regulator — you decide what the system may do on its own.',try:'set a limit and watch it hold'},
+    {name:'Family Lantern Wall',g:'control',blurb:'A shared wall for the people you choose, scoped so nothing sensitive leaks.',try:'see what a shared view does and doesn\u2019t show'},
+    {name:'Projection Wardrobe',g:'control',blurb:'Try on themes and lenses — change the look, never the facts.',try:'swap a lens and confirm the data didn\u2019t move'},
+    {name:'Levity Lens',g:'fun',blurb:'The meme machine — your records through a bounded humor lens, with provenance baked in.',try:'roll a meme and check its receipts'},
+    {name:'Brass Tacks',g:'fun',blurb:'The snarky news desk — straight fact beside the joke, with a firewall. Paste your own headlines.',try:'paste a headline and roll it'},
+    {name:'Bounty Constellarium',g:'fun',blurb:'Your open loops and tasks as a reward sky of bounties to claim.',try:'claim a bounty'}
+  ]; }
+
+  renderVals(){
+    const O=this.state.open, t=id=>()=>this.toggle(id);
+    const idea=[
+      {t:'The ledger is the truth',b:'Your records — captured once, sourced, dated. This is the book everything reads from. No room can rewrite it.',icon:'\u25c8',bg:'rgba(155,140,255,0.18)'},
+      {t:'A room is a window',b:'Each screen projects the same records through a different metaphor and lens. A star map and a pantry can describe the very same fact.',icon:'\u25d1',bg:'rgba(52,225,180,0.18)'},
+      {t:'The view bends, the truth doesn\u2019t',b:'Change the theme, the layout, the jokes, the season — the confidence, the sources, and the facts stay put. Always.',icon:'\u2726',bg:'rgba(255,122,208,0.18)'}
+    ];
+    const promises=[
+      {id:'p1',t:'Truth is not skinnable',color:'#9b8cff',b:'A lens may change palette, icons, layout, motion, and even the words on screen.',deep:'It may never change confidence, lifecycle, governance, visibility, who said it, or what a field means. The Illuminary proves it live: switch the glass style and a cracked pane stays cracked, a dim one stays dim, a redacted one stays sealed.'},
+      {id:'p2',t:'Everything shows its work',color:'#34e1b4',b:'Every star, bloom, score, storm, or headline opens a proof drawer.',deep:'Inside: the source trace, the confidence, the time window, the reasoning path, any contradictions, and a link to the canonical record. If a screen claims something, the receipts are one click away — that\u2019s non-negotiable.'},
+      {id:'p3',t:'Nothing is edited behind your back',color:'#ffce5a',b:'Rooms read the ledger; they never silently write to it.',deep:'Any action that changes state writes an annotation or consent record alongside the canon — never an edit to it. You\u2019ll see \u201crecords edited: 0\u201d reassurances throughout. The original always survives.'},
+      {id:'p4',t:'You decide who sees what',color:'#46c8ff',b:'Visibility and authority are yours, and they\u2019re visible.',deep:'Iris is the aperture for who can see a record; The Governor sets what the system may do on its own. Private things stay private even inside a joke — Levity Lens and Brass Tacks both refuse to project a sealed record, and say why.'}
+    ];
+    const sw=(arr)=>React.createElement('span',{style:{display:'flex',gap:'4px'}},arr.map((c,i)=>React.createElement('span',{key:i,style:{width:'13px',height:'8px',borderRadius:'2px',background:c}})));
+    const concepts=[
+      {id:'c1',term:'Confidence',plain:'How sure the ledger is, on a 0\u20131 scale, shown as one shared color everywhere.',deep:'Green ≥0.8 solid, lime ≥0.65, amber ≥0.55, orange ≥0.45, red below. A bright star, a full jar, a clear pane — all the same scale. It is never inflated to look better.',sw:['#39e0a6','#7fd99a','#e8c75a','#ff9e57','#ff6b5e']},
+      {id:'c2',term:'Lifecycle',plain:'Where a record is in its life — settled, watched, contested, or gone quiet.',deep:'Confirmed (green), Watching (amber), Contested (red), Uncertain/Dormant (grey). The label can\u2019t be themed away; a contested record stays contested in every room.',sw:['#39e0a6','#e8c75a','#ff6b5e','#9aa6c0']},
+      {id:'c3',term:'Source & verification',plain:'Who said it — you, a device, a document, an outside feed, or an inference.',deep:'Stamps like HUM (you), DEV (device), DOC (document), EXT (external), SYS, AI. Device and self-report are always shown apart, so a hunch never wears a measurement\u2019s authority.',sw:['#f0d8a8','#66c7ff','#d9a441','#34e1b4']},
+      {id:'c4',term:'Resolver',plain:'The rule for turning many records into one shown value.',deep:'LATEST (current state), DELTA_SUM (running totals, like a jar\u2019s fill), HIGHEST_CONF (trust the strongest source), LATEST_VERIFIED (locked for medical-grade records). The rule is always named in the proof.',sw:['#9b8cff','#46c8ff']},
+      {id:'c5',term:'Contradiction',plain:'When two sources disagree, you see both — never a silent winner.',deep:'Rendered as a cracked pane, a split label, or two cards side by side. The conflict is preserved for review; the prettier number never just wins.',sw:['#ff6b5e','#ff9e57']},
+      {id:'c6',term:'Coverage gap',plain:'A hole where data should be — shown, not guessed at or filled in.',deep:'An empty shelf with a dust outline, an unglazed window pane. Lightweave will not invent a record to make a screen look complete.',sw:['#9aa6c0','#71717a']},
+      {id:'c7',term:'Proof drawer',plain:'The right-hand panel in every room that answers \u201cwhy does it say that?\u201d',deep:'Source trace, confidence, time window, reasoning, contradictions, canonical link. It is the same idea whether it\u2019s called Label Proof, Brass Tacks, or Back Label.',sw:['#34e1b4','#9b8cff','#ffce5a']}
+    ].map(c=>({term:c.term, plain:c.plain, deep:c.deep, swatch:sw(c.sw), open:!!O[c.id], onToggle:t(c.id), toggleLabel:O[c.id]?'\u2212 less':'+ go deeper'}));
+    const anatomy=[
+      {t:'Top — status',b:'System pills and a \u201cledger read-only\u201d badge. You\u2019re looking, not overwriting.',color:'#9b8cff'},
+      {t:'Left — projections',b:'The list of every room. Same in all of them; the active one is lit.',color:'#46c8ff'},
+      {t:'Main — the canvas',b:'The hero view: the map, garden, refinery, or sky for this room.',color:'#34e1b4'},
+      {t:'Right — proof drawer',b:'Click anything in the canvas; its receipts appear here.',color:'#ffce5a'},
+      {t:'Bottom — ledger trace',b:'A timeline and the \u201crecords edited: 0\u201d reassurance.',color:'#ff7ad0'}
+    ];
+    const first5=[
+      {n:'1',t:'Put something in',room:'Prism Intake',color:'#34e1b4',b:'Capture a note or file and watch it become a sourced record. Start with Delia if you\u2019d rather just talk.',href:this.href('Prism Intake')},
+      {n:'2',t:'See a pattern',room:'Constellation Recall',color:'#9b8cff',b:'Let your records arrange into a star map, then click a named star to open its proof.',href:this.href('Constellation Recall')},
+      {n:'3',t:'Check the truth',room:'Aurora Proof',color:'#46c8ff',b:'Pick a projection and watch the ribbons light up every source it was built from.',href:this.href('Aurora Proof')},
+      {n:'4',t:'Decide who sees it',room:'Iris',color:'#ffce5a',b:'Open the aperture and set who can see what. This is yours to control, always.',href:this.href('Iris')}
+    ];
+    const groupMeta={
+      capture:{title:'Get it in',sub:'capture & keep',color:'#34e1b4'},
+      pattern:{title:'See the patterns',sub:'meaning & connection',color:'#9b8cff'},
+      trust:{title:'Trust it & fix it',sub:'proof, provenance, repair',color:'#46c8ff'},
+      decide:{title:'Decide & plan',sub:'what-if and forward',color:'#ffce5a'},
+      daily:{title:'Live with it',sub:'daily life, memory & care',color:'#ff7ad0'},
+      money:{title:'Money & value',sub:'what you have and what drains it',color:'#46e08a'},
+      control:{title:'Control & share',sub:'visibility, authority, people',color:'#7fb0ff'},
+      fun:{title:'For the joy of it',sub:'the ledger, off the clock',color:'#ff5db1'}
+    };
+    const all=this.rooms().map(r=>({...r, href:this.href(r.name), color:groupMeta[r.g].color}));
+    const groups=Object.keys(groupMeta).map(k=>({ ...groupMeta[k], rooms:all.filter(r=>r.g===k) }));
+    const az=all.slice().sort((a,b)=>a.name.localeCompare(b.name));
+    return { roomCount:all.length, idea, promises:promises.map(p=>({...p, open:!!O[p.id], onToggle:t(p.id), toggleLabel:O[p.id]?'\u2212':'+ deeper'})), concepts, anatomy, first5, groups, az };
+  }
+}
+</script>
+</body>
+</html>

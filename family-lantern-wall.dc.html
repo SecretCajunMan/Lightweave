@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0c0810}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwEmber{0%{transform:translateY(0) scale(1);opacity:0}12%{opacity:.7}90%{opacity:.25}100%{transform:translateY(-46px) scale(.5);opacity:0}}
+  @keyframes lwBreathe{0%,100%{opacity:.55}50%{opacity:.95}}
+  @keyframes lwHaze{0%,100%{opacity:.4;transform:translateY(0)}50%{opacity:.75;transform:translateY(-6px)}}
+</style>
+</helmet>
+<div data-screen-label="Family Lantern Wall" style="height:100vh; overflow:hidden; color:rgba(244,239,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; --wall1:{{ wall1 }}; --wall2:{{ wall2 }}; background:radial-gradient(1100px 620px at 50% -14%, var(--bg1), transparent 62%), radial-gradient(900px 700px at 112% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M14 4 C16 8 20 9 20 14 C20 18 17 21 14 21 C11 21 8 18 8 14 C8 9 12 8 14 4 Z" fill="none" stroke="var(--accent)" stroke-width="1.5"></path><circle cx="14" cy="15" r="3.2" fill="none" stroke="var(--accent2)" stroke-width="1.2"></circle><line x1="14" y1="21" x2="14" y2="25" stroke="#fff" stroke-width="1.2" opacity="0.5"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Family Lantern Wall</span>
+      <span style="font-size:10.5px; color:rgba(244,239,247,0.42);">Projection · shared household display · safe aggregate only</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(244,239,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(95,211,154,0.32); border-radius:7px; background:rgba(95,211,154,0.08); color:#86e0ad;"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>0 private fields exposed</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">{{ generalizedCount }} generalized</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:7px;">
+      <span style="font-size:9px; letter-spacing:0.12em; color:rgba(244,239,247,0.4);">SCOPE</span>
+      <div style="display:flex; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); border-radius:9px; padding:3px;">
+        <span onClick="{{ onWall }}" style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:500; padding:6px 12px; border-radius:7px; cursor:pointer; background:{{ scopeUI.wallBg }}; color:{{ scopeUI.wallTxt }};"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>Wall</span>
+        <span onClick="{{ onCaregiver }}" style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:500; padding:6px 12px; border-radius:7px; cursor:pointer; background:{{ scopeUI.careBg }}; color:{{ scopeUI.careTxt }};">Caregiver</span>
+      </div>
+    </div>
+    <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="family-lantern-wall"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(244,239,247,0.42); margin-bottom:4px;">HOUSEHOLD HARMONY · ROLLING 7 DAYS</div>
+          <div style="display:flex; align-items:baseline; gap:11px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:23px; font-weight:600; line-height:1.1; color:#ffd9a0;">{{ harmony.state }}</span>
+            <span style="font-size:12px; color:rgba(244,239,247,0.55);">{{ harmony.safe }}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:5px; margin-top:6px;">
+            <sc-for list="{{ harmonyBand }}" as="b" hint-placeholder-count="4">
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:3px 8px; border-radius:6px; background:{{ b.bg }}; color:{{ b.txt }}; border:1px solid {{ b.border }};">{{ b.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:14px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(244,239,247,0.4);">HOME / OUT</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(95,211,154,0.12); border:1px solid rgba(95,211,154,0.3); color:#86e0ad;">{{ presence }}</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(244,239,247,0.4);">ATTENTION DUE</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,158,194,0.12); border:1px solid rgba(255,158,194,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#ff9ec2; box-shadow:0 0 7px #ff9ec2;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ffb0d0;">{{ attentionDue }}</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(244,239,247,0.4);">GENERALIZED</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); color:rgba(244,239,247,0.82);">{{ generalizedCount }}</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(244,239,247,0.4);">EXPOSED</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(95,211,154,0.12); border:1px solid rgba(95,211,154,0.3); color:#86e0ad;">0</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 90% at 50% -8%, var(--wall1), transparent 55%), linear-gradient(180deg, var(--wall2), #0a060e 60%, #0b0710);">
+          <div style="position:absolute; inset:0; pointer-events:none;">
+            <sc-for list="{{ embers }}" as="e" hint-placeholder-count="0">
+              <span style="position:absolute; left:{{ e.left }}; bottom:{{ e.bottom }}; width:{{ e.size }}; height:{{ e.size }}; border-radius:50%; background:{{ e.color }}; box-shadow:0 0 6px {{ e.color }}; animation:lwEmber {{ e.dur }} ease-in infinite; animation-delay:{{ e.delay }};"></span>
+            </sc-for>
+          </div>
+
+          <div style="position:relative; height:100%; display:flex; flex-direction:column; padding:14px 18px 12px; gap:9px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.04em; color:rgba(244,239,247,0.62);">{{ wallName }}</span>
+              <span style="font-size:9.5px; font-family:'IBM Plex Mono',monospace; color:rgba(244,239,247,0.4);">household-safe view</span>
+              <div style="flex:1;"></div>
+              <div style="display:flex; align-items:center; gap:11px; font-size:9px; color:rgba(244,239,247,0.45);">
+                <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#fff,#5fd39a 70%);"></span>calm</span>
+                <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#fff,#ff9ec2 70%);box-shadow:0 0 6px #ff9ec2;"></span>attention due</span>
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg width="9" height="9" viewBox="0 0 12 12"><path d="M6 1 L10 2.5 V6 C10 8.5 8 10.4 6 11 C4 10.4 2 8.5 2 6 V2.5 Z" fill="none" stroke="#9aa6c0" stroke-width="1.1"></path></svg>redacted</span>
+              </div>
+            </div>
+
+            <div style="position:relative; flex:0 0 auto;">
+              <div style="position:absolute; left:2%; right:2%; top:3px; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);"></div>
+              <div style="display:flex; gap:12px; align-items:flex-start;">
+                <sc-for list="{{ people }}" as="l" hint-placeholder-count="5">
+                  <div onClick="{{ l.onSelect }}" style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; cursor:pointer; opacity:{{ l.op }};">
+                    <div style="width:7px; height:7px; border-radius:50%; background:{{ l.hookColor }}; box-shadow:0 0 6px {{ l.hookColor }};"></div>
+                    <div style="width:1px; height:11px; background:linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.05));"></div>
+                    <div style="width:22px; height:5px; border-radius:3px 3px 1px 1px; background:{{ l.capColor }};"></div>
+                    <div style="width:100%; border:1px solid {{ l.border }}; border-radius:13px; padding:11px 11px 10px; background:{{ l.bodyBg }}; box-shadow:{{ l.shadow }}; position:relative; overflow:hidden; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);">
+                      <div style="position:absolute; left:50%; top:-14px; transform:translateX(-50%); width:96px; height:70px; background:radial-gradient(circle at 50% 50%, {{ l.glowA }}, transparent 70%); pointer-events:none;"></div>
+                      <div style="position:relative; display:flex; flex-direction:column; gap:6px;">
+                        <div style="display:flex; align-items:center; gap:6px;">
+                          <span style="width:9px; height:9px; border-radius:50%; background:{{ l.stateColor }}; box-shadow:0 0 9px {{ l.stateColor }};"></span>
+                          <span style="font-size:7.5px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.06em; color:{{ l.stateColor }};">{{ l.tag }}</span>
+                          <span style="margin-left:auto;">{{ l.shieldEl }}</span>
+                        </div>
+                        <div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; line-height:1.1; color:rgba(244,239,247,0.96);">{{ l.name }}</div>
+                        <div style="font-size:11px; font-weight:600; color:{{ l.stateColor }};">{{ l.state }}</div>
+                        <div style="font-size:10px; color:rgba(244,239,247,0.6); line-height:1.35; min-height:26px;">{{ l.label }}</div>
+                        <div style="display:flex; align-items:center; gap:6px; margin-top:1px;">
+                          <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:2px 6px; border-radius:5px; background:{{ l.scopeBg }}; color:{{ l.scopeColor }};">{{ l.scopeShort }}</span>
+                          <span style="margin-left:auto; width:6px; height:6px; border-radius:50%; background:{{ l.confColor }}; box-shadow:0 0 6px {{ l.confColor }};"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:9px; margin-top:2px;">
+              <span style="font-size:9.5px; letter-spacing:0.14em; color:rgba(244,239,247,0.38);">SHARED ON THIS WALL</span>
+              <span style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.1),transparent);"></span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(244,239,247,0.38);">obligations · safe reminders · rhythm</span>
+            </div>
+
+            <div style="flex:1; min-height:0; display:grid; grid-template-columns:repeat(6,1fr); gap:10px; align-content:start;">
+              <sc-for list="{{ shared }}" as="l" hint-placeholder-count="6">
+                <div onClick="{{ l.onSelect }}" style="min-width:0; display:flex; flex-direction:column; align-items:center; cursor:pointer; opacity:{{ l.op }};">
+                  <div style="width:5px; height:5px; border-radius:50%; background:{{ l.hookColor }}; box-shadow:0 0 5px {{ l.hookColor }};"></div>
+                  <div style="width:1px; height:8px; background:linear-gradient(rgba(255,255,255,0.28),rgba(255,255,255,0.04));"></div>
+                  <div style="width:100%; border:1px solid {{ l.border }}; border-radius:11px; padding:9px 9px 8px; background:{{ l.bodyBg }}; box-shadow:{{ l.shadow }}; position:relative; overflow:hidden;">
+                    <div style="position:absolute; left:50%; top:-12px; transform:translateX(-50%); width:70px; height:48px; background:radial-gradient(circle at 50% 50%, {{ l.glowA }}, transparent 70%); pointer-events:none;"></div>
+                    <div style="position:relative; display:flex; flex-direction:column; gap:4px;">
+                      <div style="display:flex; align-items:center; gap:5px;">
+                        <span style="width:7px; height:7px; border-radius:50%; background:{{ l.stateColor }}; box-shadow:0 0 7px {{ l.stateColor }};"></span>
+                        <span style="font-size:7px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em; color:{{ l.stateColor }};">{{ l.tag }}</span>
+                        <span style="margin-left:auto;">{{ l.shieldEl }}</span>
+                      </div>
+                      <div style="font-size:11px; font-weight:600; line-height:1.15; color:rgba(244,239,247,0.94);">{{ l.name }}</div>
+                      <div style="font-size:9px; color:rgba(244,239,247,0.58); line-height:1.3; min-height:23px;">{{ l.label }}</div>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.name }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(244,239,247,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.kind }} · scope: {{ sel.scope }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(244,239,247,0.4); margin-bottom:7px;">WHAT THIS LANTERN SHOWS</div>
+              <div style="font-size:13px; font-weight:600; color:rgba(244,239,247,0.92); line-height:1.4;">{{ sel.label }}</div>
+              <div style="font-size:10.5px; color:rgba(244,239,247,0.52); margin-top:6px; line-height:1.45;">{{ sel.glowMeaning }}</div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px;">
+              <div style="background:rgba(95,211,154,0.05); border:1px solid rgba(95,211,154,0.28); border-radius:11px; padding:10px 11px;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#86e0ad" stroke-width="1"></circle><path d="M3.6 6.1 L5.2 7.6 L8.4 4.2" fill="none" stroke="#86e0ad" stroke-width="1.1"></path></svg><span style="font-size:9px; letter-spacing:0.08em; color:#86e0ad;">PROJECTED · SAFE</span></div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <sc-for list="{{ sel.projected }}" as="p" hint-placeholder-count="2">
+                    <div style="font-size:10px; color:rgba(244,239,247,0.78); line-height:1.35; display:flex; gap:6px;"><span style="color:#86e0ad;">+</span><span>{{ p }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:{{ sel.withheldBoxBg }}; border:1px solid {{ sel.withheldBoxBorder }}; border-radius:11px; padding:10px 11px;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;"><svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5" rx="1" fill="none" stroke="{{ sel.withheldIcon }}" stroke-width="1"></rect><path d="M4 5 V3.5 A2 2 0 0 1 8 3.5 V5" fill="none" stroke="{{ sel.withheldIcon }}" stroke-width="1"></path></svg><span style="font-size:9px; letter-spacing:0.08em; color:{{ sel.withheldIcon }};">{{ sel.withheldTitle }}</span></div>
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.withheld }}" as="w" hint-placeholder-count="2">
+                    <div><div style="font-size:10px; color:rgba(244,239,247,0.72); line-height:1.3;">{{ w.f }}</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ w.why_color }}; margin-top:1px;">{{ w.why }}</div></div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom:9px;"><svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.4" fill="none" stroke="#c79bff" stroke-width="1"></circle><circle cx="6" cy="6" r="5" fill="none" stroke="#c79bff" stroke-width="0.8" opacity="0.5"></circle></svg><span style="font-size:10px; letter-spacing:0.12em; color:rgba(244,239,247,0.5);">IMPLICATION AUDIT</span><span style="margin-left:auto; font-size:9px; font-family:'IBM Plex Mono',monospace; color:#86e0ad;">no leak via ornament</span></div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sel.audit }}" as="a" hint-placeholder-count="4">
+                  <div style="display:flex; gap:8px; align-items:flex-start;">
+                    <span style="flex:0 0 auto; width:14px; height:14px; border-radius:50%; background:rgba(95,211,154,0.14); display:flex; align-items:center; justify-content:center; margin-top:1px;"><svg width="8" height="8" viewBox="0 0 12 12"><path d="M2.5 6.2 L5 8.6 L9.5 3.4" fill="none" stroke="#86e0ad" stroke-width="1.6"></path></svg></span>
+                    <div style="min-width:0;"><div style="font-size:10.5px; font-weight:600; color:rgba(244,239,247,0.82);">{{ a.k }}</div><div style="font-size:9.5px; color:rgba(244,239,247,0.55); line-height:1.4; margin-top:1px;">{{ a.note }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="font-size:9.5px; color:rgba(244,239,247,0.45); flex:0 0 78px;">confidence</span>
+                <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="font-size:9.5px; color:rgba(244,239,247,0.45); flex:0 0 78px;">source integrity</span>
+                <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.integPct }}; background:{{ sel.integColor }}; box-shadow:0 0 8px {{ sel.integColor }};"></div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.integColor }};">{{ sel.integ }}</span>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,158,87,0.05); border:1px solid rgba(255,158,87,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff9e57; box-shadow:0 0 7px #ff9e57;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#ffb27a;">CONTRADICTORY SIGNALS</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(244,239,247,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(244,239,247,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(244,239,247,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(244,239,247,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(244,239,247,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(244,239,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(244,239,247,0.72);">{{ step }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(244,239,247,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.sources }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #100a14; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(244,239,247,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(244,239,247,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(244,239,247,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(244,239,247,0.45);">record</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(244,239,247,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(244,239,247,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(244,239,247,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(244,239,247,0.45);">visibility.scope</span><span style="color:{{ sel.scopeColor }};">{{ sel.scopeField }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(244,239,247,0.45);">redaction.policy</span><span>{{ sel.redaction }}</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical record</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(244,239,247,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Visibility log</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(244,239,247,0.6);">Today's rhythm</span>
+        <span style="font-size:10px; color:rgba(244,239,247,0.38);">meal · routine · calendar — generalized, no private detail</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(244,239,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ffd27a;"></span>meal</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(244,239,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#5fd39a;"></span>routine</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(244,239,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#9b8cff;"></span>calendar</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(255,178,122,0.05), rgba(199,155,255,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ rhythmSvg }}</div>
+        <sc-for list="{{ rhythmMarks }}" as="m" hint-placeholder-count="7">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:96px;">
+            <div style="font-size:8.5px; color:rgba(244,239,247,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:96px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(244,239,247,0.4); margin-top:3px; white-space:nowrap;">{{ m.time }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(244,239,247,0.66);">PROJECTED SAFE · PRIVATE WITHHELD · EVERY GLOW TRACES TO A RECORD</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hearth&quot;,&quot;dusk&quot;,&quot;meadow&quot;],&quot;default&quot;:&quot;hearth&quot;,&quot;tsType&quot;:&quot;'hearth' | 'dusk' | 'meadow'&quot;},&quot;embers&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;wallName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;The Okafor household&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'harmony', scope:'wall' };
+
+    // ---- Lanterns. Each carries CANONICAL fields (never altered by theme) plus a safe projection. ----
+    this.LANTERNS = {
+      harmony:{ group:'people', tag:'HEARTH', name:'Household harmony', state:'Steady', stateColor:'#ffd27a', bucket:'calm',
+        safe:'Calm and in rhythm today', glowMeaning:'The hearth glow reads a 4-step shared band (Tense · Uneven · Steady · Bright). It is an aggregate of everyone, so it cannot surface any one person\u2019s private state.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'wall', redaction:'aggregate-only',
+        conf:0.82, integ:0.86, life:'Confirmed', kind:'AGG \u00b7 harmony index', mode:'aggregate.band', resolver:'WEIGHTED_MEAN', window:'rolling 7 days', canonId:'agg_harmony_01',
+        projected:['A single 4-step harmony band for the whole house','Direction of the week (holding Steady)'],
+        withheld:[{f:'Per-person mood or who is in conflict',why:'individual privacy'},{f:'Any message or conversation content',why:'never ingested'}],
+        sources:[{title:'4 member rhythm records',meta:'normalized \u00b7 confirmed',color:'#5fd39a',radius:'3px'},{title:'Shared-calendar density',meta:'OAuth \u00b7 provider-attested',color:'#9b8cff',radius:'3px'},{title:'Obligation completion rate',meta:'wall ledger',color:'#ffd27a',radius:'3px'}],
+        reasoning:['Combines four members\u2019 shared-rhythm records into one household index.','Quantized to a fixed 4-step band so no continuous, identifiable score leaks.','Holds at Steady; one shared signal reads slightly uneven (see conflict).'],
+        contradiction:{ a:{label:'Routine completion',val:'Steady',conf:'conf 0.88',color:'#7fd99a'}, b:{label:'Calendar pressure',val:'Uneven',conf:'conf 0.62',color:'#ffb27a'}, note:'Two shared signals disagree on the week. The band surfaces the conflict; it does not average it into a falsely calm glow.' },
+        implication:'Brightness comes from a 4-step band, never a continuous score \u2014 it cannot encode a private gradient for any individual.' },
+
+      maya:{ group:'people', tag:'MEMBER', name:'Maya', state:'Settled', stateColor:'#5fd39a', bucket:'calm',
+        safe:'Home and winding down', glowMeaning:'A calm green glow means \u201cpresent, no attention needed.\u201d It is a 3-state presence bucket (home / out / attention), nothing finer.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'wall', redaction:'presence-bucket',
+        conf:0.9, integ:0.92, life:'Confirmed', kind:'MEM \u00b7 presence', mode:'presence.bucket', resolver:'LATEST', window:'live', canonId:'mem_maya_pr',
+        projected:['Presence bucket: home','Attention flag: none'],
+        withheld:[{f:'Exact location or room',why:'precise location withheld'},{f:'Activity, screen, or messages',why:'never ingested'}],
+        sources:[{title:'Shared presence beacon',meta:'household device \u00b7 attested',color:'#5fd39a',radius:'3px'},{title:'Routine record',meta:'normalized',color:'#9b8cff',radius:'3px'}],
+        reasoning:['Reads one of three presence buckets from the shared beacon.','No precise location is ever projected \u2014 only home / out / attention.','Calm bucket renders as a soft, non-pulsing glow.'],
+        contradiction:null,
+        implication:'Presence is a 3-value bucket; the glow can show \u201chome\u201d but never where or what.' },
+
+      theo:{ group:'people', tag:'MEMBER', name:'Theo', state:'Out', stateColor:'#ffb27a', bucket:'calm',
+        safe:'Away, expected back this evening', glowMeaning:'An amber glow means \u201cout.\u201d Whereabouts are sealed on this shared device even in caregiver scope \u2014 an adult\u2019s location is their own.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'sealed', redaction:'presence-bucket',
+        conf:0.86, integ:0.88, life:'Confirmed', kind:'MEM \u00b7 presence', mode:'presence.bucket', resolver:'LATEST', window:'live', canonId:'mem_theo_pr',
+        projected:['Presence bucket: out','A generalized return window (this evening)'],
+        withheld:[{f:'Where Theo is or who they are with',why:'sealed \u00b7 peer-private'},{f:'Reason for being out',why:'never ingested'}],
+        sealedNote:'Sealed even in caregiver scope. Caregiver permission does not extend to another adult\u2019s whereabouts.',
+        sources:[{title:'Shared presence beacon',meta:'household device \u00b7 attested',color:'#5fd39a',radius:'3px'},{title:'Self-set return window',meta:'self-attested',color:'#ffb27a',radius:'2px'}],
+        reasoning:['Reads the \u201cout\u201d presence bucket from the shared beacon.','Return window is self-set and generalized to a part of day.','Location stays sealed regardless of who is viewing.'],
+        contradiction:null,
+        implication:'\u201cOut\u201d is the whole signal \u2014 no place, no companion, no map pin is encoded anywhere.' },
+
+      nan:{ group:'people', tag:'MEMBER \u00b7 CARE', name:'Nan', state:'Check-in due', stateColor:'#ff9ec2', bucket:'attention',
+        safe:'A routine check-in is due', glowMeaning:'A rose glow marks \u201cattention due\u201d \u2014 a single shared boolean. It deliberately does NOT brighten with severity, so no one can read a health state off the wall.',
+        scope:'Caregiver only', scopeField:'care.circle', scopeShort:'care', revealLevel:'caregiver', redaction:'health-redacted',
+        conf:0.84, integ:0.9, life:'Confirmed', kind:'CARE \u00b7 reminder', mode:'reminder.flag', resolver:'SCHEDULE', window:'today', canonId:'care_nan_ci',
+        projected:['Attention flag: a check-in is due','Nothing about what kind or why'],
+        withheld:[{f:'Health, medication, or vitals',why:'health-redacted \u00b7 care-only'},{f:'What the check-in is for',why:'generalized to \u201croutine\u201d'}],
+        caregiverLabel:'Routine wellness check-in scheduled for this afternoon',
+        reveals:[{f:'Type',val:'Routine wellness check-in'},{f:'Window',val:'This afternoon'},{f:'Note',val:'Standing weekly cadence \u2014 no escalation flag'}],
+        sources:[{title:'Care-circle schedule',meta:'care record \u00b7 confirmed',color:'#c79bff',radius:'3px'},{title:'Routine cadence record',meta:'normalized',color:'#9b8cff',radius:'3px'}],
+        reasoning:['Surfaces a single boolean \u2014 a check-in is due \u2014 on the shared wall.','The reason and any health detail stay sealed unless a permitted caregiver opens it.','The glow is fixed brightness so severity can never be inferred.'],
+        contradiction:null,
+        implication:'\u201cAttention due\u201d is a boolean, not a dial \u2014 brightness is constant, so it leaks no degree of concern.' },
+
+      sam:{ group:'people', tag:'MEMBER', name:'Sam', state:'Focused', stateColor:'#6fa8ff', bucket:'calm',
+        safe:'Heads-down, prefers not to be disturbed', glowMeaning:'A blue glow means \u201cdo-not-disturb.\u201d What Sam is working on is sealed \u2014 the wall shows availability, not activity.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'sealed', redaction:'availability-only',
+        conf:0.88, integ:0.9, life:'Confirmed', kind:'MEM \u00b7 availability', mode:'availability.flag', resolver:'LATEST', window:'live', canonId:'mem_sam_av',
+        projected:['Availability: do-not-disturb','Presence bucket: home'],
+        withheld:[{f:'What Sam is doing',why:'sealed \u00b7 never ingested'},{f:'Apps, calls, or screens',why:'out of scope'}],
+        sealedNote:'Activity content is never collected, so there is nothing to reveal in any scope.',
+        sources:[{title:'Self-set availability',meta:'self-attested',color:'#6fa8ff',radius:'2px'},{title:'Shared presence beacon',meta:'household device \u00b7 attested',color:'#5fd39a',radius:'3px'}],
+        reasoning:['Reads a self-set availability flag plus a presence bucket.','No activity data is ingested, so none can be projected.','Calm, steady glow \u2014 a focus state, not an alert.'],
+        contradiction:null,
+        implication:'Availability is a single self-set flag; the glow says \u201cbusy,\u201d never with what.' },
+
+      dishes:{ group:'shared', tag:'CHORE', name:'Dishes tonight', state:'Theo\u2019s turn', stateColor:'#7fd99a', bucket:'calm',
+        safe:'On the rotation \u2014 Theo is up tonight', glowMeaning:'A shared chore rotation. Whose turn it is is public to the household by design \u2014 there is nothing private here to withhold.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'wall', redaction:'none',
+        conf:0.95, integ:0.95, life:'Confirmed', kind:'OBL \u00b7 rotation', mode:'obligation.rotation', resolver:'ROTATION', window:'tonight', canonId:'obl_dishes_07',
+        projected:['Whose turn it is (shared rotation)','When it is due (tonight)'],
+        withheld:[{f:'Nothing withheld',why:'fully public obligation'}],
+        sources:[{title:'Shared chore rotation',meta:'wall ledger \u00b7 confirmed',color:'#7fd99a',radius:'3px'}],
+        reasoning:['Reads the next slot in the shared rotation record.','A household obligation everyone opted to display.','No private fields exist on this record.'],
+        contradiction:null,
+        implication:'Everything shown is a shared obligation the family chose to publish \u2014 no implication to audit.' },
+
+      recycling:{ group:'shared', tag:'CHORE', name:'Recycling', state:'Thursday', stateColor:'#7fd99a', bucket:'calm',
+        safe:'Out by Thursday morning', glowMeaning:'A shared recurring obligation. Public to the household by design.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'wall', redaction:'none',
+        conf:0.96, integ:0.96, life:'Confirmed', kind:'OBL \u00b7 recurring', mode:'obligation.recurring', resolver:'SCHEDULE', window:'this week', canonId:'obl_recyc_03',
+        projected:['The recurring day (Thursday)','Status: not yet done'],
+        withheld:[{f:'Nothing withheld',why:'fully public obligation'}],
+        sources:[{title:'Shared recurring schedule',meta:'wall ledger \u00b7 confirmed',color:'#7fd99a',radius:'3px'}],
+        reasoning:['Reads a recurring shared schedule record.','A household obligation everyone can see.','No private fields on this record.'],
+        contradiction:null,
+        implication:'A shared schedule the family published \u2014 nothing to imply.' },
+
+      groceries:{ group:'shared', tag:'OBLIGATION', name:'Grocery run', state:'Needed soon', stateColor:'#ffd27a', bucket:'calm',
+        safe:'Staples running low \u2014 a run is needed soon', glowMeaning:'An aggregate \u201clow staples\u201d flag from the shared list. The specific items and counts stay off the wall.',
+        scope:'Household wall', scopeField:'household.wall', scopeShort:'wall', revealLevel:'wall', redaction:'count-generalized',
+        conf:0.78, integ:0.8, life:'Watching', kind:'OBL \u00b7 supply', mode:'obligation.supply', resolver:'THRESHOLD', window:'this week', canonId:'obl_groc_22',
+        projected:['A generalized \u201cneeded soon\u201d flag','That it is a shared, not personal, errand'],
+        withheld:[{f:'Specific items on the list',why:'generalized to \u201cstaples\u201d'},{f:'Who added what',why:'contributor identity withheld'}],
+        sources:[{title:'Shared grocery list',meta:'wall ledger',color:'#ffd27a',radius:'3px'},{title:'Staple-threshold record',meta:'normalized',color:'#9b8cff',radius:'3px'}],
+        reasoning:['Reads a threshold flag, not the underlying list contents.','Projects \u201cneeded soon\u201d rather than item-level detail.','Watching lifecycle \u2014 a soft, low-urgency cue.'],
+        contradiction:null,
+        implication:'Only a binary threshold is shown; item names and contributors are dropped before projection.' },
+
+      pickup:{ group:'shared', tag:'REMINDER \u00b7 REDACTED', name:'A pickup', state:'This afternoon', stateColor:'#9aa6c0', bucket:'calm',
+        safe:'A pickup is on the calendar this afternoon', glowMeaning:'A muted, redacted reminder. The wall shows that something is scheduled \u2014 never who, where, or why, because it involves a minor\u2019s location.',
+        scope:'Caregiver only', scopeField:'care.circle', scopeShort:'care', revealLevel:'caregiver', redaction:'minor-location-redacted',
+        conf:0.9, integ:0.9, life:'Confirmed', kind:'CAL \u00b7 reminder', mode:'reminder.calendar', resolver:'LATEST', window:'today', canonId:'cal_pickup_41',
+        projected:['That a pickup exists today','A coarse window (afternoon)'],
+        withheld:[{f:'Which child, and from where',why:'minor location \u00b7 care-only'},{f:'Exact time and contact',why:'redacted on shared display'}],
+        caregiverLabel:'School pickup, 3:30, by the side gate',
+        reveals:[{f:'Who',val:'Ana'},{f:'Where',val:'School side gate'},{f:'Time',val:'3:30 PM'}],
+        sources:[{title:'Calendar feed',meta:'OAuth \u00b7 provider-attested',color:'#9b8cff',radius:'3px'},{title:'Care-circle policy',meta:'governance record',color:'#c79bff',radius:'3px'}],
+        reasoning:['A real calendar event exists and is confirmed.','On the shared wall it is reduced to \u201ca pickup, this afternoon.\u201d','Child, place, and exact time unlock only for a permitted caregiver, and that view is logged.'],
+        contradiction:null,
+        implication:'The muted color and vague label are identical to every redacted reminder \u2014 so the lantern cannot hint at which child or where.' },
+
+      appt:{ group:'shared', tag:'REMINDER \u00b7 REDACTED', name:'An appointment', state:'Tomorrow', stateColor:'#9aa6c0', bucket:'calm',
+        safe:'An appointment is on the calendar tomorrow', glowMeaning:'A redacted reminder. \u201cAppointment\u201d is the most the wall will say \u2014 the kind of appointment could itself be sensitive.',
+        scope:'Caregiver only', scopeField:'care.circle', scopeShort:'care', revealLevel:'caregiver', redaction:'category-redacted',
+        conf:0.88, integ:0.9, life:'Confirmed', kind:'CAL \u00b7 reminder', mode:'reminder.calendar', resolver:'LATEST', window:'tomorrow', canonId:'cal_appt_58',
+        projected:['That an appointment exists tomorrow','Nothing about its category'],
+        withheld:[{f:'Type of appointment (e.g. medical)',why:'category-redacted \u00b7 care-only'},{f:'Whose, where, and with whom',why:'redacted on shared display'}],
+        caregiverLabel:'Dental check-up for Nan, 10:00',
+        reveals:[{f:'Whose',val:'Nan'},{f:'Type',val:'Dental check-up'},{f:'Time',val:'10:00 AM'}],
+        sources:[{title:'Calendar feed',meta:'OAuth \u00b7 provider-attested',color:'#9b8cff',radius:'3px'},{title:'Care-circle policy',meta:'governance record',color:'#c79bff',radius:'3px'}],
+        reasoning:['A confirmed calendar event with a sensitive category.','The wall shows only that \u201can appointment\u201d exists \u2014 category withheld.','Full detail is caregiver-gated and logged on open.'],
+        contradiction:null,
+        implication:'Every redacted reminder shares one muted style, so the category can\u2019t be guessed from color, icon, or size.' },
+
+      bill:{ group:'shared', tag:'REMINDER \u00b7 REDACTED', name:'A bill', state:'This week', stateColor:'#9aa6c0', bucket:'calm',
+        safe:'A household bill is due this week', glowMeaning:'A redacted finance reminder. The wall confirms timing only \u2014 amounts and accounts never reach a shared display.',
+        scope:'Caregiver only', scopeField:'care.circle', scopeShort:'care', revealLevel:'caregiver', redaction:'amount-redacted',
+        conf:0.92, integ:0.92, life:'Confirmed', kind:'FIN \u00b7 reminder', mode:'reminder.finance', resolver:'SCHEDULE', window:'this week', canonId:'fin_bill_12',
+        projected:['That a bill is due this week','That it is a shared household bill'],
+        withheld:[{f:'Amount and account',why:'amount-redacted \u00b7 care-only'},{f:'Vendor and method',why:'financial detail withheld'}],
+        caregiverLabel:'Utilities, due Friday',
+        reveals:[{f:'Category',val:'Utilities'},{f:'Due',val:'Friday'},{f:'Amount',val:'shown in finance app only'}],
+        sources:[{title:'Bill schedule record',meta:'normalized \u00b7 confirmed',color:'#5fd39a',radius:'3px'},{title:'Care-circle policy',meta:'governance record',color:'#c79bff',radius:'3px'}],
+        reasoning:['A confirmed recurring bill record.','The wall projects timing only \u2014 no amount, vendor, or account.','Even in caregiver scope the exact amount stays in the finance app, not the wall.'],
+        contradiction:null,
+        implication:'No figure is ever rendered, so glow and label can\u2019t encode how large or small the bill is.' }
+    };
+
+    this.NAV = ['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Aurora Proof','Family Lantern Wall'];
+  }
+
+  themes = {
+    hearth: { accent:'#ffb27a', accent2:'#ffd27a', base:'#0c0810', bg1:'rgba(255,150,80,0.13)',  bg2:'rgba(180,90,200,0.10)', glow:'rgba(255,178,122,0.32)', wall1:'rgba(255,150,90,0.10)',  wall2:'#140c12' },
+    dusk:   { accent:'#ff8fb0', accent2:'#c79bff', base:'#0b0813', bg1:'rgba(255,120,170,0.14)', bg2:'rgba(120,90,220,0.12)', glow:'rgba(255,143,176,0.32)', wall1:'rgba(180,110,220,0.12)', wall2:'#120b18' },
+    meadow: { accent:'#8fd39a', accent2:'#d8e08a', base:'#07100b', bg1:'rgba(90,180,120,0.14)',  bg2:'rgba(200,210,110,0.10)', glow:'rgba(143,211,154,0.30)', wall1:'rgba(110,180,120,0.10)', wall2:'#0a140d' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.hearth; }
+  confColor(c){ return c>=0.85?'#5fd39a': c>=0.7?'#7fd99a': c>=0.55?'#e8c75a': c>=0.4?'#ff9e57':'#ff6b5e'; }
+  lifeColor(l){ return l==='Confirmed'?'#5fd39a': l==='Watching'?'#e8c75a': l==='Disputed'?'#ff6b5e':'#9aa6c0'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  shield(kind){ // kind: 'generalized' | 'unsealed' | 'sealed' | 'open'
+    const h=React.createElement;
+    if(kind==='open') return h('span',{style:{fontSize:'7px',fontFamily:'IBM Plex Mono,monospace',color:'rgba(244,239,247,0.32)'}},'public');
+    const map={ generalized:{c:'#9aa6c0',t:'generalized'}, unsealed:{c:'#c79bff',t:'unsealed \u00b7 logged'}, sealed:{c:'#7f8aa0',t:'sealed'} };
+    const m=map[kind]||map.generalized;
+    return h('span',{style:{display:'inline-flex',alignItems:'center',gap:'3px'}},
+      h('svg',{width:9,height:9,viewBox:'0 0 12 12'},
+        h('path',{d:'M6 1 L10 2.5 V6 C10 8.5 8 10.4 6 11 C4 10.4 2 8.5 2 6 V2.5 Z',fill:'none',stroke:m.c,strokeWidth:1}),
+        kind==='unsealed'? h('path',{d:'M4.6 6.2 L5.6 7.2 L7.6 4.8',fill:'none',stroke:m.c,strokeWidth:1}) : h('rect',{x:4.6,y:5.4,width:2.8,height:2.4,rx:0.4,fill:'none',stroke:m.c,strokeWidth:0.8})),
+      h('span',{style:{fontSize:'7px',fontFamily:'IBM Plex Mono,monospace',color:m.c}},m.t));
+  }
+
+  shieldKindFor(l, caregiver){
+    if(l.redaction==='none') return 'open';
+    if(l.revealLevel==='caregiver') return caregiver ? 'unsealed' : 'generalized';
+    if(l.revealLevel==='sealed') return 'sealed';
+    return 'generalized';
+  }
+
+  mapLantern(id, caregiver){
+    const l=this.LANTERNS[id], sel=this.state.sel===id, dim=!sel && this.state.sel!=='harmony' ? 0.62 : (sel?1:0.92);
+    const attn=l.bucket==='attention';
+    const glowA=this.hexA(l.stateColor, attn?0.5:0.3);
+    const revealed = caregiver && l.revealLevel==='caregiver';
+    return {
+      id, name:l.name, state:l.state, tag:l.tag, stateColor:l.stateColor,
+      label: revealed && l.caregiverLabel ? l.caregiverLabel : l.safe,
+      op: sel?1:(this.state.sel?0.66:0.95),
+      hookColor: this.hexA(l.stateColor,0.8), capColor:this.hexA(l.stateColor,0.5),
+      glowA,
+      border: sel? l.stateColor : (attn?'rgba(255,158,194,0.4)':'rgba(255,255,255,0.12)'),
+      bodyBg: sel? this.hexA(l.stateColor,0.12) : 'rgba(18,14,22,0.82)',
+      shadow: sel? ('0 0 0 1px '+l.stateColor+', 0 10px 26px rgba(0,0,0,0.5)') : (attn? '0 0 22px '+this.hexA(l.stateColor,0.32) : '0 6px 16px rgba(0,0,0,0.4)'),
+      scopeShort: l.scopeShort, scopeColor: l.scopeShort==='care'?'#c79bff': l.scopeShort==='wall'?'#7fd99a':'#9aa6c0',
+      scopeBg: this.hexA(l.scopeShort==='care'?'#c79bff':'#7fd99a',0.14),
+      confColor:this.confColor(l.conf),
+      shieldEl:this.shield(this.shieldKindFor(l,caregiver)),
+      onSelect:()=>this.setState({sel:id})
+    };
+  }
+
+  buildRhythm(){
+    const h=React.createElement, vals=[0.30,0.62,0.48,0.34,0.40,0.70,0.50,0.26], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-v*44;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+  }
+
+  renderVals(){
+    const t=this.cur(), caregiver=this.state.scope==='caregiver', selId=this.state.sel, l=this.LANTERNS[selId];
+
+    const people=['harmony','maya','theo','nan','sam'].map(id=>this.mapLantern(id,caregiver));
+    const shared=['dishes','recycling','groceries','pickup','appt','bill'].map(id=>this.mapLantern(id,caregiver));
+
+    // ---- selected proof ----
+    const revealed = caregiver && l.revealLevel==='caregiver';
+    let withheldRows, withheldTitle, withheldIcon, withheldBoxBg, withheldBoxBorder;
+    if(revealed && l.reveals){
+      withheldRows = l.reveals.map(r=>({ f:r.f+': '+r.val, why:'revealed to caregiver \u00b7 this view is logged', why_color:'#c79bff' }));
+      withheldTitle='REVEALED \u00b7 LOGGED'; withheldIcon='#c79bff';
+      withheldBoxBg='rgba(199,155,255,0.06)'; withheldBoxBorder='rgba(199,155,255,0.3)';
+    } else {
+      withheldRows = l.withheld.map(w=>({ f:w.f, why:w.why, why_color: l.redaction==='none'?'#7f8aa0':'#9aa6c0' }));
+      withheldTitle = l.redaction==='none' ? 'WITHHELD' : (l.revealLevel==='sealed'?'SEALED':'WITHHELD \u00b7 PRIVATE');
+      withheldIcon = l.redaction==='none' ? '#7f8aa0' : '#ff9ec2';
+      withheldBoxBg = l.redaction==='none' ? 'rgba(255,255,255,0.03)' : 'rgba(255,158,194,0.05)';
+      withheldBoxBorder = l.redaction==='none' ? 'rgba(255,255,255,0.1)' : 'rgba(255,158,194,0.28)';
+    }
+    const audit=[
+      {k:'Glow & brightness', note: l.implication},
+      {k:'Color & shape', note:'Mapped to lifecycle and scope only \u2014 no private category gets its own color.'},
+      {k:'Label vocabulary', note:'Generalized copy; specifics are withheld whole, never abbreviated into a hint.'},
+      {k:'Position & size', note:'Fixed by group on the wall, not driven by any private value.'}
+    ];
+    let sealNote = (!revealed && l.sealedNote) ? l.sealedNote : null;
+
+    const sel={
+      name:l.name, color:l.stateColor, kind:l.kind, scope: caregiver && l.revealLevel==='caregiver' ? l.scope+' \u00b7 unlocked' : l.scope,
+      scopeColor: l.scopeShort==='care'?'#c79bff':'#7fd99a',
+      life:l.life, lifeColor:this.lifeColor(l.life), lifeBg:this.hexA(this.lifeColor(l.life),0.16),
+      headerBg:this.hexA(l.stateColor,0.07),
+      label: (revealed && l.caregiverLabel ? l.caregiverLabel : l.safe),
+      glowMeaning: sealNote ? (l.glowMeaning+' '+sealNote) : l.glowMeaning,
+      projected:l.projected, withheld:withheldRows, withheldTitle, withheldIcon, withheldBoxBg, withheldBoxBorder,
+      audit,
+      conf:l.conf.toFixed(2), confPct:Math.round(l.conf*100)+'%', confColor:this.confColor(l.conf),
+      integ:l.integ.toFixed(2), integPct:Math.round(l.integ*100)+'%', integColor:this.confColor(l.integ),
+      contradiction:l.contradiction||null,
+      reasoning:l.reasoning, sources:l.sources,
+      canonId:l.canonId, mode:l.mode, resolver:l.resolver, window:l.window,
+      scopeField:l.scopeField, redaction: revealed ? l.redaction+' (unlocked)' : l.redaction
+    };
+
+    // ---- header / banner ----
+    const scopeUI={
+      wallBg: !caregiver?'linear-gradient(135deg,#5fd39a,#7fd99a)':'transparent', wallTxt: !caregiver?'#0b140d':'rgba(244,239,247,0.6)',
+      careBg: caregiver?'linear-gradient(135deg,#c79bff,#9b8cff)':'transparent', careTxt: caregiver?'#140b1c':'rgba(244,239,247,0.6)'
+    };
+    const visCard = caregiver ? {
+      title:'Caregiver', sub:'private detail unlocked', color:'#c79bff', color2:'#9b8cff',
+      bg:'rgba(199,155,255,0.06)', border:'rgba(199,155,255,0.3)',
+      note:'Permitted care-circle detail is visible. Each unlock is written to the visibility log.'
+    } : {
+      title:'Household wall', sub:'shared-safe projection', color:'#5fd39a', color2:'#7fd99a',
+      bg:'rgba(255,255,255,0.025)', border:'rgba(255,255,255,0.08)',
+      note:'7 private fields generalized. Nothing on this wall reveals a person\u2019s details.'
+    };
+    const harmonyBand=[
+      {label:'Tense',key:false},{label:'Uneven',key:false},{label:'Steady',key:true},{label:'Bright',key:false}
+    ].map(b=>({ label:b.label, bg:b.key?'rgba(255,210,160,0.16)':'rgba(255,255,255,0.04)', txt:b.key?'#ffd9a0':'rgba(244,239,247,0.5)', border:b.key?'rgba(255,210,160,0.4)':'rgba(255,255,255,0.08)' }));
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Family Lantern Wall'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(244,239,247,0.95)':'rgba(244,239,247,0.6)', dot:active?'var(--accent)':'rgba(244,239,247,0.35)' }; });
+
+    const embers=[
+      {left:'18%',bottom:'12%',size:'3px',dur:'5.5s',delay:'0s',color:'rgba(255,200,140,0.7)'},
+      {left:'34%',bottom:'8%',size:'2px',dur:'6.5s',delay:'1.2s',color:'rgba(255,180,120,0.6)'},
+      {left:'52%',bottom:'18%',size:'3px',dur:'7s',delay:'2.4s',color:'rgba(255,170,200,0.55)'},
+      {left:'66%',bottom:'10%',size:'2px',dur:'6s',delay:'0.7s',color:'rgba(255,210,150,0.6)'},
+      {left:'78%',bottom:'15%',size:'3px',dur:'7.5s',delay:'3s',color:'rgba(200,170,255,0.5)'},
+      {left:'88%',bottom:'9%',size:'2px',dur:'6.2s',delay:'1.8s',color:'rgba(255,190,130,0.6)'}
+    ];
+    const showEmbers = this.props.embers===false ? [] : embers;
+
+    const pick=id=>()=>this.setState({sel:id});
+    const rhythmMarks=[
+      {subj:'Morning routine',time:'6:40',leftPct:'6%',color:'#5fd39a',ringColor:'rgba(255,255,255,0.3)',id:'harmony'},
+      {subj:'Breakfast',time:'7:15',leftPct:'20%',color:'#ffd27a',ringColor:'rgba(255,255,255,0.3)',id:'harmony'},
+      {subj:'Out the door',time:'8:10',leftPct:'34%',color:'#9b8cff',ringColor:'rgba(255,255,255,0.3)',id:'theo'},
+      {subj:'A pickup',time:'afternoon',leftPct:'50%',color:'#9aa6c0',ringColor:'#9aa6c0',id:'pickup'},
+      {subj:'Check-in due',time:'afternoon',leftPct:'64%',color:'#ff9ec2',ringColor:'#ff9ec2',id:'nan'},
+      {subj:'Dinner together',time:'6:30',leftPct:'80%',color:'#ffd27a',ringColor:'rgba(255,255,255,0.3)',id:'harmony'},
+      {subj:'Evening routine',time:'8:30',leftPct:'93%',color:'#5fd39a',ringColor:'rgba(255,255,255,0.3)',id:'harmony'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, wall1:t.wall1, wall2:t.wall2,
+      wallName:this.props.wallName ?? 'The Okafor household',
+      people, shared, sel, scopeUI, visCard, harmonyBand, navItems, embers:showEmbers,
+      onWall:()=>this.setState({scope:'wall'}), onCaregiver:()=>this.setState({scope:'caregiver'}),
+      harmony:{ state:this.LANTERNS.harmony.state, safe:this.LANTERNS.harmony.safe },
+      presence:'3 home \u00b7 1 out', attentionDue:'1', generalizedCount:'7',
+      rhythmSvg:this.buildRhythm(), rhythmMarks
+    };
+  }
+}
+</script>
+</body>
+</html>

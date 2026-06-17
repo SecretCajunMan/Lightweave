@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwTwinkle{0%,100%{opacity:.35}50%{opacity:.9}}
+  @keyframes lwNemesis{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.7);opacity:0}}
+  @keyframes lwDrift{to{stroke-dashoffset:-48}}
+</style>
+</helmet>
+<div data-screen-label="Bounty Constellarium" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 46% -16%, var(--bg1), transparent 60%), radial-gradient(950px 700px at 110% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="14" r="2.4" fill="var(--accent)"></circle><circle cx="6" cy="8" r="1.4" fill="var(--accent2)"></circle><circle cx="22" cy="9" r="1.6" fill="#ffd166"></circle><circle cx="20" cy="21" r="1.4" fill="var(--accent2)"></circle><circle cx="8" cy="20" r="1.5" fill="#fff"></circle><path d="M6 8 L14 14 L22 9 M14 14 L20 21 M14 14 L8 20" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" fill="none"></path></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Bounty Constellarium</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · obligations as quests · value derived from records</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(95,211,154,0.32); border-radius:7px; background:rgba(95,211,154,0.08); color:#86e0ad;"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>anti-cheat verified</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,158,87,0.3); border-radius:7px; background:rgba(255,158,87,0.08); color:#ffb27a;"><span style="width:6px;height:6px;border-radius:50%;background:#ff9e57;box-shadow:0 0 7px #ff9e57;"></span>2 overdue</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Cycle 7</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">12 days left</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="bounty-constellarium"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(238,241,251,0.42); margin-bottom:4px;">OPEN BOUNTY VALUE · CYCLE 7</div>
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:600; line-height:1.05; color:rgba(238,241,251,0.97);">418 <span style="font-size:14px; color:var(--accent);">lumens</span></span>
+            <span style="font-size:11.5px; color:rgba(238,241,251,0.5);">across 10 active bounties · every lumen derived, none assigned</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:7px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">VALUE FROM</span>
+            <sc-for list="{{ valueLegend }}" as="v" hint-placeholder-count="4">
+              <span style="display:inline-flex; align-items:center; gap:5px; font-size:9.5px; font-family:'IBM Plex Mono',monospace; padding:3px 8px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); color:rgba(238,241,251,0.62);"><span style="width:7px;height:7px;border-radius:2px;background:{{ v.color }};"></span>{{ v.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:13px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">STREAKS LIVE</span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; padding:5px 11px; border-radius:8px; background:rgba(255,209,102,0.12); border:1px solid rgba(255,209,102,0.32); color:#ffd97a;">4 · top 12</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">NEMESIS</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,94,126,0.12); border:1px solid rgba(255,94,126,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#ff5e7e; box-shadow:0 0 7px #ff5e7e;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ff89a3;">1</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">MERCY RULE</span>
+            <span style="font-size:12px; font-weight:600; color:#7fd0ff; padding:5px 11px; border-radius:8px; background:rgba(127,208,255,0.12); border:1px solid rgba(127,208,255,0.3);">armed</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 50% 0%, rgba(80,90,160,0.10), transparent 55%), linear-gradient(180deg, #080a16, #06070f 55%, #070510);">
+          <div style="position:absolute; inset:0;">{{ constellationSvg }}</div>
+
+          <div style="position:absolute; left:14px; right:14px; top:12px; display:flex; align-items:center; gap:10px; z-index:5;">
+            <span style="font-size:9.5px; letter-spacing:0.14em; color:rgba(238,241,251,0.4); flex:0 0 auto;">ACTIVE STREAKS</span>
+            <div style="display:flex; gap:7px; flex:1; min-width:0; overflow:hidden;">
+              <sc-for list="{{ streaks }}" as="s" hint-placeholder-count="5">
+                <div onClick="{{ s.onSelect }}" style="display:flex; align-items:center; gap:6px; padding:5px 9px; border-radius:8px; cursor:pointer; background:{{ s.bg }}; border:1px solid {{ s.border }};">
+                  <svg width="11" height="11" viewBox="0 0 12 12"><path d="M6 1 C7.5 3.5 9 4.5 9 7 A3 3 0 0 1 3 7 C3 5.5 4 4.5 4.5 4 C4.5 5 5 5.5 5.5 5.5 C5.5 4 5 2.5 6 1 Z" fill="none" stroke="{{ s.color }}" stroke-width="0.9"></path></svg>
+                  <span style="font-size:10px; font-weight:600; color:{{ s.txt }}; white-space:nowrap;">{{ s.name }}</span>
+                  <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:{{ s.color }};">{{ s.count }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-for list="{{ clusterLabels }}" as="c" hint-placeholder-count="3">
+            <div style="position:absolute; left:{{ c.left }}; top:{{ c.top }}; transform:translateX(-50%); text-align:center; pointer-events:none;">
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.16em; color:{{ c.color }};">{{ c.label }}</div>
+              <div style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(238,241,251,0.34); margin-top:2px;">{{ c.sub }}</div>
+            </div>
+          </sc-for>
+
+          <sc-for list="{{ stars }}" as="n" hint-placeholder-count="10">
+            <div onClick="{{ n.onSelect }}" style="position:absolute; left:{{ n.left }}; top:{{ n.top }}; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; cursor:pointer; z-index:{{ n.z }}; opacity:{{ n.op }};">
+              <div style="position:relative; width:{{ n.size }}; height:{{ n.size }}; display:flex; align-items:center; justify-content:center;">
+                <sc-if value="{{ n.nemesis }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; inset:-6px; border-radius:50%; border:1px solid {{ n.color }}; animation:lwNemesis 2.4s ease-out infinite;"></span></sc-if>
+                <span style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, #fff 8%, {{ n.color }} 42%, transparent 72%); box-shadow:{{ n.glow }};"></span>
+                <sc-if value="{{ n.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; inset:-7px; border-radius:50%; border:1.5px solid {{ n.color }};"></span></sc-if>
+                <sc-if value="{{ n.flag }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; top:-7px; right:-9px; width:13px; height:13px; border-radius:50%; background:#1a1018; border:1px solid #ff9e57; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; color:#ffb27a;">!</span></sc-if>
+              </div>
+              <div style="margin-top:8px; text-align:center; max-width:120px;">
+                <div style="font-size:10.5px; font-weight:600; line-height:1.15; color:rgba(238,241,251,0.94); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ n.name }}</div>
+                <div style="display:flex; align-items:center; justify-content:center; gap:5px; margin-top:2px;">
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:{{ n.color }};">{{ n.valueLabel }}</span>
+                  <sc-if value="{{ n.overdue }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace; font-size:8px; padding:1px 5px; border-radius:4px; background:rgba(255,158,87,0.14); color:#ffb27a;">{{ n.overdueLabel }}</span></sc-if>
+                  <sc-if value="{{ n.mercy }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace; font-size:8px; padding:1px 5px; border-radius:4px; background:rgba(127,208,255,0.14); color:#7fd0ff;">mercy</span></sc-if>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+
+          <div style="position:absolute; left:14px; bottom:11px; display:flex; align-items:center; gap:12px; z-index:5;">
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#fff,var(--accent) 60%);"></span><span style="font-size:9px; color:rgba(238,241,251,0.5);">active</span></div>
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#fff,#ff9e57 60%);"></span><span style="font-size:9px; color:rgba(238,241,251,0.5);">overdue</span></div>
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#fff,#ff5e7e 60%);box-shadow:0 0 7px #ff5e7e;"></span><span style="font-size:9px; color:rgba(238,241,251,0.5);">nemesis</span></div>
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#fff,#ffd166 60%);"></span><span style="font-size:9px; color:rgba(238,241,251,0.5);">streak</span></div>
+            <div style="display:flex; align-items:center; gap:6px;"><span style="width:11px; height:11px; border-radius:50%; background:#1a1018; border:1px solid #ff9e57; display:flex; align-items:center; justify-content:center; font-size:7px; font-weight:700; color:#ffb27a;">!</span><span style="font-size:9px; color:rgba(238,241,251,0.5);">avoidance flag</span></div>
+          </div>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.name }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.kind }} · {{ sel.realTask }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.09); border-radius:12px; padding:12px 13px;">
+              <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:10px;">
+                <span style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.45);">WORTH</span>
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:600; color:{{ sel.color }};">{{ sel.value }}</span>
+                <span style="font-size:11px; color:rgba(238,241,251,0.5);">lumens</span>
+                <sc-if value="{{ sel.mercy }}" hint-placeholder-val="{{ false }}"><span style="margin-left:auto; font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:rgba(127,208,255,0.14); color:#7fd0ff;">mercy-capped</span></sc-if>
+              </div>
+              <div style="display:flex; height:10px; border-radius:5px; overflow:hidden; background:rgba(255,255,255,0.06);">
+                <sc-for list="{{ sel.valueBar }}" as="b" hint-placeholder-count="4">
+                  <div style="width:{{ b.pct }}; background:{{ b.color }};"></div>
+                </sc-for>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px; margin-top:11px;">
+                <sc-for list="{{ sel.valueRows }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="width:8px; height:8px; border-radius:2px; background:{{ r.color }}; flex:0 0 auto;"></span>
+                    <span style="font-size:10.5px; color:rgba(238,241,251,0.7);">{{ r.label }}</span>
+                    <span style="flex:1; height:1px; background:rgba(255,255,255,0.07);"></span>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:{{ r.color }};">{{ r.val }}</span>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ sel.mercy }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; align-items:center; gap:8px; padding-top:6px; border-top:1px dashed rgba(255,255,255,0.12); margin-top:2px;">
+                    <svg width="11" height="11" viewBox="0 0 12 12"><path d="M6 10.5 C2 8 1 5 1 3.5 A2.4 2.4 0 0 1 6 3 A2.4 2.4 0 0 1 11 3.5 C11 5 10 8 6 10.5 Z" fill="none" stroke="#7fd0ff" stroke-width="0.9"></path></svg>
+                    <span style="font-size:10.5px; color:#9bd8ff;">Mercy cap applied</span>
+                    <span style="flex:1; height:1px; background:rgba(255,255,255,0.07);"></span>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#7fd0ff;">{{ sel.mercyText }}</span>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="font-size:10px; color:rgba(238,241,251,0.5); margin-top:10px; line-height:1.45;">{{ sel.valueNote }}</div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom:9px;"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L10 2.5 V6 C10 8.5 8 10.4 6 11 C4 10.4 2 8.5 2 6 V2.5 Z" fill="none" stroke="#86e0ad" stroke-width="1"></path><path d="M4.4 6 L5.6 7.3 L7.8 4.6" fill="none" stroke="#86e0ad" stroke-width="1"></path></svg><span style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.5);">ANTI-CHEAT</span><span style="margin-left:auto; font-size:9px; font-family:'IBM Plex Mono',monospace; color:#86e0ad;">all checks pass</span></div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sel.antiCheat }}" as="a" hint-placeholder-count="3">
+                  <div style="display:flex; gap:8px; align-items:flex-start;">
+                    <span style="flex:0 0 auto; width:14px; height:14px; border-radius:50%; background:rgba(95,211,154,0.14); display:flex; align-items:center; justify-content:center; margin-top:1px;"><svg width="8" height="8" viewBox="0 0 12 12"><path d="M2.5 6.2 L5 8.6 L9.5 3.4" fill="none" stroke="#86e0ad" stroke-width="1.6"></path></svg></span>
+                    <div style="min-width:0;"><div style="font-size:10.5px; font-weight:600; color:rgba(238,241,251,0.82);">{{ a.k }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.55); line-height:1.4; margin-top:1px;">{{ a.note }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="font-size:9.5px; color:rgba(238,241,251,0.45); flex:0 0 78px;">confidence</span>
+                <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:9px;">
+                <span style="font-size:9.5px; color:rgba(238,241,251,0.45); flex:0 0 78px;">source integrity</span>
+                <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.integPct }}; background:{{ sel.integColor }}; box-shadow:0 0 8px {{ sel.integColor }};"></div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.integColor }};">{{ sel.integ }}</span>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.avoidance }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,158,87,0.05); border:1px solid rgba(255,158,87,0.3); border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;"><span style="width:13px; height:13px; border-radius:50%; background:#1a1018; border:1px solid #ff9e57; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; color:#ffb27a;">!</span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#ffb27a;">AVOIDANCE PATTERN</span></div>
+                <div style="font-size:10.5px; color:rgba(238,241,251,0.66); line-height:1.45;">{{ sel.avoidance }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(255,94,126,0.05); border:1px solid rgba(255,94,126,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff5e7e; box-shadow:0 0 7px #ff5e7e;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em;">CONTRADICTORY SIGNALS</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(238,241,251,0.5); margin-top:8px; line-height:1.45;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.sources }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #0a0c16; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(238,241,251,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">task</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">value.policy</span><span>derived_v2</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical task</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Value log</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Value ledger · cycle 7</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.38);">every value change is an event — accrual, decay, completion, mercy cap</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#5fd39a;"></span>accrual</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff9e57;"></span>decay</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#7fd0ff;"></span>mercy</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(80,120,255,0.05), rgba(255,94,126,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ ledgerSvg }}</div>
+        <sc-for list="{{ ledgerMarks }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:108px;">
+            <div style="font-size:8.5px; color:rgba(238,241,251,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:108px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ m.delta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(238,241,251,0.66);">PLAY THE BOARD · BUT THE BOARD CANNOT LIE</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;neon&quot;,&quot;nova&quot;,&quot;arcade&quot;],&quot;default&quot;:&quot;neon&quot;,&quot;tsType&quot;:&quot;'neon' | 'nova' | 'arcade'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'envelope' };
+
+    // Every bounty's value is DERIVED. valueBar/valueRows show the derivation; nothing is hand-set.
+    this.BOUNTIES = {
+      // --- The Hearth ---
+      clear_sink:{ cluster:'hearth', x:16, y:42, name:'Clear the Backlog Sink', realTask:'task: kitchen reset', state:'streak',
+        value:34, valueRows:[{label:'Base obligation',val:'+20',color:'#7f8aa0'},{label:'Urgency (daily)',val:'+8',color:'#7fd0ff'},{label:'Streak bonus (\u00d76)',val:'+6',color:'#ffd166'}],
+        valueNote:'A recurring daily reset. Modest base, lifted by a live 6-day streak \u2014 the bonus is logged and capped.',
+        conf:0.93, integ:0.95, life:'Active', kind:'BTY \u00b7 recurring', mode:'task.recurring', resolver:'SCHEDULE', window:'daily', canonId:'task_kitchen_07',
+        antiCheat:[{k:'Attested completion',note:'Marked done only when the household device confirms \u2014 not a self-tick.'},{k:'Streak bonus capped',note:'Bonus tops out at +10; it cannot inflate the base indefinitely.'}],
+        reasoning:['Daily recurring obligation with a high completion rate.','Streak multiplier adds a bounded bonus on top of base value.','Value moves with the record, not with motivation.'],
+        sources:[{title:'Household chore ledger',meta:'wall record \u00b7 confirmed',color:'#7fd99a',radius:'3px'},{title:'Completion attestations \u00d76',meta:'device-confirmed',color:'#5fd39a',radius:'3px'}],
+        streakName:'Clear the Sink', streakCount:6, streakState:'live' },
+
+      overgrowth:{ cluster:'hearth', x:24, y:60, name:'The Overgrowth', realTask:'task: yard + declutter', state:'overdue', overdueDays:5, flag:true,
+        value:58, valueRows:[{label:'Base obligation',val:'+30',color:'#7f8aa0'},{label:'Time-decay (5d overdue)',val:'+18',color:'#ff9e57'},{label:'Avoidance (\u00d72 skips)',val:'+10',color:'#ffb27a'}],
+        valueNote:'Value rises as it is deferred \u2014 decay and avoidance push it up so it cannot be quietly ignored.',
+        conf:0.86, integ:0.88, life:'Overdue', kind:'BTY \u00b7 one-off', mode:'task.oneoff', resolver:'DEADLINE', window:'due Jun 11', canonId:'task_yard_22',
+        antiCheat:[{k:'Decay is bounded',note:'Overdue growth caps at +24 so an old task can\u2019t dominate the board.'},{k:'No backdating',note:'The due window is locked; completion cannot be claimed for a past date.'}],
+        avoidance:'Skipped on 2 prior planning passes. Avoidance adds a bounded amount and is written to the value log.',
+        reasoning:['One-off obligation now 5 days past its window.','Time-decay and a logged avoidance count raise its value.','Higher value reflects real cost of delay, not a vibe.'],
+        sources:[{title:'Planning record',meta:'normalized \u00b7 confirmed',color:'#9b8cff',radius:'3px'},{title:'Deferral events \u00d72',meta:'ledger-logged',color:'#ff9e57',radius:'2px'}] },
+
+      pantry:{ cluster:'hearth', x:12, y:75, name:'Pantry Resupply', realTask:'task: grocery run', state:'active',
+        value:41, valueRows:[{label:'Base obligation',val:'+22',color:'#7f8aa0'},{label:'Urgency (low stock)',val:'+15',color:'#7fd0ff'},{label:'Shared dependency',val:'+4',color:'#9b8cff'}],
+        valueNote:'Staples threshold tripped; several other plans depend on it, nudging urgency up.',
+        conf:0.8, integ:0.82, life:'Active', kind:'BTY \u00b7 supply', mode:'task.supply', resolver:'THRESHOLD', window:'this week', canonId:'task_groc_22',
+        antiCheat:[{k:'Threshold-triggered',note:'Urgency comes from the stock record crossing a threshold, not a guess.'},{k:'Dependency verified',note:'The +4 only applies while a real dependent task is open.'}],
+        reasoning:['Supply record fell below the resupply threshold.','Open dependents add a small, verified urgency bump.','Value tracks the stock record in real time.'],
+        sources:[{title:'Shared grocery threshold',meta:'wall record',color:'#ffd27a',radius:'3px'},{title:'Dependent meal plans',meta:'normalized',color:'#9b8cff',radius:'3px'}] },
+
+      // --- The Ledger ---
+      envelope:{ cluster:'ledger', x:46, y:38, name:'The Unopened Envelope', realTask:'task: open + file paperwork', state:'nemesis', overdueDays:21, flag:true, mercy:true,
+        value:24, mercyText:'84 \u2192 24',
+        valueRows:[{label:'Base obligation',val:'+18',color:'#7f8aa0'},{label:'Time-decay (21d)',val:'+24',color:'#ff9e57'},{label:'Avoidance (\u00d73 cycles)',val:'+42',color:'#ff5e7e'}],
+        valueNote:'Raw derived value reached 84. After 3 avoided cycles the mercy rule caps it and re-casts a smaller re-entry bounty \u2014 the task is still Overdue; only the score is softened.',
+        conf:0.9, integ:0.9, life:'Overdue', kind:'BTY \u00b7 nemesis', mode:'task.oneoff', resolver:'DEADLINE', window:'due May 26', canonId:'task_admin_19',
+        antiCheat:[{k:'Mercy is not forgiveness',note:'The cap lowers reward weight; lifecycle stays Overdue and is never cleared by mercy.'},{k:'Avoidance bounded then capped',note:'Avoidance contribution is bounded, and the total is capped once mercy arms.'},{k:'Attested completion only',note:'Closing it requires a filing attestation, not a self-tick.'}],
+        avoidance:'Carried across 3 consecutive cycles untouched. Repeated avoidance is what arms the mercy rule \u2014 it is logged, not hidden.',
+        contradiction:{ a:{label:'Reminder app',val:'Snoozed',conf:'conf 0.70',color:'#ff9e57'}, b:{label:'Task ledger',val:'Overdue',conf:'conf 0.90',color:'#ff5e7e'}, note:'A snooze is not a completion. The ledger keeps it Overdue; the snooze is shown beside it, not instead of it.' },
+        reasoning:['One-off obligation avoided across three full cycles \u2014 the board\u2019s nemesis.','Raw value climbed to 84 from decay plus avoidance.','Mercy rule caps it to a 24-lumen re-entry bounty to break the doom loop.','Truth is untouched: it stays Overdue with its full history attached.'],
+        sources:[{title:'Admin task record',meta:'normalized \u00b7 confirmed',color:'#9b8cff',radius:'3px'},{title:'Avoidance events \u00d73',meta:'ledger-logged',color:'#ff5e7e',radius:'2px'},{title:'Mercy-rule trigger',meta:'policy record',color:'#7fd0ff',radius:'3px'}] },
+
+      reckoning:{ cluster:'ledger', x:54, y:56, name:'Quarter Reckoning', realTask:'task: quarterly filing', state:'active',
+        value:58, valueRows:[{label:'Base obligation',val:'+30',color:'#7f8aa0'},{label:'Urgency (due 3d)',val:'+26',color:'#7fd0ff'},{label:'Importance weight',val:'+2',color:'#9b8cff'}],
+        valueNote:'High base, sharp urgency as the deadline approaches. No decay yet \u2014 it is not overdue.',
+        conf:0.92, integ:0.94, life:'Active', kind:'BTY \u00b7 deadline', mode:'task.oneoff', resolver:'DEADLINE', window:'due Jun 19', canonId:'task_fin_88',
+        antiCheat:[{k:'Urgency from the clock',note:'The +26 is a function of days-to-deadline, recomputed each cycle.'},{k:'Importance is fixed',note:'Importance weight is a small constant; it cannot be inflated by the user.'}],
+        reasoning:['A dated quarterly obligation with a firm deadline.','Urgency scales with proximity to the due date.','Value is a transparent function of base, urgency and a fixed weight.'],
+        sources:[{title:'Quarterly schedule',meta:'OAuth \u00b7 provider-attested',color:'#9b8cff',radius:'3px'},{title:'Deadline record',meta:'confirmed',color:'#5fd39a',radius:'3px'}] },
+
+      subaudit:{ cluster:'ledger', x:44, y:74, name:'Subscription Audit', realTask:'task: review recurring charges', state:'active',
+        value:16, valueRows:[{label:'Base obligation',val:'+12',color:'#7f8aa0'},{label:'Urgency (low)',val:'+3',color:'#7fd0ff'},{label:'Freshness decay',val:'+1',color:'#ff9e57'}],
+        valueNote:'A low-stakes optional review. Small value, honest about it \u2014 the board does not pretend it is urgent.',
+        conf:0.78, integ:0.8, life:'Active', kind:'BTY \u00b7 optional', mode:'task.optional', resolver:'NONE', window:'open', canonId:'task_subs_05',
+        antiCheat:[{k:'No urgency inflation',note:'With no deadline, urgency stays near zero \u2014 it cannot be talked up.'},{k:'Low value is honest',note:'Optional tasks render small; the board won\u2019t dress them up to bait engagement.'}],
+        reasoning:['Optional housekeeping with no deadline.','Urgency and decay are both near zero.','Stays a small bounty until a record changes.'],
+        sources:[{title:'Recurring-charge record',meta:'normalized',color:'#9b8cff',radius:'3px'}] },
+
+      // --- The Long Climb ---
+      cadence:{ cluster:'climb', x:74, y:40, name:'Dawn Cadence', realTask:'task: morning movement', state:'streak',
+        value:22, valueRows:[{label:'Base habit',val:'+12',color:'#7f8aa0'},{label:'Streak bonus (\u00d712)',val:'+10',color:'#ffd166'}],
+        valueNote:'Low per-instance base; the long 12-day streak carries a capped bonus. Most of its reward sits in escrow until verified.',
+        conf:0.88, integ:0.9, life:'Active', kind:'BTY \u00b7 habit', mode:'task.habit', resolver:'SCHEDULE', window:'daily', canonId:'task_move_31',
+        antiCheat:[{k:'Streak bonus capped',note:'Bonus maxes at +10 no matter how long the streak runs.'},{k:'Attested by device',note:'Each day counts only with a movement attestation from the wearable.'}],
+        reasoning:['A daily habit with a strong 12-day attested streak.','Per-instance value is small; the streak adds a bounded bonus.','Reward accrues to escrow and releases only on verification.'],
+        sources:[{title:'Movement attestations \u00d712',meta:'wearable \u00b7 signed',color:'#5fd39a',radius:'3px'},{title:'Habit schedule',meta:'normalized',color:'#9b8cff',radius:'3px'}],
+        streakName:'Dawn Cadence', streakCount:12, streakState:'live' },
+
+      still_hour:{ cluster:'climb', x:85, y:55, name:'The Still Hour', realTask:'task: deep-focus block', state:'active',
+        value:28, valueRows:[{label:'Base habit',val:'+16',color:'#7f8aa0'},{label:'Urgency (today)',val:'+8',color:'#7fd0ff'},{label:'Streak bonus (\u00d74)',val:'+4',color:'#ffd166'}],
+        valueNote:'A daily focus block, scheduled for today, riding a modest 4-day streak.',
+        conf:0.84, integ:0.86, life:'Active', kind:'BTY \u00b7 habit', mode:'task.habit', resolver:'SCHEDULE', window:'today', canonId:'task_focus_44',
+        antiCheat:[{k:'Attested by focus app',note:'A block counts only with a logged session, not a manual mark.'},{k:'Streak bonus capped',note:'The streak bonus is bounded like every other.'}],
+        reasoning:['A focus habit with a session scheduled today.','Modest streak adds a small bounded bonus.','Value tracks the schedule and the session log.'],
+        sources:[{title:'Focus session log',meta:'app \u00b7 TLS receipt',color:'#9b8cff',radius:'3px'},{title:'Habit schedule',meta:'normalized',color:'#5fd39a',radius:'3px'}],
+        streakName:'Still Hour', streakCount:4, streakState:'live' },
+
+      mend:{ cluster:'climb', x:72, y:70, name:'Deferred Mend', realTask:'task: book the appointment', state:'overdue', overdueDays:9, flag:true,
+        value:49, valueRows:[{label:'Base obligation',val:'+26',color:'#7f8aa0'},{label:'Time-decay (9d)',val:'+15',color:'#ff9e57'},{label:'Avoidance (\u00d72)',val:'+8',color:'#ffb27a'}],
+        valueNote:'A health booking deferred 9 days. Decay and avoidance lift it, but it stays below the nemesis threshold.',
+        conf:0.82, integ:0.84, life:'Overdue', kind:'BTY \u00b7 one-off', mode:'task.oneoff', resolver:'DEADLINE', window:'due Jun 7', canonId:'task_book_60',
+        antiCheat:[{k:'Decay bounded',note:'Overdue growth is capped; it climbs steadily, never explosively.'},{k:'No self-clear',note:'Booking requires a confirmation record before it can close.'}],
+        avoidance:'Deferred twice. Two more avoided cycles would arm the mercy rule on this bounty as well.',
+        reasoning:['A one-off booking now 9 days overdue.','Decay plus two deferrals raise its value.','Approaching, but not yet at, nemesis status.'],
+        sources:[{title:'Booking task record',meta:'normalized \u00b7 confirmed',color:'#9b8cff',radius:'3px'},{title:'Deferral events \u00d72',meta:'ledger-logged',color:'#ff9e57',radius:'2px'}] },
+
+      hydration:{ cluster:'climb', x:88, y:76, name:'Hydration Drift', realTask:'task: water habit', state:'active',
+        value:12, valueRows:[{label:'Base habit',val:'+10',color:'#7f8aa0'},{label:'Re-entry nudge',val:'+2',color:'#7fd0ff'}],
+        valueNote:'A streak that broke yesterday. The board shows the break honestly \u2014 no fake count \u2014 and offers a small re-entry value to restart.',
+        conf:0.8, integ:0.82, life:'Active', kind:'BTY \u00b7 habit', mode:'task.habit', resolver:'SCHEDULE', window:'daily', canonId:'task_hydr_12',
+        antiCheat:[{k:'Streaks cannot be repaired',note:'A broken streak resets to zero; it cannot be back-filled to keep a count alive.'},{k:'Re-entry is small',note:'The restart nudge is a tiny fixed value, not a bonus.'}],
+        contradiction:{ a:{label:'Habit count',val:'0 (reset)',conf:'conf 0.82',color:'#9aa6c0'}, b:{label:'Yesterday\u2019s log',val:'Missed',conf:'conf 0.80',color:'#ff9e57'}, note:'The streak shows 0 because yesterday\u2019s log is missing. The board reports the break rather than papering over it.' },
+        reasoning:['A daily habit whose streak broke yesterday.','Count is honestly reset to zero, not preserved.','A small re-entry value invites a fresh start.'],
+        sources:[{title:'Hydration log',meta:'app \u00b7 gap detected',color:'#ff9e57',radius:'2px'},{title:'Habit schedule',meta:'normalized',color:'#9b8cff',radius:'3px'}],
+        streakName:'Hydration Drift', streakCount:0, streakState:'broken' }
+    };
+
+    this.EDGES=[ ['clear_sink','overgrowth'],['overgrowth','pantry'],['envelope','reckoning'],['reckoning','subaudit'],['cadence','still_hour'],['still_hour','mend'],['mend','hydration'] ];
+    this.CLUSTERS={ hearth:{label:'THE HEARTH',sub:'home',color:'#7fd99a',x:17,y:30}, ledger:{label:'THE LEDGER',sub:'admin \u00b7 finance',color:'#9b8cff',x:49,y:26}, climb:{label:'THE LONG CLIMB',sub:'health \u00b7 focus',color:'#7fd0ff',x:80,y:30} };
+    this.NAV=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Family Lantern Wall','Bounty Constellarium'];
+  }
+
+  themes={
+    neon:   { accent:'#3df0ff', accent2:'#ff5ce0', base:'#06080f', bg1:'rgba(60,200,255,0.14)', bg2:'rgba(255,80,220,0.10)', glow:'rgba(61,240,255,0.32)' },
+    nova:   { accent:'#9b8cff', accent2:'#ff7ad0', base:'#08060f', bg1:'rgba(124,90,255,0.16)', bg2:'rgba(255,122,208,0.10)', glow:'rgba(155,140,255,0.32)' },
+    arcade: { accent:'#39e0a6', accent2:'#ffd166', base:'#05100c', bg1:'rgba(57,224,166,0.14)', bg2:'rgba(255,209,102,0.10)', glow:'rgba(57,224,166,0.30)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.neon; }
+  confColor(c){ return c>=0.85?'#5fd39a': c>=0.7?'#7fd99a': c>=0.55?'#e8c75a': c>=0.4?'#ff9e57':'#ff6b5e'; }
+  lifeColor(l){ return l==='Active'?'#5fd39a': l==='Overdue'?'#ff9e57': l==='Watching'?'#e8c75a':'#9aa6c0'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  stateColor(b){ const t=this.cur(); return b.state==='nemesis'?'#ff5e7e': b.state==='overdue'?'#ff9e57': b.state==='streak'?'#ffd166': t.accent; }
+
+  buildConstellation(selId){
+    const h=React.createElement, B=this.BOUNTIES, R=[];
+    const sx=k=>B[k].x*10, sy=k=>B[k].y*5.6;
+    let s=7; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<90;i++){ R.push(h('circle',{key:'d'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*0.9+0.2).toFixed(2),fill:'#cdd6f5',opacity:(rnd()*0.32+0.06).toFixed(2),style:{animation:rnd()>0.7?('lwTwinkle '+(2+rnd()*3).toFixed(1)+'s ease-in-out infinite'):'none'}})); }
+    R.push(h('defs',{key:'def'},h('filter',{id:'cglow',x:'-40%',y:'-40%',width:'180%',height:'180%'},h('feGaussianBlur',{stdDeviation:'3'}))));
+    this.EDGES.forEach((e,i)=>{ const a=e[0],b=e[1]; const lit=(a===selId||b===selId);
+      const col=lit?this.stateColor(B[selId]):'rgba(255,255,255,0.9)';
+      R.push(h('line',{key:'l'+i,x1:sx(a),y1:sy(a),x2:sx(b),y2:sy(b),stroke:col,strokeWidth:lit?1.6:0.8,opacity:lit?0.55:0.16,filter:lit?'url(#cglow)':'none'}));
+      if(lit) R.push(h('line',{key:'lf'+i,x1:sx(a),y1:sy(a),x2:sx(b),y2:sy(b),stroke:col,strokeWidth:1,opacity:0.8,strokeDasharray:'2 12',style:{animation:'lwDrift 2.4s linear infinite'}}));
+    });
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  buildLedger(){
+    const h=React.createElement, vals=[0.34,0.40,0.30,0.58,0.50,0.30], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-v*44;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+  }
+
+  renderVals(){
+    const t=this.cur(), B=this.BOUNTIES, selId=this.state.sel, b=B[selId];
+    const pick=id=>()=>this.setState({sel:id});
+
+    const stars=Object.keys(B).map(id=>{ const bt=B[id], col=this.stateColor(bt), seld=id===selId;
+      const size=(14+Math.min(bt.value,80)/80*20); // px
+      return { id, name:bt.name, color:col, left:bt.x+'%', top:bt.y+'%', size:size.toFixed(0)+'px',
+        z:seld?12:(bt.state==='nemesis'?9:6), op:seld?1:(this.state.sel?0.82:0.95), selected:seld,
+        glow:'0 0 '+(seld?22:14)+'px '+this.hexA(col,seld?0.7:0.5),
+        nemesis:bt.state==='nemesis', flag:!!bt.flag,
+        valueLabel:bt.value+' lm', overdue:!!bt.overdueDays, overdueLabel:bt.overdueDays?bt.overdueDays+'d':'', mercy:!!bt.mercy,
+        onSelect:pick(id) }; });
+
+    const clusterLabels=Object.keys(this.CLUSTERS).map(k=>{ const c=this.CLUSTERS[k]; return { label:c.label, sub:c.sub, color:c.color, left:c.x+'%', top:c.y+'%' }; });
+
+    const streaks=Object.keys(B).filter(id=>B[id].streakName).map(id=>{ const bt=B[id], live=bt.streakState==='live';
+      return { name:bt.streakName, count:bt.streakState==='broken'?'reset':bt.streakCount, color:live?'#ffd166':'#9aa6c0', txt:live?'rgba(238,241,251,0.85)':'rgba(238,241,251,0.5)',
+        bg:live?'rgba(255,209,102,0.08)':'rgba(255,255,255,0.03)', border:live?'rgba(255,209,102,0.28)':'rgba(255,255,255,0.1)', onSelect:pick(id) }; });
+
+    // value bar widths from positive contributions
+    const nums=b.valueRows.map(r=>Math.abs(parseFloat(r.val)));
+    const tot=nums.reduce((a,c)=>a+c,0)||1;
+    const valueBar=b.valueRows.map((r,i)=>({ pct:(nums[i]/tot*100).toFixed(1)+'%', color:r.color }));
+
+    const sel={
+      name:b.name, realTask:b.realTask, color:this.stateColor(b), kind:b.kind,
+      life:b.life, lifeColor:this.lifeColor(b.life), lifeBg:this.hexA(this.lifeColor(b.life),0.16), headerBg:this.hexA(this.stateColor(b),0.07),
+      value:b.value, valueBar, valueRows:b.valueRows, valueNote:b.valueNote,
+      mercy:!!b.mercy, mercyText:b.mercyText||'',
+      antiCheat:b.antiCheat,
+      conf:b.conf.toFixed(2), confPct:Math.round(b.conf*100)+'%', confColor:this.confColor(b.conf),
+      integ:b.integ.toFixed(2), integPct:Math.round(b.integ*100)+'%', integColor:this.confColor(b.integ),
+      avoidance:b.avoidance||null, contradiction:b.contradiction||null,
+      reasoning:b.reasoning, sources:b.sources,
+      canonId:b.canonId, mode:b.mode, resolver:b.resolver, window:b.window
+    };
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Bounty Constellarium'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:active?'var(--accent)':'rgba(238,241,251,0.35)' }; });
+
+    const valueLegend=[ {label:'urgency',color:'#7fd0ff'},{label:'time-decay',color:'#ff9e57'},{label:'avoidance',color:'#ff5e7e'},{label:'streak',color:'#ffd166'} ];
+
+    const ledgerMarks=[
+      {subj:'Cycle opened',delta:'+180',leftPct:'8%',color:'#5fd39a',ringColor:'rgba(255,255,255,0.3)',id:'reckoning'},
+      {subj:'Streak bonus',delta:'+16',leftPct:'26%',color:'#ffd166',ringColor:'rgba(255,255,255,0.3)',id:'cadence'},
+      {subj:'Overgrowth decayed',delta:'+18',leftPct:'44%',color:'#ff9e57',ringColor:'#ff9e57',id:'overgrowth'},
+      {subj:'Streak broke',delta:'reset',leftPct:'60%',color:'#9aa6c0',ringColor:'#9aa6c0',id:'hydration'},
+      {subj:'Mercy cap armed',delta:'84\u219224',leftPct:'78%',color:'#7fd0ff',ringColor:'#7fd0ff',id:'envelope'},
+      {subj:'Now',delta:'418 open',leftPct:'93%',color:t.accent,ringColor:'rgba(255,255,255,0.3)',id:'reckoning'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      constellationSvg:this.buildConstellation(selId), ledgerSvg:this.buildLedger(),
+      stars, clusterLabels, streaks, sel, navItems, valueLegend, ledgerMarks
+    };
+  }
+}
+</script>
+</body>
+</html>

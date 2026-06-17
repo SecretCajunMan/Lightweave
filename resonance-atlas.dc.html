@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#07080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwFlow{to{stroke-dashoffset:-44}}
+  @keyframes lwHot{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.95;transform:scale(1.15)}}
+  @keyframes lwTerr{0%,100%{opacity:.5}50%{opacity:.85}}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(255,255,255,0.16);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 10px var(--accent)}
+</style>
+</helmet>
+<div data-screen-label="Resonance Atlas" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --pad:{{ pad }}; --glow:{{ glow }}; background:radial-gradient(1200px 640px at 42% -16%, var(--bg1), transparent 60%), radial-gradient(980px 720px at 104% 124%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Resonance Atlas</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 7 · influence map</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>read-only projection</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">7 territories · 8 transits</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>ledger synced</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">ATLAS · Tue Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="resonance-atlas"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:14px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:11px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="display:flex; align-items:center; gap:11px;">
+          <div style="position:relative; width:52px; height:52px; border-radius:50%; --h:{{ harmonicRing }}; background:conic-gradient(var(--accent) var(--h), rgba(255,255,255,0.07) 0); display:flex; align-items:center; justify-content:center; flex:0 0 auto;"><div style="width:40px; height:40px; border-radius:50%; background:#0a0c14; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600;">{{ harmonicScore }}</span></div></div>
+          <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">HARMONIC OVERVIEW</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ harmonicColor }};">{{ harmonicLabel }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">mean of 8 transit flows</div></div>
+        </div>
+        <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">DOMINANT INFLUENCE</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#9b8cff;">Sleep → Mood</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">straining · 0.74</div></div>
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">DISTORTION HOTSPOTS</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ff6b5e;">3</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">1 contradiction · 2 fogged</div></div>
+        <div style="flex:1;"></div>
+        <div style="display:flex; gap:11px;">
+          <div style="display:flex; align-items:center; gap:6px;"><span style="width:18px; height:3px; border-radius:2px; background:#46e0b4;"></span><span style="font-size:10px; color:rgba(238,241,251,0.5);">bridge</span></div>
+          <div style="display:flex; align-items:center; gap:6px;"><span style="width:18px; height:3px; border-radius:2px; background:#ff6b5e;"></span><span style="font-size:10px; color:rgba(238,241,251,0.5);">strain</span></div>
+          <div style="display:flex; align-items:center; gap:6px;"><span style="width:18px; height:3px; border-radius:2px; background:rgba(154,166,192,0.7);"></span><span style="font-size:10px; color:rgba(238,241,251,0.5);">fog</span></div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(80% 80% at 50% 50%, rgba(108,140,255,0.07), transparent 62%), linear-gradient(180deg, #0a1020, #090d1a 60%, #0b1124);">
+          <div style="position:absolute; inset:0;">{{ atlasSvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,241,251,0.7);">Influence atlas</span>
+            <span style="font-size:10px; color:rgba(238,241,251,0.4);">territories are domains · transits are cross-domain influence, backed by records</span>
+          </div>
+          <!-- territory labels -->
+          <sc-for list="{{ territories }}" as="tr" hint-placeholder-count="7">
+            <div onClick="{{ tr.onSelect }}" style="position:absolute; left:{{ tr.leftPct }}; top:{{ tr.topPct }}; transform:translate(-50%,-50%); cursor:pointer; z-index:{{ tr.z }}; text-align:center;">
+              <div style="display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:13px; background:{{ tr.bg }}; border:1px solid {{ tr.border }}; box-shadow:{{ tr.shadow }}; backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);">
+                <span style="width:8px; height:8px; flex:0 0 auto; border-radius:50%; background:{{ tr.color }}; box-shadow:0 0 8px {{ tr.color }};"></span>
+                <span style="font-size:11.5px; font-weight:600; white-space:nowrap; color:{{ tr.txt }};">{{ tr.name }}</span>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:rgba(238,241,251,0.5); margin-top:2px;">harmonic {{ tr.health }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="flex:0 0 248px; display:flex; flex-direction:column; gap:10px; min-height:0;">
+          <div style="flex:1; min-height:0; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 13px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px; flex:0 0 auto;"><svg width="13" height="13" viewBox="0 0 14 14"><path d="M2 7 h10 m-4 -3 l4 3 l-4 3" fill="none" stroke="var(--accent2)" stroke-width="1.3"></path></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:500;">Strongest influences</span></div>
+            <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+              <sc-for list="{{ influences }}" as="inf" hint-placeholder-count="5">
+                <div onClick="{{ inf.onSelect }}" style="cursor:pointer; padding:9px 10px; border-radius:10px; background:{{ inf.rowBg }}; border:1px solid {{ inf.rowBorder }}; border-left:2px solid {{ inf.typeColor }};">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+                    <span style="font-size:11.5px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ inf.pair }}</span>
+                    <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ inf.typeBg }}; color:{{ inf.typeColor }};">{{ inf.typeTag }}</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <div style="flex:1; height:4px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ inf.strengthPct }}; background:{{ inf.typeColor }};"></div></div>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:{{ inf.confColor }};">{{ inf.conf }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="flex:0 0 auto; background:rgba(255,255,255,0.025); border:1px solid rgba(255,107,94,0.22); border-radius:14px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e; box-shadow:0 0 8px #ff6b5e;"></span><span style="font-size:11.5px; font-weight:600; letter-spacing:0.04em;">Distortion hotspots</span></div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <sc-for list="{{ hotspots }}" as="hs" hint-placeholder-count="3">
+                <div onClick="{{ hs.onSelect }}" style="cursor:pointer;">
+                  <div style="display:flex; align-items:center; gap:7px; margin-bottom:2px;"><span style="width:6px; height:6px; border-radius:50%; background:{{ hs.color }};"></span><span style="font-size:11px; font-weight:500; color:{{ hs.color }};">{{ hs.kind }}</span></div>
+                  <div style="font-size:10.5px; color:rgba(238,241,251,0.6); line-height:1.4; padding-left:13px;">{{ hs.detail }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ selected.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 16 16"><path d="M2 11 L6 4 L10 9 L14 3" fill="none" stroke="var(--accent)" stroke-width="1.2"></path><circle cx="2" cy="11" r="1.4" fill="var(--accent)"></circle><circle cx="14" cy="3" r="1.4" fill="var(--accent)"></circle></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;">Influence provenance</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:11px;">
+          <span style="font-size:16px; font-weight:600; color:{{ selected.fromColor }};">{{ selected.fromName }}</span>
+          <div style="flex:1; position:relative; height:16px;"><div style="position:absolute; top:50%; left:0; right:6px; height:2.5px; border-radius:2px; background:linear-gradient(90deg,{{ selected.fromColor }},{{ selected.toColor }});"></div><span style="position:absolute; right:-2px; top:0; color:{{ selected.toColor }}; font-size:12px;">▶</span></div>
+          <span style="font-size:16px; font-weight:600; color:{{ selected.toColor }};">{{ selected.toName }}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+          <span style="font-size:9px; font-weight:600; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ selected.typeBg }}; color:{{ selected.typeColor }};">{{ selected.typeFull }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.45);">{{ selected.records }} records · {{ selected.window }}</span>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:16px;">
+
+        <div style="background:{{ selected.headerBg }}; border:1px solid {{ selected.softBorder }}; border-radius:11px; padding:12px 13px;">
+          <div style="font-size:13px; line-height:1.55; color:rgba(238,241,251,0.9);">{{ selected.meaning }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:10px;">
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">influence confidence</span>
+            <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ selected.confPct }}; background:{{ selected.confColor }}; box-shadow:0 0 8px {{ selected.confColor }};"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ selected.confColor }};">{{ selected.confLabel }}</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">WHAT DRIVES THIS TRANSIT</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.build }}" as="b" hint-placeholder-count="5">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="flex:0 0 116px; font-size:11px; color:rgba(238,241,251,0.6);">{{ b.label }}</span>
+                <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ b.widthPct }}; background:{{ b.color }}; box-shadow:0 0 8px {{ b.color }};"></div></div>
+                <span style="flex:0 0 auto; min-width:30px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ b.color }};">{{ b.valLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE LOGS · {{ selected.sourceCount }} BACKING</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ selected.sources }}" as="src" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.07); border-radius:9px;">
+                <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ src.color }}; box-shadow:0 0 7px {{ src.color }};"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.label }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">{{ src.role }}</div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.55);">{{ src.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">TIME WINDOW · LAW 4 BI-TEMPORAL</div>
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">event range</div><div style="font-size:12px;">{{ selected.window }}</div></div>
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">lag</div><div style="font-size:12px;">{{ selected.lag }}</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.reasoning }}" as="step" hint-placeholder-count="4">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:12px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ selected.contradiction }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e;"></span>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ selected.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ selected.contradiction.a.color }};">{{ selected.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ selected.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ selected.contradiction.b.color }};">{{ selected.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ selected.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">{{ selected.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">RELATED RECORDS</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <sc-for list="{{ selected.records_list }}" as="rec" hint-placeholder-count="3">
+              <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; font-family:'IBM Plex Mono',monospace; padding:5px 9px; border-radius:7px; background:rgba(86,184,255,0.07); border:1px solid rgba(86,184,255,0.2); color:rgba(238,241,251,0.78);"><span style="width:5px; height:5px; border-radius:50%; background:#56b8ff;"></span>{{ rec }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">transit</span><span style="color:{{ selected.typeColor }};">{{ selected.transitId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>INF · influence</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ selected.resolver }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>contract_v1.5</span></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:10px; line-height:1.45;">{{ selected.canonicalNote }}</div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open {{ selected.records }} records</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Boring view</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 96px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Harmonic timeline · 14 days</span>
+      <span style="font-size:10px; color:rgba(238,241,251,0.38);">how the influence between domains has shifted</span>
+      <div style="flex:1;"></div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#46e0b4;"></span>strengthening</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff6b5e;"></span>straining</span>
+    </div>
+    <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(255,107,94,0.05), rgba(70,224,180,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+      <div style="position:absolute; inset:0;">{{ harmonicSvg }}</div>
+      <sc-for list="{{ harmonicMarks }}" as="m" hint-placeholder-count="5">
+        <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:96px;">
+          <div style="font-size:9px; color:rgba(238,241,251,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:96px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+          <div style="width:10px; height:10px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ m.date }}</div>
+        </div>
+      </sc-for>
+      <span style="position:absolute; right:8px; bottom:4px; font-size:8.5px; color:rgba(238,241,251,0.3); font-family:'IBM Plex Mono',monospace;">today</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { selectedFlow:'sleep_mood', layers:{bridge:true,strain:true,fog:true,contours:true} };
+    this.REG={
+      health:{name:'Health',x:236,y:150,r:78,color:'#2fe0a8',health:0.74,seed:11,primary:'health_sleep'},
+      sleep:{name:'Sleep',x:432,y:120,r:74,color:'#46c8ff',health:0.52,seed:23,primary:'sleep_mood'},
+      mood:{name:'Mood',x:466,y:268,r:86,color:'#9b8cff',health:0.62,seed:37,primary:'sleep_mood'},
+      work:{name:'Work',x:712,y:158,r:80,color:'#ff9e57',health:0.66,seed:53,primary:'work_sleep'},
+      relationships:{name:'Relationships',x:776,y:330,r:76,color:'#ff7aa8',health:0.42,seed:67,primary:'relationships_mood'},
+      finances:{name:'Finances',x:236,y:336,r:72,color:'#f5c252',health:0.78,seed:83,primary:'finances_mood'},
+      projects:{name:'Projects',x:548,y:398,r:74,color:'#5fd39a',health:0.60,seed:97,primary:'mood_work'}
+    };
+    this.FLOWS=[
+      {id:'sleep_mood',from:'sleep',to:'mood',type:'strain',conf:0.74,strength:0.9,curve:26,snag:true,selectable:true},
+      {id:'health_sleep',from:'health',to:'sleep',type:'bridge',conf:0.69,strength:0.65,curve:-22,selectable:true},
+      {id:'work_sleep',from:'work',to:'sleep',type:'strain',conf:0.60,strength:0.6,curve:-30,selectable:true},
+      {id:'relationships_mood',from:'relationships',to:'mood',type:'fog',conf:0.42,strength:0.4,curve:24,selectable:true},
+      {id:'mood_work',from:'mood',to:'work',type:'strain',conf:0.60,strength:0.55,curve:28,selectable:true},
+      {id:'finances_mood',from:'finances',to:'mood',type:'fog',conf:0.50,strength:0.45,curve:-18},
+      {id:'health_mood',from:'health',to:'mood',type:'bridge',conf:0.66,strength:0.5,curve:20},
+      {id:'projects_work',from:'projects',to:'work',type:'strain',conf:0.50,strength:0.4,curve:22}
+    ];
+  }
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#07080f', bg1:'rgba(124,90,255,0.20)', bg2:'rgba(40,200,170,0.12)', glow:'rgba(124,90,255,0.30)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#05080f', bg1:'rgba(40,130,210,0.22)', bg2:'rgba(40,210,190,0.12)', glow:'rgba(70,200,255,0.30)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#060a07', bg1:'rgba(70,170,100,0.20)', bg2:'rgba(180,205,90,0.12)', glow:'rgba(95,211,154,0.30)' }
+  };
+  TYPE={ bridge:{tag:'BRIDGE',full:'SUPPORTIVE BRIDGE',color:'#46e0b4',bg:'rgba(70,224,180,0.16)'}, strain:{tag:'STRAIN',full:'STRAINING TRANSIT',color:'#ff6b5e',bg:'rgba(255,107,94,0.16)'}, fog:{tag:'FOG',full:'FOGGED · LOW CONFIDENCE',color:'#9aa6c0',bg:'rgba(154,166,192,0.16)'} };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#e8c75a': c>=0.5?'#ff9e57':'#ff6b5e'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  blob(cx,cy,r,seed){
+    let s=seed; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    const N=9, pts=[];
+    for(let i=0;i<N;i++){ const a=i/N*6.283; const rr=r*(0.80+rnd()*0.36); pts.push([cx+Math.cos(a)*rr, cy+Math.sin(a)*rr*0.78]); }
+    let d='M '+((pts[0][0]+pts[N-1][0])/2).toFixed(1)+' '+((pts[0][1]+pts[N-1][1])/2).toFixed(1);
+    for(let i=0;i<N;i++){ const cur=pts[i], nxt=pts[(i+1)%N]; const mx=((cur[0]+nxt[0])/2).toFixed(1), my=((cur[1]+nxt[1])/2).toFixed(1); d=d+' Q '+cur[0].toFixed(1)+' '+cur[1].toFixed(1)+' '+mx+' '+my; }
+    return d+' Z';
+  }
+
+  connections(){
+    return {
+      sleep_mood:{ relType:'strain', conf:0.74, records:21, sourceCount:3, window:'May 17 – Jun 16', lag:'next day',
+        meaning:'Sleep exerts a straining influence on Mood: on nights under 6 h, a degraded-mood flag follows the next day 7 of 9 times (78%). A strong transit — but it is correlation, not a proven cause.',
+        build:[{k:'Co-occurrence',v:0.78,c:'#9b8cff'},{k:'Next-day lag',v:0.72,c:'#9b8cff'},{k:'Sample size',v:0.40,c:'#ffb454'},{k:'Source quality',v:0.85,c:'#39e0a6'},{k:'Counter-evidence',v:0.30,c:'#ff6b5e'}],
+        sources:[{label:'9 sleep logs · band + self',role:'antecedent evidence',conf:'0.60–0.92',color:'#46c8ff'},{label:'12 mood check-ins',role:'consequent evidence',conf:'0.85',color:'#9b8cff'},{label:'Pattern query · sleep→mood',role:'transit definition',conf:'—',color:'#56b8ff'}],
+        reasoning:['The transit is drawn from 9 nights where short sleep precedes a next-day mood dip.','Directional precedence is observed; causation is not asserted (Law 3 · Law 6).','Sample is small (9 pairs) — confidence held at 0.74, not inflated.','A supportive bridge (Health→Sleep) partly offsets this strain and is shown too.','2 of 9 nights rest on a disputed record, which lowers confidence.'],
+        contradiction:{title:'CONTRADICTION · 2 OF 9 PAIRS', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'Two supporting nights disagree on duration. The disputed pairs weaken the transit rather than being dropped — and the theme cannot resolve them (truth is not skinnable).'},
+        records_list:['rec_6b14ace0','rec_b2f0a6c8','rec_d51a3f08','pat_sm_77'], resolver:'HIGHEST_CONF',
+        canonicalNote:'A derived influence over 21 canonical records. The records are the truth; this transit is a reading of them.' },
+      health_sleep:{ relType:'bridge', conf:0.69, records:14, sourceCount:2, window:'May 17 – Jun 16', lag:'same night',
+        meaning:'Health supports Sleep: on workout days, sleep ran 0.6 h longer on average. A supportive bridge that partly offsets the Sleep→Mood strain downstream.',
+        build:[{k:'Co-occurrence',v:0.70,c:'#46e0b4'},{k:'Effect size',v:0.55,c:'#46e0b4'},{k:'Sample size',v:0.42,c:'#ffb454'},{k:'Source quality',v:0.88,c:'#39e0a6'}],
+        sources:[{label:'14 activity logs',role:'antecedent',conf:'0.88',color:'#2fe0a8'},{label:'9 sleep logs',role:'consequent',conf:'0.60–0.92',color:'#46c8ff'}],
+        reasoning:['A supportive bridge backed by corroborated movement records.','Same-night effect — workout days precede longer sleep.','Confidence 0.69; sample modest but two agreeing sources.'],
+        contradiction:null, records_list:['rec_act_pm','rec_6b14ace0'], resolver:'LATEST',
+        canonicalNote:'A derived bridge over 14 canonical activity and sleep records.' },
+      work_sleep:{ relType:'strain', conf:0.60, records:9, sourceCount:1, window:'Jun 2 – Jun 16', lag:'same night',
+        meaning:'Work strains Sleep: on the 4 nights before stacked-meeting days, sleep ran short. A straining transit, single-source and modest.',
+        build:[{k:'Co-occurrence',v:0.58,c:'#ff6b5e'},{k:'Sample size',v:0.30,c:'#ff6b5e'},{k:'Confound risk',v:0.55,c:'#ffb454'},{k:'Source breadth',v:0.30,c:'#ff6b5e'}],
+        sources:[{label:'Calendar + sleep logs',role:'paired',conf:'0.60',color:'#ff9e57'}],
+        reasoning:['A straining transit from a small, single-source sample.','Confounded with caffeine and screens — confidence kept at 0.60.','Shown as a strain so the pressure is visible, not asserted as definitive.'],
+        contradiction:null, records_list:['rec_cal_17','rec_6b14ace0'], resolver:'LATEST',
+        canonicalNote:'A derived strain over 9 canonical calendar and sleep records.' },
+      relationships_mood:{ relType:'fog', conf:0.42, records:3, sourceCount:1, window:'May 24 – Jun 12', lag:'unclear',
+        meaning:'Relationships → Mood is fogged: only 3 social records in 30 days. The path is shown as low-confidence fog, deliberately not drawn as a clear bridge.',
+        build:[{k:'Coverage',v:0.22,c:'#ff6b5e'},{k:'Sample size',v:0.20,c:'#ff6b5e'},{k:'Source breadth',v:0.30,c:'#ffb454'},{k:'Confidence',v:0.42,c:'#ff6b5e'}],
+        sources:[{label:'Social notes · self',role:'sparse',conf:'0.55',color:'#ff7aa8'}],
+        reasoning:['Too few records to assert a relationship — so the transit is fog, not a line.','Lightweave will not draw connection it cannot see (Law 3).','Confidence 0.42; the honest reading is uncertainty.'],
+        contradiction:null, records_list:['rec_4410ab09','rec_99c2de14'], resolver:'LATEST',
+        canonicalNote:'A fogged path over 3 canonical records. The fog is the truthful rendering of thin data.' },
+      mood_work:{ relType:'strain', conf:0.60, records:12, sourceCount:1, window:'May 17 – Jun 16', lag:'same day',
+        meaning:'Mood strains Work: low-mood mornings precede lower focus output. A same-day straining transit, single-source.',
+        build:[{k:'Co-occurrence',v:0.60,c:'#ff6b5e'},{k:'Sample size',v:0.45,c:'#ffb454'},{k:'Confound · sleep',v:0.60,c:'#ff6b5e'},{k:'Source breadth',v:0.35,c:'#ffb454'}],
+        sources:[{label:'Mood + focus logs',role:'paired',conf:'0.60',color:'#9b8cff'}],
+        reasoning:['A straining transit, tangled with sleep upstream.','Single-source; confidence 0.60.','Surfaced as part of the Sleep→Mood→Work chain, each link kept honest.'],
+        contradiction:null, records_list:['rec_d51a3f08','pat_f1a0'], resolver:'LATEST',
+        canonicalNote:'A derived strain over 12 canonical mood and focus records.' }
+    };
+  }
+
+  buildAtlas(L, selFlow){
+    const h=React.createElement, kids=[], R=this.REG;
+    kids.push(h('defs',{key:'d'},
+      h('filter',{id:'aglow',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'3.4',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'}))),
+      h('filter',{id:'afog',x:'-50%',y:'-50%',width:'200%',height:'200%'},h('feGaussianBlur',{stdDeviation:'6'}))
+    ));
+    // faint map grid
+    for(let i=1;i<8;i++){ kids.push(h('line',{key:'gx'+i,x1:i*120,y1:0,x2:i*120,y2:460,stroke:'rgba(255,255,255,0.025)',strokeWidth:1})); }
+    for(let i=1;i<4;i++){ kids.push(h('line',{key:'gy'+i,x1:0,y1:i*115,x2:960,y2:i*115,stroke:'rgba(255,255,255,0.025)',strokeWidth:1})); }
+    // territories with contours
+    Object.keys(R).forEach((k,idx)=>{ const g=R[k]; const col=g.color;
+      if(L.contours){ [1,0.74,0.5].forEach((sc,ci)=> kids.push(h('path',{key:'c'+k+ci,d:this.blob(g.x,g.y,g.r*sc,g.seed),fill:ci===0?this.hexA(col,0.07):'none',stroke:this.hexA(col,0.22-ci*0.05),strokeWidth:1}))); }
+      else { kids.push(h('path',{key:'c'+k,d:this.blob(g.x,g.y,g.r,g.seed),fill:this.hexA(col,0.07),stroke:this.hexA(col,0.2),strokeWidth:1})); }
+      kids.push(h('path',{key:'rim'+k,d:this.blob(g.x,g.y,g.r,g.seed),fill:'none',stroke:this.hexA(col,0.3+g.health*0.4),strokeWidth:1.4,style:{animation:'lwTerr '+(4+idx*0.3)+'s ease-in-out infinite'}}));
+    });
+    // flows
+    const hit=[];
+    this.FLOWS.forEach((f,i)=>{ const ty=f.type; if(!L[ty]) return;
+      const a=R[f.from], b=R[f.to], mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy)||1, off=f.curve;
+      const cx=mx+(-dy/len)*off, cy=my+(dx/len)*off, dStr='M '+a.x+' '+a.y+' Q '+cx+' '+cy+' '+b.x+' '+b.y;
+      const sel=f.id===selFlow, tcol=this.TYPE[ty].color, dim=selFlow&&!sel;
+      if(ty==='fog'){
+        kids.push(h('path',{key:'f'+i,d:dStr,stroke:this.hexA('#9aa6c0',dim?0.12:0.4),strokeWidth:14,fill:'none',filter:'url(#afog)'}));
+        kids.push(h('path',{key:'fl'+i,d:dStr,stroke:this.hexA('#c2cad8',dim?0.15:0.55),strokeWidth:1.4,fill:'none',strokeDasharray:'2 7',strokeLinecap:'round'}));
+      } else if(ty==='strain'){
+        kids.push(h('path',{key:'s1'+i,d:dStr,stroke:this.hexA(tcol,dim?0.14:0.5),strokeWidth:sel?4:(1.4+f.strength*2.4),fill:'none',strokeLinecap:'round',filter:sel?'url(#aglow)':undefined}));
+        kids.push(h('path',{key:'s2'+i,d:'M '+a.x+' '+(a.y+3)+' Q '+(cx+5)+' '+(cy+5)+' '+b.x+' '+(b.y+3),stroke:this.hexA(tcol,dim?0.07:0.28),strokeWidth:1.2,fill:'none',strokeLinecap:'round'}));
+      } else {
+        kids.push(h('path',{key:'b1'+i,d:dStr,stroke:this.hexA(tcol,dim?0.14:0.55),strokeWidth:sel?4:(1.4+f.strength*2.6),fill:'none',strokeLinecap:'round',filter:sel?'url(#aglow)':undefined}));
+        if(!dim) kids.push(h('path',{key:'b2'+i,d:dStr,stroke:'#a8f0d8',strokeWidth:1.6,fill:'none',strokeDasharray:'2 12',strokeLinecap:'round',style:{animation:'lwFlow '+(2.4+i*0.3)+'s linear infinite'}}));
+      }
+      // arrowhead near b
+      const ang=Math.atan2(b.y-cy, b.x-cx);
+      const ax=b.x-Math.cos(ang)*(b.r*0.5), ay=b.y-Math.sin(ang)*(b.r*0.5*0.78);
+      kids.push(h('path',{key:'ar'+i,d:'M '+(ax-Math.cos(ang)*8-Math.cos(ang-1.6)*6)+' '+(ay-Math.sin(ang)*8-Math.sin(ang-1.6)*6)+' L '+ax+' '+ay+' L '+(ax-Math.cos(ang)*8-Math.cos(ang+1.6)*6)+' '+(ay-Math.sin(ang)*8-Math.sin(ang+1.6)*6),stroke:this.hexA(tcol,dim?0.2:0.85),strokeWidth:1.6,fill:'none'}));
+      if(f.snag){ kids.push(h('circle',{key:'hot'+i,cx:cx,cy:cy,r:7,fill:this.hexA('#ff6b5e',0.2),stroke:'#ff6b5e',strokeWidth:1.2,style:{transformOrigin:cx+'px '+cy+'px',animation:'lwHot 2.2s ease-in-out infinite'}})); }
+      if(f.selectable){ hit.push(h('path',{key:'h'+i,d:dStr,stroke:'rgba(0,0,0,0.001)',strokeWidth:20,fill:'none',style:{cursor:'pointer'},onClick:()=>this.setState({selectedFlow:f.id})})); }
+    });
+    hit.forEach(p=>kids.push(p));
+    return h('svg',{viewBox:'0 0 960 460',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},kids);
+  }
+
+  buildHarmonic(){
+    const h=React.createElement, vals=[0.66,0.62,0.64,0.58,0.55,0.60,0.57,0.61], n=vals.length;
+    const X=i=>i*(960/(n-1)), Y=v=>44-(v-0.45)*120;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++){ d=d+' L '+X(i)+' '+Y(vals[i]); }
+    return h('svg',{viewBox:'0 0 960 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:'rgba(155,140,255,0.10)'}),
+      h('path',{d:d,fill:'none',stroke:'rgba(155,140,255,0.6)',strokeWidth:1.4}));
+  }
+
+  renderVals(){
+    const t=this.cur(), L=this.state.layers, conns=this.connections();
+    const setFlow=id=>()=>this.setState({selectedFlow:id});
+    const territories=Object.keys(this.REG).map((k,i)=>{ const g=this.REG[k]; const sel=conns[this.state.selectedFlow]||{}; const flow=this.FLOWS.find(f=>f.id===this.state.selectedFlow)||{}; const isEnd=(flow.from===k||flow.to===k);
+      return { id:k, name:g.name, color:g.color, health:g.health.toFixed(2), leftPct:(g.x/960*100)+'%', topPct:(g.y/460*100)+'%', z:isEnd?9:5,
+        bg:isEnd?'rgba(20,24,40,0.96)':'rgba(12,16,28,0.78)', border:isEnd?g.color:'rgba(255,255,255,0.12)',
+        shadow:isEnd?'0 0 0 1px '+g.color+', 0 8px 22px rgba(0,0,0,0.5)':'0 4px 12px rgba(0,0,0,0.4)', txt:'rgba(238,241,251,0.92)',
+        onSelect:setFlow(g.primary) }; });
+    const cur=conns[this.state.selectedFlow]||conns.sleep_mood;
+    const flowMeta=this.FLOWS.find(f=>f.id===this.state.selectedFlow)||this.FLOWS[0];
+    const fromR=this.REG[flowMeta.from], toR=this.REG[flowMeta.to], ty=this.TYPE[cur.relType];
+    const selView={ ...cur, fromName:fromR.name, toName:toR.name, fromColor:fromR.color, toColor:toR.color,
+      typeFull:ty.full, typeColor:ty.color, typeBg:ty.bg,
+      headerBg:this.hexA(ty.color,0.07), softBorder:this.hexA(ty.color,0.26),
+      confPct:Math.round(cur.conf*100)+'%', confLabel:cur.conf.toFixed(2), confColor:this.confColor(cur.conf),
+      build:cur.build.map(b=>({label:b.k, widthPct:Math.round(b.v*100)+'%', valLabel:Math.round(b.v*100), color:b.c})),
+      transitId:this.state.selectedFlow };
+    const pairName={sleep_mood:'Sleep → Mood',health_sleep:'Health → Sleep',work_sleep:'Work → Sleep',relationships_mood:'Relations → Mood',mood_work:'Mood → Work'};
+    const influences=['sleep_mood','health_sleep','mood_work','work_sleep','relationships_mood'].map(id=>{ const f=this.FLOWS.find(x=>x.id===id), c=conns[id], ty=this.TYPE[f.type], seld=id===this.state.selectedFlow;
+      return { id, pair:pairName[id], conf:c.conf.toFixed(2), confColor:this.confColor(c.conf), typeTag:ty.tag, typeColor:ty.color, typeBg:ty.bg, strengthPct:Math.round(c.conf*100)+'%',
+        rowBg:seld?'rgba(255,255,255,0.06)':'rgba(255,255,255,0.02)', rowBorder:seld?ty.color:'rgba(255,255,255,0.07)', onSelect:setFlow(id) }; });
+    const hotspots=[
+      {kind:'Contradiction · Sleep → Mood', detail:'A disputed night (self 5.0 h vs band 6.2 h) weakens 2 of 9 pairs.', color:'#ff6b5e', onSelect:setFlow('sleep_mood')},
+      {kind:'Strain · Work → Sleep', detail:'Meeting-heavy days precede short sleep — single-source, modest sample.', color:'#ff9e57', onSelect:setFlow('work_sleep')},
+      {kind:'Fog · Relationships → Mood', detail:'Only 3 records — too thin to draw a clear influence.', color:'#9aa6c0', onSelect:setFlow('relationships_mood')}
+    ];
+    const layerToggles=[
+      {key:'bridge',label:'Supportive bridges',color:'#46e0b4'},{key:'strain',label:'Straining transits',color:'#ff6b5e'},{key:'fog',label:'Fogged paths',color:'#9aa6c0'},{key:'contours',label:'Contours',color:'#7fb0ff'}
+    ].map(o=>({ label:o.label, color:o.color, onToggle:()=>this.setState(st=>({layers:{...st.layers,[o.key]:!st.layers[o.key]}})),
+      bg:L[o.key]?o.color:'rgba(255,255,255,0.16)', knob:L[o.key]?'14px':'2px', txt:L[o.key]?'rgba(238,241,251,0.9)':'rgba(238,241,251,0.45)' }));
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Thread Loom'},{label:'Resonance Atlas',active:true}
+    ].map(n=>({label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,255,255,0.07)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:n.active?'var(--accent)':'rgba(238,241,251,0.35)'}));
+    const harmonicMarks=[
+      {id:'work_sleep',subj:'Work strain rose',date:'Jun 8',leftPct:'20%',color:'#ff6b5e',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'sleep_mood',subj:'Sleep dispute',date:'Jun 11',leftPct:'45%',color:'#ff6b5e',ringColor:'#ff6b5e'},
+      {id:'health_sleep',subj:'Health bridge',date:'Jun 13',leftPct:'66%',color:'#46e0b4',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'sleep_mood',subj:'Mood dip',date:'Jun 14',leftPct:'85%',color:'#9b8cff',ringColor:'rgba(255,255,255,0.3)'}
+    ].map(m=>({...m, onSelect:setFlow(m.id)}));
+    const harmonic=0.61;
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      pad:(this.props.density==='compact')?'10px':'14px',
+      atlasSvg:this.buildAtlas(L, this.state.selectedFlow), harmonicSvg:this.buildHarmonic(),
+      territories, influences, hotspots, layerToggles, navItems, harmonicMarks, selected:selView,
+      harmonicScore:harmonic.toFixed(2), harmonicRing:Math.round(harmonic*100)+'%', harmonicColor:this.confColor(harmonic), harmonicLabel:'Unsettled'
+    };
+  }
+}
+</script>
+</body>
+</html>

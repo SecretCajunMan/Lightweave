@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0a0c08}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lcPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.15;transform:scale(1.5)}}
+  @keyframes lcDrip{0%{transform:translateY(0);opacity:0}20%{opacity:.7}100%{transform:translateY(40px);opacity:0}}
+  @keyframes lcToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="Leeches" style="height:100vh; overflow:hidden; color:rgba(231,238,226,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 600px at 40% -16%, {{ bg1 }}, transparent 56%), radial-gradient(1000px 720px at 112% 120%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M6 8 q4 -3 8 0 q4 3 8 0 q-2 6 -8 12 q-6 -6 -8 -12 Z" fill="none" stroke="var(--accent)" stroke-width="1.4"></path><circle cx="11" cy="11" r="1.1" fill="var(--accent2)"></circle><circle cx="17" cy="11" r="1.1" fill="var(--accent2)"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Leeches</span>
+      <span style="font-size:10.5px; color:rgba(231,238,226,0.42);">the recurring draw · what's bleeding you, and whether it earns the bite</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(231,238,226,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,94,94,0.32); border-radius:7px; background:rgba(255,94,94,0.08); color:#ff8f8f;"><span style="width:6px;height:6px;border-radius:50%;background:#ff5e5e;box-shadow:0 0 7px #ff5e5e;"></span>{{ monthlyBleed }}/mo bleeding</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;">
+        <span style="font-size:9px; letter-spacing:0.1em; color:rgba(231,238,226,0.45);">HOST AUDIT</span>
+        <span onClick="{{ onSpicy }}" style="display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:7px; cursor:pointer; background:{{ spicyBg }}; border:1px solid {{ spicyBorder }}; color:{{ spicyTxt }};">{{ spicyLabel }}</span>
+      </span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(231,238,226,0.42); font-family:'IBM Plex Mono',monospace;">LEECH · audit</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="leeches"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow:hidden; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:14px; left:50%; z-index:20; transform:translateX(-50%); animation:lcToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(14,18,10,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:600px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(231,238,226,0.9);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:14px;">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(231,238,226,0.42); margin-bottom:3px;">THE MONTHLY BLEED · {{ subCount }} ATTACHED</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; color:rgba(231,238,226,0.97);">{{ headline }}</div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:13px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:1px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:#ff8f8f;">{{ deadCount }}</span><span style="font-size:8.5px; letter-spacing:0.08em; color:rgba(231,238,226,0.42);">DEAD WEIGHT</span></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:1px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:#7fe8a6;">{{ fedCount }}</span><span style="font-size:8.5px; letter-spacing:0.08em; color:rgba(231,238,226,0.42);">EARNS IT</span></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:1px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:var(--accent2);">{{ yearBleed }}</span><span style="font-size:8.5px; letter-spacing:0.08em; color:rgba(231,238,226,0.42);">PER YEAR</span></div>
+        </div>
+      </section>
+
+      <!-- bleed bar -->
+      <section style="flex:0 0 auto;">
+        <div style="display:flex; height:26px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
+          <sc-for list="{{ bleedBar }}" as="bb" hint-placeholder-count="8">
+            <div onClick="{{ bb.onSelect }}" title="{{ bb.title }}" style="width:{{ bb.pct }}; background:{{ bb.color }}; cursor:pointer; border-right:1px solid rgba(0,0,0,0.3); box-shadow:{{ bb.shadow }};"></div>
+          </sc-for>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:6px; font-size:9px; color:rgba(231,238,226,0.5);">
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:#46E08A;"></span>earns it</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:#FFB84D;"></span>bloated</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:#ff5e5e;"></span>dormant</span>
+          <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:#A879FF;"></span>duplicate</span>
+          <div style="flex:1;"></div>
+          <span style="font-family:'IBM Plex Mono',monospace; color:rgba(231,238,226,0.4);">each block sized by what it draws</span>
+        </div>
+      </section>
+
+      <!-- roster -->
+      <section style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+        <sc-for list="{{ roster }}" as="r" hint-placeholder-count="8">
+          <div onClick="{{ r.onSelect }}" style="display:flex; align-items:center; gap:12px; padding:11px 13px; border-radius:12px; cursor:pointer; background:{{ r.bg }}; border:1px solid {{ r.border }}; opacity:{{ r.op }};">
+            <div style="flex:0 0 30px; height:30px; display:flex; align-items:center; justify-content:center;">{{ r.glyph }}</div>
+            <div style="flex:0 0 168px; min-width:0;">
+              <div style="display:flex; align-items:center; gap:7px;">
+                <span style="font-size:13px; font-weight:600; color:rgba(231,238,226,0.95); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.name }}</span>
+                <sc-if value="{{ r.marked }}" hint-placeholder-val="{{ false }}"><span style="font-size:7.5px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:rgba(255,94,94,0.16); color:#ff8f8f;">cut proposed</span></sc-if>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+                <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(231,238,226,0.45);">{{ r.host }}</span>
+                <sc-if value="{{ r.showHost }}" hint-placeholder-val="{{ false }}"><span style="font-size:7.5px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ r.hostBg }}; color:{{ r.hostColor }};">{{ r.hostLabel }}</span></sc-if>
+              </div>
+            </div>
+            <div style="flex:1; min-width:0;">
+              <div style="height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ r.usePct }}; background:{{ r.valueColor }}; box-shadow:0 0 7px {{ r.valueColor }};"></div></div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(231,238,226,0.45); margin-top:3px;">{{ r.useMeta }}</div>
+            </div>
+            <div style="flex:0 0 auto; text-align:right;">
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:rgba(231,238,226,0.92);">{{ r.draw }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ r.cpuColor }};">{{ r.cpu }}</div>
+            </div>
+            <div style="flex:0 0 84px; text-align:center;">
+              <span style="font-size:9.5px; font-weight:600; padding:4px 9px; border-radius:7px; background:{{ r.valueBg }}; color:{{ r.valueColor }};">{{ r.valueLabel }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 344px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.valueColor }}; box-shadow:0 0 8px {{ sel.valueColor }};"></span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.name }}</span>
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.valueBg }}; color:{{ sel.valueColor }};">{{ sel.valueLabel }}</span>
+        </div>
+        <div style="font-size:10.5px; color:rgba(231,238,226,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.category }} · host: {{ sel.host }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+        <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.09); border-radius:12px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(231,238,226,0.45); margin-bottom:10px;">THE DRAW vs THE BITE</div>
+          <div style="display:flex; gap:7px;">
+            <div style="flex:1; text-align:center; padding:8px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(231,238,226,0.45);">DRAW / MO</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ff8f8f;">{{ sel.draw }}</div></div>
+            <div style="flex:1; text-align:center; padding:8px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(231,238,226,0.45);">USES / MO</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:rgba(231,238,226,0.9);">{{ sel.uses }}</div></div>
+            <div style="flex:1; text-align:center; padding:8px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(231,238,226,0.45);">COST / USE</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.cpuColor }};">{{ sel.cpu }}</div></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(231,238,226,0.6); margin-top:10px; line-height:1.5;">Last used {{ sel.lastUsed }}. {{ sel.valueNote }}</div>
+        </div>
+
+        <div style="background:{{ sel.verdictBg }}; border:1px solid {{ sel.verdictBorder }}; border-radius:11px; padding:11px 12px;">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:{{ sel.valueColor }};"></span><span style="font-size:10.5px; font-weight:600; color:{{ sel.valueColor }};">{{ sel.verdictHead }}</span></div>
+          <div style="font-size:10.5px; line-height:1.5; color:rgba(231,238,226,0.66);">{{ sel.verdict }}</div>
+        </div>
+
+        <sc-if value="{{ sel.showHostAudit }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,94,94,0.04); border:1px solid {{ sel.hostBorder }}; border-radius:12px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:4px;"><span style="width:8px; height:8px; border-radius:50%; background:{{ sel.hostColor }}; box-shadow:0 0 7px {{ sel.hostColor }};"></span><span style="font-size:10.5px; font-weight:600; color:{{ sel.hostColor }};">HOST AUDIT · {{ sel.host }}</span><span style="margin-left:auto; font-size:8px; font-family:'IBM Plex Mono',monospace; color:{{ sel.hostColor }};">{{ sel.hostLabel }}</span></div>
+            <div style="font-size:9px; color:rgba(231,238,226,0.5); margin-bottom:9px; line-height:1.4;">Documented in public sources — weighed and dated. Not our verdict; the citations are.</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <sc-for list="{{ sel.hostFacts }}" as="hf" hint-placeholder-count="2">
+                <div style="border-left:2px solid {{ hf.color }}; padding-left:9px;">
+                  <div style="font-size:10.5px; color:rgba(231,238,226,0.82); line-height:1.4;">{{ hf.claim }}</div>
+                  <div style="display:flex; align-items:center; gap:7px; margin-top:3px;"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(231,238,226,0.5);">{{ hf.source }} · {{ hf.date }}</span><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ hf.lifeBg }}; color:{{ hf.lifeColor }};">{{ hf.life }}</span><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:{{ hf.confColor }};">conf {{ hf.conf }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ sel.hostSentiment }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:10px; padding-top:9px; border-top:1px dashed rgba(255,255,255,0.12);">
+                <div style="font-size:9px; letter-spacing:0.08em; color:rgba(231,238,226,0.45); margin-bottom:4px;">YOUR READ · SENTIMENT, NOT FACT</div>
+                <div style="font-size:10px; color:rgba(231,238,226,0.62); line-height:1.45;">{{ sel.hostSentiment }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(231,238,226,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(231,238,226,0.72);">{{ step }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(231,238,226,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+          <div style="position:relative; padding-left:5px;">
+            <sc-for list="{{ sel.sources }}" as="s" hint-placeholder-count="2">
+              <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #0c0f0a; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(231,238,226,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(231,238,226,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(231,238,226,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(231,238,226,0.45);">record</span><span style="color:{{ sel.valueColor }};">{{ sel.canonId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(231,238,226,0.45);">draw.resolver</span><span>DELTA_SUM</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(231,238,226,0.45);">value.policy</span><span>usage_derived</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(231,238,226,0.45);">action.gate</span><span style="color:#A879FF;">PROPOSE_ONLY</span></div>
+          </div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span onClick="{{ sel.onMark }}" style="flex:1; text-align:center; font-size:11.5px; font-weight:600; color:{{ sel.markTxt }}; background:{{ sel.markBg }}; border:1px solid {{ sel.markBorder }}; padding:9px; border-radius:8px; cursor:pointer;">{{ sel.markLabel }}</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(231,238,226,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Keep</span>
+          </div>
+          <div style="font-size:8.5px; color:rgba(231,238,226,0.4); margin-top:7px; text-align:center; line-height:1.4;">Proposing a cut writes an annotation. Leeches never cancels for you — it can't reach your wallet.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 78px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; align-items:center; gap:16px;">
+    <div style="flex:1; min-width:0;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(231,238,226,0.6);">Annual bleed</span>
+        <span style="font-size:10px; color:rgba(231,238,226,0.38);">every recurring charge, traced — the establishment loves a quiet auto-renew</span>
+        <div style="flex:1;"></div>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#ff8f8f;">{{ yearBleed }} drawn</span>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--accent);">{{ reclaimYear }} reclaimable</span>
+      </div>
+      <div style="display:flex; height:12px; border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
+        <div style="width:{{ keepShare }}; background:linear-gradient(90deg,#46E08A,#7fe8a6);"></div>
+        <div style="width:{{ cutShare }}; background:repeating-linear-gradient(45deg, #ff5e5e 0 7px, #c43c3c 7px 14px);"></div>
+      </div>
+    </div>
+    <div style="flex:0 0 230px; display:flex; align-items:center; gap:12px; background:rgba(155,255,90,0.05); border:1px solid rgba(155,255,90,0.2); border-radius:11px; padding:9px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--accent); line-height:1;">{{ markedCount }}</div>
+        <div style="font-size:9px; color:rgba(231,238,226,0.55); margin-top:2px;">cuts proposed</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:#5fe0b0; line-height:1;">0</div>
+        <div style="font-size:9px; color:rgba(231,238,226,0.55); margin-top:2px; line-height:1.3;">cancelled on your behalf · we can't, by design</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;acid&quot;,&quot;rust&quot;,&quot;noir&quot;],&quot;default&quot;:&quot;acid&quot;,&quot;tsType&quot;:&quot;'acid' | 'rust' | 'noir'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.SUBS={
+      aurora:{ name:'Aurora Stream', host:'Lumitech Media', cat:'video', draw:15.99, uses:18, lastUsed:'yesterday', value:'fed', hostState:'clean', canonId:'sub_aurora',
+        valueNote:'At roughly $0.89 a sitting, it earns the bite. A leech you feed on purpose.',
+        reasoning:['Charged monthly; used 18 of the last 30 days per your sign-in log.','Cost-per-use is low — the usage record backs the keep.','No reason to cut a leech that pulls its weight.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $15.99/mo',color:'#ff8f8f',radius:'3px'},{title:'Sign-in log · 18 sessions',meta:'device · attested',color:'#46E08A',radius:'3px'}],
+        hostFacts:[], hostSentiment:null },
+      fitpulse:{ name:'FitPulse', host:'Vantage Health', cat:'fitness', draw:29.00, uses:1, lastUsed:'5 weeks ago', value:'dormant', hostState:'watch', canonId:'sub_fitpulse',
+        valueNote:'$29 a month for a single login in five weeks. That is $29 per use, and falling. Classic dormant bleed.',
+        reasoning:['Charged monthly; one sign-in in 35 days.','Cost-per-use is the worst on the wall.','Flagged dormant from your own usage — not a guess.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $29.00/mo',color:'#ff8f8f',radius:'3px'},{title:'Sign-in log · 1 session',meta:'device · attested',color:'#ff5e5e',radius:'2px'}],
+        hostFacts:[{claim:'Settled a regulator inquiry over sharing fitness data with advertisers.',source:'Public regulatory notice',date:'2024-08',life:'Confirmed',conf:0.88}],
+        hostSentiment:'Your read: you muted their emails in March (log shows a filter rule). Sentiment, not fact.' },
+      cloudvault:{ name:'CloudVault Pro', host:'Strandline', cat:'storage', draw:9.99, uses:30, lastUsed:'continuous', value:'fed', hostState:'clean', canonId:'sub_cloudvault',
+        valueNote:'Runs quietly in the background; backups touch it daily. Passive use still counts as use.',
+        reasoning:['Charged monthly; automated backups log activity every day.','Passive but genuinely used — value holds.','No dormancy signal in the record.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $9.99/mo',color:'#ff8f8f',radius:'3px'},{title:'Backup job log · daily',meta:'system · attested',color:'#46E08A',radius:'3px'}],
+        hostFacts:[], hostSentiment:null },
+      newswire:{ name:'NewsWire+', host:'Meridian Media', cat:'news', draw:12.00, uses:5, lastUsed:'9 days ago', value:'bloated', hostState:'flagged', canonId:'sub_newswire',
+        valueNote:'Five reads this month, trending down from twenty. You\u2019re paying for a habit you\u2019ve mostly dropped.',
+        reasoning:['Charged monthly; reads fell from ~20 to 5 over three months.','Still some use — bloated, not dead.','Worth a look: keep, downgrade, or cut.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $12.00/mo',color:'#ff8f8f',radius:'3px'},{title:'Open log · 5 articles',meta:'app · attested',color:'#FFB84D',radius:'2px'}],
+        hostFacts:[{claim:'Fined for undisclosed auto-renewal price hikes on annual plans.',source:'Consumer-protection filing',date:'2024-02',life:'Confirmed',conf:0.9},{claim:'Accused of throttling cancellation flows.',source:'Aggregated user reports',date:'ongoing',life:'Contested',conf:0.55}],
+        hostSentiment:'Your read: you rated a renewal email \u201cdark pattern\u201d in a saved note. Sentiment, not fact.' },
+      beatbox:{ name:'BeatBox Music', host:'Strandline', cat:'audio', draw:10.99, uses:26, lastUsed:'today', value:'fed', hostState:'clean', canonId:'sub_beatbox',
+        valueNote:'Near-daily use. Pennies per session. This one stays.',
+        reasoning:['Charged monthly; played on 26 of 30 days.','Cost-per-use is trivial.','Clear keep from the usage record.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $10.99/mo',color:'#ff8f8f',radius:'3px'},{title:'Play log · 26 days',meta:'app · attested',color:'#46E08A',radius:'3px'}],
+        hostFacts:[], hostSentiment:null },
+      taskforge:{ name:'TaskForge', host:'Pinnacle Soft', cat:'productivity', draw:8.00, uses:7, lastUsed:'4 days ago', value:'dupe', hostState:'clean', canonId:'sub_taskforge',
+        valueNote:'You also pay for a tool that does the same job. Two leeches, one wound — the records show overlapping use.',
+        reasoning:['Charged monthly; used, but its features overlap another active sub.','Duplicate spend flagged by category + feature match.','Keeping both is paying twice for one job.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $8.00/mo',color:'#ff8f8f',radius:'3px'},{title:'Overlap · matches \u201cFlowDeck\u201d',meta:'category + feature',color:'#A879FF',radius:'2px'}],
+        hostFacts:[], hostSentiment:null },
+      glowskin:{ name:'GlowSkin Box', host:'Velour Brands', cat:'subscription box', draw:39.00, uses:0, lastUsed:'2 months ago', value:'dormant', hostState:'flagged', canonId:'sub_glowskin',
+        valueNote:'$39 a month for boxes you haven\u2019t opened since spring. The heaviest dead-weight leech on the wall.',
+        reasoning:['Charged monthly; no engagement logged in 60 days.','Highest draw, zero recent use \u2014 deep dormant.','Top candidate to cut for the biggest reclaim.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $39.00/mo',color:'#ff8f8f',radius:'2px'},{title:'Engagement log · none 60d',meta:'app · attested',color:'#ff5e5e',radius:'2px'}],
+        hostFacts:[{claim:'Settled over enrollment in recurring billing without clear consent (dark patterns).',source:'Consumer-protection settlement',date:'2023-11',life:'Confirmed',conf:0.92},{claim:'High volume of cancellation-difficulty complaints.',source:'Public complaint database',date:'2024',life:'Watching',conf:0.66}],
+        hostSentiment:'Your read: two cancellation attempts in your logs hit retention flows and stalled. Sentiment, not fact.' },
+      shieldvpn:{ name:'ShieldVPN', host:'Northgate', cat:'security', draw:4.99, uses:12, lastUsed:'2 days ago', value:'fed', hostState:'watch', canonId:'sub_shieldvpn',
+        valueNote:'Cheap and genuinely used on the road. Earns its small bite.',
+        reasoning:['Charged monthly; connected on 12 days.','Low draw, steady use \u2014 keep.','No usage-based reason to cut.'],
+        sources:[{title:'Recurring charge · card feed',meta:'DELTA_SUM · $4.99/mo',color:'#ff8f8f',radius:'3px'},{title:'Connect log · 12 days',meta:'app · attested',color:'#46E08A',radius:'3px'}],
+        hostFacts:[{claim:'Past ownership change drew scrutiny over data-handling transparency.',source:'Trade-press reporting',date:'2023',life:'Contested',conf:0.5}],
+        hostSentiment:null }
+    };
+    this.ORDER=['glowskin','fitpulse','newswire','taskforge','aurora','beatbox','cloudvault','shieldvpn'];
+    this.state={ sel:'glowskin', spicy:false, marked:{}, toast:null };
+  }
+
+  themes={
+    acid:{ accent:'#9bff5a', accent2:'#ff5e5e', base:'#0a0c08', bg1:'rgba(155,255,90,0.12)', bg2:'rgba(255,94,94,0.10)', glow:'rgba(155,255,90,0.3)' },
+    rust:{ accent:'#ffae3a', accent2:'#ff5e5e', base:'#0d0a08', bg1:'rgba(255,174,58,0.13)', bg2:'rgba(255,94,94,0.10)', glow:'rgba(255,174,58,0.3)' },
+    noir:{ accent:'#8fb0c8', accent2:'#ff5e5e', base:'#08090c', bg1:'rgba(143,176,200,0.12)', bg2:'rgba(255,94,94,0.09)', glow:'rgba(143,176,200,0.28)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.acid; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  valColor(v){ return ({fed:'#46E08A',bloated:'#FFB84D',dormant:'#ff5e5e',dupe:'#A879FF'})[v]||'#9aa6c0'; }
+  valLabel(v){ return ({fed:'earns it',bloated:'bloated',dormant:'dormant',dupe:'duplicate'})[v]||v; }
+  hostColor(h){ return ({clean:'#46E08A',watch:'#FFB84D',flagged:'#ff5e5e'})[h]||'#9aa6c0'; }
+  hostLabel(h){ return ({clean:'clean',watch:'watch',flagged:'flagged'})[h]||h; }
+  lifeColor(l){ return ({Confirmed:'#46E08A',Watching:'#FFB84D',Contested:'#ff5e5e'})[l]||'#9aa6c0'; }
+  cpuColor(c){ return c<2?'#46E08A': c<8?'#FFB84D':'#ff5e5e'; }
+  isDead(id){ const v=this.SUBS[id].value; return v==='dormant'||v==='bloated'||v==='dupe'||this.state.marked[id]; }
+  money(n){ return '$'+(n%1===0?n.toFixed(0):n.toFixed(2)); }
+
+  glyph(v){ const h=React.createElement, col=this.valColor(v);
+    return h('svg',{width:26,height:26,viewBox:'0 0 28 28'},
+      h('path',{d:'M6 8 q4 -3 8 0 q4 3 8 0 q-2 7 -8 13 q-6 -6 -8 -13 Z',fill:this.hexA(col,0.18),stroke:col,strokeWidth:1.3,style:{filter:'drop-shadow(0 0 3px '+col+')'}}),
+      h('circle',{cx:11,cy:11,r:1,fill:col}),h('circle',{cx:17,cy:11,r:1,fill:col})); }
+
+  toggleMark(id){
+    const s=this.SUBS[id], on=!this.state.marked[id];
+    this.setState(st=>({ marked:{...st.marked,[id]:on},
+      toast: on? 'Cut proposed for '+s.name+'. An annotation is written; nothing is cancelled. Leeches can\u2019t touch your wallet \u2014 that\u2019s your move.' : 'Cut withdrawn for '+s.name+'. The annotation is reversed; the charge was never touched.' }));
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200);
+  }
+  toggleSpicy(){ this.setState(st=>({ spicy:!st.spicy, toast: !st.spicy?'Host Audit on. Each claim is a dated public-source record, weighed by confidence \u2014 documented facts kept apart from your sentiment.':null })); clearTimeout(this._tt); if(!this.state.spicy) this._tt=setTimeout(()=>this.setState({toast:null}),4600); }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const t=this.cur(), S=this.SUBS, spicy=this.state.spicy, selId=this.state.sel, b=S[selId];
+    const totalDraw=this.ORDER.reduce((a,id)=>a+S[id].draw,0);
+    const reclaim=this.ORDER.filter(id=>this.isDead(id)).reduce((a,id)=>a+S[id].draw,0);
+    const markedCount=Object.keys(this.state.marked).filter(k=>this.state.marked[k]).length;
+
+    const navItems=['Prism Intake','Lattice Vault','Bounty Constellarium','The Governor','Iris','Mirror Hall','Distortion Clinic','Resonance Atlas','Lumen Apothecary','Leeches']
+      .map(l=>{ const on=l==='Leeches'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,255,255,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(231,238,226,0.95)':'rgba(231,238,226,0.6)',dot:on?'var(--accent)':'rgba(231,238,226,0.35)'}; });
+
+    const maxUses=30;
+    const roster=this.ORDER.map(id=>{ const s=S[id], on=selId===id, col=this.valColor(s.value), cpu=s.uses>0?s.draw/s.uses:s.draw;
+      return { name:s.name, host:s.host, glyph:this.glyph(s.value),
+        usePct:Math.max(6,Math.round(s.uses/maxUses*100))+'%', useMeta:s.uses+' uses/mo · last '+s.lastUsed,
+        draw:this.money(s.draw), cpu: s.uses>0?('$'+cpu.toFixed(2)+'/use'):'no use logged', cpuColor:this.cpuColor(cpu),
+        valueLabel:this.valLabel(s.value), valueColor:col, valueBg:this.hexA(col,0.14),
+        marked:!!this.state.marked[id], showHost:spicy, hostLabel:this.hostLabel(s.hostState), hostColor:this.hostColor(s.hostState), hostBg:this.hexA(this.hostColor(s.hostState),0.14),
+        op: on?1:(this.state.marked[id]?0.6:0.95),
+        bg:on?this.hexA(col,0.08):'rgba(255,255,255,0.02)', border:on?this.hexA(col,0.4):'rgba(255,255,255,0.06)',
+        onSelect:()=>this.setState({sel:id}) }; });
+
+    const bleedBar=this.ORDER.map(id=>{ const s=S[id], col=this.valColor(s.value);
+      return { pct:(s.draw/totalDraw*100).toFixed(1)+'%', color:this.hexA(col,selId===id?0.95:0.6), shadow:selId===id?'inset 0 0 0 1px #fff':'none',
+        title:s.name+' · '+this.money(s.draw), onSelect:()=>this.setState({sel:id}) }; });
+
+    // selected proof
+    const cpu=b.uses>0?b.draw/b.uses:b.draw, col=this.valColor(b.value);
+    const verdictMap={ fed:{h:'Keep — it earns the bite',n:''}, bloated:{h:'Trim or downgrade',n:''}, dormant:{h:'Cut candidate — pure bleed',n:''}, dupe:{h:'Cut one — you pay twice',n:''} };
+    const marked=!!this.state.marked[selId];
+    const sel={ name:b.name, host:b.host, category:b.cat, valueLabel:this.valLabel(b.value), valueColor:col, valueBg:this.hexA(col,0.16), headerBg:this.hexA(col,0.07),
+      draw:this.money(b.draw), uses:String(b.uses), cpu: b.uses>0?('$'+cpu.toFixed(2)):'\u2014', cpuColor:this.cpuColor(cpu), lastUsed:b.lastUsed, valueNote:b.valueNote,
+      verdictHead:verdictMap[b.value].h, verdict:b.valueNote, verdictBg:this.hexA(col,0.05), verdictBorder:this.hexA(col,0.26),
+      showHostAudit: spicy && (b.hostFacts.length>0 || b.hostSentiment),
+      hostColor:this.hostColor(b.hostState), hostLabel:this.hostLabel(b.hostState), hostBorder:this.hexA(this.hostColor(b.hostState),0.3),
+      hostFacts:b.hostFacts.map(f=>({ claim:f.claim, source:f.source, date:f.date, life:f.life, conf:f.conf.toFixed(2), color:this.lifeColor(f.life), lifeColor:this.lifeColor(f.life), lifeBg:this.hexA(this.lifeColor(f.life),0.16), confColor:this.cpuColor(0) })),
+      hostSentiment:b.hostSentiment||null,
+      reasoning:b.reasoning, sources:b.sources, canonId:b.canonId,
+      onMark:()=>this.toggleMark(selId),
+      markLabel: marked?'Withdraw cut':'Propose cut', markTxt: marked?'#ff8f8f':'#0c0f0a', markBg: marked?'rgba(255,94,94,0.12)':'linear-gradient(135deg, var(--accent), var(--accent2))', markBorder: marked?'rgba(255,94,94,0.4)':'transparent' };
+    // fix host fact conf color
+    sel.hostFacts=b.hostFacts.map(f=>({ claim:f.claim, source:f.source, date:f.date, life:f.life, conf:f.conf.toFixed(2), color:this.lifeColor(f.life), lifeColor:this.lifeColor(f.life), lifeBg:this.hexA(this.lifeColor(f.life),0.16), confColor:f.conf>=0.8?'#46E08A':f.conf>=0.6?'#FFB84D':'#ff5e5e' }));
+
+    const dead=this.ORDER.filter(id=>this.isDead(id)).length, fed=this.ORDER.filter(id=>S[id].value==='fed').length;
+    const keepShare=Math.round((totalDraw-reclaim)/totalDraw*100)+'%', cutShare=Math.round(reclaim/totalDraw*100)+'%';
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      navItems, roster, bleedBar, sel,
+      monthlyBleed:this.money(totalDraw), yearBleed:this.money(Math.round(totalDraw*12)), reclaimYear:this.money(Math.round(reclaim*12)),
+      subCount:this.ORDER.length, deadCount:dead, fedCount:fed, markedCount,
+      headline: dead>0? (dead+' of '+this.ORDER.length+' barely earn the bite — '+this.money(Math.round(reclaim*12))+'/yr is just bleeding out.') : 'Every leech on the wall is pulling its weight today.',
+      keepShare, cutShare,
+      spicy, onSpicy:()=>this.toggleSpicy(),
+      spicyLabel: spicy?'on':'off', spicyBg: spicy?this.hexA(t.accent2,0.16):'rgba(255,255,255,0.02)', spicyBorder: spicy?this.hexA(t.accent2,0.5):'rgba(255,255,255,0.12)', spicyTxt: spicy?'#ff8f8f':'rgba(231,238,226,0.6)',
+      toast:this.state.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

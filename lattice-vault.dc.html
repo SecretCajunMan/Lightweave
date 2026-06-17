@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#07080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwFlow{to{stroke-dashoffset:-44}}
+  @keyframes lwLeak{0%,100%{opacity:.4}50%{opacity:.9}}
+  @keyframes lwCore{0%,100%{opacity:.7}50%{opacity:1}}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(255,255,255,0.16);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 10px var(--accent)}
+</style>
+</helmet>
+<div data-screen-label="Lattice Vault" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --pad:{{ pad }}; --glow:{{ glow }}; background:radial-gradient(1200px 640px at 50% -18%, var(--bg1), transparent 60%), radial-gradient(980px 720px at 104% 124%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Lattice Vault</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 7 · stored value</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>ledger-backed</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>vault synced</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Steward</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">VAULT · Tue Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="lattice-vault"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:14px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:11px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">VAULT BALANCE</div><div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600;">$4,820 <span style="font-size:11px; color:rgba(238,241,251,0.45); font-weight:400;">+ 5 derived reserves</span></div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">money is ledger · reserves are derived</div></div>
+        <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">NET FLOW TODAY</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:#ffb454;">routing, with leaks</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">+$162 net · 2 active drains</div></div>
+        <div style="flex:1;"></div>
+        <div style="display:flex; gap:8px;">
+          <span onClick="{{ cyclePersona }}" style="display:inline-flex; align-items:center; gap:7px; font-size:11.5px; color:rgba(238,241,251,0.7); padding:8px 12px; border:1px solid rgba(255,255,255,0.12); border-radius:9px; cursor:pointer;"><span style="width:8px; height:8px; border-radius:2px; background:linear-gradient(135deg,var(--accent),var(--accent2));"></span>{{ personaName }} lens</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:9px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:11px; padding:9px 13px;">
+          <div style="position:relative; width:38px; height:38px; border-radius:50%; --c:{{ healthRing }}; background:conic-gradient(var(--accent) var(--c), rgba(255,255,255,0.08) 0); display:flex; align-items:center; justify-content:center;"><div style="width:28px; height:28px; border-radius:50%; background:#0a0c14; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;">{{ healthScore }}</span></div></div>
+          <div style="line-height:1.2;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">COMMITMENT HEALTH</div><div style="font-size:11px; color:{{ healthColor }};">{{ healthLabel }}</div><div style="font-size:8.5px; color:rgba(238,241,251,0.38);">2 of 5 goals at risk</div></div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(70% 80% at 50% 46%, rgba(108,140,255,0.10), transparent 60%), linear-gradient(180deg, #0b1022, #0a0e1c 60%, #0c1124);">
+          <div style="position:absolute; inset:0;">{{ vaultSvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,241,251,0.7);">Vault core</span>
+            <span style="font-size:10px; color:rgba(238,241,251,0.4);">reservoirs route lumens through the core to your goals</span>
+          </div>
+          <div style="position:absolute; top:10px; left:0; right:0; display:flex; justify-content:center; gap:38px; pointer-events:none;">
+            <span style="font-size:9px; letter-spacing:0.14em; color:rgba(238,241,251,0.35);">RESERVOIRS</span>
+            <span style="font-size:9px; letter-spacing:0.14em; color:rgba(238,241,251,0.35);">GOAL METALS</span>
+          </div>
+          <!-- nodes -->
+          <sc-for list="{{ nodes }}" as="nd" hint-placeholder-count="11">
+            <div onClick="{{ nd.onSelect }}" style="position:absolute; left:{{ nd.leftPct }}; top:{{ nd.topPct }}; transform:translate(-50%,-50%); width:{{ nd.width }}; cursor:pointer; z-index:{{ nd.z }};">
+              <div style="display:flex; align-items:center; gap:8px; padding:7px 9px; border-radius:11px; background:{{ nd.bg }}; border:1px solid {{ nd.border }}; box-shadow:{{ nd.shadow }}; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);">
+                <span style="width:22px; height:22px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;">{{ nd.glyph }}</span>
+                <div style="flex:1; min-width:0;">
+                  <div style="display:flex; align-items:center; gap:5px;"><span style="font-size:11px; font-weight:600; white-space:nowrap;">{{ nd.name }}</span><span style="font-size:7.5px; font-family:'IBM Plex Mono',monospace; padding:0 4px; border-radius:4px; background:{{ nd.modeBg }}; color:{{ nd.modeColor }};">{{ nd.modeTag }}</span></div>
+                  <div style="display:flex; align-items:center; gap:5px; margin-top:3px;"><div style="flex:1; height:3.5px; border-radius:2px; background:rgba(255,255,255,0.1); overflow:hidden;"><div style="height:100%; width:{{ nd.fillPct }}; background:{{ nd.fillColor }};"></div></div><span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ nd.fillColor }}; white-space:nowrap;">{{ nd.metric }}</span></div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+          <!-- core overlay -->
+          <div onClick="{{ core.onSelect }}" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); cursor:pointer; text-align:center; z-index:6;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:0.1em; color:rgba(238,241,251,0.55);">CORE</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; color:#fff;">{{ core.net }}</div>
+            <div style="font-size:9px; color:rgba(238,241,251,0.5);">net flow today</div>
+          </div>
+        </div>
+
+        <div style="flex:0 0 248px; display:flex; flex-direction:column; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 13px; min-height:0;">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px; flex:0 0 auto;">
+            <svg width="13" height="13" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="2" fill="none" stroke="var(--accent)" stroke-width="1.2"></rect><path d="M4.5 7 l1.6 1.6 L10 4.5" fill="none" stroke="var(--accent)" stroke-width="1.2"></path></svg>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:500;">Commitment health</span>
+          </div>
+          <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ goals }}" as="g" hint-placeholder-count="5">
+              <div onClick="{{ g.onSelect }}" style="cursor:pointer; padding:9px 10px; border-radius:10px; background:{{ g.rowBg }}; border:1px solid {{ g.rowBorder }}; border-left:2px solid {{ g.healthColor }};">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+                  <span style="width:18px; height:18px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;">{{ g.glyph }}</span>
+                  <span style="font-size:11.5px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.name }}</span>
+                  <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ g.healthBg }}; color:{{ g.healthColor }};">{{ g.healthTag }}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <div style="flex:1; height:4px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ g.progPct }}; background:{{ g.healthColor }};"></div></div>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.55); white-space:nowrap;">{{ g.progLabel }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ selected.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 16 16"><path d="M8 2 L13 5 L13 11 L8 14 L3 11 L3 5 Z" fill="none" stroke="var(--accent)" stroke-width="1.2"></path></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;">Value movement proof</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:11px;">
+          <span style="width:34px; height:34px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;">{{ selected.glyph }}</span>
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:14.5px; font-weight:600; color:{{ selected.color }};">{{ selected.headline }}</div>
+            <div style="display:flex; align-items:center; gap:6px; margin-top:3px;">
+              <span style="font-size:8.5px; font-weight:600; font-family:'IBM Plex Mono',monospace; padding:1px 6px; border-radius:4px; background:{{ selected.modeBg }}; color:{{ selected.modeColor }};">{{ selected.modeFull }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.45);">{{ selected.records }} records</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:16px;">
+
+        <div style="background:{{ selected.modeNoteBg }}; border:1px solid {{ selected.modeNoteBorder }}; border-radius:11px; padding:10px 12px; display:flex; gap:9px; align-items:flex-start;">
+          <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ selected.modeColor }}; margin-top:5px; box-shadow:0 0 7px {{ selected.modeColor }};"></span>
+          <span style="font-size:11px; line-height:1.5; color:rgba(238,241,251,0.78);">{{ selected.modeNote }}</span>
+        </div>
+
+        <div style="background:{{ selected.headerBg }}; border:1px solid {{ selected.softBorder }}; border-radius:11px; padding:12px 13px;">
+          <div style="font-size:13px; line-height:1.55; color:rgba(238,241,251,0.9);">{{ selected.meaning }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:10px;">
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">window</span>
+            <span style="font-size:11px; color:rgba(238,241,251,0.85);">{{ selected.window }}</span>
+            <div style="flex:1;"></div>
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">confidence</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ selected.confColor }};">{{ selected.confLabel }}</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">{{ selected.buildTitle }}</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.build }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="flex:0 0 110px; font-size:11px; color:rgba(238,241,251,0.6);">{{ b.label }}</span>
+                <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ b.widthPct }}; background:{{ b.color }}; box-shadow:0 0 8px {{ b.color }};"></div></div>
+                <span style="flex:0 0 auto; min-width:42px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ b.color }};">{{ b.valLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE TRACE · {{ selected.sourceCount }} BACKING</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ selected.sources }}" as="src" hint-placeholder-count="2">
+              <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.07); border-radius:9px;">
+                <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ src.color }}; box-shadow:0 0 7px {{ src.color }};"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.label }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">{{ src.role }}</div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.55);">{{ src.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:12px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ selected.contradiction }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e;"></span>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ selected.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ selected.contradiction.a.color }};">{{ selected.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ selected.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ selected.contradiction.b.color }};">{{ selected.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ selected.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">{{ selected.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">LINKED RECORDS</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <sc-for list="{{ selected.records_list }}" as="rec" hint-placeholder-count="3">
+              <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; font-family:'IBM Plex Mono',monospace; padding:5px 9px; border-radius:7px; background:rgba(86,184,255,0.07); border:1px solid rgba(86,184,255,0.2); color:rgba(238,241,251,0.78);"><span style="width:5px; height:5px; border-radius:50%; background:#56b8ff;"></span>{{ rec }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">movement</span><span style="color:{{ selected.color }};">{{ selected.movementId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>{{ selected.truthMode }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ selected.resolver }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>contract_v1.5</span></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:10px; line-height:1.45;">{{ selected.canonicalNote }}</div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">{{ selected.actionLabel }}</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Boring view</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 100px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Ledger trace · value movements today</span>
+      <span style="font-size:10px; color:rgba(238,241,251,0.38);">every flow links to a ledger movement or a derived projection</span>
+      <div style="flex:1;"></div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#46e0b4;"></span>pull · toward goal</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff6b5e;"></span>push · drain</span>
+    </div>
+    <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(70,224,180,0.05), rgba(255,107,94,0.05)); border:1px solid rgba(255,255,255,0.07);">
+      <div style="position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(255,255,255,0.09);"></div>
+      <sc-for list="{{ movements }}" as="m" hint-placeholder-count="7">
+        <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:104px;">
+          <div style="font-size:9px; color:rgba(238,241,251,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:104px; text-align:center; margin-bottom:3px;">{{ m.short }}</div>
+          <div style="display:flex; align-items:center; gap:4px;">
+            <span style="font-size:9px;">{{ m.dirIcon }}</span>
+            <div style="width:10px; height:10px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:{{ m.color }}; margin-top:3px; white-space:nowrap;">{{ m.amount }}</div>
+        </div>
+      </sc-for>
+      <span style="position:absolute; right:8px; bottom:4px; font-size:8.5px; color:rgba(238,241,251,0.3); font-family:'IBM Plex Mono',monospace;">now</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { selectedId:'m_recovery', personaIdx:0, layers:{exchange:true,pull:true,push:true,lumen:true} };
+    this.layoutR=[[150,72],[150,141],[150,210],[150,279],[150,348]];
+    this.layoutG=[[810,72],[810,141],[810,210],[810,279],[810,348]];
+    this.core=[480,210];
+  }
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#07080f', bg1:'rgba(124,90,255,0.20)', bg2:'rgba(40,200,170,0.12)', glow:'rgba(124,90,255,0.30)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#05080f', bg1:'rgba(40,130,210,0.22)', bg2:'rgba(40,210,190,0.12)', glow:'rgba(70,200,255,0.30)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#060a07', bg1:'rgba(70,170,100,0.20)', bg2:'rgba(180,205,90,0.12)', glow:'rgba(95,211,154,0.30)' }
+  };
+  personas=['Steward','Auditor','Runner'];
+  MODE={ LEDGER:{tag:'LEDGER',full:'LEDGER · actual money',bg:'rgba(57,224,166,0.18)',color:'#5fe0b0'}, DERIVED:{tag:'DERIV',full:'DERIVED · valuation, not currency',bg:'rgba(155,140,255,0.18)',color:'#b9adff'}, MIXED:{tag:'MIXED',full:'MIXED · money + derived',bg:'rgba(245,194,82,0.18)',color:'#f5d27e'} };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#e8c75a': c>=0.5?'#ff9e57':'#ff6b5e'; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  glyph(kind, color, size){
+    const h=React.createElement, s=size||22, c=color||'#9b8cff';
+    const wrap=(ch)=> h('svg',{width:s,height:s,viewBox:'0 0 24 24'},ch);
+    if(kind==='reservoir'){ return wrap([h('path',{key:'b',d:'M7 3 h10 l-1 16 a4 4 0 0 1 -8 0 z',fill:'none',stroke:c,strokeWidth:1.3}),h('path',{key:'f',d:'M7.6 12 h8.8 l-0.6 7 a4 4 0 0 1 -7.6 0 z',fill:c,opacity:0.32})]); }
+    if(kind==='goal'){ return wrap([h('polygon',{key:'p',points:'12,2 20,7 20,17 12,22 4,17 4,7',fill:'none',stroke:c,strokeWidth:1.3}),h('circle',{key:'o',cx:12,cy:12,r:3.4,fill:'none',stroke:c,strokeWidth:1.2})]); }
+    if(kind==='core'){ return wrap([h('polygon',{key:'p',points:'12,3 19,7.5 19,16.5 12,21 5,16.5 5,7.5',fill:'none',stroke:c,strokeWidth:1.3}),h('polygon',{key:'i',points:'12,7 16,9.5 16,14.5 12,17 8,14.5 8,9.5',fill:c,opacity:0.3})]); }
+    if(kind==='pull'){ return wrap(h('path',{d:'M4 12 h13 m-4 -4 l4 4 l-4 4',fill:'none',stroke:'#46e0b4',strokeWidth:1.6})); }
+    if(kind==='push'){ return wrap(h('path',{d:'M20 12 h-13 m4 -4 l-4 4 l4 4',fill:'none',stroke:'#ff6b5e',strokeWidth:1.6})); }
+    return wrap(h('circle',{cx:12,cy:12,r:5,fill:c}));
+  }
+
+  reservoirs(){
+    return [
+      { id:'r_focus', kind:'reservoir', name:'Focus', color:'#9b8cff', mode:'DERIVED', level:0.68, metric:'68%', truthMode:'INF', resolver:'LATEST', records:18, sourceCount:2,
+        headline:'Focus reservoir', meaning:'Today\u2019s focus capacity, derived from your sleep and focus logs. It funds deep-work routing — but no record literally stores \u201cfocus\u201d as money.',
+        buildTitle:'WHAT FILLS THIS RESERVOIR', build:[{k:'Sleep input',v:0.56,c:'#ffb454'},{k:'Focus logs',v:0.72,c:'#9b8cff'},{k:'Recent routing',v:0.64,c:'#46e0b4'}],
+        sources:[{label:'Sleep band',role:'capacity input',conf:'0.92',color:'#46c8ff'},{label:'Focus check-ins',role:'7 logs',conf:'0.52',color:'#9b8cff'}],
+        reasoning:['A derived valuation of attention capacity — an analogy, not a balance.','Lower last night, so the reservoir sits below its usual line.','Spends down through the day; refilled by recovery, not by wishing.'],
+        contradiction:null, records_list:['rec_6b14ace0','pat_f1a0'], canonicalNote:'No canonical record stores a focus balance. This reservoir is a projection of 18 time and sleep records.', actionLabel:'Route to a goal', movementId:'res_focus' },
+      { id:'r_vitality', kind:'reservoir', name:'Vitality', color:'#46e0b4', mode:'DERIVED', level:0.74, metric:'74%', truthMode:'INF', resolver:'LATEST', records:14, sourceCount:2,
+        headline:'Vitality reservoir', meaning:'Physical energy derived from movement and recovery logs. Topped up today by a logged workout.',
+        buildTitle:'WHAT FILLS THIS RESERVOIR', build:[{k:'Movement',v:0.80,c:'#46e0b4'},{k:'Recovery',v:0.46,c:'#ffb454'},{k:'Consistency',v:0.74,c:'#39e0a6'}],
+        sources:[{label:'Activity tracker',role:'14 sessions',conf:'0.88',color:'#46c8ff'},{label:'Self-report',role:'corroborating',conf:'0.84',color:'#9b8cff'}],
+        reasoning:['Derived from corroborated movement records — two agreeing sources.','A workout routed +0.12 into this reservoir today (pull force).','Still a projection: vitality is not a stored currency.'],
+        contradiction:null, records_list:['rec_2a77b0e1','rec_act_pm'], canonicalNote:'Projection of 14 canonical activity records.', actionLabel:'Route to a goal', movementId:'res_vitality' },
+      { id:'r_recovery', kind:'reservoir', name:'Recovery', color:'#5fc8e0', mode:'DERIVED', level:0.46, metric:'46%', truthMode:'INF', resolver:'LATEST_VERIFIED', records:26, sourceCount:2,
+        headline:'Recovery reservoir', meaning:'Recovery reserve, running low after a 5.1 h night. This is the reservoir a disputed record is actively draining.',
+        buildTitle:'WHAT FILLS THIS RESERVOIR', build:[{k:'Sleep duration',v:0.46,c:'#ff6b5e'},{k:'Consistency',v:0.55,c:'#ffb454'},{k:'Source quality',v:0.92,c:'#39e0a6'}],
+        sources:[{label:'Sleep band',role:'device',conf:'0.92',color:'#46c8ff'},{label:'Self-report',role:'human',conf:'0.60',color:'#9b8cff'}],
+        reasoning:['Derived from sleep records against your baseline.','A disputed night makes the drain magnitude itself uncertain.','Refilled only by the evening recovery pool — not by the vault.'],
+        contradiction:{title:'DISPUTED INPUT · 1 NIGHT', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'The reservoir level depends on an unresolved contradiction. The vault shows a range, not a single tidy number — truth is not skinnable.'},
+        records_list:['rec_b2f0a6c8','rec_91de44a2'], canonicalNote:'Projection of 26 sleep records, two of which conflict.', actionLabel:'Reconcile input', movementId:'res_recovery' },
+      { id:'r_clarity', kind:'reservoir', name:'Clarity', color:'#56b8ff', mode:'DERIVED', level:0.62, metric:'62%', truthMode:'INF', resolver:'LATEST', records:11, sourceCount:1,
+        headline:'Clarity reservoir', meaning:'Decision clarity derived from mood and focus logs. Mid-range today; mildly dimmed by the recovery shortfall.',
+        buildTitle:'WHAT FILLS THIS RESERVOIR', build:[{k:'Mood',v:0.55,c:'#ff7aa8'},{k:'Focus',v:0.66,c:'#9b8cff'},{k:'Recovery drag',v:0.40,c:'#ffb454'}],
+        sources:[{label:'Mood + focus logs',role:'derived blend',conf:'0.66',color:'#9b8cff'}],
+        reasoning:['A blended derived valuation — explicitly a projection.','No single record defines clarity; it is composed, and labeled as such.'],
+        contradiction:null, records_list:['rec_d51a3f08','pat_f1a0'], canonicalNote:'Projection of 11 canonical records.', actionLabel:'Route to a goal', movementId:'res_clarity' },
+      { id:'r_drive', kind:'reservoir', name:'Drive', color:'#ff9e57', mode:'DERIVED', level:0.70, metric:'70%', truthMode:'INF', resolver:'LATEST', records:9, sourceCount:1,
+        headline:'Drive reservoir', meaning:'Motivation derived from momentum trend. High today — which is exactly what masks the energy cost of overcommitment.',
+        buildTitle:'WHAT FILLS THIS RESERVOIR', build:[{k:'Momentum trend',v:0.80,c:'#46e0b4'},{k:'Streak',v:0.66,c:'#ff9e57'}],
+        sources:[{label:'Momentum trend',role:'derived',conf:'0.74',color:'#46e0b4'}],
+        reasoning:['Derived from a positive momentum pattern.','High drive can push you to overspend other reservoirs — flagged, not celebrated blindly.'],
+        contradiction:null, records_list:['pat_m3d1'], canonicalNote:'Projection of 9 canonical records.', actionLabel:'Route to a goal', movementId:'res_drive' }
+    ];
+  }
+  goalsData(){
+    return [
+      { id:'g_savings', kind:'goal', name:'Savings', color:'#5fe0b0', mode:'LEDGER', health:'on track', prog:0.80, progLabel:'$4.8k/6k', truthMode:'ACTUAL', resolver:'LATEST_VERIFIED', records:42, sourceCount:2,
+        headline:'Savings metal', meaning:'Your real savings goal. This is genuine ledger money — every move is an actual transaction, not a projection.',
+        buildTitle:'WHAT MOVES THIS GOAL', build:[{k:'Auto-transfer',v:0.85,c:'#5fe0b0'},{k:'Impulse drain',v:0.30,c:'#ff6b5e'},{k:'Progress',v:0.80,c:'#39e0a6'}],
+        sources:[{label:'Bank transfer · auto',role:'+$200 this week',conf:'0.98',color:'#5fe0b0'},{label:'Card transaction',role:'−$38 impulse',conf:'0.98',color:'#ff6b5e'}],
+        reasoning:['Backed by actual ledger transactions — highest confidence on the screen.','A pull force (auto-transfer) and a push force (impulse spend) both act here.','The vault skin is decorative; the dollars underneath are exact.'],
+        contradiction:null, records_list:['rec_7c41be09','rec_txn_38','rec_xfer_200'], canonicalNote:'Backed by 42 canonical financial DATA_LOGs. These are real money movements.', actionLabel:'Open ledger', movementId:'goal_savings' },
+      { id:'g_attention', kind:'goal', name:'Attention budget', color:'#ff6b5e', mode:'DERIVED', health:'overdrawn', prog:1.0, progLabel:'5.5h/4h', truthMode:'INF', resolver:'LATEST', records:9, sourceCount:2,
+        headline:'Attention budget · overdrawn', meaning:'A derived budget for focused attention. Today it is overdrawn: 5.5 h of meetings against a 4 h target, plus distraction drift.',
+        buildTitle:'WHAT MOVES THIS GOAL', build:[{k:'Meeting load',v:0.92,c:'#ff6b5e'},{k:'Distraction drift',v:0.60,c:'#ff9e57'},{k:'Budget left',v:0.0,c:'#ff6b5e'}],
+        sources:[{label:'Calendar',role:'3 meetings · 5.5h',conf:'0.95',color:'#9b8cff'},{label:'App-usage log',role:'distraction 1.2h',conf:'0.70',color:'#ff9e57'}],
+        reasoning:['The budget is derived; the calendar behind it is real (DOC 0.95).','Two push forces overdraw it: meeting load and distraction drift.','Overdrawn is a projection of overcommitment, not a moral judgement.'],
+        contradiction:null, records_list:['rec_cal_17','rec_usage_d'], canonicalNote:'A derived budget over 9 calendar and usage records. The budget unit is an analogy; the calendar is canonical.', actionLabel:'Reschedule a meeting', movementId:'goal_attention' },
+      { id:'g_recovery', kind:'goal', name:'Recovery reserve', color:'#ffb454', mode:'DERIVED', health:'at risk', prog:0.55, progLabel:'underfilled', truthMode:'INF', resolver:'LATEST_VERIFIED', records:26, sourceCount:2,
+        headline:'Recovery reserve · at risk', meaning:'A target level of banked recovery. Short sleep is underfilling it, and a disputed night makes the exact shortfall uncertain.',
+        buildTitle:'WHAT MOVES THIS GOAL', build:[{k:'Sleep deposits',v:0.46,c:'#ff6b5e'},{k:'Evening pool',v:0.70,c:'#5fc8e0'},{k:'Dispute drag',v:0.30,c:'#ff6b5e'}],
+        sources:[{label:'Sleep band',role:'device',conf:'0.92',color:'#46c8ff'},{label:'Self-report',role:'human',conf:'0.60',color:'#9b8cff'}],
+        reasoning:['Derived from sleep records against a recovery target.','A push force (short sleep) drains it; the evening pool is the pull that refills it.','The shortfall is shown as a range because one input is disputed.'],
+        contradiction:{title:'DISPUTED DEPOSIT · 1 NIGHT', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'The deposit size is contested. The vault will not invent a single figure — it carries the dispute forward (Law 2).'},
+        records_list:['rec_b2f0a6c8','rec_91de44a2'], canonicalNote:'Derived from 26 canonical sleep records, two in conflict.', actionLabel:'Protect tonight', movementId:'goal_recovery' },
+      { id:'g_skill', kind:'goal', name:'Skill practice', color:'#9b8cff', mode:'DERIVED', health:'on track', prog:0.80, progLabel:'3.2/4h wk', truthMode:'INF', resolver:'LATEST', records:12, sourceCount:1,
+        headline:'Skill practice · on track', meaning:'A weekly practice target. A good habit routed 45 minutes of focus here today — a clean pull force.',
+        buildTitle:'WHAT MOVES THIS GOAL', build:[{k:'Routed focus',v:0.80,c:'#46e0b4'},{k:'Weekly progress',v:0.80,c:'#9b8cff'},{k:'Streak',v:0.70,c:'#39e0a6'}],
+        sources:[{label:'Practice log · self',role:'45 min today',conf:'0.80',color:'#9b8cff'}],
+        reasoning:['A pull force: focus deliberately routed from a reservoir to a goal.','Derived from your practice logs — a projection of time, not money.','On track because the records support it, not to encourage you.'],
+        contradiction:null, records_list:['rec_practice_t','pat_f1a0'], canonicalNote:'Derived from 12 canonical practice records.', actionLabel:'Route more focus', movementId:'goal_skill' },
+      { id:'g_project', kind:'goal', name:'Project fund', color:'#f5d27e', mode:'MIXED', health:'at risk', prog:0.50, progLabel:'2 overdue', truthMode:'INF', resolver:'LATEST', records:11, sourceCount:1,
+        headline:'Project fund · at risk', meaning:'A mixed goal of money and time committed to projects. 2 overdue obligations are draining it — both a time and a stakes cost.',
+        buildTitle:'WHAT MOVES THIS GOAL', build:[{k:'Open load',v:0.86,c:'#ffb454'},{k:'Overdue drain',v:0.62,c:'#ff6b5e'},{k:'Progress',v:0.50,c:'#f5d27e'}],
+        sources:[{label:'Obligation log',role:'11 open · 2 overdue',conf:'0.78',color:'#9ad06a'}],
+        reasoning:['Mixed mode: some movements are money, some are derived time.','Push force from 2 overdue obligations puts the goal at risk.','Pruning an obligation writes a new record — it never edits an old one.'],
+        contradiction:null, records_list:['rec_a4d90 38e','rec_71aa0e2d'], canonicalNote:'Backed by 11 canonical OBLIGATION_LOGs plus linked transactions.', actionLabel:'Prune obligations', movementId:'goal_project' }
+    ];
+  }
+  movementsData(){
+    return [
+      { id:'m_autosave', short:'Auto-transfer', amount:'+$200', dir:'pull', mode:'LEDGER', color:'#5fe0b0', leftPct:'10%', goalId:'g_savings',
+        headline:'Auto-transfer → Savings', meaning:'A scheduled bank transfer moved $200 into Savings this week — a pull force routing real money toward a goal.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Amount',v:1.0,c:'#5fe0b0'},{k:'Toward goal',v:0.85,c:'#46e0b4'}],
+        sources:[{label:'Bank transfer · auto',role:'scheduled',conf:'0.98',color:'#5fe0b0'}],
+        reasoning:['A real ledger movement — actual money, confidence 0.98.','Classified as a pull force: routes value toward a commitment.'],
+        contradiction:null, records_list:['rec_xfer_200'], canonicalNote:'One canonical financial transaction. Real, not derived.', actionLabel:'Open transaction', truthMode:'ACTUAL', resolver:'LATEST_VERIFIED', records:1, sourceCount:1, time:'06:00' },
+      { id:'m_impulse', short:'Impulse spend', amount:'−$38', dir:'push', mode:'LEDGER', color:'#ff6b5e', leftPct:'24%', goalId:'g_savings',
+        headline:'Impulse spend → drains Savings', meaning:'A −$38 card transaction (coffee gear) acted as a push force against Savings. Real money, flagged as impulse by pattern, not asserted as one.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Amount',v:0.45,c:'#ff6b5e'},{k:'Impulse likelihood',v:0.66,c:'#ff9e57'}],
+        sources:[{label:'Card transaction',role:'merchant · gear',conf:'0.98',color:'#ff6b5e'},{label:'Spend pattern',role:'flags impulse',conf:'0.60',color:'#ff9e57'}],
+        reasoning:['The transaction is certain (0.98); the \u201cimpulse\u201d label is a 0.60 inference.','Shown as a push force, but the judgement is held at low confidence, not stated as fact.'],
+        contradiction:null, records_list:['rec_txn_38'], canonicalNote:'One canonical transaction plus a low-confidence pattern label.', actionLabel:'Open transaction', truthMode:'ACTUAL', resolver:'LATEST', records:2, sourceCount:2, time:'08:40' },
+      { id:'m_routefocus', short:'Routed focus', amount:'+45m', dir:'pull', mode:'DERIVED', color:'#9b8cff', leftPct:'38%', goalId:'g_skill',
+        headline:'Routed 45 min focus → Skill practice', meaning:'A good habit routed 45 minutes from the Focus reservoir into Skill practice — a derived pull force, backed by a practice log.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Duration',v:0.75,c:'#9b8cff'},{k:'Toward goal',v:0.80,c:'#46e0b4'}],
+        sources:[{label:'Practice log · self',role:'45 min',conf:'0.80',color:'#9b8cff'}],
+        reasoning:['Derived movement: time, not money — the lumen is an analogy.','A clean pull force, backed by a single self-reported record.'],
+        contradiction:null, records_list:['rec_practice_t'], canonicalNote:'One canonical practice record. The routing is a projection of it.', actionLabel:'View record', truthMode:'INF', resolver:'LATEST', records:1, sourceCount:1, time:'09:30' },
+      { id:'m_drift', short:'Distraction', amount:'−1.2h', dir:'push', mode:'DERIVED', color:'#ff9e57', leftPct:'52%', goalId:'g_attention',
+        headline:'Distraction drift → Attention leak', meaning:'1.2 h of app usage drifted off-task — a derived push force leaking from the Attention budget.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Drift duration',v:0.60,c:'#ff9e57'},{k:'Off-budget',v:0.70,c:'#ff6b5e'}],
+        sources:[{label:'App-usage log',role:'device',conf:'0.70',color:'#ff9e57'}],
+        reasoning:['Derived from a usage log — the duration is measured, the \u201cdistraction\u201d framing is inferred.','A push force; surfaced so the leak is visible, not to scold.'],
+        contradiction:null, records_list:['rec_usage_d'], canonicalNote:'One canonical usage record, framed as a leak by projection.', actionLabel:'View record', truthMode:'INF', resolver:'LATEST', records:1, sourceCount:1, time:'11:10' },
+      { id:'m_recovery', short:'Short sleep', amount:'−0.18', dir:'push', mode:'DERIVED', color:'#ff6b5e', leftPct:'66%', goalId:'g_recovery',
+        headline:'Short sleep → Recovery underfill', meaning:'A 5.1 h night left the Recovery reserve underfilled — a push force. A disputed earlier night makes the exact drain a range, not a point.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Sleep deficit',v:0.70,c:'#ff6b5e'},{k:'Drain (disputed)',v:0.50,c:'#ffb454'}],
+        sources:[{label:'Sleep band',role:'device',conf:'0.92',color:'#46c8ff'},{label:'Self-report',role:'human',conf:'0.60',color:'#9b8cff'}],
+        reasoning:['Derived from sleep records — recovery is not a stored currency.','The drain magnitude inherits an unresolved contradiction, so it is shown as a range.','The vault carries the dispute forward; it does not average it away (Law 2).'],
+        contradiction:{title:'DISPUTED DRAIN · 1 NIGHT', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'Two readings disagree on the deposit. Resolver LATEST_VERIFIED leans device, but the dispute is preserved — the theme cannot pick a winner for you.'},
+        records_list:['rec_b2f0a6c8','rec_91de44a2'], canonicalNote:'Two canonical sleep records in conflict. Reconcile to sharpen the drain.', actionLabel:'Reconcile night', truthMode:'INF', resolver:'LATEST_VERIFIED', records:2, sourceCount:2, time:'07:00' },
+      { id:'m_overcommit', short:'Overcommit', amount:'−1.5h', dir:'push', mode:'DERIVED', color:'#ff6b5e', leftPct:'80%', goalId:'g_attention',
+        headline:'Overcommitment → Attention overdraw', meaning:'Three back-to-back meetings push the Attention budget 1.5 h past its target — the largest active drain on the board.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Meeting load',v:0.92,c:'#ff6b5e'},{k:'Over target',v:0.78,c:'#ff6b5e'}],
+        sources:[{label:'Calendar',role:'3 meetings · 5.5h',conf:'0.95',color:'#9b8cff'}],
+        reasoning:['Backed by a real calendar (DOC 0.95); the budget it overdraws is derived.','A push force tied to the same drift flagged in Tide Room and Weatherglass.','Rescheduling writes a new event — the reading is never edited.'],
+        contradiction:null, records_list:['rec_cal_17'], canonicalNote:'Backed by a canonical calendar record; the overdraw is a derived projection.', actionLabel:'Reschedule a meeting', truthMode:'INF', resolver:'LATEST', records:1, sourceCount:1, time:'17:00' },
+      { id:'m_workout', short:'Workout', amount:'+0.12', dir:'pull', mode:'DERIVED', color:'#46e0b4', leftPct:'94%', goalId:'g_recovery',
+        headline:'Workout → Vitality deposit', meaning:'A logged workout routed a +0.12 deposit into the Vitality reservoir — a corroborated pull force.',
+        buildTitle:'MOVEMENT BREAKDOWN', build:[{k:'Session',v:0.80,c:'#46e0b4'},{k:'Corroboration',v:0.88,c:'#39e0a6'}],
+        sources:[{label:'Activity tracker',role:'device',conf:'0.88',color:'#46c8ff'},{label:'Self-report',role:'matching',conf:'0.84',color:'#9b8cff'}],
+        reasoning:['Two agreeing sources make this a high-confidence derived deposit.','A pull force into Vitality — still a projection, clearly labeled.'],
+        contradiction:null, records_list:['rec_act_pm','rec_2a77b0e1'], canonicalNote:'Derived from 2 corroborating canonical activity records.', actionLabel:'View records', truthMode:'INF', resolver:'LATEST', records:2, sourceCount:2, time:'12:30' }
+    ];
+  }
+
+  buildVault(L, selId){
+    const h=React.createElement, kids=[], R=this.layoutR, G=this.layoutG, C=this.core;
+    kids.push(h('defs',{key:'d'},
+      h('filter',{id:'vglow',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'4',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'}))),
+      h('radialGradient',{id:'vcore',cx:'50%',cy:'50%',r:'50%'},h('stop',{offset:'0%',stopColor:'rgba(155,140,255,0.5)'}),h('stop',{offset:'60%',stopColor:'rgba(108,140,255,0.18)'}),h('stop',{offset:'100%',stopColor:'rgba(108,140,255,0)'}))
+    ));
+    kids.push(h('circle',{key:'cglow',cx:C[0],cy:C[1],r:120,fill:'url(#vcore)',style:{animation:'lwCore 4s ease-in-out infinite'}}));
+    const resv=this.reservoirs(), goals=this.goalsData();
+    // exchange + pull paths
+    R.forEach((p,i)=>{ if(!L.exchange) return; const lvl=resv[i].level; const dPath='M '+p[0]+' '+p[1]+' C '+(p[0]+150)+' '+p[1]+' '+(C[0]-150)+' '+C[1]+' '+C[0]+' '+C[1];
+      kids.push(h('path',{key:'rx'+i,d:dPath,stroke:this.hexA(resv[i].color,0.32+lvl*0.4),strokeWidth:1.4+lvl*3,fill:'none',strokeLinecap:'round'}));
+      if(L.lumen) kids.push(h('path',{key:'rl'+i,d:dPath,stroke:this.hexA(resv[i].color,0.9),strokeWidth:1.6,fill:'none',strokeDasharray:'2 12',strokeLinecap:'round',style:{animation:'lwFlow '+(2.4+i*0.3)+'s linear infinite'}}));
+    });
+    G.forEach((p,i)=>{ const g=goals[i]; const pull=(g.health==='on track'); const push=(g.health==='overdrawn'||g.health==='at risk');
+      const dPath='M '+C[0]+' '+C[1]+' C '+(C[0]+150)+' '+C[1]+' '+(p[0]-150)+' '+p[1]+' '+p[0]+' '+p[1];
+      if(L.exchange){ const col=pull?'#46e0b4':(push?'#ff8a5e':'#9b8cff'); kids.push(h('path',{key:'gx'+i,d:dPath,stroke:this.hexA(col,0.5),strokeWidth:1.6+g.prog*3,fill:'none',strokeLinecap:'round'})); }
+      if(L.pull && pull && L.lumen){ kids.push(h('path',{key:'gl'+i,d:dPath,stroke:'#5fe0c0',strokeWidth:1.8,fill:'none',strokeDasharray:'2 12',strokeLinecap:'round',style:{animation:'lwFlow '+(2.2+i*0.3)+'s linear infinite'}})); }
+      kids.push(h('path',{key:'ga'+i,d:'M '+(p[0]-26)+' '+(p[1]-6)+' l9 6 l-9 6',stroke:pull?'#46e0b4':'#9b8cff',strokeWidth:1.6,fill:'none',opacity:0.8}));
+      // push-force leak arrows on at-risk/overdrawn goals
+      if(L.push && push){ kids.push(h('path',{key:'pl'+i,d:'M '+(p[0])+' '+(p[1]+22)+' l0 26 m-6 -8 l6 8 l6 -8',stroke:'#ff6b5e',strokeWidth:1.8,fill:'none',style:{animation:'lwLeak 2.2s ease-in-out infinite'}}));
+        kids.push(h('circle',{key:'pd'+i,cx:p[0],cy:p[1]+54,r:2.4,fill:'#ff6b5e',opacity:0.7})); }
+    });
+    // core facets
+    const cf=[[C[0],C[1]-44],[C[0]+38,C[1]-22],[C[0]+38,C[1]+22],[C[0],C[1]+44],[C[0]-38,C[1]+22],[C[0]-38,C[1]-22]];
+    kids.push(h('polygon',{key:'core',points:cf.map(p=>p[0]+','+p[1]).join(' '),fill:'rgba(12,16,30,0.7)',stroke:'rgba(184,194,255,0.6)',strokeWidth:1.4,filter:'url(#vglow)'}));
+    kids.push(h('polygon',{key:'corei',points:[[C[0],C[1]-26],[C[0]+22,C[1]-13],[C[0]+22,C[1]+13],[C[0],C[1]+26],[C[0]-22,C[1]+13],[C[0]-22,C[1]-13]].map(p=>p[0]+','+p[1]).join(' '),fill:'rgba(155,140,255,0.16)',stroke:'rgba(155,140,255,0.5)',strokeWidth:1}));
+    return h('svg',{viewBox:'0 0 960 420',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},kids);
+  }
+
+  renderVals(){
+    const t=this.cur(), L=this.state.layers;
+    const resv=this.reservoirs(), goals=this.goalsData(), moves=this.movementsData();
+    const all=[...resv,...goals,...moves];
+    const byId=id=>()=>this.setState({selectedId:id});
+    const mkMode=(m)=> this.MODE[m]||this.MODE.DERIVED;
+    const nodes=[...resv.map((d,i)=>({d,xy:this.layoutR[i],side:'r'})), ...goals.map((d,i)=>({d,xy:this.layoutG[i],side:'g'}))].map(({d,xy,side})=>{
+      const md=mkMode(d.mode), selected=d.id===this.state.selectedId;
+      const fill=d.kind==='reservoir'?d.level:d.prog;
+      const fillColor=d.kind==='reservoir'?d.color:(d.health==='on track'?'#39e0a6':(d.health==='at risk'?'#ffb454':d.health==='overdrawn'?'#ff6b5e':d.color));
+      return { ...d, glyph:this.glyph(d.kind,d.color,22), leftPct:(xy[0]/960*100)+'%', topPct:(xy[1]/420*100)+'%', width:'152px', z:selected?9:5,
+        bg:selected?'rgba(18,22,38,0.95)':'rgba(12,16,28,0.82)', border:selected?d.color:'rgba(255,255,255,0.12)',
+        shadow:selected?'0 0 0 1px '+d.color+', 0 10px 28px rgba(0,0,0,0.5)':'0 6px 16px rgba(0,0,0,0.4)',
+        modeTag:md.tag, modeBg:md.bg, modeColor:md.color,
+        metric:d.kind==='reservoir'?d.metric:d.progLabel, fillPct:Math.round(fill*100)+'%', fillColor:fillColor,
+        onSelect:byId(d.id) };
+    });
+    const goalRows=goals.map(g=>{ const hc=g.health==='on track'?'#39e0a6':(g.health==='at risk'?'#ffb454':'#ff6b5e'); const selected=g.id===this.state.selectedId;
+      return { ...g, glyph:this.glyph('goal',g.color,18), healthColor:hc, healthBg:this.hexA(hc,0.16), healthTag:g.health, progPct:Math.round(g.prog*100)+'%',
+        rowBg:selected?'rgba(255,255,255,0.06)':'rgba(255,255,255,0.02)', rowBorder:selected?g.color:'rgba(255,255,255,0.07)', onSelect:byId(g.id) }; });
+    const movementRows=moves.map(m=>({ ...m, dirIcon:m.dir==='pull'?'\u2197':'\u2198', ringColor:m.contradiction?'#ff6b5e':'rgba(255,255,255,0.3)', onSelect:byId(m.id) }));
+    const sel=all.find(d=>d.id===this.state.selectedId)||moves[0];
+    const selMode=mkMode(sel.mode);
+    const selView={ ...sel, glyph:this.glyph(sel.kind||'pull',sel.color,34),
+      modeFull:selMode.full, modeBg:selMode.bg, modeColor:selMode.color,
+      modeNote: sel.mode==='LEDGER' ? 'This movement is backed by an actual ledger transaction — real money, not a projection. The vault visuals are decoration over an exact figure.' : sel.mode==='MIXED' ? 'Mixed mode: some of this goal is real money, some is a derived valuation of time. The proof separates the two; the skin does not.' : 'Derived valuation. No record stores this as currency — it is a projection of your time, energy, or attention logs. A lumen is an analogy, never a balance.',
+      modeNoteBg:this.hexA(selMode.color,0.06), modeNoteBorder:this.hexA(selMode.color,0.26),
+      headerBg:this.hexA(sel.color,0.08), softBorder:this.hexA(sel.color,0.28),
+      window: sel.time?('today · '+sel.time):'today',
+      confLabel:(sel.mode==='LEDGER'?'0.98':(sel.sourceCount>=2?'0.84':'0.70')), confColor:this.confColor(sel.mode==='LEDGER'?0.98:(sel.sourceCount>=2?0.84:0.70)),
+      build:(sel.build||[]).map(b=>({label:b.k, widthPct:Math.round(b.v*100)+'%', valLabel:Math.round(b.v*100), color:b.c||'#9b8cff'})),
+      movementId:sel.movementId||sel.id };
+    const layerToggles=[
+      {key:'exchange',label:'Exchange paths',color:'#9b8cff'},{key:'pull',label:'Pull forces',color:'#46e0b4'},{key:'push',label:'Push forces',color:'#ff6b5e'},{key:'lumen',label:'Lumen flow',color:'#7fb0ff'}
+    ].map(o=>({ label:o.label, color:o.color, onToggle:()=>this.setState(st=>({layers:{...st.layers,[o.key]:!st.layers[o.key]}})),
+      bg:L[o.key]?o.color:'rgba(255,255,255,0.16)', knob:L[o.key]?'15px':'2px', txt:L[o.key]?'rgba(238,241,251,0.92)':'rgba(238,241,251,0.45)' }));
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault',active:true},{label:'Bounty Board'}
+    ].map(n=>({label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,255,255,0.07)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:n.active?'var(--accent)':'rgba(238,241,251,0.35)'}));
+    const health=0.64;
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      pad:(this.props.density==='compact')?'10px':'14px',
+      vaultSvg:this.buildVault(L, sel.id),
+      nodes, goals:goalRows, movements:movementRows, selected:selView, layerToggles, navItems,
+      core:{ net:'+162', onSelect:byId('g_savings') },
+      personaName:this.personas[this.state.personaIdx], cyclePersona:()=>this.setState(st=>({personaIdx:(st.personaIdx+1)%this.personas.length})),
+      healthScore:health.toFixed(2), healthRing:Math.round(health*100)+'%', healthColor:this.confColor(health), healthLabel:'Holding, with strain'
+    };
+  }
+}
+</script>
+</body>
+</html>

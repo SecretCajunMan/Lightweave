@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#07080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwTwinkle{0%,100%{opacity:.2}50%{opacity:.7}}
+  @keyframes lwInput{0%,100%{opacity:.65}50%{opacity:1}}
+  textarea{font-family:'IBM Plex Sans',sans-serif}
+  textarea::placeholder{color:rgba(238,241,251,0.3)}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(255,255,255,0.16);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 10px var(--accent)}
+</style>
+</helmet>
+<div data-screen-label="Prism Intake" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --pad:{{ pad }}; --glow:{{ glow }}; background:radial-gradient(1200px 620px at 16% -12%, var(--bg1), transparent 60%), radial-gradient(950px 720px at 102% 118%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#ffffff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Prism Intake</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 7 · capture surface</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>validator ✓</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">manifest 1.5.0</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">contract v1.5</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>ledger synced</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">INTAKE · 08:14 MT</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="prism-intake"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:12px; padding:14px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); padding:var(--pad);">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:10px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;">Capture</span>
+          <span style="font-size:12.5px; color:var(--accent); font-style:italic; white-space:nowrap;">{{ microcopy }}</span>
+          <div style="flex:1;"></div>
+          <div style="display:flex; gap:7px;">
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; color:rgba(238,241,251,0.6); padding:6px 10px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; cursor:pointer;"><svg width="13" height="13" viewBox="0 0 16 16"><path d="M11 5 L6 10 a2 2 0 0 0 3 3 l5 -5 a3.5 3.5 0 0 0 -5 -5 l-5 5 a5 5 0 0 0 7 7 l4 -4" fill="none" stroke="currentColor" stroke-width="1.3"></path></svg>Attach</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; color:rgba(238,241,251,0.6); padding:6px 10px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; cursor:pointer;"><svg width="13" height="13" viewBox="0 0 16 16"><rect x="6" y="2" width="4" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"></rect><path d="M4 8 a4 4 0 0 0 8 0 M8 12 v2.5" fill="none" stroke="currentColor" stroke-width="1.3"></path></svg>Voice</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; color:rgba(238,241,251,0.6); padding:6px 10px; border:1px solid rgba(255,255,255,0.1); border-radius:8px; cursor:pointer;"><svg width="13" height="13" viewBox="0 0 16 16"><path d="M8 2 v8 M5 7 l3 3 l3 -3 M3 13 h10" fill="none" stroke="currentColor" stroke-width="1.3"></path></svg>Import log</span>
+          </div>
+        </div>
+        <textarea defaultValue="{{ rawText }}" style="width:100%; height:58px; resize:none; background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.1); border-radius:11px; color:rgba(238,241,251,0.92); font-size:14px; line-height:1.5; padding:12px 14px; outline:none;"></textarea>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:11px; flex-wrap:wrap;">
+          <span style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.38); margin-right:2px;">CONTEXT</span>
+          <sc-for list="{{ contextChips }}" as="chip" hint-placeholder-count="5">
+            <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 10px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:20px;">
+              <span style="width:7px; height:7px; border-radius:50%; background:{{ chip.c }}; box-shadow:0 0 7px {{ chip.c }};"></span>
+              <span style="font-size:11.5px; font-weight:500;">{{ chip.label }}</span>
+              <span style="font-size:9.5px; color:rgba(238,241,251,0.4);">{{ chip.sub }}</span>
+            </span>
+          </sc-for>
+          <div style="flex:1;"></div>
+          <span style="display:inline-flex; align-items:center; gap:7px; font-size:12px; color:rgba(238,241,251,0.7); padding:8px 12px; border:1px solid rgba(255,255,255,0.12); border-radius:9px; cursor:pointer;">↻ Re-refract</span>
+          <span onClick="{{ weave }}" style="display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px 16px; border-radius:9px; cursor:pointer; box-shadow:0 6px 20px var(--glow);">✦ {{ commitLabel }}</span>
+        </div>
+      </section>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.38);">ACTIVE LENSES</span>
+        <div style="display:flex; gap:7px;">
+          <sc-for list="{{ lenses }}" as="lens" hint-placeholder-count="5">
+            <span onClick="{{ lens.onToggle }}" style="display:inline-flex; align-items:center; gap:7px; padding:6px 11px; border-radius:8px; cursor:pointer; background:{{ lens.bg }}; border:1px solid {{ lens.border }}; color:{{ lens.txt }};">
+              <span style="width:8px; height:8px; border-radius:2px; background:{{ lens.color }};"></span>
+              <span style="font-size:11.5px; font-weight:500;">{{ lens.label }}</span>
+            </span>
+          </sc-for>
+        </div>
+        <div style="flex:1;"></div>
+        <span style="font-size:11px; color:rgba(238,241,251,0.45);">Occlude below</span>
+        <input type="range" min="0" max="100" value="{{ clarityFilterVal }}" oninput="{{ setClarity }}" style="width:120px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(238,241,251,0.7); width:34px;">{{ clarityFilterVal }}%</span>
+        <span style="font-size:11px; color:rgba(238,241,251,0.45); border-left:1px solid rgba(255,255,255,0.12); padding-left:12px;">{{ signalCount }}</span>
+      </section>
+
+      <section style="flex:1; min-height:200px; position:relative; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden;">
+        <div style="position:absolute; inset:0;">{{ prismSvg }}</div>
+
+        <div style="position:absolute; top:12px; left:16px; display:flex; align-items:center; gap:8px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.55);">Prismatic refraction</span>
+          <span style="font-size:10px; color:rgba(238,241,251,0.35);">thickness = strength · brightness = confidence</span>
+        </div>
+
+        <!-- beam endpoint labels (clickable signal selectors) -->
+        <div style="position:absolute; right:14px; top:0; bottom:0; width:236px; pointer-events:none;">
+          <sc-for list="{{ beamLabels }}" as="b" hint-placeholder-count="7">
+            <div onClick="{{ b.onSelect }}" style="position:absolute; right:0; top:{{ b.topPct }}; transform:translateY(-50%); width:236px; pointer-events:auto; cursor:pointer; display:flex; align-items:center; justify-content:flex-end; gap:8px; padding:5px 9px; border-radius:8px; background:{{ b.bg }}; opacity:{{ b.occluded }};">
+              <div style="text-align:right; min-width:0;">
+                <div style="font-size:11.5px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:{{ b.labelColor }};">{{ b.subject }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.45);">{{ b.daq }} · {{ b.conf }}</div>
+              </div>
+              <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ b.color }}; box-shadow:0 0 9px {{ b.color }};"></span>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- clarity + distortion overlay -->
+        <div style="position:absolute; left:16px; bottom:14px; display:flex; align-items:flex-end; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px; background:rgba(10,12,20,0.55); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:12px 16px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);">
+            <div style="position:relative; width:62px; height:62px; border-radius:50%; --clarity:{{ clarityRing }}; background:conic-gradient(var(--accent) var(--clarity), rgba(255,255,255,0.07) 0); display:flex; align-items:center; justify-content:center;">
+              <div style="width:48px; height:48px; border-radius:50%; background:#0a0c14; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <span style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; line-height:1;">{{ clarityScore }}</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px; letter-spacing:0.12em; color:rgba(238,241,251,0.42);">CLARITY SCORE</div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ clarityBandColor }};">{{ clarityBandLabel }}</div>
+              <div style="font-size:10.5px; color:rgba(238,241,251,0.45);">mean across {{ signalCount }}</div>
+            </div>
+          </div>
+
+          <div style="max-width:260px; background:rgba(10,12,20,0.55); border:1px solid rgba(255,107,94,0.25); border-radius:14px; padding:11px 14px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;">
+              <span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e; box-shadow:0 0 8px #ff6b5e;"></span>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.06em;">{{ distortionsLabel }}</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:4px; max-height:88px; overflow:auto;">
+              <sc-for list="{{ distortionList }}" as="d" hint-placeholder-count="5">
+                <div onClick="{{ d.onSelect }}" style="display:flex; align-items:center; gap:7px; cursor:pointer; font-size:11px;">
+                  <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:{{ d.color }};"></span>
+                  <span style="color:rgba(238,241,251,0.8); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ d.label }}</span>
+                  <span style="color:rgba(238,241,251,0.38); font-size:10px;">· {{ d.subj }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:0 0 auto; display:flex; gap:10px; overflow-x:auto; padding-bottom:2px;">
+        <sc-for list="{{ signals }}" as="s" hint-placeholder-count="7">
+          <div onClick="{{ s.onSelect }}" style="flex:0 0 188px; cursor:pointer; background:rgba(255,255,255,0.04); border:1px solid {{ s.borderCol }}; box-shadow:{{ s.ring }}; opacity:{{ s.op }}; border-radius:13px; padding:10px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:8px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:{{ s.domainColor }}; box-shadow:0 0 8px {{ s.domainColor }};"></span>
+              <span style="font-size:10px; color:rgba(238,241,251,0.55);">{{ s.domainLabel }}</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:rgba(238,241,251,0.4); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:1px 5px;">{{ s.recordType }}</span>
+            </div>
+            <div style="font-size:13px; font-weight:500; line-height:1.25; margin-bottom:7px;">{{ s.subject }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:{{ s.domainColor }}; margin-bottom:2px;">{{ s.daq }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.45); margin-bottom:7px;">{{ s.intent }}</div>
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;">
+              <div style="flex:1; height:5px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;">
+                <div style="height:100%; width:{{ s.confPct }}; background:{{ s.confColor }}; box-shadow:0 0 8px {{ s.confColor }};"></div>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ s.confColor }};">{{ s.confPct }}</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:4px;">
+              <span style="font-size:9px; padding:2px 7px; border-radius:5px; background:rgba(255,255,255,0.05); color:{{ s.lifeColor }};">{{ s.lifecycle }}</span>
+              <sc-for list="{{ s.flags }}" as="f" hint-placeholder-count="0">
+                <span style="font-size:9px; padding:2px 7px; border-radius:5px; background:rgba(255,255,255,0.04); color:{{ f.color }}; border:1px solid {{ f.color }};">{{ f.code }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:16px 18px 12px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="11" rx="2" fill="none" stroke="var(--accent)" stroke-width="1.3"></rect><path d="M5.5 8 l1.8 1.8 L11 5.5" fill="none" stroke="var(--accent)" stroke-width="1.4"></path></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;">Proof of Extraction</span>
+        </div>
+        <div style="font-size:13px; color:rgba(238,241,251,0.9); margin-top:8px; font-weight:500;">{{ selected.subject }}</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.4); margin-top:3px;">{{ selected.recordId }} · {{ selected.recordType }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:16px;">
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:7px;">SOURCE TRACE · LAW 5</div>
+          <div style="font-size:12.5px; line-height:1.6; color:rgba(238,241,251,0.45); background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:11px 13px;">{{ selected.sourceBefore }}<span style="color:#0b0d16; background:var(--accent); padding:1px 4px; border-radius:4px; font-weight:500;">{{ selected.sourceMatch }}</span>{{ selected.sourceAfter }}</div>
+          <div style="font-size:10px; color:rgba(238,241,251,0.35); margin-top:5px; font-family:'IBM Plex Mono',monospace;">episode ep_2f9a · preserved, immutable</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">REFRACTION BANDS</div>
+          <div style="display:flex; flex-direction:column; gap:9px;">
+            <sc-for list="{{ bands }}" as="band" hint-placeholder-count="7">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="flex:0 0 76px; font-size:11px; color:rgba(238,241,251,0.55);">{{ band.label }}</span>
+                <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden;">
+                  <div style="height:100%; width:{{ band.widthPct }}; background:{{ band.color }}; box-shadow:0 0 9px {{ band.color }}; border-radius:4px;"></div>
+                </div>
+                <span style="flex:0 0 auto; min-width:84px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:{{ band.color }};">{{ band.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">TRUTH BADGE STRIP</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px;">
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 9px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">mode</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px;">{{ selected.mode }}</div></div>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 9px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">source</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px;">{{ selected.sourceType }}</div></div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 9px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">verify</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px;">{{ selected.verification }}</div></div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 9px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">confidence</div><div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ selected.confColor }};">{{ selected.confPct }}</div></div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 9px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">resolver</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px;">{{ selected.resolver }}</div></div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 9px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">lifecycle</div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ selected.lifeColor }};">{{ selected.lifecycle }}</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">TIME WINDOW · LAW 4 BI-TEMPORAL</div>
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">time_event</div><div style="font-size:12px;">{{ selected.timeEvent }}</div></div>
+            <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 11px;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">time_entry</div><div style="font-size:12px;">{{ selected.timeEntry }}</div></div>
+          </div>
+        </div>
+
+        <sc-if value="{{ selected.contradiction }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e;"></span>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">CONTRADICTION · MISALIGNED BEAMS</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.a.color }}; padding:9px;">
+                <div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.a.label }}</div>
+                <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:{{ selected.contradiction.a.color }};">{{ selected.contradiction.a.val }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">conf {{ selected.contradiction.a.conf }}</div>
+              </div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.b.color }}; padding:9px;">
+                <div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.b.label }}</div>
+                <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:{{ selected.contradiction.b.color }};">{{ selected.contradiction.b.val }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">conf {{ selected.contradiction.b.conf }}</div>
+              </div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">Resolver <span style="font-family:'IBM Plex Mono',monospace; color:#ff9e57;">{{ selected.resolver }}</span> · neither overwrites the other (Law 2). Held for manual reconciliation — the theme cannot resolve it.</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH · INTERPRETATION BLOCK</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.reasoning }}" as="step" hint-placeholder-count="5">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:12px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">LINKED THREADS</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <sc-for list="{{ selected.threads }}" as="th" hint-placeholder-count="2">
+              <span style="display:inline-flex; align-items:center; gap:6px; font-size:11px; padding:6px 11px; border-radius:20px; background:rgba(199,155,255,0.08); border:1px solid rgba(199,155,255,0.25); color:rgba(238,241,251,0.82);"><span style="width:5px; height:5px; border-radius:50%; background:#c79bff;"></span>{{ th }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">GOVERNANCE</div>
+          <div style="display:flex; gap:6px; margin-bottom:8px;">
+            <span style="flex:1; text-align:center; font-size:10.5px; padding:7px 4px; border-radius:7px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.09);">{{ selected.gov.sensitivity }}</span>
+            <span style="flex:1; text-align:center; font-size:10.5px; padding:7px 4px; border-radius:7px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.09);">{{ selected.gov.access }}</span>
+            <span style="flex:1; text-align:center; font-size:10.5px; padding:7px 4px; border-radius:7px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.09);">{{ selected.gov.retention }}</span>
+          </div>
+          <div style="display:flex; gap:6px; font-size:9.5px; font-family:'IBM Plex Mono',monospace; color:rgba(238,241,251,0.5);">
+            <span style="padding:3px 7px; border-radius:5px; background:rgba(47,224,168,0.08); border:1px solid rgba(47,224,168,0.2);">contains_pii</span>
+            <span style="padding:3px 7px; border-radius:5px; background:rgba(47,224,168,0.08); border:1px solid rgba(47,224,168,0.2);">health_data</span>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">record_id</span><span>{{ selected.recordId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">daq</span><span style="color:{{ selected.domainColor }};">{{ selected.daq }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">intent_vector</span><span>{{ selected.intent }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">modality</span><span>{{ selected.modality }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">occurrence</span><span>{{ selected.occurrence }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>contract_v1.5</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">manifest</span><span>1.5.0</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:11px; font-size:11px; color:var(--accent); cursor:pointer;">Open canonical record →</div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <span style="flex:1; text-align:center; font-size:12px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:10px; border-radius:9px; cursor:pointer;">Accept</span>
+          <span style="flex:1; text-align:center; font-size:12px; padding:10px; border-radius:9px; border:1px solid rgba(255,255,255,0.14); color:rgba(238,241,251,0.8); cursor:pointer;">Hold</span>
+          <span style="flex:1; text-align:center; font-size:12px; padding:10px; border-radius:9px; border:1px solid rgba(255,107,94,0.35); color:#ff8a7e; cursor:pointer;">Flag</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 122px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:12px 18px; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Ledger trace · this session</span>
+      <span style="font-size:10px; color:rgba(238,241,251,0.38);">ordered by time_event · bi-temporal</span>
+      <div style="flex:1;"></div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#39e0a6;"></span>ready</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ffb454;"></span>held</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff6b5e;"></span>disputed</span>
+      <span onClick="{{ holdAll }}" style="font-size:11px; color:rgba(238,241,251,0.7); border:1px solid rgba(255,255,255,0.14); border-radius:8px; padding:6px 11px; cursor:pointer;">Hold all</span>
+    </div>
+    <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.07);">
+      <div style="position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(255,255,255,0.1);"></div>
+      <div style="position:absolute; left:88%; top:0; bottom:0; width:1px; background:repeating-linear-gradient(rgba(255,158,87,0.5) 0 4px, transparent 4px 8px);"></div>
+      <span style="position:absolute; left:88%; top:4px; transform:translateX(-50%); font-size:8.5px; color:rgba(255,158,87,0.7); font-family:'IBM Plex Mono',monospace;">FRI deadline</span>
+      <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="7">
+        <div onClick="{{ t.onSelect }}" style="position:absolute; left:{{ t.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:96px;">
+          <div style="font-size:9px; color:rgba(238,241,251,0.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:96px; text-align:center; margin-bottom:3px;">{{ t.subj }}</div>
+          <div style="width:11px; height:11px; border-radius:50%; background:{{ t.color }}; box-shadow:0 0 10px {{ t.color }}; border:2px solid {{ t.commitColor }};"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ t.time }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;},&quot;showStatic&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { selectedId:'s4', clarityFilter:0, lenses:{HEALTH:true,OBLIGATION:true,FINANCE:true,SLEEP:true,WORLD:false} };
+    // stable ambient + noise fields (computed once so selection re-renders don't jitter)
+    let seed=7;
+    const rnd=()=>{ seed=(seed*9301+49297)%233280; return seed/233280; };
+    this.staticField = Array.from({length:48},()=>({x:(rnd()*820)|0,y:(rnd()*540)|0,r:(rnd()*1.3+0.3),o:(rnd()*0.22+0.04).toFixed(2),d:(rnd()*3+2).toFixed(1),delay:(rnd()*3).toFixed(1)}));
+    this.noiseCluster = Array.from({length:12},()=>({dx:-128+rnd()*116,dy:-15+rnd()*30,r:rnd()*1.5+0.5}));
+  }
+
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#07080f', bg1:'rgba(124,90,255,0.20)', bg2:'rgba(40,200,170,0.12)', glow:'rgba(124,90,255,0.30)', commit:'Weave to ledger', name:'Prism' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#05080f', bg1:'rgba(40,130,210,0.22)', bg2:'rgba(40,210,190,0.12)', glow:'rgba(70,200,255,0.30)', commit:'Commit to current', name:'Tideglass' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#060a07', bg1:'rgba(70,170,100,0.20)', bg2:'rgba(180,205,90,0.12)', glow:'rgba(95,211,154,0.30)', commit:'Plant in ledger', name:'Verdant' }
+  };
+
+  DOMAIN = {
+    HEALTH:{c:'#2fe0a8',label:'Health'}, FINANCIAL:{c:'#f5c252',label:'Financial'},
+    HOME:{c:'#ff9e57',label:'Home'}, LEGAL:{c:'#a98bff',label:'Legal'},
+    PROJECTS:{c:'#56b8ff',label:'Projects'}, RELATIONSHIPS:{c:'#ff7aa8',label:'Relationships'},
+    CREATIVE:{c:'#d07bff',label:'Creative'}, WORLD_WATCH:{c:'#5fe0e6',label:'World Watch'}, WORK:{c:'#7d9bff',label:'Work'}
+  };
+  QUALITY = { NRM:{c:'#8fb0c9',label:'Normal'}, OPT:{c:'#39e0a6',label:'Optimal'}, DEG:{c:'#ffb454',label:'Degraded'}, CRI:{c:'#ff6b5e',label:'Critical'} };
+  LIFE = { OBSERVED:{s:0.42,c:'#7da0c0'}, INTERPRETED:{s:0.62,c:'#9b8cff'}, TRUSTED:{s:0.92,c:'#39e0a6'}, DISPUTED:{s:0.5,c:'#ff6b5e'}, SUPERSEDED:{s:0.4,c:'#8a93a8'}, ARCHIVED:{s:0.35,c:'#6b7488'}, SIMULATED:{s:0.3,c:'#c77dff'} };
+  TONE = { warn:'#ffb454', alert:'#ff6b5e', info:'#9b8cff', noise:'#ff9e57' };
+  RAW = 'morning dump — coffee + metformin around 8, skipped breakfast again. felt a weird chest tightness for a couple minutes walking the dog, probably nothing. need to call dr patel about the lab results before friday. paid the the electric bill, $142. slept maybe 5 hrs but the band said 6.2.';
+
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#e8c75a': c>=0.5?'#ff9e57':'#ff6b5e'; }
+
+  baseSignals(){
+    return [
+      { id:'s1', domain:'HEALTH', subject:'Coffee — 12 oz, black', daq:'BIO-INP-NRM', intent:'GRW-IMP-NUT-HOT', actionLabel:'INP · Intake', quality:'NRM', recordType:'DATA_LOG', sourceType:'HUM', sourceLabel:'HUM · Self-report', mode:'RPT', verification:'UNV', confidence:0.84, clarity:0.86, strength:0.7, lifecycle:'INTERPRETED', resolver:'LATEST', modality:'ACTUAL', occurrence:'OCCURRED', span:'coffee', timeEvent:'Today · 08:00', timeEntry:'Today · 08:14', recordId:'rec_9f2a4c7e1b03', leftPct:'62%', commit:'READY', commitTone:'info', noise:false, contradiction:null,
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:true,fin:false,legal:false,pii:true},
+        flags:[],
+        threads:['Morning routine','Caffeine load · 7-day'],
+        reasoning:['Atomized as 1 of 7 from one composite note (Law 1 · Atomism).','Source span preserved and linked (Law 5 · Source Fidelity).','Classified BIO-INP-NRM · GRW-IMP-NUT-HOT from the clause.','Self-report held at ceiling 0.85; logged 0.84 (Law 6).','HEALTH inference floor 0.50 cleared.'] },
+
+      { id:'s2', domain:'HEALTH', subject:'Metformin — dose unstated', daq:'BIO-INP-NRM', intent:'REC-IMP-MED-HOT', actionLabel:'INP · Intake', quality:'NRM', recordType:'DATA_LOG', sourceType:'HUM', sourceLabel:'HUM · Self-report', mode:'RPT', verification:'UNV', confidence:0.80, clarity:0.72, strength:0.78, lifecycle:'INTERPRETED', resolver:'LATEST', modality:'ACTUAL', occurrence:'OCCURRED', span:'metformin around 8', timeEvent:'Today · ~08:00', timeEntry:'Today · 08:14', recordId:'rec_3b71e9a0c4d2', leftPct:'67%', commit:'NEEDS FIELD', commitTone:'warn', noise:false, contradiction:null,
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:true,fin:false,legal:false,pii:true},
+        flags:[{code:'MISSING_REQUIRED_FIELD',label:'Missing · dose + unit',tone:'warn'},{code:'AMBIGUOUS_TIME_EVENT',label:'Ambiguous time · "around 8"',tone:'info'}],
+        threads:['Medication compliance','Diabetes management'],
+        reasoning:['Atomized as a medication-intake event.','Med schema requires name · dose · unit · purpose · time.','Dose + unit absent → MISSING_REQUIRED_FIELD; clarity reduced.','Time inferred "around 8" → AMBIGUOUS_TIME_EVENT, not fabricated (Law 3).','Autonomy gate forces HEALTH → PROPOSE before commit (O8).'] },
+
+      { id:'s3', domain:'HEALTH', subject:'Breakfast — did not occur', daq:'BIO-INP-NRM', intent:'GRW-MON-NUT-DEV', actionLabel:'INP · Intake', quality:'NRM', recordType:'DATA_LOG', sourceType:'HUM', sourceLabel:'HUM · Self-report', mode:'RPT', verification:'UNV', confidence:0.70, clarity:0.60, strength:0.4, lifecycle:'INTERPRETED', resolver:'LATEST', modality:'ACTUAL', occurrence:'DID_NOT_OCCUR', span:'skipped breakfast again', timeEvent:'Today · 08:30', timeEntry:'Today · 08:14', recordId:'rec_c08d12f4ae66', leftPct:'78%', commit:'READY', commitTone:'info', noise:false, contradiction:null,
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:true,fin:false,legal:false,pii:true},
+        flags:[{code:'NEGATIVE_TREND',label:'Possible trend · "again"',tone:'info'}],
+        threads:['Breakfast skips · 4 in 9 days'],
+        reasoning:['Negation captured as occurrence = DID_NOT_OCCUR — a real record, not a gap.','Distinct from a COVERAGE_GAP (daemon-detected absence over time).','"again" implies recurrence — surfaced for trend review, not asserted.','No cause inferred (Law 3).'] },
+
+      { id:'s4', domain:'HEALTH', subject:'Chest tightness — ~2 min', daq:'BIO-OBS-DEG', intent:'REC-MON-BOD-HOT', actionLabel:'OBS · Observe', quality:'DEG', recordType:'DATA_LOG', sourceType:'HUM', sourceLabel:'HUM · Self-report', mode:'RPT', verification:'UNV', confidence:0.55, clarity:0.50, strength:0.58, lifecycle:'OBSERVED', resolver:'LATEST', modality:'ACTUAL', occurrence:'OCCURRED', span:'weird chest tightness for a couple minutes', timeEvent:'Today · 07:45', timeEntry:'Today · 08:14', recordId:'rec_5e2c9a17b8f0', leftPct:'50%', commit:'HELD', commitTone:'alert', noise:false, contradiction:null,
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:true,fin:false,legal:false,pii:true},
+        flags:[{code:'SELF_MINIMIZED',label:'Self-minimized signal',tone:'alert'},{code:'HELD_FOR_REVIEW',label:'Held for review',tone:'warn'}],
+        threads:['Cardio symptoms · 3 prior','Dog walk'],
+        reasoning:['Symptom atomized BIO-OBS-DEG · REC-MON-BOD-HOT.','User minimized it ("probably nothing"); fluency is not evidence (Law 6).','Confidence held at 0.55 — not inflated to sound calmer than the data.','HEALTH SENSITIVE governance; gate → PROPOSE, never auto-commit (O8).','3 prior cardio-symptom records on this thread — surfaced, not diagnosed.'] },
+
+      { id:'s5', domain:'HEALTH', subject:'Call Dr. Patel re: lab results', daq:'COG-OBS-NRM', intent:'REC-PLN-CAL-HOT', actionLabel:'OBS · Observe', quality:'NRM', recordType:'OBLIGATION_LOG', sourceType:'HUM', sourceLabel:'HUM · Self-report', mode:'RPT', verification:'UNV', confidence:0.80, clarity:0.82, strength:0.66, lifecycle:'INTERPRETED', resolver:'LATEST', modality:'PLANNED', occurrence:'OCCURRED', span:'call dr patel about the lab results before friday', timeEvent:'Due · Fri 06-19', timeEntry:'Today · 08:14', recordId:'rec_a4d9038ef2b1', leftPct:'94%', commit:'OBLIGATION', commitTone:'info', noise:false, contradiction:null, dueDate:'Fri · 2026-06-19',
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:true,fin:false,legal:false,pii:true},
+        flags:[],
+        threads:['Lab results · pending','Dr. Patel'],
+        reasoning:['Forward commitment → OBLIGATION_LOG, modality PLANNED, status PND.','Deadline "before friday" parsed to due_date 2026-06-19.','Classified COG-OBS-NRM · REC-PLN-CAL-HOT.','Links to the pending lab-results thread; no outcome assumed.'] },
+
+      { id:'s6', domain:'FINANCIAL', subject:'Electric bill — $142.00', daq:'RES-INP-NRM', intent:'MGT-CMT-FIN-RUN', actionLabel:'INP · Intake', quality:'NRM', recordType:'DATA_LOG', sourceType:'HUM', sourceLabel:'HUM · Self-report', mode:'RPT', verification:'UNV', confidence:0.80, clarity:0.78, strength:0.6, lifecycle:'INTERPRETED', resolver:'LATEST', modality:'ACTUAL', occurrence:'OCCURRED', span:'paid the the electric bill, $142', timeEvent:'Today · 07:30', timeEntry:'Today · 08:14', recordId:'rec_7c41be09d35a', leftPct:'30%', commit:'READY', commitTone:'info', noise:true, contradiction:null,
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:false,fin:true,legal:false,pii:true},
+        flags:[{code:'NOISE',label:'Source noise scrubbed · "the the"',tone:'noise'}],
+        threads:['Utilities','Recurring bills'],
+        reasoning:['Transaction atomized RES-INP-NRM · MGT-CMT-FIN-RUN.','Amount $142.00 captured; FINANCIAL SENSITIVE governance applied.','Duplicate token "the the" scrubbed from the subject — never from the source episode (Law 5).','Self-report ceiling applied; logged 0.80.'] },
+
+      { id:'s7', domain:'HEALTH', subject:'Sleep — 5.0 h vs 6.2 h', daq:'BIO-OBS-DEG', intent:'REC-MON-BOD-DEV', actionLabel:'OBS · Observe', quality:'DEG', recordType:'DATA_LOG', sourceType:'HUM+DEV', sourceLabel:'HUM + DEV · conflict', mode:'RPT / IMP', verification:'DSP', confidence:0.60, clarity:0.45, strength:0.5, lifecycle:'DISPUTED', resolver:'LATEST_VERIFIED', modality:'ACTUAL', occurrence:'OCCURRED', span:'slept maybe 5 hrs but the band said 6.2', timeEvent:'Last night', timeEntry:'Today · 08:14', recordId:'rec_b2f0a6c81e47', leftPct:'6%', commit:'DISPUTED', commitTone:'alert', noise:false,
+        contradiction:{ a:{label:'Self-report',val:'5.0 h',conf:'0.60',color:'#ff9e57'}, b:{label:'Device · sleep band',val:'6.2 h',conf:'0.92',color:'#56b8ff'} },
+        gov:{sensitivity:'SENSITIVE',access:'SELF',retention:'LONG',health:true,fin:false,legal:false,pii:true},
+        flags:[{code:'CONFLICT_DETECTED',label:'Contradiction · 2 sources',tone:'alert'}],
+        threads:['Sleep tracking','Recovery window'],
+        reasoning:['Two readings refer to the same night: 5.0 h self-report vs 6.2 h device.','truth.source HUM (0.60) vs DEV (0.92) — the beams are misaligned.','CONFLICT_DETECTED → lifecycle DISPUTED; resolver LATEST_VERIFIED.','Neither reading overwrites the other (Law 2 · Append-only).','Surfaced for manual reconciliation — the theme cannot resolve it (truth is not skinnable).'] }
+    ];
+  }
+
+  makeBands(s){
+    const srcStr = {HUM:0.62,DEV:0.92,DOC:0.97,SYS:0.85,EXT:0.55,AI:0.5}[s.sourceType] || 0.74;
+    const qS = {NRM:0.55,OPT:0.85,DEG:0.7,CRI:0.95}[s.quality] || 0.5;
+    const lf = this.LIFE[s.lifecycle] || {s:0.5,c:'#888'};
+    const raw = [
+      {label:'Domain', value:this.DOMAIN[s.domain].label, strength:0.92, color:this.DOMAIN[s.domain].c},
+      {label:'Action', value:s.actionLabel, strength:0.85, color:'#9db6da'},
+      {label:'Quality', value:this.QUALITY[s.quality].label, strength:qS, color:this.QUALITY[s.quality].c},
+      {label:'Source', value:s.sourceLabel, strength:srcStr, color:'#7fb0ff'},
+      {label:'Confidence', value:s.confidence.toFixed(2), strength:s.confidence, color:this.confColor(s.confidence)},
+      {label:'Lifecycle', value:s.lifecycle, strength:lf.s, color:lf.c},
+      {label:'Threads', value:s.threads.length+' linked', strength:Math.min(s.threads.length/3,1), color:'#c79bff'}
+    ];
+    return raw.map(b=>({...b, widthPct:Math.round(b.strength*100)+'%'}));
+  }
+
+  enrich(){
+    const sel = this.state.selectedId;
+    const cf = this.state.clarityFilter;
+    return this.baseSignals().map(s=>{
+      const idx = this.RAW.indexOf(s.span);
+      const occluded = s.clarity < cf;
+      const selected = s.id===sel;
+      return {
+        ...s,
+        bands:this.makeBands(s),
+        flags:s.flags.map(f=>({...f,color:this.TONE[f.tone]})),
+        domainLabel:this.DOMAIN[s.domain].label, domainColor:this.DOMAIN[s.domain].c,
+        clarityPct:Math.round(s.clarity*100)+'%', confPct:Math.round(s.confidence*100)+'%',
+        confColor:this.confColor(s.confidence),
+        lifeColor:(this.LIFE[s.lifecycle]||{c:'#888'}).c,
+        sourceBefore: idx>=0?this.RAW.slice(0,idx):'', sourceMatch:s.span, sourceAfter: idx>=0?this.RAW.slice(idx+s.span.length):'',
+        occluded, selected,
+        op: occluded?0.4:1,
+        borderCol: selected?'var(--accent)':'rgba(255,255,255,0.08)',
+        ring: selected ? '0 0 0 1px var(--accent), 0 12px 36px '+this.cur().glow : '0 6px 18px rgba(0,0,0,0.30)',
+        onSelect: ()=>this.setState({selectedId:s.id})
+      };
+    });
+  }
+
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+
+  buildPrism(sigs, sel, showStatic){
+    const h=React.createElement, W=820,H=540, ox=252, oy=272, ex=806, n=sigs.length;
+    const cf=this.state.clarityFilter, kids=[];
+    kids.push(h('defs',{key:'d'},
+      h('filter',{id:'lwglow',x:'-50%',y:'-50%',width:'200%',height:'200%'},
+        h('feGaussianBlur',{stdDeviation:'4.2',result:'b'}),
+        h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'}))),
+      h('radialGradient',{id:'lwprism',cx:'38%',cy:'50%',r:'72%'},
+        h('stop',{offset:'0%',stopColor:'rgba(255,255,255,0.24)'}),
+        h('stop',{offset:'100%',stopColor:'rgba(120,140,255,0.04)'}))
+    ));
+    if(showStatic){ this.staticField.forEach((p,i)=> kids.push(h('circle',{key:'st'+i,cx:p.x,cy:p.y,r:p.r,fill:'rgba(200,212,255,'+p.o+')',style:{animation:'lwTwinkle '+p.d+'s ease-in-out infinite',animationDelay:p.delay+'s'}}))); }
+    // input beam
+    kids.push(h('line',{key:'in',x1:8,y1:oy,x2:184,y2:oy,stroke:'rgba(255,255,255,0.85)',strokeWidth:5,filter:'url(#lwglow)',style:{animation:'lwInput 3.2s ease-in-out infinite'}}));
+    kids.push(h('line',{key:'in2',x1:8,y1:oy,x2:184,y2:oy,stroke:'#ffffff',strokeWidth:1.4}));
+    // prism
+    kids.push(h('polygon',{key:'pr',points:'176,194 176,350 '+ox+','+oy,fill:'url(#lwprism)',stroke:'rgba(184,194,255,0.5)',strokeWidth:1.4,filter:'url(#lwglow)'}));
+    kids.push(h('polygon',{key:'pr2',points:'176,194 176,350 '+ox+','+oy,fill:'none',stroke:'rgba(255,255,255,0.22)',strokeWidth:0.8}));
+    const cp1=ox+168, cp2=ex-248;
+    sigs.forEach((s,i)=>{
+      const y = 60 + i*((480-60)/(n-1));
+      const selDim = sel && sel!==s.id;
+      const occ = s.clarity < cf;
+      const selOn = sel===s.id;
+      const col = this.DOMAIN[s.domain].c;
+      const sw = 3 + s.strength*13 + (selOn?4:0);
+      if(s.contradiction){
+        const ya=y-8, yb=y+13;
+        kids.push(h('path',{key:'ca'+i,d:'M '+ox+' '+oy+' C '+cp1+' '+oy+' '+cp2+' '+ya+' '+ex+' '+ya,stroke:s.contradiction.a.color,strokeWidth:sw*0.6,fill:'none',opacity:occ?0.1:(selDim?0.3:0.88),strokeLinecap:'round',filter:'url(#lwglow)'}));
+        kids.push(h('path',{key:'cb'+i,d:'M '+ox+' '+oy+' C '+cp1+' '+oy+' '+cp2+' '+yb+' '+ex+' '+yb,stroke:s.contradiction.b.color,strokeWidth:sw*0.6,fill:'none',opacity:occ?0.1:(selDim?0.3:0.88),strokeLinecap:'round',filter:'url(#lwglow)'}));
+        kids.push(h('circle',{key:'cc'+i,cx:cp2-30,cy:y+2,r:8,fill:'rgba(255,107,94,0.16)',stroke:'#ff6b5e',strokeWidth:1.1,opacity:occ?0.25:1}));
+        kids.push(h('path',{key:'cz'+i,d:'M '+(cp2-33)+' '+(y-2)+' l4 4 l-3 2 l4 4',stroke:'#ff6b5e',strokeWidth:1.5,fill:'none',opacity:occ?0.3:1}));
+        kids.push(h('circle',{key:'ea'+i,cx:ex,cy:ya,r:selOn?4.5:3,fill:s.contradiction.a.color,opacity:occ?0.2:1,filter:'url(#lwglow)'}));
+        kids.push(h('circle',{key:'eb'+i,cx:ex,cy:yb,r:selOn?4.5:3,fill:s.contradiction.b.color,opacity:occ?0.2:1,filter:'url(#lwglow)'}));
+      } else {
+        const baseOp = occ?0.1:(selDim?0.26:(0.4+s.confidence*0.5));
+        const dpath='M '+ox+' '+oy+' C '+cp1+' '+oy+' '+cp2+' '+y+' '+ex+' '+y;
+        kids.push(h('path',{key:'b'+i,d:dpath,stroke:col,strokeWidth:sw,fill:'none',opacity:baseOp,strokeLinecap:'round',filter:'url(#lwglow)'}));
+        kids.push(h('path',{key:'bc'+i,d:dpath,stroke:'rgba(255,255,255,'+(occ?0.05:(selOn?0.85:s.confidence*0.42))+')',strokeWidth:Math.max(1,s.strength*3.4),fill:'none',strokeLinecap:'round'}));
+        if(showStatic && s.noise && !occ){ this.noiseCluster.forEach((nd,k)=> kids.push(h('circle',{key:'nz'+i+'_'+k,cx:ex+nd.dx,cy:y+nd.dy,r:nd.r,fill:'rgba(255,180,120,0.55)'}))); }
+        kids.push(h('circle',{key:'e'+i,cx:ex,cy:y,r:selOn?5:3.2,fill:col,opacity:occ?0.2:1,filter:'url(#lwglow)'}));
+      }
+    });
+    return h('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},kids);
+  }
+
+  toggleLens(k){ this.setState(st=>({lenses:{...st.lenses,[k]:!st.lenses[k]}})); }
+
+  renderVals(){
+    const t=this.cur();
+    const sigs=this.enrich();
+    const sel = sigs.find(s=>s.id===this.state.selectedId) || sigs[0];
+    const clarity = Math.round(sigs.reduce((a,s)=>a+s.clarity,0)/sigs.length*100);
+    const clarityBand = clarity>=80?{label:'Clear',c:'#39e0a6'}: clarity>=65?{label:'Usable',c:'#e8c75a'}: clarity>=50?{label:'Hazy',c:'#ff9e57'}:{label:'Murky',c:'#ff6b5e'};
+    const beamLabels = sigs.map((s,i)=>({ id:s.id, subject:s.subject, daq:s.daq, color:s.domainColor, conf:s.confidence.toFixed(2),
+      topPct:((60 + i*((480-60)/(sigs.length-1)))/540*100)+'%', selected:s.id===sel.id, occluded:s.occluded,
+      labelColor:s.id===sel.id?'var(--accent)':'rgba(238,241,251,0.82)', bg:s.id===sel.id?'rgba(255,255,255,0.07)':'transparent', onSelect:s.onSelect }));
+    const distortionList=[]; sigs.forEach(s=> s.flags.forEach(f=> distortionList.push({ id:s.id, label:f.label, color:f.color, subj:s.subject.split(' — ')[0], onSelect:s.onSelect })));
+    const lenses=[
+      {key:'HEALTH',label:'Health',color:'#2fe0a8'},{key:'OBLIGATION',label:'Obligations',color:'#a98bff'},
+      {key:'FINANCE',label:'Finance',color:'#f5c252'},{key:'SLEEP',label:'Sleep',color:'#56b8ff'},{key:'WORLD',label:'World Watch',color:'#5fe0e6'}
+    ].map(l=>({...l, active:!!this.state.lenses[l.key], onToggle:()=>this.toggleLens(l.key),
+      bg:this.state.lenses[l.key]?'rgba(255,255,255,0.08)':'rgba(255,255,255,0.02)',
+      border:this.state.lenses[l.key]?l.color:'rgba(255,255,255,0.1)',
+      txt:this.state.lenses[l.key]?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.5)' }));
+    const contextChips=[
+      {label:'HEALTH',sub:'domain mode',c:'#2fe0a8'},{label:'HOME',sub:'location',c:'#ff9e57'},
+      {label:'SELF',sub:'reporter',c:'#9b8cff'},{label:'Field Analyst',sub:'persona',c:'#7fb0ff'},{label:'INTAKE',sub:'session',c:'#5fe0e6'}
+    ];
+    const timeline = sigs.map(s=>({ id:s.id, leftPct:s.leftPct, color:s.domainColor, subj:s.subject.split(' — ')[0], time:s.timeEvent, commit:s.commit, commitColor:this.TONE[s.commitTone]||'#9b8cff', selected:s.id===sel.id, onSelect:s.onSelect, obligation:s.recordType==='OBLIGATION_LOG' }));
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      pad:(this.props.density==='compact')?'12px':'18px',
+      themeName:t.name, commitLabel:t.commit,
+      microcopy:'Nice light. Let’s weave something true.',
+      rawText:this.RAW,
+      signals:sigs, beamLabels, distortionList, lenses, contextChips, timeline,
+      selected:sel, bands:sel.bands,
+      prismSvg:this.buildPrism(sigs, sel.id, this.props.showStatic!==false),
+      clarityScore:clarity, clarityRing:clarity+'%', clarityBandLabel:clarityBand.label, clarityBandColor:clarityBand.c,
+      distortionsLabel:distortionList.length+(distortionList.length===1?' distortion':' distortions'),
+      signalCount:sigs.length+' signals',
+      clarityFilterVal:Math.round(this.state.clarityFilter*100),
+      setClarity:(e)=>this.setState({clarityFilter:(+e.target.value)/100}),
+      weave:()=>{}, holdAll:()=>{}
+    };
+  }
+}
+</script>
+</body>
+</html>

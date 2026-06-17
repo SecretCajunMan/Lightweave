@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwTwinkle{0%,100%{opacity:.25}50%{opacity:.85}}
+  @keyframes lwPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:.15;transform:scale(1.7)}}
+  @keyframes lwFlux{to{stroke-dashoffset:-44}}
+  @keyframes lwBeam{to{stroke-dashoffset:-120}}
+  @keyframes lwSpin{to{transform:rotate(360deg)}}
+  @keyframes lwGlow{0%,100%{opacity:.45}50%{opacity:.95}}
+  @keyframes lwSweep{0%{transform:translateX(-30%);opacity:0}25%{opacity:.9}100%{transform:translateX(140%);opacity:0}}
+</style>
+</helmet>
+<div data-screen-label="Signal Forge" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1200px 680px at 42% -20%, {{ bg1 }}, transparent 60%), radial-gradient(1000px 760px at 108% 124%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,4 24,14 14,24 4,14" fill="none" stroke="var(--accent)" stroke-width="1.5"></polygon><line x1="4" y1="14" x2="14" y2="14" stroke="#fff" stroke-width="1.3"></line><line x1="14" y1="14" x2="24" y2="9" stroke="var(--accent2)" stroke-width="1.1"></line><line x1="14" y1="14" x2="24" y2="14" stroke="#ff9e57" stroke-width="1.1"></line><line x1="14" y1="14" x2="24" y2="19" stroke="#ff7aa8" stroke-width="1.1"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Signal Forge</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 11 · scenario forge</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,170,90,0.35); border-radius:7px; background:rgba(255,160,80,0.08); color:#ffc585;"><span style="width:6px;height:6px;border-radius:2px;background:#ffb454;box-shadow:0 0 7px #ffb454;"></span>SIMULATION SANDBOX · not canonical</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:{{ modelConfColor }};box-shadow:0 0 7px {{ modelConfColor }};"></span>model conf {{ modelConfLabel }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>ledger read-only</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">FORGE · Mon Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="signal-forge"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:10px; letter-spacing:0.16em; color:rgba(238,241,251,0.38); flex:0 0 auto;">SCENARIO PRESETS</span>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <sc-for list="{{ presetChips }}" as="pc" hint-placeholder-count="4">
+            <div onClick="{{ pc.onSelect }}" style="display:inline-flex; align-items:center; gap:8px; padding:7px 13px; border-radius:9px; cursor:pointer; background:{{ pc.bg }}; border:1px solid {{ pc.border }}; color:{{ pc.txt }};">
+              <span style="width:8px; height:8px; border-radius:50%; background:{{ pc.color }}; box-shadow:0 0 8px {{ pc.color }};"></span>
+              <span style="font-size:12px; font-weight:600;">{{ pc.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ forked }}" hint-placeholder-val="{{ false }}">
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:9px; background:rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.22); font-size:11px; color:rgba(238,241,251,0.75);"><span style="width:7px; height:7px; border-radius:2px; background:#fff;"></span>Custom fork · {{ forkedFrom }}</span>
+        </sc-if>
+        <div style="flex:1;"></div>
+        <span onClick="{{ onReset }}" style="font-size:11.5px; color:rgba(238,241,251,0.7); border:1px solid rgba(255,255,255,0.14); padding:7px 13px; border-radius:8px; cursor:pointer;">Reset levers</span>
+        <span onClick="{{ onReforge }}" style="font-size:11.5px; font-weight:600; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:7px 15px; border-radius:8px; cursor:pointer;">Re-forge</span>
+      </section>
+
+      <section style="flex:1; min-height:0; display:flex; gap:11px;">
+
+        <div style="flex:0 0 256px; display:flex; flex-direction:column; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden;">
+          <div style="flex:0 0 auto; padding:12px 14px 10px; border-bottom:1px solid rgba(255,255,255,0.07);">
+            <div style="display:flex; align-items:center; gap:7px;"><svg width="13" height="13" viewBox="0 0 14 14"><path d="M2 11 L5 8 L8 9.5 L12 4" fill="none" stroke="var(--accent2)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="4" r="1.4" fill="var(--accent2)"></circle></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">Input levers</span></div>
+            <div style="font-size:10px; color:rgba(238,241,251,0.45); margin-top:4px;">Levers set the lens. Effect sizes are locked to canonical patterns.</div>
+          </div>
+          <div style="flex:1; min-height:0; overflow-y:auto; padding:11px 14px; display:flex; flex-direction:column; gap:13px;">
+            <sc-for list="{{ leverRows }}" as="lv" hint-placeholder-count="7">
+              <div>
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;">
+                  <span style="width:7px; height:7px; border-radius:50%; background:{{ lv.color }}; box-shadow:0 0 6px {{ lv.color }};"></span>
+                  <span style="font-size:12px; font-weight:500; flex:1;">{{ lv.label }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ lv.color }};">{{ lv.valueLabel }}</span>
+                </div>
+                <div onMouseDown="{{ lv.onDown }}" style="position:relative; height:18px; display:flex; align-items:center; cursor:pointer;">
+                  <div style="position:absolute; left:0; right:0; height:5px; border-radius:4px; background:rgba(255,255,255,0.09);"></div>
+                  <div style="position:absolute; left:0; height:5px; border-radius:4px; width:{{ lv.fillWidth }}; background:{{ lv.color }}; box-shadow:0 0 8px {{ lv.color }};"></div>
+                  <div style="position:absolute; left:{{ lv.knobLeft }}; width:13px; height:13px; border-radius:50%; background:#fff; box-shadow:0 0 0 3px {{ lv.knobRing }}, 0 1px 4px rgba(0,0,0,0.5);"></div>
+                </div>
+                <div style="font-size:9px; color:rgba(238,241,251,0.38); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ lv.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:0 0 auto; padding:9px 14px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(0,0,0,0.18); display:flex; align-items:center; gap:7px;">
+            <svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="rgba(238,241,251,0.55)" stroke-width="1"></rect><path d="M4 5 V3.6 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(238,241,251,0.55)" stroke-width="1"></path></svg>
+            <span style="font-size:9px; letter-spacing:0.08em; color:rgba(238,241,251,0.5); line-height:1.4;">EFFECT SIZES CANONICAL · A LEVER CANNOT REWRITE A RECORD</span>
+          </div>
+        </div>
+
+        <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px;">
+
+          <div style="flex:1; min-height:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 36% 50%, rgba(70,80,170,0.12), transparent 58%), linear-gradient(120deg, #080b18, #06080f 55%, #0a0712);">
+            <div style="position:absolute; inset:0;">{{ reactorSvg }}</div>
+            <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,241,251,0.74);">Prismatic forge reactor</span>
+              <span style="font-size:10px; color:rgba(238,241,251,0.42);">levers refract into possible paths · cones are uncertainty · widening = time</span>
+            </div>
+            <div style="position:absolute; top:11px; right:14px; display:flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.5);">
+              <span style="padding:4px 8px; border:1px dashed rgba(255,255,255,0.18); border-radius:6px;">projecting → {{ horizonLabel }}</span>
+            </div>
+            <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; text-align:center;">
+              <div style="font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:700; letter-spacing:0.18em; color:rgba(255,255,255,0.04);">SIMULATED</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.3em; color:rgba(255,255,255,0.07); margin-top:2px;">NOT TRUTH · NOT WRITTEN</div>
+            </div>
+            <sc-if value="{{ sweep }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; top:0; bottom:0; left:0; width:42%; background:linear-gradient(90deg, transparent, rgba(150,180,255,0.16), transparent); animation:lwSweep 0.9s ease-out forwards; pointer-events:none;"></div>
+            </sc-if>
+            <div style="position:absolute; left:14px; bottom:11px; display:flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.4);">
+              <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:14px; height:0; border-top:2px solid rgba(238,241,251,0.6);"></span>projected path</span>
+              <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:14px; height:0; border-top:2px dashed rgba(238,241,251,0.5);"></span>uncertainty band</span>
+              <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:8px; height:8px; border-radius:50%; background:#ff7a59; box-shadow:0 0 7px #ff7a59;"></span>contested input</span>
+            </div>
+          </div>
+
+          <div style="flex:0 0 auto; display:flex; gap:10px;">
+            <sc-for list="{{ pathCards }}" as="pcard" hint-placeholder-count="4">
+              <div onClick="{{ pcard.onSelect }}" style="flex:1; min-width:0; cursor:pointer; border-radius:13px; padding:11px 12px; background:{{ pcard.cardBg }}; border:1px solid {{ pcard.cardBorder }}; border-top:2px solid {{ pcard.color }};">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;">
+                  <span style="width:8px; height:8px; border-radius:50%; background:{{ pcard.color }}; box-shadow:0 0 7px {{ pcard.color }};"></span>
+                  <span style="font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600; flex:1;">{{ pcard.name }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; padding:1px 5px; border-radius:4px; background:{{ pcard.confBg }}; color:{{ pcard.confColor }};">{{ pcard.confLabel }}</span>
+                </div>
+                <div style="font-size:10.5px; line-height:1.45; color:rgba(238,241,251,0.66); min-height:30px;">{{ pcard.headline }}</div>
+                <div style="display:flex; align-items:center; gap:6px; margin-top:9px;">
+                  <span style="flex:1; font-size:9px; color:rgba(238,241,251,0.45);">sustain likelihood</span>
+                  <div style="flex:0 0 64px; height:5px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ pcard.sustainPct }}; background:{{ pcard.sustainColor }};"></div></div>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ pcard.sustainColor }};">{{ pcard.sustainLabel }}</span>
+                </div>
+                <div style="display:flex; gap:5px; margin-top:9px;">
+                  <span style="font-size:8px; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace; padding:2px 5px; border-radius:4px; background:rgba(255,160,80,0.1); color:#ffba6a;">SIMULATED</span>
+                  <span style="font-size:8px; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace; padding:2px 5px; border-radius:4px; background:rgba(255,255,255,0.05); color:rgba(238,241,251,0.55);">UNCERTAIN</span>
+                  <span style="font-size:8px; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace; padding:2px 5px; border-radius:4px; background:rgba(90,180,255,0.1); color:#86c5ff;">EVIDENCE-DERIVED</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 374px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 18px 0; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px;">{{ sel.name }}</span>
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:rgba(255,160,80,0.14); color:#ffba6a;">SIMULATED PATH</span>
+        </div>
+        <div style="font-size:11px; color:rgba(238,241,251,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">{{ sel.tag }} · horizon {{ horizonLabel }} · {{ sel.forkLabel }}</div>
+        <div style="display:flex; gap:18px; margin-top:11px;">
+          <div onClick="{{ onTabProof }}" style="padding-bottom:10px; cursor:pointer; font-size:12.5px; font-weight:600; color:{{ tabProofColor }}; box-shadow:{{ tabProofBar }};">Proof</div>
+          <div onClick="{{ onTabAssume }}" style="padding-bottom:10px; cursor:pointer; font-size:12.5px; font-weight:600; color:{{ tabAssumeColor }}; box-shadow:{{ tabAssumeBar }};">Assumptions</div>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <sc-if value="{{ tabProof }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; gap:15px;">
+
+            <div style="background:{{ sel.headerBg }}; border:1px solid {{ sel.softBorder }}; border-radius:11px; padding:12px 13px;">
+              <div style="font-size:12.5px; line-height:1.55; color:rgba(238,241,251,0.9);">{{ sel.headline }}</div>
+              <div style="display:flex; gap:8px; margin-top:11px;">
+                <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 10px;"><div style="font-size:9px; color:rgba(238,241,251,0.45);">MODEL CONFIDENCE</div><div style="font-family:'IBM Plex Mono',monospace; font-size:15px; color:{{ sel.modelConfColor }};">{{ sel.modelConfLabel }}</div></div>
+                <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 10px;"><div style="font-size:9px; color:rgba(238,241,251,0.45);">SUSTAIN LIKELIHOOD</div><div style="font-family:'IBM Plex Mono',monospace; font-size:15px; color:{{ sel.sustainColor }};">{{ sel.sustainLabel }}</div></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">PROJECTED OUTCOMES · BANDS ARE UNCERTAINTY</div>
+              <div style="display:flex; flex-direction:column; gap:11px;">
+                <sc-for list="{{ sel.outcomes }}" as="oc" hint-placeholder-count="5">
+                  <div>
+                    <div style="display:flex; align-items:center; gap:7px; margin-bottom:5px;">
+                      <span style="width:6px; height:6px; border-radius:2px; background:{{ oc.color }};"></span>
+                      <span style="font-size:11px; color:rgba(238,241,251,0.72); flex:1;">{{ oc.label }}</span>
+                      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(238,241,251,0.92);">{{ oc.valueLabel }}</span>
+                      <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; padding:1px 5px; border-radius:4px; background:{{ oc.confBg }}; color:{{ oc.confColor }};">{{ oc.confLabel }}</span>
+                    </div>
+                    <div style="position:relative; height:8px; border-radius:4px; background:rgba(255,255,255,0.06); overflow:hidden;">
+                      <div style="position:absolute; top:0; bottom:0; left:{{ oc.bandLeft }}; width:{{ oc.bandWidth }}; background:{{ oc.bandColor }}; border-radius:4px;"></div>
+                      <div style="position:absolute; top:-2px; bottom:-2px; left:{{ oc.centerLeft }}; width:2px; background:{{ oc.color }}; box-shadow:0 0 6px {{ oc.color }};"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-top:3px; font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:rgba(238,241,251,0.4);"><span>{{ oc.rangeLabel }}</span><span>{{ oc.dirLabel }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">KEY TRADEOFFS</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.tradeoffs }}" as="to" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:stretch; gap:8px; background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:8px 10px;">
+                    <div style="flex:1; display:flex; align-items:center; gap:7px;"><span style="color:#46e0b4; font-size:13px; flex:0 0 auto;">▲</span><span style="font-size:11px; color:rgba(238,241,251,0.82);">{{ to.gain }}</span></div>
+                    <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+                    <div style="flex:1; display:flex; align-items:center; gap:7px;"><span style="color:#ff7a59; font-size:13px; flex:0 0 auto;">▼</span><span style="font-size:11px; color:rgba(238,241,251,0.66);">{{ to.cost }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE TRACE · PROVENANCE</div>
+              <div style="position:relative; padding-left:6px;">
+                <sc-for list="{{ sel.trace }}" as="tr" hint-placeholder-count="4">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:11px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:{{ tr.dot }}; border:2px solid #0a0c16; box-shadow:0 0 7px {{ tr.dot }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11.5px; color:rgba(238,241,251,0.82);">{{ tr.label }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">{{ tr.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="4">
+                  <div style="display:flex; gap:9px; align-items:flex-start;">
+                    <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                    <span style="font-size:11.5px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ true }}">
+              <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+                  <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><circle cx="6" cy="6" r="4.4" fill="#ffd9a0"></circle><circle cx="7.6" cy="4.8" r="4.4" fill="#0c0c14" stroke="#ff6b5e" stroke-width="0.8"></circle></svg>
+                  <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ sel.contradiction.title }}</span>
+                </div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+              </div>
+            </sc-if>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL LINK</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">projection</span><span style="color:{{ sel.color }};">{{ sel.projId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>SIM · non-canonical</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">drawn from</span><span>{{ sel.recordCount }} canonical records</span></div>
+              </div>
+              <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:10px; line-height:1.45;">{{ sel.canonicalNote }}</div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:rgba(238,241,251,0.85); border:1px solid rgba(255,255,255,0.14); padding:9px; border-radius:8px; cursor:pointer;">Open {{ sel.recordCount }} records</span>
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Save as intent</span>
+              </div>
+              <div style="font-size:9px; color:rgba(238,241,251,0.4); margin-top:7px; text-align:center; line-height:1.4;">"Save as intent" stores a goal — it never writes a record or alters a single canonical field.</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabAssume }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:15px;">
+            <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">MODEL CARD</div>
+              <div style="display:flex; flex-direction:column; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">method</span><span>linear effect-transfer</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">horizon</span><span>{{ horizonLabel }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">confidence basis</span><span>source breadth × recency</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">extrapolation</span><span style="color:{{ sel.extrapColor }};">{{ sel.extrapLabel }}</span></div>
+              </div>
+              <div style="font-size:10.5px; color:rgba(238,241,251,0.55); margin-top:10px; line-height:1.5;">Confidence falls and bands widen as the horizon lengthens. The forge will not narrow a band it cannot earn from evidence.</div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">ASSUMPTIONS IN THIS PATH</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sel.assumptions }}" as="asm" hint-placeholder-count="5">
+                  <div style="display:flex; gap:9px; align-items:flex-start; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:9px 11px;">
+                    <span style="flex:0 0 auto; width:7px; height:7px; border-radius:2px; background:{{ asm.color }}; margin-top:4px;"></span>
+                    <div style="flex:1; min-width:0;">
+                      <div style="font-size:11.5px; line-height:1.45; color:rgba(238,241,251,0.78);">{{ asm.text }}</div>
+                      <div style="font-size:9px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace; margin-top:3px;">{{ asm.basis }}</div>
+                    </div>
+                    <span style="flex:0 0 auto; font-size:8.5px; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace; padding:2px 6px; border-radius:5px; align-self:center; background:{{ asm.tagBg }}; color:{{ asm.tagColor }};">{{ asm.tag }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(70,224,180,0.05); border:1px solid rgba(70,224,180,0.22); border-radius:11px; padding:12px 13px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:#7fe6c0; margin-bottom:9px;">WHAT WOULD SHARPEN THIS</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sel.sharpen }}" as="sh" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;">
+                    <span style="flex:0 0 auto; color:#46e0b4; font-size:12px; margin-top:1px;">+</span>
+                    <span style="font-size:11px; line-height:1.45; color:rgba(238,241,251,0.7);">{{ sh }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 152px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Scenario comparison · composite trajectory</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.38);">how each path's blended outcome holds across the horizon</span>
+        <div style="flex:1;"></div>
+        <sc-for list="{{ compareLegend }}" as="cg" hint-placeholder-count="4">
+          <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.5);"><span style="width:9px; height:9px; border-radius:2px; background:{{ cg.color }};"></span>{{ cg.label }}</span>
+        </sc-for>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(120,140,255,0.05), rgba(70,224,180,0.04)); border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+        <div style="position:absolute; inset:0;">{{ compareSvg }}</div>
+      </div>
+    </div>
+    <div style="flex:0 0 280px; display:flex; flex-direction:column; gap:9px;">
+      <div>
+        <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:7px;">PROJECTION HORIZON</div>
+        <div style="display:flex; gap:6px;">
+          <sc-for list="{{ horizonBtns }}" as="hb" hint-placeholder-count="3">
+            <div onClick="{{ hb.onSelect }}" style="flex:1; text-align:center; cursor:pointer; padding:8px 4px; border-radius:8px; background:{{ hb.bg }}; border:1px solid {{ hb.border }}; color:{{ hb.txt }};">
+              <div style="font-size:12px; font-weight:600;">{{ hb.label }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ hb.subColor }};">{{ hb.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; gap:9px; background:rgba(255,160,80,0.06); border:1px solid rgba(255,170,90,0.22); border-radius:10px; padding:9px 11px;">
+        <svg width="16" height="16" viewBox="0 0 16 16" style="flex:0 0 auto;"><path d="M8 2 L14 13 L2 13 Z" fill="none" stroke="#ffba6a" stroke-width="1.3" stroke-linejoin="round"></path><line x1="8" y1="6.5" x2="8" y2="9.5" stroke="#ffba6a" stroke-width="1.3" stroke-linecap="round"></line><circle cx="8" cy="11" r="0.7" fill="#ffba6a"></circle></svg>
+        <div style="font-size:10px; line-height:1.45; color:rgba(238,241,251,0.62);"><span style="color:#ffc585; font-weight:600;">Ledger trace · nothing committed.</span> This forge run touched <span style="font-family:'IBM Plex Mono',monospace;">{{ runRecordCount }}</span> canonical records read-only and wrote 0.</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;showBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;horizonGuides&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.PATHS = {
+      balanced:{ name:'Balanced', color:'#6ea8ff', tag:'STEADY STATE', confBase:0.72, ey:258, bandBase:36, projId:'sim_bal_31', resolver:'HIGHEST_CONF',
+        sustain:[0.74,0.71,0.66], extrap:'within evidenced range',
+        levers:{sleep:64,focus:62,budget:66,nutrition:62,workload:58,recovery:64,social:58},
+        headline:'Holds focus and wellbeing close to today with the lowest burnout drift of the four paths.',
+        tradeoffs:[{gain:'Lowest burnout risk',cost:'Slowest capability gain'},{gain:'Stable budget drift',cost:'No headroom for a sprint'}],
+        reasoning:[
+          'Levers sit inside the range your records actually cover, so transfer error stays small.',
+          'Sleep→focus (pat_lm_204) and movement→calm (pat_gl_118) both apply at full weight.',
+          'No lever is pushed past where evidence exists — bands stay tight.',
+          'Confidence 0.72 at 6 weeks — the best-supported of the four.'
+        ],
+        trace:[
+          {label:'Reads · Sleep, Focus, Fitness, Finances',meta:'4 source domains',dot:'#6ea8ff'},
+          {label:'Anchored on pat_lm_204, pat_gl_118',meta:'conf 0.81 · 0.72',dot:'#9b8cff'},
+          {label:'Resolver · HIGHEST_CONF',meta:'no governance override',dot:'#39e0a6'},
+          {label:'Projection sim_bal_31',meta:'non-canonical · derived',dot:'#6ea8ff'}
+        ],
+        contradiction:null,
+        assumptions:[
+          {text:'Sleep→focus effect transfers linearly at the strength seen in pat_lm_204.',basis:'pat_lm_204 · 14 records · conf 0.81',tag:'STRONG',color:'#46e0b4'},
+          {text:'Current routine continues — no exogenous shocks (travel, illness) modeled.',basis:'no shock priors in ledger',tag:'OPEN',color:'#f5b14e'},
+          {text:'Social energy effect held weak — only 3 records back it.',basis:'pat_od_041 · sparse · conf 0.38',tag:'THIN',color:'#ff7a59'}
+        ],
+        sharpen:['Two more weeks of focus-block logging tightens the focus band.','A second social-contact source would lift wellbeing confidence above 0.52.']
+      },
+      ascend:{ name:'Ascend', color:'#46e0b4', tag:'GROWTH PUSH', confBase:0.64, ey:150, bandBase:50, projId:'sim_asc_44', resolver:'HIGHEST_CONF',
+        sustain:[0.62,0.57,0.49], extrap:'mild edge of range',
+        levers:{sleep:70,focus:78,budget:62,nutrition:68,workload:74,recovery:66,social:54},
+        headline:'Lifts focus capacity meaningfully while protecting sleep — but workload creeps toward the burnout threshold.',
+        tradeoffs:[{gain:'+18 focus capacity (proj.)',cost:'Burnout risk climbs into amber'},{gain:'Capability compounds',cost:'Sustain likelihood falls past 6 weeks'}],
+        reasoning:[
+          'Higher focus and workload lift output, partly offset by protected sleep and recovery.',
+          'Workload at 74 sits just under the overload knee (65+) seen to erode energy.',
+          'Effect transfer is mild extrapolation — bands widen versus Balanced.',
+          'Confidence 0.64 at 6 weeks; sustain likelihood decays to 49% by 12 weeks.'
+        ],
+        trace:[
+          {label:'Reads · Sleep, Focus, Workload, Nutrition',meta:'4 source domains',dot:'#46e0b4'},
+          {label:'Anchored on pat_lm_204 · workload from calendar',meta:'conf 0.81 · 0.88',dot:'#9b8cff'},
+          {label:'Resolver · HIGHEST_CONF',meta:'overload knee flagged',dot:'#f5b14e'},
+          {label:'Projection sim_asc_44',meta:'non-canonical · derived',dot:'#46e0b4'}
+        ],
+        contradiction:null,
+        assumptions:[
+          {text:'Focus gains keep transferring above 72 — extrapolated past dense evidence.',basis:'derived · sparse above idx 72',tag:'OPEN',color:'#f5b14e'},
+          {text:'Protected sleep blunts the workload penalty.',basis:'pat_lm_204 · conf 0.81',tag:'STRONG',color:'#46e0b4'},
+          {text:'No compounding fatigue modeled inside the window.',basis:'no multi-week fatigue prior',tag:'OPEN',color:'#f5b14e'}
+        ],
+        sharpen:['Logging energy on high-workload days would test the overload knee directly.','A longer focus history above idx 72 would shrink the largest band here.']
+      },
+      overdrive:{ name:'Overdrive', color:'#ff7a59', tag:'MAX OUTPUT · HIGH RISK', confBase:0.49, ey:120, bandBase:92, projId:'sim_ovr_57', resolver:'HIGHEST_CONF',
+        sustain:[0.41,0.33,0.22], extrap:'far past evidenced range',
+        levers:{sleep:48,focus:92,budget:52,nutrition:50,workload:94,recovery:38,social:40},
+        headline:'Peak short-term output, but pushed far past where your records reach — the widest, least trustworthy bands in the forge.',
+        tradeoffs:[{gain:'Highest peak focus',cost:'Burnout risk runs hot; recovery starved'},{gain:'Fast near-term ground',cost:'Sustain likelihood collapses to 22%'}],
+        reasoning:[
+          'Workload 94 and recovery 38 sit well outside the range your records cover.',
+          'The model must extrapolate hard, so bands balloon and confidence drops.',
+          'A sleep→mood pattern this path leans on is contested in the ledger (see below).',
+          'Confidence 0.49 at 6 weeks — shown because you asked, trusted least.'
+        ],
+        trace:[
+          {label:'Reads · Focus, Workload, Sleep, Recovery',meta:'4 source domains',dot:'#ff7a59'},
+          {label:'Leans on pat_ef_092 (contested)',meta:'band vs self disagree',dot:'#ff6b5e'},
+          {label:'Resolver · HIGHEST_CONF',meta:'extrapolation flag raised',dot:'#ff6b5e'},
+          {label:'Projection sim_ovr_57',meta:'non-canonical · low trust',dot:'#ff7a59'}
+        ],
+        contradiction:{ title:'CONTESTED INPUT · 2 OF 9 NIGHTS', a:{label:'Self-report sleep',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'This path\u2019s wellbeing projection rests partly on a sleep\u2192mood pattern (pat_ef_092) where two sources disagree. The forge preserves the conflict and widens the band rather than picking a side.' },
+        assumptions:[
+          {text:'Output keeps rising at workload 94 — pure extrapolation, no record support.',basis:'derived · 0 records above idx 80',tag:'UNSUPPORTED',color:'#ff6b5e'},
+          {text:'Recovery at 38 does not trigger collapse inside the window.',basis:'no low-recovery records',tag:'UNSUPPORTED',color:'#ff6b5e'},
+          {text:'Wellbeing leans on a contested sleep→mood pattern.',basis:'pat_ef_092 · conf 0.40 · contested',tag:'CONTESTED',color:'#ff7a59'}
+        ],
+        sharpen:['Nothing in the ledger reaches this far — only lived data, not more modeling, can narrow it.','Resolving the pat_ef_092 sleep conflict would steady the wellbeing band.']
+      },
+      recover:{ name:'Recover', color:'#9b8cff', tag:'RESTORE STATE', confBase:0.68, ey:392, bandBase:44, projId:'sim_rec_22', resolver:'HIGHEST_CONF',
+        sustain:[0.69,0.66,0.61], extrap:'within evidenced range',
+        levers:{sleep:82,focus:46,budget:70,nutrition:74,workload:36,recovery:86,social:62},
+        headline:'Drives burnout risk to its floor and rebuilds energy reserve — at the cost of near-term focus output.',
+        tradeoffs:[{gain:'Lowest burnout; energy rebuilds',cost:'Focus capacity dips short-term'},{gain:'Budget drift turns positive (saving)',cost:'Slower visible progress'}],
+        reasoning:[
+          'High sleep, recovery and nutrition with low workload sit inside well-covered ranges.',
+          'Movement→calm (pat_gl_118) and sleep→focus (pat_lm_204) both reinforce the rebound.',
+          'Lower focus lever means near-term capability dips before it recovers.',
+          'Confidence 0.68 at 6 weeks — second best-supported path.'
+        ],
+        trace:[
+          {label:'Reads · Sleep, Recovery, Nutrition, Finances',meta:'4 source domains',dot:'#9b8cff'},
+          {label:'Anchored on pat_gl_118, pat_lm_204',meta:'conf 0.72 · 0.81',dot:'#46e0b4'},
+          {label:'Resolver · HIGHEST_CONF',meta:'no governance override',dot:'#39e0a6'},
+          {label:'Projection sim_rec_22',meta:'non-canonical · derived',dot:'#9b8cff'}
+        ],
+        contradiction:null,
+        assumptions:[
+          {text:'Recovery→energy rebound transfers at the strength in pat_gl_118.',basis:'pat_gl_118 · 11 records · conf 0.72',tag:'STRONG',color:'#46e0b4'},
+          {text:'Lower spending holds — extends the cooling Spendwake trend.',basis:'pat_sw_077 · conf 0.64',tag:'MODERATE',color:'#f5b14e'},
+          {text:'Social uplift assumed mild — backed by only 3 records.',basis:'pat_od_041 · sparse · conf 0.38',tag:'THIN',color:'#ff7a59'}
+        ],
+        sharpen:['A week of focus logging during restore would confirm the dip-then-rebound shape.','More social-contact records would firm up the wellbeing gain.']
+      }
+    };
+    this.PATH_ORDER = ['balanced','ascend','overdrive','recover'];
+    this.LEVERS = [
+      {key:'sleep',label:'Sleep',color:'#9b8cff',note:'pat_lm_204 · conf 0.81'},
+      {key:'focus',label:'Focus',color:'#56b8ff',note:'derived · timer records'},
+      {key:'budget',label:'Budget discipline',color:'#f5b14e',note:'pat_sw_077 · conf 0.64'},
+      {key:'nutrition',label:'Nutrition',color:'#46e0b4',note:'journal · conf 0.55'},
+      {key:'workload',label:'Workload',color:'#ff7a59',note:'calendar · conf 0.88'},
+      {key:'recovery',label:'Recovery',color:'#6fe0c8',note:'pat_gl_118 · conf 0.72'},
+      {key:'social',label:'Social energy',color:'#ff8fc4',note:'pat_od_041 · sparse · 0.38'}
+    ];
+    this.HORIZONS = [
+      {key:'2w',label:'2 weeks',sub:'near term',band:1.0,conf:1.0},
+      {key:'6w',label:'6 weeks',sub:'mid term',band:1.55,conf:0.88},
+      {key:'12w',label:'12 weeks',sub:'far term',band:2.25,conf:0.74}
+    ];
+    this.state = { active:'balanced', horizon:1, tab:'proof', sweep:false, levers:{...this.PATHS.balanced.levers} };
+  }
+
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#06070e', bg1:'rgba(124,90,255,0.18)', bg2:'rgba(40,200,170,0.10)', glow:'rgba(124,90,255,0.30)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#04070e', bg1:'rgba(40,130,210,0.20)', bg2:'rgba(40,210,190,0.10)', glow:'rgba(70,200,255,0.30)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#050a07', bg1:'rgba(70,170,100,0.18)', bg2:'rgba(180,205,90,0.10)', glow:'rgba(95,211,154,0.30)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  clamp(v){ return Math.max(0,Math.min(100,v)); }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.7?'#39e0a6': c>=0.55?'#7fd99a': c>=0.45?'#e8c75a': c>=0.35?'#ff9e57':'#ff6b5e'; }
+  sustainColor(s){ return s>=0.6?'#39e0a6': s>=0.45?'#e8c75a': s>=0.32?'#ff9e57':'#ff6b5e'; }
+
+  isForked(){ const a=this.PATHS[this.state.active].levers, L=this.state.levers; return this.LEVERS.some(lv=>L[lv.key]!==a[lv.key]); }
+
+  computeOutcomes(L, H, forked){
+    const ov=Math.max(0,L.workload-65), fk=forked?0.93:1;
+    const focus=this.clamp(20+0.34*L.focus+0.30*L.sleep+0.16*L.recovery+0.12*L.nutrition-0.5*ov);
+    const energy=this.clamp(18+0.34*L.recovery+0.26*L.sleep+0.18*L.nutrition+0.10*L.social-0.6*ov);
+    const wellbeing=this.clamp(15+0.24*L.sleep+0.20*L.recovery+0.18*L.social+0.16*L.nutrition+0.10*L.focus-0.55*ov);
+    const burnout=this.clamp(8+0.55*ov+0.30*Math.max(0,L.focus-70)-0.22*L.recovery-0.18*L.sleep+0.15*Math.max(0,L.workload-50));
+    const drift=Math.round((55-L.budget)*1.6);
+    const mk=(label,val,baseC,color,hb)=>{ const conf=Math.max(0.18,baseC*H.conf*fk); const half=(1-conf)*30*H.band; return {label,unit:'idx',value:Math.round(val),low:Math.round(this.clamp(val-half)),high:Math.round(this.clamp(val+half)),conf,color,higherBetter:hb,kind:'idx'}; };
+    const outcomes=[
+      mk('Focus capacity',focus,0.78,'#56b8ff',true),
+      mk('Energy reserve',energy,0.70,'#46e0b4',true),
+      mk('Wellbeing',wellbeing,0.52,'#9b8cff',true),
+      mk('Burnout risk',burnout,0.48,'#ff7a59',false)
+    ];
+    const mc=Math.max(0.2,0.66*H.conf*fk), mh=Math.round((1-mc)*40*H.band);
+    outcomes.push({label:'Budget drift',unit:'$/wk',value:drift,low:drift-mh,high:drift+mh,conf:mc,color:'#f5b14e',higherBetter:false,kind:'money'});
+    const composite=this.clamp(0.30*wellbeing+0.28*energy+0.26*focus-0.30*burnout+28);
+    return {outcomes,composite};
+  }
+
+  buildReactor(){
+    const h=React.createElement, t=this.cur(), H=this.HORIZONS[this.state.horizon], L=this.state.levers;
+    const R=[], PX=420, PY=280, EX=852;
+    const showBands=this.props.showBands!==false, guides=this.props.horizonGuides!==false;
+    R.push(h('defs',{key:'d'},
+      h('filter',{id:'fglow',x:'-120%',y:'-120%',width:'340%',height:'340%'},h('feGaussianBlur',{stdDeviation:'3',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'}))),
+      h('filter',{id:'fneb',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'34'})),
+      h('linearGradient',{id:'pgem',x1:'0',y1:'0',x2:'1',y2:'1'},h('stop',{offset:'0%',stopColor:t.accent}),h('stop',{offset:'48%',stopColor:'#ff7aa8'}),h('stop',{offset:'100%',stopColor:t.accent2}))
+    ));
+    R.push(h('circle',{key:'neb',cx:PX-10,cy:PY,r:150,fill:this.hexA(t.accent,0.10),filter:'url(#fneb)'}));
+    if(guides){
+      for(let i=0;i<4;i++){ R.push(h('ellipse',{key:'gr'+i,cx:PX,cy:PY,rx:120+i*160,ry:90+i*108,fill:'none',stroke:'rgba(150,170,220,0.035)',strokeWidth:1})); }
+    }
+    let s=11; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<90;i++){ R.push(h('circle',{key:'fs'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*0.8+0.3).toFixed(2),fill:'#cdd6f5',opacity:(rnd()*0.4+0.1).toFixed(2)})); }
+    // incoming lever beams
+    this.LEVERS.forEach((lv,i)=>{ const y=72+i*64, val=L[lv.key]/100;
+      R.push(h('line',{key:'lb'+i,x1:96,y1:y,x2:PX-44,y2:PY,stroke:this.hexA(lv.color,0.12+val*0.5),strokeWidth:0.8+val*1.8,strokeLinecap:'round'}));
+      R.push(h('circle',{key:'ld'+i,cx:96,cy:y,r:2.5+val*2.2,fill:lv.color,opacity:0.5+val*0.45,filter:'url(#fglow)'}));
+    });
+    R.push(h('line',{key:'beam',x1:PX-44,y1:PY,x2:PX-6,y2:PY,stroke:this.hexA('#ffffff',0.6),strokeWidth:3,strokeDasharray:'5 6',strokeLinecap:'round',style:{animation:'lwBeam 2.4s linear infinite'}}));
+    // prism gem
+    const gem=[[PX-52,PY],[PX-2,PY-58],[PX+30,PY],[PX-2,PY+58]].map(p=>p.join(',')).join(' ');
+    R.push(h('polygon',{key:'gemglow',points:gem,fill:this.hexA(t.accent,0.18),filter:'url(#fglow)'}));
+    R.push(h('polygon',{key:'gem',points:gem,fill:'url(#pgem)',opacity:0.92,stroke:'rgba(255,255,255,0.5)',strokeWidth:1}));
+    R.push(h('line',{key:'gf1',x1:PX-2,y1:PY-58,x2:PX-2,y2:PY+58,stroke:'rgba(255,255,255,0.35)',strokeWidth:0.7}));
+    R.push(h('line',{key:'gf2',x1:PX-52,y1:PY,x2:PX+30,y2:PY,stroke:'rgba(255,255,255,0.3)',strokeWidth:0.7}));
+    R.push(h('circle',{key:'core',cx:PX-8,cy:PY,r:7,fill:'#fff',style:{animation:'lwGlow 2.6s ease-in-out infinite'},filter:'url(#fglow)'}));
+    // horizon guides on output side
+    if(guides){
+      [[620,'2w'],[736,'6w'],[852,'12w']].forEach((g,i)=>{ const on=i===this.state.horizon;
+        R.push(h('line',{key:'hg'+i,x1:g[0],y1:70,x2:g[0],y2:490,stroke:on?'rgba(255,255,255,0.14)':'rgba(255,255,255,0.05)',strokeWidth:1,strokeDasharray:'3 7'}));
+        R.push(h('text',{key:'ht'+i,x:g[0],y:62,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:9,fill:on?'rgba(238,241,251,0.6)':'rgba(238,241,251,0.3)'},'+'+g[1]));
+      });
+    }
+    // refracted paths
+    this.PATH_ORDER.forEach(pk=>{ const p=this.PATHS[pk], on=pk===this.state.active, col=p.color;
+      const bh=p.bandBase*H.band*0.5, ey=p.ey;
+      if(showBands){
+        const cone=[[PX+28,PY],[EX,ey-bh],[EX,ey+bh]].map(q=>q.join(',')).join(' ');
+        R.push(h('polygon',{key:pk+'cone',points:cone,fill:this.hexA(col,on?0.13:0.045)}));
+        R.push(h('line',{key:pk+'cu',x1:PX+28,y1:PY,x2:EX,y2:ey-bh,stroke:this.hexA(col,on?0.5:0.18),strokeWidth:1,strokeDasharray:'4 5'}));
+        R.push(h('line',{key:pk+'cl',x1:PX+28,y1:PY,x2:EX,y2:ey+bh,stroke:this.hexA(col,on?0.5:0.18),strokeWidth:1,strokeDasharray:'4 5'}));
+      }
+      R.push(h('line',{key:pk+'ray',x1:PX+28,y1:PY,x2:EX,y2:ey,stroke:this.hexA(col,on?0.95:0.4),strokeWidth:on?2.4:1.3,strokeLinecap:'round'}));
+      R.push(h('circle',{key:pk+'g',cx:EX,cy:ey,r:on?14:8,fill:this.hexA(col,on?0.22:0.1)}));
+      R.push(h('circle',{key:pk+'n',cx:EX,cy:ey,r:on?6:4,fill:col,opacity:on?1:0.6,filter:on?'url(#fglow)':undefined}));
+      if(on) R.push(h('circle',{key:pk+'pl',cx:EX,cy:ey,r:9,fill:'none',stroke:this.hexA(col,0.7),strokeWidth:1.2,style:{transformOrigin:EX+'px '+ey+'px',animation:'lwPulse 2s ease-in-out infinite'}}));
+      const conf=(p.confBase*H.conf).toFixed(2), sus=Math.round(p.sustain[this.state.horizon]*100);
+      R.push(h('text',{key:pk+'lab',x:EX+16,y:ey-3,fontFamily:'Space Grotesk, sans-serif',fontSize:on?15:12.5,fontWeight:600,fill:on?'rgba(238,241,251,0.96)':'rgba(238,241,251,0.6)'},p.name));
+      R.push(h('text',{key:pk+'sub',x:EX+16,y:ey+11,fontFamily:'IBM Plex Mono, monospace',fontSize:9,fill:this.hexA(col,0.85)},'p '+sus+'% · conf '+conf));
+    });
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  buildCompare(){
+    const h=React.createElement, R=[], W=1000, Ht=120, n=3;
+    const X=i=>70+i*((W-150)/(n-1)), Y=v=>Ht-12-(v/100)*(Ht-30);
+    for(let g=0;g<n;g++){ R.push(h('line',{key:'vg'+g,x1:X(g),y1:8,x2:X(g),y2:Ht-10,stroke:g===this.state.horizon?'rgba(255,255,255,0.14)':'rgba(255,255,255,0.05)',strokeWidth:1,strokeDasharray:'3 6'})); }
+    ['2w','6w','12w'].forEach((lb,i)=>R.push(h('text',{key:'xl'+i,x:X(i),y:Ht-1,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fill:'rgba(238,241,251,0.4)'},lb)));
+    this.PATH_ORDER.forEach(pk=>{ const p=this.PATHS[pk], on=pk===this.state.active, col=p.color;
+      const useL = on ? this.state.levers : p.levers;
+      const base=this.computeOutcomes(useL,this.HORIZONS[0],false).composite;
+      const pts=[0,1,2].map(hi=>{ const comp=this.clamp(base+(p.sustain[hi]-p.sustain[0])*48); return {x:X(hi),y:Y(comp),comp,hi}; });
+      // uncertainty whiskers at each horizon
+      pts.forEach((pt,hi)=>{ const conf=p.confBase*this.HORIZONS[hi].conf, half=(1-conf)*22; 
+        R.push(h('line',{key:pk+'wk'+hi,x1:pt.x,y1:Y(this.clamp(pt.comp-half)),x2:pt.x,y2:Y(this.clamp(pt.comp+half)),stroke:this.hexA(col,on?0.35:0.14),strokeWidth:on?5:3,strokeLinecap:'round'})); });
+      let d='M '+pts[0].x+' '+pts[0].y; for(let i=1;i<pts.length;i++){ d+=' L '+pts[i].x+' '+pts[i].y; }
+      R.push(h('path',{key:pk+'ln',d:d,fill:'none',stroke:this.hexA(col,on?0.95:0.4),strokeWidth:on?2.2:1.3,strokeDasharray:on?null:'5 5',strokeLinecap:'round'}));
+      pts.forEach((pt,hi)=>R.push(h('circle',{key:pk+'pt'+hi,cx:pt.x,cy:pt.y,r:on?3.5:2.4,fill:col,opacity:on?1:0.55})));
+    });
+    return h('svg',{viewBox:'0 0 1000 120',width:'100%',height:'100%',preserveAspectRatio:'none'},R);
+  }
+
+  onLeverDown(key){ return (e)=>{ const rect=e.currentTarget.getBoundingClientRect(); this._drag={key,left:rect.left,width:rect.width}; this._apply(e.clientX); window.addEventListener('mousemove',this._move); window.addEventListener('mouseup',this._up); }; }
+  componentDidMount(){ this._move=(e)=>this._apply(e.clientX); this._up=()=>{ this._drag=null; window.removeEventListener('mousemove',this._move); window.removeEventListener('mouseup',this._up); }; }
+  componentWillUnmount(){ if(this._up) this._up(); }
+  _apply(clientX){ const d=this._drag; if(!d) return; let pct=(clientX-d.left)/d.width; pct=Math.max(0,Math.min(1,pct)); const val=Math.round(pct*100); this.setState(st=>({levers:{...st.levers,[d.key]:val}})); }
+
+  selectPath(k){ this.setState({active:k,levers:{...this.PATHS[k].levers}}); }
+  reset(){ this.setState(st=>({levers:{...this.PATHS[st.active].levers}})); }
+  reforge(){ this.setState({sweep:true}); setTimeout(()=>{ if(this.updater&&this.updater.isMounted&&!this.updater.isMounted(this)) return; this.setState({sweep:false}); },950); }
+
+  renderVals(){
+    const t=this.cur(), H=this.HORIZONS[this.state.horizon], forked=this.isForked(), active=this.state.active, P=this.PATHS[active];
+    const navItems=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Signal Forge']
+      .map(l=>{ const on=l==='Signal Forge'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,255,255,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)',dot:on?'var(--accent)':'rgba(238,241,251,0.35)'}; });
+
+    const presetChips=this.PATH_ORDER.map(pk=>{ const p=this.PATHS[pk], on=pk===active&&!forked;
+      return {label:p.name,color:p.color,onSelect:()=>this.selectPath(pk),
+        bg:on?this.hexA(p.color,0.14):'rgba(255,255,255,0.025)',border:on?this.hexA(p.color,0.5):'rgba(255,255,255,0.09)',txt:on?'rgba(238,241,251,0.96)':'rgba(238,241,251,0.66)'}; });
+
+    const leverRows=this.LEVERS.map(lv=>{ const v=this.state.levers[lv.key];
+      return {label:lv.label,color:lv.color,note:lv.note,value:v,valueLabel:String(v),fillWidth:v+'%',knobLeft:'calc('+v+'% - 6px)',knobRing:this.hexA(lv.color,0.4),onDown:this.onLeverDown(lv.key)}; });
+
+    // selected proof
+    const co=this.computeOutcomes(this.state.levers,H,forked);
+    const outcomes=co.outcomes.map(o=>{ const cc=this.confColor(o.conf);
+      if(o.kind==='money'){ const good=o.value<=0; const c=good?'#39e0a6':'#ff7a59';
+        const center=50, span=Math.min(48,Math.abs(o.value)*0.5+(o.high-o.low)*0.4);
+        return {label:o.label,kind:'money',color:c,bandColor:this.hexA(c,0.22),
+          valueLabel:(o.value>0?'+$':'\u2212$')+Math.abs(o.value)+'/wk',
+          confLabel:o.conf.toFixed(2),confColor:cc,confBg:this.hexA(cc,0.16),
+          bandLeft:(o.value>0?center:center-span/2)+'%',bandWidth:span+'%',centerLeft:center+'%',
+          rangeLabel:'$'+o.low+' to $'+o.high+'/wk',dirLabel:good?'saving':'overspend'}; }
+      const cc2=this.confColor(o.conf);
+      return {label:o.label,kind:'idx',color:o.color,bandColor:this.hexA(o.color,0.22),
+        valueLabel:o.value+' idx',confLabel:o.conf.toFixed(2),confColor:cc2,confBg:this.hexA(cc2,0.16),
+        bandLeft:o.low+'%',bandWidth:Math.max(2,o.high-o.low)+'%',centerLeft:o.value+'%',
+        rangeLabel:o.low+'\u2013'+o.high+' idx',dirLabel:o.higherBetter?'higher is better':'lower is better'}; });
+
+    const modelConf=P.confBase*H.conf*(forked?0.93:1);
+    const sustain=P.sustain[this.state.horizon];
+    const recordCounts={balanced:25,ascend:23,overdrive:18,recover:22};
+    const sel={ name:P.name, color:P.color, tag:P.tag, headline:P.headline, projId:P.projId, resolver:P.resolver,
+      recordCount:recordCounts[active], forkLabel:forked?'custom fork':'preset',
+      headerBg:this.hexA(P.color,0.07), softBorder:this.hexA(P.color,0.26),
+      modelConfLabel:modelConf.toFixed(2), modelConfColor:this.confColor(modelConf),
+      sustainLabel:Math.round(sustain*100)+'%', sustainColor:this.sustainColor(sustain),
+      outcomes, tradeoffs:P.tradeoffs, trace:P.trace, reasoning:P.reasoning, contradiction:P.contradiction,
+      extrapLabel:P.extrap, extrapColor:active==='overdrive'?'#ff6b5e':active==='ascend'?'#f5b14e':'#7fd99a',
+      assumptions:P.assumptions.map(a=>({...a,tagBg:this.hexA(a.color,0.14),tagColor:a.color})), sharpen:P.sharpen,
+      canonicalNote:'A derived projection over '+recordCounts[active]+' canonical records. It reads the ledger and writes nothing — the four paths are readings of evidence, not facts about the future.' };
+
+    const pathCards=this.PATH_ORDER.map(pk=>{ const p=this.PATHS[pk], on=pk===active;
+      const useL=on?this.state.levers:p.levers; const mc=p.confBase*H.conf*(on&&forked?0.93:1); const sus=p.sustain[this.state.horizon];
+      return {name:p.name,color:p.color,headline:p.headline,onSelect:()=>this.selectPath(pk),
+        confLabel:mc.toFixed(2),confColor:this.confColor(mc),confBg:this.hexA(this.confColor(mc),0.16),
+        sustainLabel:Math.round(sus*100)+'%',sustainPct:Math.round(sus*100)+'%',sustainColor:this.sustainColor(sus),
+        cardBg:on?this.hexA(p.color,0.08):'rgba(255,255,255,0.025)',cardBorder:on?this.hexA(p.color,0.45):'rgba(255,255,255,0.08)'}; });
+
+    const horizonBtns=this.HORIZONS.map((hz,i)=>{ const on=i===this.state.horizon;
+      return {label:hz.label.replace(' weeks','w').replace(' week','w'),sub:hz.sub,onSelect:()=>this.setState({horizon:i}),
+        bg:on?this.hexA(t.accent,0.16):'rgba(255,255,255,0.025)',border:on?this.hexA(t.accent,0.5):'rgba(255,255,255,0.09)',
+        txt:on?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)',subColor:on?this.hexA(t.accent,0.9):'rgba(238,241,251,0.4)'}; });
+
+    const compareLegend=this.PATH_ORDER.map(pk=>({label:this.PATHS[pk].name,color:this.PATHS[pk].color}));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      modelConfLabel:modelConf.toFixed(2), modelConfColor:this.confColor(modelConf),
+      navItems, presetChips, leverRows, pathCards, horizonBtns, compareLegend,
+      forked, forkedFrom:'from '+P.name, horizonLabel:H.label, runRecordCount:recordCounts[active],
+      reactorSvg:this.buildReactor(), compareSvg:this.buildCompare(), sweep:this.state.sweep,
+      onReset:()=>this.reset(), onReforge:()=>this.reforge(),
+      tab:this.state.tab, tabProof:this.state.tab==='proof', tabAssume:this.state.tab==='assume',
+      onTabProof:()=>this.setState({tab:'proof'}), onTabAssume:()=>this.setState({tab:'assume'}),
+      tabProofColor:this.state.tab==='proof'?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.45)',
+      tabAssumeColor:this.state.tab==='assume'?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.45)',
+      tabProofBar:this.state.tab==='proof'?'inset 0 -2px 0 var(--accent)':'none',
+      tabAssumeBar:this.state.tab==='assume'?'inset 0 -2px 0 var(--accent)':'none',
+      sel
+    };
+  }
+}
+</script>
+</body>
+</html>

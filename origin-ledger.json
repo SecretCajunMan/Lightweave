@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "title": "Origin Ledger — the Lightweave build logs, projected",
+    "note": "Built by running the 2026-01-17 → 2026-01-30 build logs back through the converter as if Lightweave ran then. Build, creative, and system events are projected openly. A few personal records are modeled only as Iris-SEALED demonstrations — their existence and governance are shown, their contents were never included in this file. Nothing here was written to canon. Records edited: 0.",
+    "window": "2026-01-17 → 2026-01-30",
+    "importedAs": "origin-ledger"
+  },
+  "records": [
+    {
+      "id": "rec_goldfish_117", "kind": "insight",
+      "subject": "The AI goldfish effect — one ledger, or nothing sticks",
+      "value": "Founding insight (2026-01-17)", "confidence": 0.86, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-17",
+      "sources": [{ "kind": "DOC", "name": "Build log — Mic Check (01-17)", "integrity": 0.85 }, { "kind": "HUM", "name": "Operator reflection", "integrity": 0.8 }],
+      "reasoning": ["Output from earlier chats vanished; context did not carry between sessions.", "Diagnosis: scattered chats with no shared anchor = an AI goldfish.", "Resolution that seeded everything: one master ledger, encoded receipts both sides can point back to."],
+      "truthMode": "OBS", "resolver": "LATEST", "recordsUsed": 4, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-OBS-DEG", "intent_vector": "KNO-AUD-SYS-DEV", "born": "the need for receipts" }
+    },
+    {
+      "id": "rec_appendonly_121", "kind": "insight",
+      "subject": "Append-only law, born from a pop quiz",
+      "value": "No silent edits — ever", "confidence": 0.9, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-21",
+      "sources": [{ "kind": "DOC", "name": "Build log — So You Created a Ledger (01-21)", "integrity": 0.85 }],
+      "reasoning": ["A note was quietly scrubbed from the ledger to fool an audit — a deliberate test.", "Watching a record get quietly rewritten is exactly the failure the system must forbid.", "Became a Core Law: rooms read; they never silently write. Corrections append, never overwrite."],
+      "contradiction": { "a": { "label": "What the test did", "val": "scrubbed a note", "conf": "the exploit", "color": "#ff9e57" }, "b": { "label": "The law it forced", "val": "append-only", "conf": "the fix", "color": "#34e1b4" }, "note": "The exploit wrote the rule. The prettier, edited version never gets to win — the original always survives." },
+      "truthMode": "DRV", "resolver": "HIGHEST_CONF", "recordsUsed": 3, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-MOD-OPT", "intent_vector": "SOV-AUD-POL-RUN", "core_law": "Append-Only" }
+    },
+    {
+      "id": "rec_intent_121", "kind": "insight",
+      "subject": "Intent model fits the data",
+      "value": "Push/pull · cognitive·spiritual·physical → intent_vector", "confidence": 0.74, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-21",
+      "sources": [{ "kind": "DOC", "name": "Build log — Ledger design (01-21)", "integrity": 0.82 }],
+      "reasoning": ["Realms of intent (cognitive / spiritual / physical) mapped cleanly onto records being gathered.", "Same model that serves personal logs also answers work questions without the lookups.", "Became the STRATEGY-OPERATION-CATEGORY-STATUS intent vector."],
+      "truthMode": "INF", "resolver": "HIGHEST_CONF", "recordsUsed": 5, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "COG-MOD-OPT", "intent_vector": "KNO-ENR-POL-DEV", "lineage": "intent realms" }
+    },
+    {
+      "id": "rec_fardomain_129", "kind": "insight",
+      "subject": "Domain-general intake proven (far-domain test)",
+      "value": "Game-inventory data ingested clean", "confidence": 0.71, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-29",
+      "sources": [{ "kind": "DOC", "name": "Build log — Far-domain intake (01-29)", "integrity": 0.8 }],
+      "reasoning": ["Ran the converter on a game's collecting/inventory data — a domain far from health.", "It encoded and sorted without special-casing — the intake grammar generalizes.", "Evidence the ledger is not a diet tracker wearing a costume."],
+      "truthMode": "OBS", "resolver": "LATEST", "recordsUsed": 2, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-INP-NRM", "intent_vector": "SKL-IMP-SYS-RUN", "domain_tested": "collecting" }
+    },
+    {
+      "id": "rec_grammar_125", "kind": "score",
+      "subject": "Encoded-truth grammar (DAQ)",
+      "value": "Adopted · 144 DAQ combinations", "confidence": 0.8, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-21 → 2026-01-27",
+      "sources": [{ "kind": "DOC", "name": "Build logs — Raw Tags (01-25, 01-27)", "integrity": 0.84 }, { "kind": "DOC", "name": "LW_CORE_CONTRACT_v1_5", "integrity": 0.9 }],
+      "reasoning": ["Truths get printed back encoded so human and bot anchor to the same structure.", "An earlier acronym collided with a well-known one; renamed DAQ (Domain-Action-Quality), values unchanged.", "Confidence carries the calibration rule: fluency is never evidence."],
+      "truthMode": "IMP", "resolver": "LATEST_VERIFIED", "recordsUsed": 9, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-MOD-NRM", "intent_vector": "KNO-CMT-POL-RUN", "axes": "Domain·Action·Quality" }
+    },
+    {
+      "id": "rec_inventory_121", "kind": "score",
+      "subject": "Master sheets stood up",
+      "value": "Life · Fleet · Home Inventory · Pantry", "confidence": 0.82, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-17 → 2026-01-21",
+      "sources": [{ "kind": "DOC", "name": "Build log — Inventory I (01-21)", "integrity": 0.83 }],
+      "reasoning": ["Life, Fleet, Home-Inventory and Pantry master sheets provisioned.", "Receipts feed cost records; pantry removals keep inventory true.", "The skeleton every later projection reads from."],
+      "truthMode": "IMP", "resolver": "DELTA_SUM", "recordsUsed": 12, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "RES-MNT-NRM", "intent_vector": "MGT-SAV-SYS-RUN", "masters": 4 }
+    },
+    {
+      "id": "rec_timestamps_121", "kind": "score",
+      "subject": "Bi-temporal timestamps adopted",
+      "value": "time_event vs time_entry separated", "confidence": 0.78, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-21",
+      "sources": [{ "kind": "DOC", "name": "Build log — Meet the Timestamps (01-21)", "integrity": 0.82 }],
+      "reasoning": ["When a thing happened vs when it was logged must not be the same field.", "Late-arriving events re-project by event time, not entry time.", "Became a Core Law: bi-temporal."],
+      "truthMode": "IMP", "resolver": "LATEST", "recordsUsed": 3, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-MOD-NRM", "intent_vector": "KNO-CMT-CAL-RUN", "core_law": "Bi-Temporal" }
+    },
+    {
+      "id": "rec_gems_123", "kind": "bloom",
+      "subject": "The Gems — projection packages take shape",
+      "value": "LIFE·LORE·OATH·PATTERN·PRISM·PULSE·SPARK", "confidence": 0.79, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-23",
+      "sources": [{ "kind": "DOC", "name": "Build log — Ain't She a Gem (01-23)", "integrity": 0.83 }, { "kind": "DOC", "name": "LW_PACKAGE_GEM_PRISM_v1_1", "integrity": 0.9 }],
+      "reasoning": ["One ledger, many cut faces — each Gem a packaged way to read it.", "PRISM is the direct ancestor of tonight's flagship room.", "Lenses change the cut; the stone underneath does not."],
+      "truthMode": "IMP", "resolver": "LATEST", "recordsUsed": 7, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "CREATIVE", "daq": "DIG-OUT-OPT", "intent_vector": "CRE-EXP-SYS-DEV", "gems": 7, "descendant": "Prism room" }
+    },
+    {
+      "id": "rec_habit_121", "kind": "bloom",
+      "subject": "Habits leave the to-do list, become history",
+      "value": "Daily routines → habit log", "confidence": 0.8, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-21",
+      "sources": [{ "kind": "DOC", "name": "Build log — Habits (01-21)", "integrity": 0.82 }],
+      "reasoning": ["A checklist tells you what you ought to do; a log tells you what you did.", "Recurring routines moved out of a task app and into tracked habits.", "Care, not compliance — the bench never shames an empty evening."],
+      "truthMode": "OBS", "resolver": "DELTA_SUM", "recordsUsed": 6, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "HOME", "daq": "COG-MOD-NRM", "intent_vector": "GRW-MOD-SYS-RUN", "moved_from": "a task app" }
+    },
+    {
+      "id": "rec_lightweave_tonight", "kind": "reward",
+      "subject": "Master ledger → Lightweave, compiled into a site",
+      "value": "41 rooms, one navigable build", "confidence": 0.95, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "tonight",
+      "sources": [{ "kind": "DOC", "name": "Build session — Lightweave compile", "integrity": 0.92 }, { "kind": "SYS", "name": "Site integrity check", "integrity": 0.95 }],
+      "reasoning": ["The build logs' master-ledger idea became 41 linked projection rooms.", "Released only on attested completion: integrity check passed, every link resolves.", "This very record is part of that run — the journey looking at itself."],
+      "truthMode": "OBS", "resolver": "HIGHEST_CONF", "recordsUsed": 41, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "CREATIVE", "daq": "DIG-OUT-OPT", "intent_vector": "CRE-CMT-SYS-RUN", "rooms": 41, "links_broken": 0 }
+    },
+    {
+      "id": "rec_personas_120", "kind": "reward",
+      "subject": "Personas as a working crew",
+      "value": "Scout · Auditor · Steward", "confidence": 0.83, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-20 → 2026-01-21",
+      "sources": [{ "kind": "DOC", "name": "Build logs — Persona stuff (01-20, 01-21)", "integrity": 0.84 }],
+      "reasoning": ["The Scout captures (chaos, fast), the Auditor checks (meticulous), the Steward keeps (calm).", "Capture / audit / steward — the three jobs a trustworthy ledger needs.", "A skin over the same canon; the crew never changes a confidence or a fact."],
+      "truthMode": "OBS", "resolver": "LATEST", "recordsUsed": 5, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "COG-OUT-NRM", "intent_vector": "CRE-ASN-ENT-RUN", "roles": "capture·audit·steward" }
+    },
+    {
+      "id": "rec_naming_117", "kind": "thread",
+      "subject": "Naming lineage kept on purpose",
+      "value": "A noir naming play → the system's voice", "confidence": 0.7, "lifecycle": "Confirmed", "visibility": "public",
+      "window": "2026-01-17",
+      "sources": [{ "kind": "DOC", "name": "Build log — Mic Check (01-17)", "integrity": 0.8 }],
+      "reasoning": ["Two voices — one arcane, one the clerk you dictate to — both fit at different meta levels.", "The naming play is part of the system's character, kept on purpose.", "A thread, not a fact — tone, never truth."],
+      "truthMode": "OBS", "resolver": "LATEST", "recordsUsed": 1, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "CREATIVE", "daq": "COG-OUT-NRM", "intent_vector": "RND-ENR-ENT-ARC", "ref": "noir naming" }
+    },
+    {
+      "id": "rec_selfhost_121", "kind": "thread",
+      "subject": "Sovereign storage — off the cloud",
+      "value": "Self-hosted · encrypted · append-only", "confidence": 0.76, "lifecycle": "Watching", "visibility": "public",
+      "window": "2026-01-21 →",
+      "sources": [{ "kind": "DOC", "name": "Build log — Ledger design (01-21)", "integrity": 0.82 }],
+      "reasoning": ["The master logs must stay local, heavily encrypted — encryption tight enough to actually trust.", "Tell the bot everything; keep the canon yours.", "Still a direction, not a finished build — held as Watching."],
+      "truthMode": "RPT", "resolver": "LATEST", "recordsUsed": 2, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-MNT-NRM", "intent_vector": "SOV-SAV-NET-DEV", "posture": "local-first" }
+    },
+    {
+      "id": "rec_context_limit", "kind": "storm",
+      "subject": "Context-limit uncertainty",
+      "value": "How many tags can it hold?", "confidence": 0.52, "lifecycle": "Watching", "visibility": "public",
+      "window": "2026-01-17 → 2026-01-30",
+      "sources": [{ "kind": "DOC", "name": "Build logs — recurring (01-17 → 01-30)", "integrity": 0.78 }],
+      "reasoning": ["Recurring worry: unsure how much to sort over time, or how many tags it can process.", "Volume grew fast — six hours produced a year's worth of rows if extrapolated.", "Unresolved by design — surfaced as Watching rather than pretended solved."],
+      "truthMode": "OBS", "resolver": "LATEST", "recordsUsed": 6, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-OBS-DEG", "intent_vector": "MGT-MON-SYS-PND", "status": "open question" }
+    },
+    {
+      "id": "rec_voice_117", "kind": "storm",
+      "subject": "Voice-input friction",
+      "value": "Dropouts · noise in the background", "confidence": 0.58, "lifecycle": "Watching", "visibility": "public",
+      "window": "2026-01-17",
+      "sources": [{ "kind": "DOC", "name": "Build log — Mic Check (01-17)", "integrity": 0.79 }],
+      "reasoning": ["Voice chat was rough — pauses to collect thoughts got cut off; background noise dropped input.", "Logged honestly as a degraded channel, not hidden.", "Minor, low-stakes — Watching."],
+      "truthMode": "OBS", "resolver": "LATEST", "recordsUsed": 1, "schema": "contract_v1.5",
+      "fields": { "domain_mode": "PROJECTS", "daq": "DIG-OBS-DEG", "intent_vector": "RND-MON-SYS-RUN", "channel": "voice" }
+    },
+    {
+      "id": "rec_sealed_personal", "kind": "score",
+      "subject": "A sealed personal record",
+      "value": "— sealed —", "confidence": 0.7, "lifecycle": "Confirmed", "visibility": "sealed",
+      "window": "2026-01-17 → 2026-01-30",
+      "sources": [{ "kind": "HUM", "name": "Operator self-report", "integrity": 0.6 }],
+      "reasoning": ["A personal record exists in this window.", "Sealed by an Iris policy at the operator's request — the projection shows that it exists, never its contents.", "Governance: SENSITIVE / SELF / LONG."],
+      "truthMode": "RPT", "resolver": "LATEST_VERIFIED", "recordsUsed": 0, "schema": "contract_v1.5",
+      "fields": { "visibility": "sealed by Iris", "content": "withheld", "governance": "SENSITIVE · SELF · LONG", "basis": "operator request" }
+    },
+    {
+      "id": "rec_sealed_channel", "kind": "storm",
+      "subject": "A sealed private channel",
+      "value": "— sealed —", "confidence": 0.55, "lifecycle": "Watching", "visibility": "sealed",
+      "window": "2026-01-17 →",
+      "sources": [{ "kind": "HUM", "name": "Operator self-report", "integrity": 0.55 }],
+      "reasoning": ["A private channel for watching a trend with care, not judgement.", "Sealed RESTRICTED — existence and intent shown; nothing about the contents leaves the instance.", "Kept because trend-watching matters; sealed because it is no one else's business."],
+      "truthMode": "RPT", "resolver": "LATEST", "recordsUsed": 0, "schema": "contract_v1.5",
+      "fields": { "visibility": "sealed by Iris", "content": "withheld", "governance": "RESTRICTED · SELF · LONG", "basis": "operator request" }
+    },
+    {
+      "id": "rec_sealed_unresolved", "kind": "storm",
+      "subject": "A sealed, unresolved record",
+      "value": "— sealed —", "confidence": 0.5, "lifecycle": "Contested", "visibility": "sealed",
+      "window": "2026-01-17 → 2026-01-30",
+      "sources": [{ "kind": "HUM", "name": "Operator", "integrity": 0.55 }],
+      "reasoning": ["A record whose readings conflict, kept rather than resolved.", "Held as Contested — the ledger preserves the conflict instead of picking a side.", "Sealed: the projection acknowledges the weight without exposing a word of it."],
+      "contradiction": { "a": { "label": "one reading", "val": "sealed", "conf": "withheld", "color": "#7fb0ff" }, "b": { "label": "another reading", "val": "sealed", "conf": "withheld", "color": "#ff6b5e" }, "note": "Both are kept. The ledger does not pick the kinder version — it keeps the real one, and it keeps it private." },
+      "truthMode": "RPT", "resolver": "MANUAL", "recordsUsed": 0, "schema": "contract_v1.5",
+      "fields": { "visibility": "sealed by Iris", "content": "withheld", "governance": "RESTRICTED · SELF · PERMANENT", "basis": "operator request" }
+    }
+  ]
+}

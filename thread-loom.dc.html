@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#07080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwKnot{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes lwSnag{0%,100%{opacity:.5}50%{opacity:1}}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(255,255,255,0.16);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 10px var(--accent)}
+</style>
+</helmet>
+<div data-screen-label="Thread Loom" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --pad:{{ pad }}; --glow:{{ glow }}; background:radial-gradient(1200px 640px at 40% -16%, var(--bg1), transparent 60%), radial-gradient(980px 720px at 104% 124%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Thread Loom</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 7 · relationship weave</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>read-only projection</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">42 threads · 12 knots</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>ledger synced</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">WEAVE · Tue Jun 16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="thread-loom"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:14px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:11px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">STRONGEST RESONANCE</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:#9b8cff;">Sleep → Mood</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">0.74 · 7 of 9 nights</div></div>
+        <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">KNOT DENSITY</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600;">3.5 <span style="font-size:10px; color:rgba(238,241,251,0.45); font-weight:400;">threads/knot</span></div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">Mood is the densest hub</div></div>
+        <div><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">DISTORTION SNAGS</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:#ff6b5e;">3</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">1 contradiction · 2 weak</div></div>
+        <div style="flex:1;"></div>
+        <div style="display:flex; align-items:center; gap:9px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:11px; padding:9px 13px;">
+          <div style="position:relative; width:38px; height:38px; border-radius:50%; --c:{{ healthRing }}; background:conic-gradient(var(--accent) var(--c), rgba(255,255,255,0.08) 0); display:flex; align-items:center; justify-content:center;"><div style="width:28px; height:28px; border-radius:50%; background:#0a0c14; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;">{{ healthScore }}</span></div></div>
+          <div style="line-height:1.2;"><div style="font-size:9px; color:rgba(238,241,251,0.4);">THREAD HEALTH</div><div style="font-size:11px; color:{{ healthColor }};">{{ healthLabel }}</div><div style="font-size:8.5px; color:rgba(238,241,251,0.38);">some frayed threads</div></div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(60% 70% at 52% 52%, rgba(155,140,255,0.08), transparent 60%), linear-gradient(180deg, #0b1020, #0a0e1c 60%, #0c1124);">
+          <div style="position:absolute; inset:0;">{{ loomSvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,241,251,0.7);">The loom</span>
+            <span style="font-size:10px; color:rgba(238,241,251,0.4);">threads colored by family · knots are recurring relationships · snags are distortions</span>
+          </div>
+          <!-- node labels -->
+          <sc-for list="{{ loomNodes }}" as="nd" hint-placeholder-count="12">
+            <div onClick="{{ nd.onSelect }}" style="position:absolute; left:{{ nd.leftPct }}; top:{{ nd.topPct }}; transform:translate(-50%,-50%); cursor:pointer; z-index:{{ nd.z }}; display:flex; align-items:center; gap:6px; padding:4px 9px 4px 7px; border-radius:14px; background:{{ nd.bg }}; border:1px solid {{ nd.border }}; box-shadow:{{ nd.shadow }}; backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);">
+              <span style="width:{{ nd.dotSize }}; height:{{ nd.dotSize }}; flex:0 0 auto; border-radius:50%; background:{{ nd.color }}; box-shadow:0 0 8px {{ nd.color }};"></span>
+              <span style="font-size:11px; font-weight:{{ nd.weight }}; white-space:nowrap; color:{{ nd.txt }};">{{ nd.name }}</span>
+              <sc-if value="{{ nd.isKnot }}" hint-placeholder-val="{{ false }}"><span style="font-size:7.5px; font-family:'IBM Plex Mono',monospace; color:rgba(238,241,251,0.45);">{{ nd.deg }}×</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="flex:0 0 248px; display:flex; flex-direction:column; gap:10px; min-height:0;">
+          <div style="flex:1; min-height:0; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 13px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px; flex:0 0 auto;"><svg width="13" height="13" viewBox="0 0 14 14"><path d="M2 11 q5 -9 10 -2 M2 8 q5 -7 10 0" fill="none" stroke="var(--accent2)" stroke-width="1.2"></path></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:500;">Strongest resonances</span></div>
+            <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+              <sc-for list="{{ resonances }}" as="rz" hint-placeholder-count="5">
+                <div onClick="{{ rz.onSelect }}" style="cursor:pointer; padding:9px 10px; border-radius:10px; background:{{ rz.rowBg }}; border:1px solid {{ rz.rowBorder }}; border-left:2px solid {{ rz.color }};">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+                    <span style="font-size:11.5px; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ rz.pair }}</span>
+                    <sc-if value="{{ rz.snag }}" hint-placeholder-val="{{ false }}"><span style="width:6px; height:6px; border-radius:50%; background:#ff6b5e;"></span></sc-if>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <div style="flex:1; height:4px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ rz.strengthPct }}; background:{{ rz.color }};"></div></div>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:{{ rz.confColor }};">{{ rz.conf }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="flex:0 0 auto; background:rgba(255,255,255,0.025); border:1px solid rgba(255,107,94,0.22); border-radius:14px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e; box-shadow:0 0 8px #ff6b5e;"></span><span style="font-size:11.5px; font-weight:600; letter-spacing:0.04em;">Distortion snags</span></div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <sc-for list="{{ snags }}" as="sg" hint-placeholder-count="3">
+                <div onClick="{{ sg.onSelect }}" style="cursor:pointer;">
+                  <div style="display:flex; align-items:center; gap:7px; margin-bottom:2px;"><span style="width:6px; height:6px; border-radius:50%; background:{{ sg.color }};"></span><span style="font-size:11px; font-weight:500; color:{{ sg.color }};">{{ sg.kind }}</span></div>
+                  <div style="font-size:10.5px; color:rgba(238,241,251,0.6); line-height:1.4; padding-left:13px;">{{ sg.detail }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ selected.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 16 16"><circle cx="4" cy="8" r="2.2" fill="none" stroke="var(--accent)" stroke-width="1.2"></circle><circle cx="12" cy="8" r="2.2" fill="none" stroke="var(--accent)" stroke-width="1.2"></circle><path d="M6 8 q2 -3 4 0 q-2 3 -4 0 z" fill="none" stroke="var(--accent)" stroke-width="1.1"></path></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;">Connection proof</span>
+        </div>
+        <div style="font-size:15px; font-weight:600; color:rgba(238,241,251,0.95); margin-top:10px; line-height:1.3;">{{ selected.headline }}</div>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:7px;">
+          <span style="font-size:9px; font-weight:600; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ selected.typeBg }}; color:{{ selected.typeColor }};">{{ selected.relType }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.45);">{{ selected.records }} records · {{ selected.window }}</span>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:16px;">
+
+        <div style="display:flex; align-items:center; gap:10px; background:{{ selected.headerBg }}; border:1px solid {{ selected.softBorder }}; border-radius:11px; padding:10px 13px;">
+          <span style="font-size:11.5px; font-weight:600; color:{{ selected.fromColor }};">{{ selected.fromName }}</span>
+          <div style="flex:1; position:relative; height:14px;"><div style="position:absolute; top:50%; left:0; right:0; height:2px; background:linear-gradient(90deg,{{ selected.fromColor }},{{ selected.toColor }});"></div><span style="position:absolute; right:-2px; top:1px; color:{{ selected.toColor }}; font-size:11px;">▶</span></div>
+          <span style="font-size:11.5px; font-weight:600; color:{{ selected.toColor }};">{{ selected.toName }}</span>
+        </div>
+
+        <div style="background:rgba(155,140,255,0.06); border:1px solid rgba(155,140,255,0.22); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:13px; line-height:1.55; color:rgba(238,241,251,0.9);">{{ selected.meaning }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:10px;">
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">connection confidence</span>
+            <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ selected.confPct }}; background:{{ selected.confColor }}; box-shadow:0 0 8px {{ selected.confColor }};"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ selected.confColor }};">{{ selected.confLabel }}</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">WHAT KNOTS THIS THREAD</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.build }}" as="b" hint-placeholder-count="5">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="flex:0 0 116px; font-size:11px; color:rgba(238,241,251,0.6);">{{ b.label }}</span>
+                <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ b.widthPct }}; background:{{ b.color }}; box-shadow:0 0 8px {{ b.color }};"></div></div>
+                <span style="flex:0 0 auto; min-width:30px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ b.color }};">{{ b.valLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE TRACE · {{ selected.sourceCount }} BACKING</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ selected.sources }}" as="src" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.07); border-radius:9px;">
+                <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ src.color }}; box-shadow:0 0 7px {{ src.color }};"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.label }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">{{ src.role }}</div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.55);">{{ src.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.reasoning }}" as="step" hint-placeholder-count="4">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:12px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ selected.contradiction }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <span style="width:8px; height:8px; border-radius:2px; background:#ff6b5e;"></span>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ selected.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ selected.contradiction.a.color }};">{{ selected.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ selected.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:{{ selected.contradiction.b.color }};">{{ selected.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">{{ selected.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">{{ selected.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">RELATED RECORDS</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <sc-for list="{{ selected.records_list }}" as="rec" hint-placeholder-count="3">
+              <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; font-family:'IBM Plex Mono',monospace; padding:5px 9px; border-radius:7px; background:rgba(86,184,255,0.07); border:1px solid rgba(86,184,255,0.2); color:rgba(238,241,251,0.78);"><span style="width:5px; height:5px; border-radius:50%; background:#56b8ff;"></span>{{ rec }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL LINEAGE</div>
+          <div style="display:flex; flex-direction:column; gap:0;">
+            <sc-for list="{{ selected.lineage }}" as="lg" hint-placeholder-count="4">
+              <div style="display:flex; gap:10px;">
+                <div style="flex:0 0 auto; display:flex; flex-direction:column; align-items:center;"><span style="width:10px; height:10px; border-radius:3px; background:{{ lg.color }}; box-shadow:0 0 7px {{ lg.color }};"></span><span style="width:1px; flex:1; background:rgba(255,255,255,0.12); min-height:{{ lg.lineH }};"></span></div>
+                <div style="padding-bottom:10px;"><div style="font-size:11.5px; font-weight:500;">{{ lg.label }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,241,251,0.42); margin-top:1px;">{{ lg.meta }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; gap:7px; margin-top:6px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open {{ selected.records }} records</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Boring view</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 96px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Canonical lineage · records behind the selected thread</span>
+      <span style="font-size:10px; color:rgba(238,241,251,0.38);">raw logs → derived correlation → woven thread</span>
+      <div style="flex:1;"></div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#2fe0a8;"></span>sleep</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#9b8cff;"></span>mood</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff6b5e;"></span>disputed</span>
+    </div>
+    <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(47,224,168,0.05), rgba(155,140,255,0.06)); border:1px solid rgba(255,255,255,0.07);">
+      <div style="position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(255,255,255,0.09);"></div>
+      <sc-for list="{{ lineageTrace }}" as="t" hint-placeholder-count="6">
+        <div style="position:absolute; left:{{ t.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; width:110px;">
+          <div style="font-size:9px; color:rgba(238,241,251,0.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px; text-align:center; margin-bottom:3px;">{{ t.subj }}</div>
+          <div style="width:10px; height:10px; border-radius:50%; background:{{ t.color }}; box-shadow:0 0 9px {{ t.color }}; border:2px solid {{ t.ringColor }};"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ t.meta }}</div>
+        </div>
+      </sc-for>
+      <span style="position:absolute; right:8px; bottom:4px; font-size:8.5px; color:rgba(238,241,251,0.3); font-family:'IBM Plex Mono',monospace;">woven</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { selectedEdge:'sleep_mood', families:{health:true,mood:true,people:true,projects:true,obligations:true,habits:true} };
+    this.NODES=[
+      {id:'sleep',name:'Sleep',x:250,y:140,fam:'health',primary:'sleep_mood'},
+      {id:'mood',name:'Mood',x:500,y:226,fam:'mood',primary:'sleep_mood'},
+      {id:'caffeine',name:'Caffeine',x:165,y:300,fam:'health',primary:'caffeine_sleep'},
+      {id:'workout',name:'Workout',x:350,y:368,fam:'health',primary:'workout_mood'},
+      {id:'focus',name:'Focus',x:445,y:92,fam:'mood',primary:'sleep_mood'},
+      {id:'screen',name:'Screen time',x:135,y:200,fam:'habits',primary:'screen_sleep'},
+      {id:'evening',name:'Evening routine',x:300,y:262,fam:'habits',primary:'screen_sleep'},
+      {id:'drpatel',name:'Dr. Patel',x:725,y:120,fam:'people',primary:'lab_drpatel'},
+      {id:'lab',name:'Lab results',x:612,y:178,fam:'health',primary:'lab_drpatel'},
+      {id:'aurora',name:'Project Aurora',x:782,y:300,fam:'projects',primary:'deadline_mood'},
+      {id:'deadline',name:'Deadline Fri',x:650,y:362,fam:'obligations',primary:'deadline_mood'},
+      {id:'bills',name:'Bills',x:858,y:212,fam:'projects',primary:'deadline_mood'}
+    ];
+    this.EDGES=[
+      {from:'sleep',to:'mood',family:'health',strength:0.9,snag:true,selectable:true,id:'sleep_mood',curve:-30},
+      {from:'caffeine',to:'sleep',family:'health',strength:0.7,selectable:true,id:'caffeine_sleep',curve:22},
+      {from:'screen',to:'sleep',family:'habits',strength:0.55,snag:true,selectable:true,id:'screen_sleep',curve:-18},
+      {from:'sleep',to:'focus',family:'health',strength:0.6,curve:16},
+      {from:'workout',to:'mood',family:'health',strength:0.65,selectable:true,id:'workout_mood',curve:24},
+      {from:'evening',to:'mood',family:'habits',strength:0.5,curve:-14},
+      {from:'evening',to:'sleep',family:'habits',strength:0.45,curve:18},
+      {from:'mood',to:'deadline',family:'obligations',strength:0.6,snag:true,selectable:true,id:'deadline_mood',curve:30},
+      {from:'deadline',to:'aurora',family:'projects',strength:0.7,curve:16},
+      {from:'lab',to:'drpatel',family:'people',strength:0.6,curve:-16},
+      {from:'lab',to:'sleep',family:'health',strength:0.4,curve:20},
+      {from:'mood',to:'focus',family:'mood',strength:0.55,curve:-20},
+      {from:'bills',to:'aurora',family:'projects',strength:0.35,curve:14}
+    ];
+    const deg={}; this.EDGES.forEach(e=>{ deg[e.from]=(deg[e.from]||0)+1; deg[e.to]=(deg[e.to]||0)+1; }); this.deg=deg;
+  }
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#07080f', bg1:'rgba(124,90,255,0.20)', bg2:'rgba(40,200,170,0.12)', glow:'rgba(124,90,255,0.30)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#05080f', bg1:'rgba(40,130,210,0.22)', bg2:'rgba(40,210,190,0.12)', glow:'rgba(70,200,255,0.30)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#060a07', bg1:'rgba(70,170,100,0.20)', bg2:'rgba(180,205,90,0.12)', glow:'rgba(95,211,154,0.30)' }
+  };
+  FAM={ health:{label:'Health',color:'#2fe0a8'}, mood:{label:'Mood',color:'#9b8cff'}, people:{label:'People',color:'#ff7aa8'}, projects:{label:'Projects',color:'#56b8ff'}, obligations:{label:'Obligations',color:'#ff9e57'}, habits:{label:'Habits',color:'#5fe0c8'} };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#e8c75a': c>=0.5?'#ff9e57':'#ff6b5e'; }
+  N(id){ return this.NODES.find(n=>n.id===id); }
+
+  connections(){
+    return {
+      sleep_mood:{ from:'sleep', to:'mood', relType:'PRECEDENCE · correlation', conf:0.74, records:21, sourceCount:3, window:'30 days',
+        headline:'Sleep disruptions precede mood volatility',
+        meaning:'On nights under 6 h, a degraded-mood flag follows the next day 7 of 9 times (78%). The thread is directional — sleep precedes mood — but it is a correlation, never a proven cause.',
+        build:[{k:'Co-occurrence',v:0.78,c:'#9b8cff'},{k:'Next-day lag',v:0.72,c:'#9b8cff'},{k:'Sample size',v:0.40,c:'#ffb454'},{k:'Source quality',v:0.85,c:'#39e0a6'},{k:'Counter-evidence',v:0.30,c:'#ff6b5e'}],
+        sources:[{label:'9 sleep logs · band + self',role:'antecedent evidence',conf:'0.60–0.92',color:'#2fe0a8'},{label:'12 mood check-ins',role:'consequent evidence',conf:'0.85',color:'#9b8cff'},{label:'Pattern query · sleep→mood',role:'relationship definition',conf:'—',color:'#56b8ff'}],
+        reasoning:['The thread is woven from 9 nights where short sleep precedes a next-day mood dip.','Directional precedence is observed; causation is not asserted (Law 3 · Law 6).','Sample is small (9 pairs) — confidence held at 0.74, not inflated.','A counter-thread (workout days lift mood) is shown, not hidden.','2 of the 9 nights rest on a disputed record, which lowers confidence.'],
+        contradiction:{title:'CONTRADICTION · 2 OF 9 PAIRS', a:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#56b8ff'}, note:'Two of the supporting nights disagree on duration. The disputed pairs weaken the thread rather than being silently dropped — and the theme cannot resolve them.'},
+        records_list:['rec_6b14ace0','rec_b2f0a6c8','rec_d51a3f08','pat_sm_77'],
+        lineage:[
+          {label:'Raw sleep logs · 26 nights',meta:'DATA_LOG · DEV+HUM',color:'#2fe0a8',lineH:'16px'},
+          {label:'Raw mood check-ins · 18',meta:'DATA_LOG · HUM 0.85',color:'#9b8cff',lineH:'16px'},
+          {label:'Derived correlation · 7/9',meta:'INF · pat_sm_77 · 0.74',color:'#56b8ff',lineH:'16px'},
+          {label:'Woven thread · this connection',meta:'projection · not stored',color:'#b9adff',lineH:'0'}
+        ] },
+      caffeine_sleep:{ from:'caffeine', to:'sleep', relType:'PRECEDENCE · correlation', conf:0.69, records:11, sourceCount:2, window:'30 days',
+        headline:'Afternoon caffeine knots with shorter sleep',
+        meaning:'On 6 nights with caffeine logged after 2pm, mean sleep was 5.4 h vs 6.9 h without — a thread feeding into the sleep knot upstream of mood.',
+        build:[{k:'Co-occurrence',v:0.66,c:'#9b8cff'},{k:'Effect size',v:0.62,c:'#9b8cff'},{k:'Sample size',v:0.38,c:'#ffb454'},{k:'Confound risk',v:0.50,c:'#ffb454'}],
+        sources:[{label:'7 caffeine intake logs',role:'antecedent',conf:'0.84',color:'#2fe0a8'},{label:'9 sleep logs',role:'consequent',conf:'0.60–0.92',color:'#2fe0a8'}],
+        reasoning:['A modest-sample thread (6 nights) with a consistent direction.','Confounds (stress, screens) are not excluded — confidence kept at 0.69.','Feeds the Sleep knot, which in turn feeds the Sleep→Mood thread.'],
+        contradiction:null, records_list:['rec_caf_1','rec_6b14ace0'],
+        lineage:[{label:'Caffeine logs · 7',meta:'DATA_LOG · HUM 0.84',color:'#2fe0a8',lineH:'16px'},{label:'Sleep logs · 9',meta:'DATA_LOG · DEV',color:'#2fe0a8',lineH:'16px'},{label:'Derived correlation',meta:'INF · 0.69',color:'#56b8ff',lineH:'0'}] },
+      workout_mood:{ from:'workout', to:'mood', relType:'COUNTER-THREAD · correlation', conf:0.70, records:9, sourceCount:2, window:'30 days',
+        headline:'Workout days lift mood',
+        meaning:'On 5 workout days, mood read optimal 4 times — a counter-thread that opposes the sleep→mood dip and is shown alongside it, not buried.',
+        build:[{k:'Co-occurrence',v:0.80,c:'#46e0b4'},{k:'Corroboration',v:0.78,c:'#39e0a6'},{k:'Sample size',v:0.35,c:'#ffb454'},{k:'Consistency',v:0.70,c:'#46e0b4'}],
+        sources:[{label:'5 workout logs',role:'antecedent',conf:'0.88',color:'#2fe0a8'},{label:'Mood check-ins',role:'consequent',conf:'0.85',color:'#9b8cff'}],
+        reasoning:['A genuine counter-signal — the loom does not suppress contradicting threads.','Shown beside Sleep→Mood so the headline relationship is not overstated.','Small sample; confidence 0.70.'],
+        contradiction:null, records_list:['rec_act_pm','rec_d51a3f08'],
+        lineage:[{label:'Workout logs · 5',meta:'DATA_LOG · DEV 0.88',color:'#2fe0a8',lineH:'16px'},{label:'Mood check-ins',meta:'DATA_LOG · HUM 0.85',color:'#9b8cff',lineH:'16px'},{label:'Derived counter-pattern',meta:'INF · 0.70',color:'#56b8ff',lineH:'0'}] },
+      screen_sleep:{ from:'screen', to:'sleep', relType:'REPEATED BREAKDOWN · habit', conf:0.62, records:8, sourceCount:1, window:'30 days',
+        headline:'Late screen time repeatedly frays sleep',
+        meaning:'On 5 of 7 nights with >30 min screen use after 23:00, sleep ran short. A habit thread that keeps breaking the same way — flagged as a repeated breakdown, not a one-off.',
+        build:[{k:'Repeat rate',v:0.71,c:'#5fe0c8'},{k:'Breakdown count',v:0.62,c:'#ff9e57'},{k:'Sample size',v:0.40,c:'#ffb454'},{k:'Source breadth',v:0.30,c:'#ff6b5e'}],
+        sources:[{label:'Screen-time log · device',role:'habit evidence',conf:'0.70',color:'#5fe0c8'}],
+        reasoning:['A recurring breakdown of the evening routine — same snag, many nights.','Single-source (device usage) caps confidence at 0.62.','Surfaced as a fixable knot, not asserted as the sole cause of short sleep.'],
+        contradiction:null, records_list:['rec_screen_d','rec_6b14ace0'],
+        lineage:[{label:'Screen-time logs · 7',meta:'DATA_LOG · DEV 0.70',color:'#5fe0c8',lineH:'16px'},{label:'Sleep logs · 9',meta:'DATA_LOG · DEV',color:'#2fe0a8',lineH:'16px'},{label:'Derived habit breakdown',meta:'INF · 0.62',color:'#56b8ff',lineH:'0'}] },
+      deadline_mood:{ from:'deadline', to:'mood', relType:'AMBIGUOUS · weak thread', conf:0.55, records:6, sourceCount:1, window:'14 days',
+        headline:'Deadline pressure may stir mood',
+        meaning:'Mood dipped near 2 of 3 recent deadlines — but the sample is tiny and tangled with sleep. Shown as a weak, ambiguous thread, honestly low-confidence.',
+        build:[{k:'Co-occurrence',v:0.55,c:'#ff9e57'},{k:'Sample size',v:0.25,c:'#ff6b5e'},{k:'Confound · sleep',v:0.65,c:'#ff6b5e'},{k:'Source breadth',v:0.30,c:'#ff6b5e'}],
+        sources:[{label:'Obligation + mood logs',role:'sparse pairing',conf:'0.55',color:'#ff9e57'}],
+        reasoning:['Only 3 deadlines — far too few to assert a relationship.','Heavily confounded with sleep, which also moves mood.','Kept as an ambiguous snag at 0.55 — the loom refuses to firm it up.'],
+        contradiction:null, records_list:['rec_a4d90 38e','rec_d51a3f08'],
+        lineage:[{label:'Obligation logs · 3',meta:'OBLIGATION_LOG · 0.78',color:'#ff9e57',lineH:'16px'},{label:'Mood check-ins',meta:'DATA_LOG · HUM 0.85',color:'#9b8cff',lineH:'16px'},{label:'Weak derived pattern',meta:'INF · 0.55',color:'#56b8ff',lineH:'0'}] }
+    };
+  }
+
+  buildLoom(fam, selEdge){
+    const h=React.createElement, kids=[], E=this.EDGES;
+    kids.push(h('defs',{key:'d'},h('filter',{id:'lglow',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'3.4',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'})))));
+    const hitPaths=[];
+    E.forEach((e,i)=>{
+      if(!fam[e.family]) return;
+      const a=this.N(e.from), b=this.N(e.to);
+      const mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy)||1, off=e.curve||20;
+      const cx=mx+(-dy/len)*off, cy=my+(dx/len)*off;
+      const dStr='M '+a.x+' '+a.y+' Q '+cx+' '+cy+' '+b.x+' '+b.y;
+      const sel=e.id&&e.id===selEdge, col=this.FAM[e.family].color;
+      kids.push(h('path',{key:'e'+i,d:dStr,stroke:col,strokeWidth:sel?4.5:(1+e.strength*2.6),fill:'none',opacity:sel?0.98:(selEdge?0.16:0.32+e.strength*0.4),strokeLinecap:'round',filter:sel?'url(#lglow)':undefined}));
+      if(e.snag){ kids.push(h('g',{key:'sg'+i,style:{animation:'lwSnag 2.4s ease-in-out infinite'}}, h('circle',{cx:cx,cy:cy,r:7,fill:'rgba(255,107,94,0.16)',stroke:'#ff6b5e',strokeWidth:1.1}), h('path',{d:'M '+(cx-3)+' '+(cy-3)+' q 6 2 0 6 q -6 -2 0 -6 z',fill:'none',stroke:'#ff6b5e',strokeWidth:1.2}))); }
+      if(e.selectable){ hitPaths.push(h('path',{key:'h'+i,d:dStr,stroke:'rgba(0,0,0,0.001)',strokeWidth:18,fill:'none',style:{cursor:'pointer'},onClick:()=>this.setState({selectedEdge:e.id})})); }
+    });
+    const conn=this.connections()[selEdge]||{}, ends=[conn.from,conn.to];
+    this.NODES.forEach((n,i)=>{
+      if(!fam[n.fam]) return;
+      const r=6+(this.deg[n.id]||1)*1.7, isEnd=ends.includes(n.id), col=this.FAM[n.fam].color;
+      kids.push(h('circle',{key:'ng'+i,cx:n.x,cy:n.y,r:r+5,fill:col,opacity:isEnd?0.22:0.10,style:{animation:'lwKnot '+(3+i*0.2)+'s ease-in-out infinite'}}));
+      kids.push(h('circle',{key:'n'+i,cx:n.x,cy:n.y,r:r,fill:'#0b1020',stroke:col,strokeWidth:isEnd?2.4:1.4,filter:isEnd?'url(#lglow)':undefined}));
+      kids.push(h('circle',{key:'nc'+i,cx:n.x,cy:n.y,r:r*0.42,fill:col,opacity:0.8}));
+    });
+    hitPaths.forEach(p=>kids.push(p));
+    return h('svg',{viewBox:'0 0 960 440',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},kids);
+  }
+
+  renderVals(){
+    const t=this.cur(), fam=this.state.families, conns=this.connections();
+    const setEdge=id=>()=>this.setState({selectedEdge:id});
+    const loomNodes=this.NODES.map((n,i)=>{
+      const sel=conns[this.state.selectedEdge]||{}, isEnd=[sel.from,sel.to].includes(n.id), col=this.FAM[n.fam].color, deg=this.deg[n.id]||1, knot=deg>=3, visible=fam[n.fam];
+      return { id:n.id, name:n.name, color:col, deg:deg, isKnot:knot, leftPct:(n.x/960*100)+'%', topPct:(n.y/440*100)+'%',
+        dotSize:(6+deg*1.4)+'px', z:isEnd?9:(knot?6:4),
+        bg:isEnd?'rgba(20,24,40,0.96)':'rgba(12,16,28,0.8)', border:isEnd?col:'rgba(255,255,255,0.12)',
+        shadow:isEnd?'0 0 0 1px '+col+', 0 8px 22px rgba(0,0,0,0.5)':'0 4px 12px rgba(0,0,0,0.4)',
+        weight:isEnd||knot?'600':'500', txt:visible?'rgba(238,241,251,0.92)':'rgba(238,241,251,0.4)',
+        onSelect:setEdge(n.primary) };
+    }).filter(n=>fam[this.NODES.find(x=>x.id===n.id).fam]);
+    const sel=conns[this.state.selectedEdge]||conns.sleep_mood;
+    const fromN=this.N(sel.from), toN=this.N(sel.to);
+    const selView={ ...sel, headerBg:'rgba(155,140,255,0.07)', softBorder:'rgba(155,140,255,0.24)',
+      fromName:fromN.name, toName:toN.name, fromColor:this.FAM[fromN.fam].color, toColor:this.FAM[toN.fam].color,
+      typeBg:sel.relType.includes('COUNTER')?'rgba(70,224,180,0.16)':sel.relType.includes('AMBIG')?'rgba(255,158,87,0.16)':sel.relType.includes('BREAKDOWN')?'rgba(95,224,200,0.16)':'rgba(155,140,255,0.16)',
+      typeColor:sel.relType.includes('COUNTER')?'#5fe0b0':sel.relType.includes('AMBIG')?'#ffb454':sel.relType.includes('BREAKDOWN')?'#5fe0c8':'#b9adff',
+      confPct:Math.round(sel.conf*100)+'%', confLabel:sel.conf.toFixed(2), confColor:this.confColor(sel.conf),
+      build:sel.build.map(b=>({label:b.k, widthPct:Math.round(b.v*100)+'%', valLabel:Math.round(b.v*100), color:b.c})) };
+    const order=['sleep_mood','caffeine_sleep','workout_mood','screen_sleep','deadline_mood'];
+    const pairName={sleep_mood:'Sleep → Mood',caffeine_sleep:'Caffeine → Sleep',workout_mood:'Workout → Mood',screen_sleep:'Screen → Sleep',deadline_mood:'Deadline → Mood'};
+    const snagOf={sleep_mood:true,screen_sleep:true,deadline_mood:true};
+    const resonances=order.map(id=>{ const c=conns[id], seld=id===this.state.selectedEdge, col=this.FAM[this.N(c.from).fam].color;
+      return { id, pair:pairName[id], conf:c.conf.toFixed(2), confColor:this.confColor(c.conf), color:col, snag:!!snagOf[id], strengthPct:Math.round(c.conf*100)+'%',
+        rowBg:seld?'rgba(255,255,255,0.06)':'rgba(255,255,255,0.02)', rowBorder:seld?col:'rgba(255,255,255,0.07)', onSelect:setEdge(id) }; });
+    const snags=[
+      {kind:'Contradiction · disputed night', detail:'Self 5.0 h vs band 6.2 h weakens 2 of 9 Sleep→Mood pairs.', color:'#ff6b5e', onSelect:setEdge('sleep_mood')},
+      {kind:'Repeated breakdown · screen time', detail:'Late screen use frays sleep on 5 of 7 nights — same snag, repeatedly.', color:'#ff9e57', onSelect:setEdge('screen_sleep')},
+      {kind:'Ambiguity · deadline ↔ mood', detail:'Only 3 deadlines, tangled with sleep — too weak to firm up.', color:'#ffb454', onSelect:setEdge('deadline_mood')}
+    ];
+    const familyToggles=Object.keys(this.FAM).map(k=>({ key:k, label:this.FAM[k].label, color:this.FAM[k].color,
+      onToggle:()=>this.setState(st=>({families:{...st.families,[k]:!st.families[k]}})),
+      bg:fam[k]?this.FAM[k].color:'rgba(255,255,255,0.16)', knob:fam[k]?'13px':'2px', txt:fam[k]?'rgba(238,241,251,0.9)':'rgba(238,241,251,0.45)' }));
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux'},{label:'Tide Room'},{label:'Lattice Vault'},{label:'Thread Loom',active:true}
+    ].map(n=>({label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,255,255,0.07)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:n.active?'var(--accent)':'rgba(238,241,251,0.35)'}));
+    const lineageTrace=(sel.lineage||[]).map((lg,i,arr)=>({ subj:lg.label, meta:lg.meta, color:lg.color, ringColor:lg.label.toLowerCase().includes('disput')?'#ff6b5e':'rgba(255,255,255,0.3)', leftPct:(10+i*(80/Math.max(1,arr.length-1)))+'%' }));
+    const health=0.68;
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      pad:(this.props.density==='compact')?'10px':'14px',
+      loomSvg:this.buildLoom(fam, this.state.selectedEdge),
+      loomNodes, resonances, snags, familyToggles, navItems, lineageTrace, selected:selView,
+      healthScore:health.toFixed(2), healthRing:Math.round(health*100)+'%', healthColor:this.confColor(health), healthLabel:'Mostly sound'
+    };
+  }
+}
+</script>
+</body>
+</html>

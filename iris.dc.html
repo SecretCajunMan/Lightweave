@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwIris{to{transform:rotate(360deg)}}
+  @keyframes lwGlow{0%,100%{opacity:.6}50%{opacity:.95}}
+  @keyframes lwTwinkle{0%,100%{opacity:.3}50%{opacity:.85}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="Iris" style="height:100vh; overflow:hidden; color:rgba(234,238,248,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1150px 640px at 38% -18%, {{ bg1 }}, transparent 58%), radial-gradient(1050px 740px at 110% 122%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><circle cx="14" cy="14" r="4.5" fill="none" stroke="var(--accent2)" stroke-width="1.4"></circle><g stroke="var(--accent)" stroke-width="1" opacity="0.6"><line x1="14" y1="3" x2="14" y2="9.5"></line><line x1="14" y1="18.5" x2="14" y2="25"></line><line x1="3" y1="14" x2="9.5" y2="14"></line><line x1="18.5" y1="14" x2="25" y2="14"></line></g></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Iris</span>
+      <span style="font-size:10.5px; color:rgba(234,238,248,0.42);">Layer 6 · the visibility aperture · you decide who sees</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(234,238,248,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ audienceName }} · exposure {{ exposureLabel }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>consent-logged · records read-only</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(234,238,248,0.42); font-family:'IBM Plex Mono',monospace;">IRIS · owner</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="iris"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow:hidden; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:14px; left:50%; z-index:20; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(14,16,26,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:580px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(234,238,248,0.9);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:12px;">
+        <div style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ audienceName }}</span>
+          <span style="font-size:10.5px; color:rgba(234,238,248,0.45);">{{ audienceSub }}</span>
+        </div>
+        <div style="width:1px; height:30px; background:rgba(255,255,255,0.12);"></div>
+        <div style="display:flex; align-items:center; gap:10px; flex:1;">
+          <span style="font-size:10px; color:rgba(234,238,248,0.5);">EXPOSURE</span>
+          <div style="flex:0 0 200px; height:8px; border-radius:5px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ exposurePct }}; background:linear-gradient(90deg, var(--accent), var(--accent2));"></div></div>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--accent);">{{ exposureLabel }}</span>
+          <span style="font-size:10px; color:rgba(234,238,248,0.42);">of your truth is visible to them</span>
+        </div>
+        <sc-if value="{{ audienceLocked }}" hint-placeholder-val="{{ false }}">
+          <span style="display:inline-flex; align-items:center; gap:7px; font-size:11px; color:rgba(234,238,248,0.6); border:1px solid rgba(255,255,255,0.12); padding:7px 12px; border-radius:9px;">🔒 You always see everything — this is your truth.</span>
+        </sc-if>
+      </section>
+
+      <section style="flex:1; min-height:0; display:flex; gap:12px;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(110% 100% at 50% 45%, rgba(50,60,120,0.16), transparent 60%), linear-gradient(180deg, #090b16, #06080f);">
+          <div style="position:absolute; inset:0;">{{ irisSvg }}</div>
+          <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(234,238,248,0.72);">The aperture</span>
+            <span style="font-size:10px; color:rgba(234,238,248,0.42);">open lets light through · the glow at the centre is your whole truth, always full</span>
+          </div>
+          <div style="position:absolute; bottom:12px; left:0; right:0; text-align:center;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(234,238,248,0.5);">aperture set to <span style="color:var(--accent);">{{ exposureLabel }}</span> for {{ audienceName }}</div>
+          </div>
+        </div>
+
+        <div style="flex:0 0 336px; display:flex; flex-direction:column; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden;">
+          <div style="flex:0 0 auto; padding:12px 14px 10px; border-bottom:1px solid rgba(255,255,255,0.07);">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;">Visibility per domain</span>
+            <div style="font-size:10px; color:rgba(234,238,248,0.45); margin-top:3px;">what {{ audienceName }} may project · set the aperture per domain</div>
+          </div>
+          <div style="flex:1; min-height:0; overflow-y:auto; padding:10px 14px; display:flex; flex-direction:column; gap:9px;">
+            <sc-for list="{{ domainRows }}" as="dr" hint-placeholder-count="8">
+              <div onClick="{{ dr.onSelect }}" style="border-radius:11px; padding:9px 10px; cursor:pointer; background:{{ dr.rowBg }}; border:1px solid {{ dr.rowBorder }};">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                  <span style="width:8px; height:8px; border-radius:2px; background:{{ dr.color }}; box-shadow:0 0 6px {{ dr.color }};"></span>
+                  <span style="font-size:12px; font-weight:500; flex:1;">{{ dr.name }}</span>
+                  <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(234,238,248,0.4);">{{ dr.sensitivity }}</span>
+                </div>
+                <div style="display:flex; gap:4px;">
+                  <sc-for list="{{ dr.segments }}" as="sg" hint-placeholder-count="3">
+                    <span onClick="{{ sg.onClick }}" style="flex:1; text-align:center; font-size:10px; padding:5px 4px; border-radius:7px; cursor:pointer; background:{{ sg.bg }}; border:1px solid {{ sg.border }}; color:{{ sg.txt }};">{{ sg.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 380px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Proof &amp; provenance</span>
+        <div style="font-size:10.5px; color:rgba(234,238,248,0.45); margin-top:3px;">the view from their side — and what never changes</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <sc-if value="{{ showExposurePreview }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px 13px;">
+            <div style="font-size:10px; letter-spacing:0.12em; color:rgba(234,238,248,0.45); margin-bottom:10px;">WHAT {{ audienceUpper }} SEES</div>
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ previewGroups }}" as="pg" hint-placeholder-count="3">
+                <div>
+                  <div style="display:flex; align-items:center; gap:7px; margin-bottom:5px;"><span style="width:7px; height:7px; border-radius:50%; background:{{ pg.color }};"></span><span style="font-size:10px; font-weight:600; color:{{ pg.color }};">{{ pg.label }}</span><span style="font-size:9px; color:rgba(234,238,248,0.4);">{{ pg.sub }}</span></div>
+                  <div style="display:flex; flex-wrap:wrap; gap:5px; padding-left:14px;">
+                    <sc-for list="{{ pg.items }}" as="it" hint-placeholder-count="3">
+                      <span style="font-size:10px; padding:3px 8px; border-radius:6px; background:{{ it.bg }}; border:1px solid {{ it.border }}; color:rgba(234,238,248,0.8);">{{ it.name }}</span>
+                    </sc-for>
+                    <sc-if value="{{ pg.empty }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:10px; color:rgba(234,238,248,0.35); font-style:italic;">nothing in this band</span>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="background:{{ sel.headerBg }}; border:1px solid {{ sel.softBorder }}; border-radius:12px; padding:12px 13px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.color }}; box-shadow:0 0 8px {{ sel.color }};"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ sel.name }}</span>
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.levelBg }}; color:{{ sel.levelColor }};">{{ sel.levelLabel }}</span>
+          </div>
+          <div style="font-size:11.5px; line-height:1.5; color:rgba(234,238,248,0.72); margin-top:8px; text-wrap:pretty;">{{ sel.visStatement }}</div>
+          <div style="font-size:9.5px; color:rgba(234,238,248,0.42); margin-top:8px; font-family:'IBM Plex Mono',monospace;">visibility · canonical field · set by you</div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;">
+            <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.6" fill="none" stroke="rgba(234,238,248,0.5)" stroke-width="1"></circle><circle cx="6" cy="6" r="1.5" fill="rgba(234,238,248,0.6)"></circle></svg>
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(234,238,248,0.5);">THE UNDERLYING RECORD · UNCHANGED</span>
+          </div>
+          <div style="display:flex; gap:7px; margin-bottom:9px;">
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(234,238,248,0.45);">CONFIDENCE</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.confColor }};">{{ sel.conf }}</div></div>
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(234,238,248,0.45);">LIFECYCLE</div><div style="font-size:11px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</div></div>
+            <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(234,238,248,0.45);">RECORDS</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(234,238,248,0.85);">{{ sel.records }}</div></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(234,238,248,0.55);"><span style="color:rgba(234,238,248,0.4);">provenance</span><span>{{ sel.provenance }}</span></div>
+          <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(234,238,248,0.55); margin-top:3px;"><span style="color:rgba(234,238,248,0.4);">pattern</span><span style="color:{{ sel.color }};">{{ sel.pattern }}</span></div>
+          <div style="font-size:10px; color:rgba(234,238,248,0.5); margin-top:9px; line-height:1.45;">The iris never touched any of this. Veil it from the whole world and it stays exactly as true.</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(234,238,248,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(234,238,248,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.asymmetry }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(245,178,90,0.06); border:1px solid rgba(245,178,90,0.28); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:#f5b25a;"></span><span style="font-size:10.5px; font-weight:600; color:#f5c88a;">VISIBILITY ASYMMETRY</span></div>
+            <div style="font-size:10.5px; line-height:1.5; color:rgba(234,238,248,0.6);">{{ sel.asymmetry }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(234,238,248,0.4); margin-bottom:8px;">SET THE APERTURE · {{ audienceUpper }} → {{ sel.nameUpper }}</div>
+          <div style="display:flex; gap:7px;">
+            <sc-for list="{{ sel.actions }}" as="ac" hint-placeholder-count="3">
+              <div onClick="{{ ac.onClick }}" style="flex:1; text-align:center; cursor:pointer; border-radius:9px; padding:9px 6px; background:{{ ac.bg }}; border:1px solid {{ ac.border }}; box-shadow:{{ ac.ring }};">
+                <div style="font-size:11.5px; font-weight:600; color:{{ ac.txt }};">{{ ac.label }}</div>
+                <div style="font-size:8.5px; color:rgba(234,238,248,0.45); margin-top:2px;">{{ ac.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:9px; color:rgba(234,238,248,0.42); margin-top:8px; text-align:center; line-height:1.4;">Each change writes a governed consent record — who, what, when. Never silent, never retroactive.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 112px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(234,238,248,0.6);">Consent ledger · every grant and every revoke</span>
+        <span style="font-size:10px; color:rgba(234,238,248,0.38);">visibility is governed — the trail is the point</span>
+      </div>
+      <div style="flex:1; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ consentLog }}" as="cl" hint-placeholder-count="4">
+          <div style="flex:0 0 auto; min-width:196px; display:flex; gap:9px; align-items:flex-start; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ cl.color }}; box-shadow:0 0 6px {{ cl.color }}; margin-top:3px;"></span>
+            <div style="min-width:0;">
+              <div style="font-size:10.5px; color:rgba(234,238,248,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:160px;">{{ cl.head }}</div>
+              <div style="font-size:9px; color:rgba(234,238,248,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:160px;">{{ cl.sub }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:#5fe0b0; margin-top:1px;">{{ cl.when }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 268px; display:flex; align-items:center; gap:12px; background:rgba(57,224,166,0.05); border:1px solid rgba(57,224,166,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#5fe0b0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(234,238,248,0.55); margin-top:3px;">records changed by the iris</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:rgba(234,238,248,0.92); line-height:1;">{{ consentCount }}</div>
+        <div style="font-size:9.5px; color:rgba(234,238,248,0.55); margin-top:3px; line-height:1.3;">consent events logged · visibility moved, truth didn't</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;iris&quot;,&quot;brass&quot;,&quot;rose&quot;],&quot;default&quot;:&quot;iris&quot;,&quot;tsType&quot;:&quot;'iris' | 'brass' | 'rose'&quot;},&quot;irisMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showExposurePreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.DOMAINS = {
+      sleep:{ name:'Sleep', color:'#9b8cff', weight:0.5, conf:0.81, lifecycle:'Confirmed', records:14, provenance:'band · journal', pattern:'pat_lm_204' },
+      mood:{ name:'Mood', color:'#ff8a7a', weight:0.8, conf:0.40, lifecycle:'Contested', records:9, provenance:'band · self', pattern:'pat_ef_092' },
+      finances:{ name:'Finances', color:'#f5b25a', weight:0.95, conf:0.64, lifecycle:'Watching', records:9, provenance:'bank feed', pattern:'pat_sw_077' },
+      movement:{ name:'Movement', color:'#6fd0a0', weight:0.35, conf:0.72, lifecycle:'Confirmed', records:11, provenance:'wearable', pattern:'pat_gl_118' },
+      location:{ name:'Location', color:'#ff7a9c', weight:1.0, conf:0.93, lifecycle:'Confirmed', records:430, provenance:'device GPS', pattern:'src_gps_01' },
+      focus:{ name:'Focus', color:'#56b8ff', weight:0.4, conf:0.70, lifecycle:'Confirmed', records:18, provenance:'timer', pattern:'pat_fo_133' },
+      connection:{ name:'Connection', color:'#e89ac8', weight:0.7, conf:0.38, lifecycle:'Uncertain', records:3, provenance:'journal · self', pattern:'pat_od_041' },
+      vitals:{ name:'Health vitals', color:'#34e1b4', weight:0.85, conf:0.88, lifecycle:'Confirmed', records:60, provenance:'wearable HR', pattern:'src_hr_01' }
+    };
+    this.DOMAIN_ORDER = ['sleep','mood','finances','movement','location','focus','connection','vitals'];
+    this.AUDIENCES = {
+      me:{ name:'Just me', sub:'your own eyes · the full truth', icon:'\uD83D\uDC41', locked:true },
+      care:{ name:'Care circle', sub:'family & close people you trust', icon:'\uD83E\uDEC2' },
+      coach:{ name:'Coach', sub:'performance & accountability', icon:'\uD83C\uDFAF' },
+      research:{ name:'Research pool', sub:'anonymized, aggregate only', icon:'\uD83D\uDD2C' },
+      public:{ name:'Public link', sub:'anyone who has the link', icon:'\uD83C\uDF10' }
+    };
+    this.AUD_ORDER = ['me','care','coach','research','public'];
+    this.LV = { open:1, frost:0.45, closed:0 };
+    this.LVLABEL = { open:'Open', frost:'Summary', closed:'Veiled' };
+    this.LVCOLOR = { open:'#39e0a6', frost:'#56b8ff', closed:'#7c8596' };
+    this.SEG = [ {k:'open',label:'Open'}, {k:'frost',label:'Summary'}, {k:'closed',label:'Veil'} ];
+    this.state = {
+      audience:'care', selDomain:'mood', toast:null,
+      settings:{
+        me:      { sleep:'open', mood:'open', finances:'open', movement:'open', location:'open', focus:'open', connection:'open', vitals:'open' },
+        care:    { sleep:'open', mood:'frost', finances:'closed', movement:'open', location:'open', focus:'closed', connection:'frost', vitals:'open' },
+        coach:   { sleep:'open', mood:'frost', finances:'closed', movement:'open', location:'closed', focus:'open', connection:'closed', vitals:'frost' },
+        research:{ sleep:'frost', mood:'frost', finances:'closed', movement:'frost', location:'closed', focus:'frost', connection:'closed', vitals:'frost' },
+        public:  { sleep:'closed', mood:'closed', finances:'closed', movement:'frost', location:'closed', focus:'open', connection:'closed', vitals:'closed' }
+      },
+      log:[
+        { head:'Veiled · Public \u2192 Mood', sub:'you closed the aperture', when:'Jun 14', color:'#ff8a7a' },
+        { head:'Opened · Coach \u2192 Focus', sub:'granted full visibility', when:'Jun 12', color:'#56b8ff' },
+        { head:'Summary · Care \u2192 Connection', sub:'shape, not detail', when:'Jun 9', color:'#e89ac8' }
+      ]
+    };
+  }
+
+  themes = {
+    iris:  { accent:'#56c8ff', accent2:'#9b8cff', base:'#06080f', bg1:'rgba(70,150,230,0.14)', bg2:'rgba(150,120,255,0.1)', glow:'rgba(86,200,255,0.3)' },
+    brass: { accent:'#f5b25a', accent2:'#ffd08a', base:'#0a0809', bg1:'rgba(245,180,90,0.14)', bg2:'rgba(200,140,90,0.1)', glow:'rgba(245,178,90,0.3)' },
+    rose:  { accent:'#ff7a9c', accent2:'#c89bff', base:'#08070d', bg1:'rgba(255,122,156,0.14)', bg2:'rgba(200,155,255,0.1)', glow:'rgba(255,122,156,0.3)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.iris; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.8?'#39e0a6': c>=0.65?'#7fd99a': c>=0.55?'#e8c75a': c>=0.45?'#ff9e57':'#ff6b5e'; }
+  lifeColor(l){ return l==='Confirmed'?'#39e0a6': l==='Watching'?'#e8c75a': l==='Contested'?'#ff6b5e':'#9aa6c0'; }
+  exposure(aud){ const set=this.state.settings[aud]; let n=0,d=0; this.DOMAIN_ORDER.forEach(k=>{ const w=this.DOMAINS[k].weight; n+=w*this.LV[set[k]]; d+=w; }); return n/d; }
+
+  buildIris(){
+    const h=React.createElement, t=this.cur(), aud=this.state.audience, set=this.state.settings[aud], motion=this.props.irisMotion!==false;
+    const cx=300, cy=250, RO=156, exp=this.exposure(aud), openR=30+exp*112, sel=this.state.selDomain, R=[];
+    R.push(h('defs',{key:'d'},
+      h('radialGradient',{id:'core',cx:'50%',cy:'42%',r:'62%'},h('stop',{offset:'0%',stopColor:'#ffffff'}),h('stop',{offset:'34%',stopColor:t.accent}),h('stop',{offset:'70%',stopColor:t.accent2}),h('stop',{offset:'100%',stopColor:'#ff7aa8'})),
+      h('linearGradient',{id:'blade',x1:'0',y1:'0',x2:'0',y2:'1'},h('stop',{offset:'0%',stopColor:'#1a1f2e'}),h('stop',{offset:'100%',stopColor:'#0c0f18'})),
+      h('filter',{id:'ig',x:'-80%',y:'-80%',width:'260%',height:'260%'},h('feGaussianBlur',{stdDeviation:'5',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'})))
+    ));
+    let s=17; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<70;i++){ R.push(h('circle',{key:'st'+i,cx:(rnd()*600).toFixed(1),cy:(rnd()*500).toFixed(1),r:(rnd()*0.8+0.3).toFixed(2),fill:'#cdd6f5',opacity:(rnd()*0.35+0.1).toFixed(2)})); }
+    // truth core (always full)
+    R.push(h('circle',{key:'coreglow',cx:cx,cy:cy,r:RO+10,fill:this.hexA(t.accent,0.12),filter:'url(#ig)',style:motion?{animation:'lwGlow 4s ease-in-out infinite'}:undefined}));
+    R.push(h('circle',{key:'core',cx:cx,cy:cy,r:RO,fill:'url(#core)'}));
+    R.push(h('text',{key:'ct',x:cx,y:cy-RO*0.42,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:9,fill:'rgba(10,12,20,0.55)',letterSpacing:'0.2em'},'YOUR TRUTH'));
+    R.push(h('text',{key:'ce',x:cx,y:cy+8,textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:30,fontWeight:700,fill:'rgba(10,12,22,0.62)'},Math.round(exp*100)+'%'));
+    // blades occluding annulus outside openR
+    const N=7, half=Math.PI/N*1.12, blades=[];
+    for(let i=0;i<N;i++){ const a=i*2*Math.PI/N - Math.PI/2;
+      const p=(ang,r)=>[(cx+Math.cos(ang)*r).toFixed(1),(cy+Math.sin(ang)*r).toFixed(1)];
+      const pts=[p(a-half,openR),p(a-half,RO+40),p(a+half,RO+40),p(a+half,openR)].map(q=>q.join(',')).join(' ');
+      blades.push(h('polygon',{key:'bl'+i,points:pts,fill:'url(#blade)',stroke:this.hexA(t.accent,0.22),strokeWidth:1}));
+      const e=p(a-half,openR), e2=p(a+half,openR);
+      blades.push(h('line',{key:'be'+i,x1:e[0],y1:e[1],x2:e2[0],y2:e2[1],stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+    }
+    R.push(h('g',{key:'blades',style:motion?{transformOrigin:cx+'px '+cy+'px',animation:'lwIris 90s linear infinite'}:undefined},blades));
+    R.push(h('circle',{key:'rim',cx:cx,cy:cy,r:RO+40,fill:'none',stroke:'rgba(255,255,255,0.1)',strokeWidth:1.5}));
+    // domain markers
+    this.DOMAIN_ORDER.forEach((dk,k)=>{ const d=this.DOMAINS[dk], lv=set[dk], on=dk===sel;
+      const ang=k*2*Math.PI/8 - Math.PI/2, mr=RO+62, mx=cx+Math.cos(ang)*mr, my=cy+Math.sin(ang)*mr;
+      const col = lv==='open'?d.color : lv==='frost'?this.hexA(d.color,0.55) : '#5a6275';
+      if(on){ R.push(h('line',{key:dk+'pl',x1:cx+Math.cos(ang)*(RO+42),y1:cy+Math.sin(ang)*(RO+42),x2:mx,y2:my,stroke:this.hexA(d.color,0.5),strokeWidth:1.2})); }
+      R.push(h('circle',{key:dk+'mg',cx:mx,cy:my,r:on?13:9,fill:this.hexA(lv==='closed'?'#5a6275':d.color,0.16)}));
+      if(lv==='closed'){ R.push(h('circle',{key:dk+'m',cx:mx,cy:my,r:on?7:5,fill:'none',stroke:'#7c8596',strokeWidth:1.5,onClick:()=>this.setState({selDomain:dk}),style:{cursor:'pointer'}})); }
+      else { R.push(h('circle',{key:dk+'m',cx:mx,cy:my,r:on?7:5,fill:col,opacity:lv==='frost'?0.7:1,filter:on?'url(#ig)':undefined,onClick:()=>this.setState({selDomain:dk}),style:{cursor:'pointer'}}));
+        if(lv==='frost') R.push(h('circle',{key:dk+'mc',cx:mx,cy:my,r:2,fill:'#0a0c16'})); }
+      if(on) R.push(h('circle',{key:dk+'mr',cx:mx,cy:my,r:11,fill:'none',stroke:this.hexA(d.color,0.7),strokeWidth:1.2}));
+      const lx=cx+Math.cos(ang)*(mr+20), ly=cy+Math.sin(ang)*(mr+20);
+      R.push(h('text',{key:dk+'l',x:lx,y:ly+3,textAnchor:Math.cos(ang)>0.3?'start':Math.cos(ang)<-0.3?'end':'middle',fontFamily:'IBM Plex Sans, sans-serif',fontSize:10,fontWeight:on?600:400,fill:on?'rgba(234,238,248,0.95)':'rgba(234,238,248,0.55)'},d.name));
+    });
+    return h('svg',{viewBox:'0 0 600 500',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  setLevel(aud,dom,lv){
+    if(aud==='me') return;
+    const cur=this.state.settings[aud][dom]; if(cur===lv){ return; }
+    const verb = lv==='open'?'Opened': lv==='frost'?'Set to summary':'Veiled';
+    const dname=this.DOMAINS[dom].name, aname=this.AUDIENCES[aud].name;
+    this.setState(st=>{
+      const settings={...st.settings, [aud]:{...st.settings[aud], [dom]:lv}};
+      const entry={ head:verb+' · '+aname+' \u2192 '+dname, sub:lv==='open'?'granted full visibility':lv==='frost'?'shape, not detail':'closed the aperture', when:'now', color:this.DOMAINS[dom].color };
+      return { settings, log:[entry,...st.log].slice(0,8),
+        toast:verb+': '+aname+' \u2192 '+dname+'. A consent record is written. The '+dname.toLowerCase()+' record itself is exactly as it was.' };
+    });
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200);
+  }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const t=this.cur(), aud=this.state.audience, A=this.AUDIENCES[aud], set=this.state.settings[aud], locked=!!A.locked;
+    const exp=this.exposure(aud), selDom=this.state.selDomain, d=this.DOMAINS[selDom], lv=set[selDom];
+    const navItems=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Distortion Clinic','Dream Cartographer','Iris']
+      .map(l=>{ const on=l==='Iris'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,255,255,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(234,238,248,0.95)':'rgba(234,238,248,0.6)',dot:on?'var(--accent)':'rgba(234,238,248,0.35)'}; });
+
+    const audienceItems=this.AUD_ORDER.map(ak=>{ const a=this.AUDIENCES[ak], on=ak===aud, e=this.exposure(ak);
+      return { name:a.name, icon:a.icon, locked:!!a.locked, onSelect:()=>this.setState({audience:ak}),
+        exp:Math.round(e*100)+'% exposure', weight:on?'600':'500', txt:on?'rgba(234,238,248,0.96)':'rgba(234,238,248,0.7)',
+        bg:on?this.hexA(t.accent,0.12):'transparent', border:on?this.hexA(t.accent,0.4):'rgba(255,255,255,0.06)', iconBg:on?this.hexA(t.accent,0.18):'rgba(255,255,255,0.05)' }; });
+
+    const domainRows=this.DOMAIN_ORDER.map(dk=>{ const dm=this.DOMAINS[dk], on=dk===selDom, cl=set[dk];
+      const sens=dm.weight>=0.9?'high sensitivity':dm.weight>=0.6?'sensitive':'low sensitivity';
+      const segments=this.SEG.map(sg=>{ const act=cl===sg.k, c=this.LVCOLOR[sg.k];
+        return { label:sg.label, onClick:()=>{ this.setState({selDomain:dk}); this.setLevel(aud,dk,sg.k); },
+          bg:act?this.hexA(c, locked?0.1:0.2):'rgba(255,255,255,0.03)', border:act?this.hexA(c,locked?0.3:0.6):'rgba(255,255,255,0.09)',
+          txt:act?(locked?'rgba(234,238,248,0.55)':c):'rgba(234,238,248,0.55)' }; });
+      return { name:dm.name, color:dm.color, sensitivity:sens, onSelect:()=>this.setState({selDomain:dk}), segments,
+        rowBg:on?this.hexA(dm.color,0.07):'rgba(255,255,255,0.02)', rowBorder:on?this.hexA(dm.color,0.4):'rgba(255,255,255,0.07)' }; });
+
+    // exposure preview groups
+    const grp=(k)=>this.DOMAIN_ORDER.filter(dk=>set[dk]===k).map(dk=>({ name:this.DOMAINS[dk].name, bg:this.hexA(this.DOMAINS[dk].color,0.1), border:this.hexA(this.DOMAINS[dk].color,0.3) }));
+    const full=grp('open'), summ=grp('frost'), veil=grp('closed');
+    const previewGroups=[
+      { label:'Full', sub:'sees the record as you do', color:'#39e0a6', items:full, empty:full.length===0 },
+      { label:'Summary only', sub:'the shape, not the detail', color:'#56b8ff', items:summ, empty:summ.length===0 },
+      { label:'Veiled', sub:'cannot see it', color:'#7c8596', items:veil, empty:veil.length===0 }
+    ];
+
+    // asymmetry note
+    const openTo=this.AUD_ORDER.filter(ak=>ak!=='me'&&this.state.settings[ak][selDom]==='open').map(ak=>this.AUDIENCES[ak].name);
+    const closedTo=this.AUD_ORDER.filter(ak=>ak!=='me'&&this.state.settings[ak][selDom]==='closed').map(ak=>this.AUDIENCES[ak].name);
+    let asymmetry=null;
+    if(openTo.length && closedTo.length){ asymmetry='You share '+d.name+' fully with '+openTo.join(', ')+', and veil it from '+closedTo.join(', ')+'. That asymmetry is your call — and every side of it is on the consent ledger.'; }
+
+    const visState = locked ? 'You see '+d.name+' in full. This is your own ledger — the aperture is wide open and locked.'
+      : lv==='open' ? A.name+' sees '+d.name+' exactly as you do: the same value, confidence '+d.conf.toFixed(2)+', full provenance.'
+      : lv==='frost' ? A.name+' sees a summary of '+d.name+' — the trend and shape, not the underlying records.'
+      : A.name+' cannot see '+d.name+'. It stays in your ledger at full fidelity; they simply have no window onto it.';
+
+    const reasoning = locked ? ['This is the owner view — nothing is hidden from you.','Every other audience is a narrower projection of this same truth.','The record never changes; only who may project it does.']
+      : [ (lv==='open'?'Aperture open: full record passes to '+A.name+'.':lv==='frost'?'Aperture frosted: only an aggregate summary passes.':'Aperture closed: nothing about '+d.name+' passes to '+A.name+'.'),
+          d.lifecycle==='Contested'?'Note: this record is Contested at the source — its visibility setting doesn\u2019t change that, the contradiction travels with it.':'The confidence ('+d.conf.toFixed(2)+') and provenance are carried unchanged behind whatever the aperture allows.',
+          'Visibility is a governed canonical field. This setting is itself a logged consent record.' ];
+
+    const actions=this.SEG.map(sg=>{ const act=lv===sg.k, c=this.LVCOLOR[sg.k];
+      const sub = sg.k==='open'?'full record':sg.k==='frost'?'summary only':'hidden';
+      return { label:sg.label, sub, onClick:()=>this.setLevel(aud,selDom,sg.k),
+        bg:act?this.hexA(c,locked?0.1:0.16):'rgba(255,255,255,0.03)', border:act?this.hexA(c,0.5):'rgba(255,255,255,0.1)',
+        ring:act?'0 0 0 1px '+this.hexA(c,0.4):'none', txt:act?c:'rgba(234,238,248,0.85)' }; });
+
+    const consentCount = 6 + this.state.log.filter(l=>l.when==='now').length;
+
+    const sel={ name:d.name, nameUpper:d.name.toUpperCase(), color:d.color, headerBg:this.hexA(d.color,0.07), softBorder:this.hexA(d.color,0.26),
+      levelLabel:this.LVLABEL[lv], levelColor:this.LVCOLOR[lv], levelBg:this.hexA(this.LVCOLOR[lv],0.16),
+      visStatement:visState, conf:d.conf.toFixed(2), confColor:this.confColor(d.conf), lifecycle:d.lifecycle, lifeColor:this.lifeColor(d.lifecycle),
+      records:String(d.records), provenance:d.provenance, pattern:d.pattern, reasoning, asymmetry, actions };
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      navItems, audienceItems, domainRows, previewGroups, consentLog:this.state.log, consentCount,
+      audienceName:A.name, audienceSub:A.sub, audienceUpper:A.name.toUpperCase(), audienceLocked:locked,
+      exposureLabel:Math.round(exp*100)+'%', exposurePct:Math.round(exp*100)+'%',
+      irisSvg:this.buildIris(), toast:this.state.toast,
+      showExposurePreview:this.props.showExposurePreview!==false, sel
+    };
+  }
+}
+</script>
+</body>
+</html>

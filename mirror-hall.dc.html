@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#080610}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwSheen{0%,100%{transform:translateY(-12%);opacity:.35}50%{transform:translateY(8%);opacity:.7}}
+  @keyframes lwWarp{0%,100%{transform:translateX(-3%) skewX(-1.2deg);opacity:.5}50%{transform:translateX(3%) skewX(1.2deg);opacity:.85}}
+  @keyframes lwTwinkle{0%,100%{opacity:.25}50%{opacity:.7}}
+</style>
+</helmet>
+<div data-screen-label="Mirror Hall" style="height:100vh; overflow:hidden; color:rgba(238,235,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 50% -16%, var(--bg1), transparent 60%), radial-gradient(950px 720px at 110% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M14 3 C18 3 21 6 21 12 C21 18 18 24 14 24 C10 24 7 18 7 12 C7 6 10 3 14 3 Z" fill="none" stroke="var(--accent)" stroke-width="1.5"></path><path d="M11 8 C13 7 15 7 17 8" fill="none" stroke="var(--accent2)" stroke-width="1.1"></path><line x1="14" y1="24" x2="14" y2="26" stroke="#fff" stroke-width="1.2" opacity="0.5"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Mirror Hall</span>
+      <span style="font-size:10.5px; color:rgba(238,235,247,0.42);">Projection · the week reflected · only as far as the records reach</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,235,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#5fd39a;box-shadow:0 0 7px #5fd39a;"></span>read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">4 clear · 3 warped</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,158,87,0.3); border-radius:7px; background:rgba(255,158,87,0.08); color:#ffb27a;"><span style="width:6px;height:6px;border-radius:50%;background:#ff9e57;box-shadow:0 0 7px #ff9e57;"></span>2 unresolved</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Week 24 recap</span>
+        <span style="font-size:10px; color:rgba(238,235,247,0.42); font-family:'IBM Plex Mono',monospace;">MIRROR · Jun 10–16</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="mirror-hall"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(238,235,247,0.42); margin-bottom:4px;">WEEKLY RECAP · JUN 10–16</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; color:rgba(238,235,247,0.97);">A week that improved where you measured it, and blurred where you didn't.</div>
+          <div style="font-size:11.5px; color:rgba(238,235,247,0.52); margin-top:5px; line-height:1.5;">Health and work reflect clearly. Relationships and mood are warped — the signals disagree, or there simply aren't enough of them. The hall won't sharpen what the records leave soft.</div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:12px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,235,247,0.4);">IMPROVED</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(95,224,176,0.12); border:1px solid rgba(95,224,176,0.32);"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M5 1 L9 8 H1 Z" fill="#5fe0b0"></path></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#86e8c2;">4</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,235,247,0.4);">DEGRADED</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,158,87,0.12); border:1px solid rgba(255,158,87,0.32);"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M5 9 L1 2 H9 Z" fill="#ff9e57"></path></svg><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ffb27a;">4</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(238,235,247,0.4);">TENSIONS</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(199,155,255,0.12); border:1px solid rgba(199,155,255,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#c79bff; box-shadow:0 0 7px #c79bff;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#d4b8ff;">2</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, #15101f 0%, #0d0917 52%, #08060f 100%);">
+          <div style="position:absolute; inset:0;">{{ dustSvg }}</div>
+          <div style="position:absolute; left:0; right:0; bottom:0; height:34%; background:linear-gradient(180deg, transparent, rgba(0,0,0,0.4)); pointer-events:none;"></div>
+          <div style="position:absolute; left:0; right:0; bottom:0; height:1px; background:linear-gradient(90deg, transparent, var(--accent), transparent); opacity:0.4; pointer-events:none;"></div>
+
+          <div style="position:relative; height:100%; display:flex; flex-direction:column; padding:12px 16px 14px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.1em; color:rgba(238,235,247,0.6);">THE HALL · SEVEN LENSES</span>
+              <span style="flex:1;"></span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(238,235,247,0.4);">clear = high confidence · warped = ambiguous or conflicting</span>
+            </div>
+
+            <div style="flex:1; min-height:0; display:flex; gap:10px; align-items:stretch;">
+              <sc-for list="{{ mirrors }}" as="m" hint-placeholder-count="7">
+                <div onClick="{{ m.onSelect }}" style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; cursor:pointer; opacity:{{ m.op }};">
+                  <div style="flex:1; min-height:0; width:100%; padding:3px; border-radius:62px 62px 13px 13px; background:{{ m.frameBg }}; box-shadow:{{ m.frameShadow }};">
+                    <div style="height:100%; border-radius:60px 60px 11px 11px; overflow:hidden; position:relative; background:{{ m.glassBg }}; display:flex; flex-direction:column;">
+                      <div style="position:absolute; left:-30%; top:0; width:55%; height:160%; background:linear-gradient(105deg, transparent, rgba(255,255,255,0.22), transparent); animation:lwSheen 7s ease-in-out infinite; pointer-events:none;"></div>
+                      <sc-if value="{{ m.warped }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; inset:0; background:repeating-linear-gradient(115deg, rgba(160,150,190,0.10) 0 5px, transparent 5px 13px); animation:lwWarp 5s ease-in-out infinite; pointer-events:none;"></div></sc-if>
+                      <sc-if value="{{ m.foggy }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; inset:0; background:radial-gradient(80% 60% at 50% 40%, rgba(220,225,240,0.18), transparent 70%); pointer-events:none;"></div></sc-if>
+                      <div style="position:relative; flex:1; min-height:0; display:flex; flex-direction:column; padding:16px 9px 9px; filter:{{ m.reflFilter }};">
+                        <div style="display:flex; align-items:center; justify-content:center; gap:5px; margin-bottom:7px;">
+                          <span style="width:6px; height:6px; border-radius:50%; background:{{ m.lifeColor }}; box-shadow:0 0 6px {{ m.lifeColor }};"></span>
+                          <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.1em; color:rgba(238,235,247,0.7);">{{ m.lens }}</span>
+                        </div>
+                        <div style="flex:1; display:flex; align-items:center; text-align:center;">
+                          <div style="font-size:10px; line-height:1.45; color:{{ m.reflColor }}; font-style:{{ m.reflStyle }};">{{ m.refl }}</div>
+                        </div>
+                      </div>
+                      <div style="position:relative; flex:0 0 auto; display:flex; align-items:center; justify-content:center; gap:6px; padding:7px 6px; border-top:1px solid rgba(255,255,255,0.08); background:rgba(0,0,0,0.2);">
+                        <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; padding:1px 6px; border-radius:5px; background:{{ m.confBg }}; color:{{ m.confColor }};">{{ m.confLabel }}</span>
+                        {{ m.trendEl }}
+                      </div>
+                    </div>
+                  </div>
+                  <div style="width:64%; height:14px; margin-top:2px; border-radius:0 0 30px 30px; background:linear-gradient(180deg, {{ m.floorTint }}, transparent); opacity:0.5;"></div>
+                  <div style="display:flex; align-items:center; gap:5px; margin-top:3px; font-size:9px; color:{{ m.color }};">
+                    <span style="font-weight:600;">show me proof</span>
+                    <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 5 H8 M5.5 2.5 L8 5 L5.5 7.5" fill="none" stroke="{{ m.color }}" stroke-width="1.2"></path></svg>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0;">{{ sel.lensTitle }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.clarityBg }}; color:{{ sel.clarityColor }};">{{ sel.clarityLabel }}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:7px;">
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+              <span style="font-size:10px; color:rgba(238,235,247,0.45); font-family:'IBM Plex Mono',monospace;">{{ sel.window }}</span>
+            </div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,235,247,0.4); margin-bottom:7px;">THE REFLECTION</div>
+              <div style="font-size:13px; font-weight:500; color:rgba(238,235,247,0.9); line-height:1.5;">{{ sel.narrative }}</div>
+            </div>
+
+            <sc-if value="{{ sel.honesty }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:10.5px; color:rgba(238,235,247,0.62); line-height:1.45; padding:10px 12px; background:rgba(199,155,255,0.05); border:1px solid rgba(199,155,255,0.24); border-radius:10px; display:flex; gap:9px;">
+                <svg width="14" height="14" viewBox="0 0 14 14" style="flex:0 0 auto; margin-top:1px;"><path d="M7 2 C9.5 2 11.5 4 11.5 7 C11.5 10 9.5 12 7 12 C4.5 12 2.5 10 2.5 7 C2.5 4 4.5 2 7 2 Z" fill="none" stroke="#c79bff" stroke-width="1"></path><path d="M5 5.5 C6 4.5 8 4.5 9 5.5" fill="none" stroke="#c79bff" stroke-width="0.9"></path></svg>
+                <span>{{ sel.honesty }}</span>
+              </div>
+            </sc-if>
+
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <div style="background:rgba(95,224,176,0.05); border:1px solid rgba(95,224,176,0.26); border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M5 1 L9 8 H1 Z" fill="#5fe0b0"></path></svg><span style="font-size:9px; letter-spacing:0.08em; color:#86e8c2;">WHAT IMPROVED</span></div>
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.improved }}" as="it" hint-placeholder-count="1">
+                    <div><div style="font-size:10.5px; color:rgba(238,235,247,0.8); line-height:1.35;">{{ it.t }}</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(238,235,247,0.42); margin-top:1px;">{{ it.src }}</div></div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:rgba(255,158,87,0.05); border:1px solid rgba(255,158,87,0.26); border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M5 9 L1 2 H9 Z" fill="#ff9e57"></path></svg><span style="font-size:9px; letter-spacing:0.08em; color:#ffb27a;">WHAT DEGRADED</span></div>
+                <div style="display:flex; flex-direction:column; gap:7px;">
+                  <sc-for list="{{ sel.degraded }}" as="it" hint-placeholder-count="1">
+                    <div><div style="font-size:10.5px; color:rgba(238,235,247,0.8); line-height:1.35;">{{ it.t }}</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(238,235,247,0.42); margin-top:1px;">{{ it.src }}</div></div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <sc-if value="{{ sel.tension }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(199,155,255,0.05); border:1px solid rgba(199,155,255,0.3); border-radius:12px; padding:11px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:9px;"><span style="width:8px; height:8px; border-radius:50%; background:#c79bff; box-shadow:0 0 7px #c79bff;"></span><span style="font-size:10.5px; font-weight:600; letter-spacing:0.04em; color:#d4b8ff;">UNRESOLVED TENSION</span></div>
+                <div style="display:flex; gap:9px;">
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.tension.a.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,235,247,0.55);">{{ sel.tension.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.tension.a.color }};">{{ sel.tension.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,235,247,0.4);">{{ sel.tension.a.conf }}</div></div>
+                  <div style="flex:1; border-radius:9px; border:1px solid {{ sel.tension.b.color }}; padding:8px;"><div style="font-size:9.5px; color:rgba(238,235,247,0.55);">{{ sel.tension.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:{{ sel.tension.b.color }};">{{ sel.tension.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(238,235,247,0.4);">{{ sel.tension.b.conf }}</div></div>
+                </div>
+                <div style="font-size:10px; color:rgba(238,235,247,0.5); margin-top:8px; line-height:1.45;">{{ sel.tension.note }}</div>
+              </div>
+            </sc-if>
+
+            <div style="background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:12px 13px;">
+              <div style="display:flex; align-items:center; gap:7px; margin-bottom:7px;"><svg width="13" height="13" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="var(--accent2)" stroke-width="1"></circle><path d="M5.2 5.4 C5.4 4.2 8.4 4.2 8.4 6.2 C8.4 7.6 7 7.4 7 8.8" fill="none" stroke="var(--accent2)" stroke-width="1"></path><circle cx="7" cy="10.4" r="0.6" fill="var(--accent2)"></circle></svg><span style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,235,247,0.55);">REFLECTION PROMPT</span></div>
+              <div style="font-size:12.5px; font-style:italic; color:rgba(238,235,247,0.86); line-height:1.55;">{{ sel.prompt }}</div>
+              <div style="font-size:9px; color:rgba(238,235,247,0.4); margin-top:7px;">A question, not a conclusion. The mirror won't answer it for you.</div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="font-size:9.5px; color:rgba(238,235,247,0.45); flex:0 0 64px;">confidence</span>
+              <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,235,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+                  <div style="display:flex; gap:9px; align-items:flex-start;"><span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span><span style="font-size:11.5px; line-height:1.5; color:rgba(238,235,247,0.72);">{{ step }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,235,247,0.4); margin-bottom:8px;">SOURCE TRACE</div>
+              <div style="position:relative; padding-left:5px;">
+                <sc-for list="{{ sel.sources }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; gap:11px; align-items:flex-start; padding-bottom:10px; position:relative;">
+                    <span style="flex:0 0 auto; width:9px; height:9px; border-radius:{{ s.radius }}; background:{{ s.color }}; border:2px solid #100a16; box-shadow:0 0 7px {{ s.color }}; margin-top:2px; z-index:1;"></span>
+                    <span style="position:absolute; left:4px; top:11px; bottom:-2px; width:1px; background:rgba(255,255,255,0.12);"></span>
+                    <div style="flex:1; min-width:0;"><div style="font-size:11px; color:rgba(238,235,247,0.85);">{{ s.title }}</div><div style="font-size:9px; color:rgba(238,235,247,0.42); font-family:'IBM Plex Mono',monospace;">{{ s.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,235,247,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,235,247,0.45);">recap</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,235,247,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,235,247,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,235,247,0.45);">window</span><span>{{ sel.window }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,235,247,0.45);">draws on</span><span>{{ sel.recordCount }}</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#100b16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical records</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,235,247,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Trace</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,235,247,0.6);">The week's arc · Jun 10–16</span>
+        <span style="font-size:10px; color:rgba(238,235,247,0.38);">notable moments the mirrors drew from — each traces to records</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,235,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#5fe0b0;"></span>improved</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,235,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ff9e57;"></span>degraded</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(238,235,247,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#c79bff;"></span>tension</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(160,120,220,0.05), rgba(95,224,176,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0;">
+        <div style="position:absolute; inset:0;">{{ arcSvg }}</div>
+        <sc-for list="{{ arcMarks }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:110px;">
+            <div style="font-size:8.5px; color:rgba(238,235,247,0.6); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px; text-align:center; margin-bottom:3px;">{{ m.subj }}</div>
+            <div style="width:9px; height:9px; border-radius:50%; background:{{ m.color }}; box-shadow:0 0 9px {{ m.color }}; border:2px solid {{ m.ringColor }};"></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:rgba(238,235,247,0.4); margin-top:3px; white-space:nowrap;">{{ m.day }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(238,235,247,0.66);">A MIRROR REFLECTS — IT DOES NOT INVENT</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;obsidian&quot;,&quot;rose&quot;,&quot;verdigris&quot;],&quot;default&quot;:&quot;obsidian&quot;,&quot;tsType&quot;:&quot;'obsidian' | 'rose' | 'verdigris'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'relationships' };
+
+    this.LENSES = {
+      health:{ lens:'HEALTH', clarity:'clear', conf:0.86, life:'Confirmed', trend:'mixed', window:'Jun 10\u201316', recordCount:'31 records \u00b7 3 sources', canonId:'rec_health_w24', mode:'PAT \u00b7 weekly recap', resolver:'HIGHEST_CONF',
+        refl:'You moved more, and slept a little less.',
+        narrative:'Movement rose clearly this week while sleep dipped. Both readings are device-attested and agree across sources, so the mirror reflects them plainly \u2014 without claiming one caused the other.',
+        improved:[{t:'Movement +22% vs last week',src:'wearable \u00b7 signed'}],
+        degraded:[{t:'Sleep \u221234 min/night on average',src:'sleep band \u00b7 signed'}],
+        prompt:'You moved more but slept less \u2014 which of the two actually changed how the week felt?',
+        reasoning:['Two device-signed records, high integrity, in agreement.','Trend is real and measurable; direction of cause is not asserted.','Confidence high enough for a clear mirror.'],
+        sources:[{title:'Wearable movement feed',meta:'device \u00b7 signed',color:'#5fd39a',radius:'3px'},{title:'Sleep band',meta:'device \u00b7 signed',color:'#5fd39a',radius:'3px'}] },
+
+      work:{ lens:'WORK', clarity:'clear', conf:0.8, life:'Confirmed', trend:'mixed', window:'Jun 10\u201316', recordCount:'24 records \u00b7 2 sources', canonId:'rec_work_w24', mode:'PAT \u00b7 weekly recap', resolver:'HIGHEST_CONF',
+        refl:'Deeper focus, inside a busier week.',
+        narrative:'Focus sessions went up even as meeting load climbed. The records are consistent and attested, so the mirror is clear \u2014 though it can\u2019t tell you whether the focus came from the pressure or despite it.',
+        improved:[{t:'Focus blocks +3 vs last week',src:'focus app \u00b7 session log'}],
+        degraded:[{t:'Meeting load +28%',src:'calendar \u00b7 OAuth'}],
+        prompt:'Focus rose alongside the meetings \u2014 was that because of the load, or in spite of it?',
+        reasoning:['Focus log and calendar feed both attested and consistent.','Two true movements in opposite directions, shown side by side.','No causal story imposed on the pair.'],
+        sources:[{title:'Focus session log',meta:'app \u00b7 TLS receipt',color:'#9b8cff',radius:'3px'},{title:'Calendar feed',meta:'OAuth \u00b7 provider-attested',color:'#5fd39a',radius:'3px'}] },
+
+      relationships:{ lens:'RELATE', clarity:'warped', conf:0.58, life:'Disputed', trend:'mixed', window:'Jun 10\u201316', recordCount:'11 records \u00b7 2 sources', canonId:'rec_relate_w24', mode:'PAT \u00b7 weekly recap', resolver:'CONFLICT_OPEN',
+        refl:'The signals disagree about closeness.',
+        narrative:'One record says connection grew \u2014 outreach calls went up. Another says it slipped \u2014 the standing weekly family call was missed. The mirror is warped on purpose: it will not flatten two true, opposite signals into one tidy verdict.',
+        improved:[{t:'Outreach: +2 calls initiated',src:'call log \u00b7 duration-attested'}],
+        degraded:[{t:'Weekly family call slipped',src:'Ritual Circle \u00b7 rit_call_31'}],
+        tension:{ a:{label:'Outreach',val:'+2 calls',conf:'conf 0.74',color:'#86e8c2'}, b:{label:'Standing call',val:'missed',conf:'conf 0.78',color:'#ffb27a'}, note:'More new conversations, one important recurring one dropped. Both are real. The mirror holds the contradiction instead of resolving it.' },
+        honesty:'This mirror is warped because the records genuinely conflict \u2014 not because the data is weak. Read it as an open question about what \u201ccloser\u201d meant this week.',
+        prompt:'The records disagree about connection \u2014 which signal matches your own sense of the week?',
+        reasoning:['Two attested but opposing records on the same lens.','Resolver is CONFLICT_OPEN: the disagreement is surfaced, never silently picked.','Confidence is capped low because the lens is internally contradictory.'],
+        sources:[{title:'Call log',meta:'phone \u00b7 duration-attested',color:'#86e8c2',radius:'3px'},{title:'Family call ritual',meta:'rit_call_31 \u00b7 overdue',color:'#ffb27a',radius:'2px'}] },
+
+      money:{ lens:'MONEY', clarity:'clear', conf:0.82, life:'Confirmed', trend:'mixed', window:'Jun 10\u201316', recordCount:'19 records \u00b7 2 sources', canonId:'rec_money_w24', mode:'PAT \u00b7 weekly recap', resolver:'HIGHEST_CONF',
+        refl:'Saved and spent more in the same week.',
+        narrative:'The planned savings transfer went through, and discretionary spending also rose. Both are clearly recorded, so the mirror reflects a true two-sided week \u2014 one bill, though, is sitting overdue.',
+        improved:[{t:'Savings transfer kept on schedule',src:'finance app \u00b7 confirmed'}],
+        degraded:[{t:'Discretionary spend +18%',src:'finance app \u00b7 confirmed'},{t:'1 bill overdue',src:'Ritual Circle \u00b7 rit_fin_88'}],
+        prompt:'Spending rose in a week you also saved \u2014 worth seeing where the two met?',
+        reasoning:['Finance records are attested and internally consistent.','Two real movements plus one overdue obligation, all shown.','High enough confidence for a clear mirror.'],
+        sources:[{title:'Finance app record',meta:'normalized \u00b7 confirmed',color:'#5fd39a',radius:'3px'},{title:'Finance reckoning ritual',meta:'rit_fin_88 \u00b7 open',color:'#ffb27a',radius:'2px'}] },
+
+      mood:{ lens:'MOOD', clarity:'foggy', conf:0.46, life:'Watching', trend:'flat', window:'Jun 10\u201316', recordCount:'2 records \u00b7 1 source', canonId:'rec_mood_w24', mode:'PAT \u00b7 weekly recap', resolver:'INSUFFICIENT',
+        refl:'Not enough here to say honestly.',
+        narrative:'Only two mood check-ins landed this week, both self-reported. That is too thin to narrate a trend, so the mirror fogs rather than guess. The quiet itself might be the most honest reading.',
+        improved:[{t:'No reliable improvement signal',src:'\u2014 insufficient data'}],
+        degraded:[{t:'No reliable decline signal',src:'\u2014 insufficient data'}],
+        honesty:'The fog is the finding. With two data points and no attestation beyond self-report, any confident summary would be the mirror inventing \u2014 which it won\u2019t do.',
+        prompt:'There isn\u2019t enough here to summarize. Would a couple more check-ins help \u2014 or is the quiet the answer?',
+        reasoning:['Only two self-reported check-ins in the window.','Resolver is INSUFFICIENT: it refuses to manufacture a trend.','Confidence floored; the mirror is fogged, not faked.'],
+        sources:[{title:'Mood check-ins \u00d72',meta:'self-report \u00b7 no attestation',color:'#9aa6c0',radius:'2px'}] },
+
+      creative:{ lens:'CREATE', clarity:'warped', conf:0.62, life:'Watching', trend:'down', window:'Jun 10\u201316', recordCount:'7 records \u00b7 2 sources', canonId:'rec_create_w24', mode:'PAT \u00b7 weekly recap', resolver:'HIGHEST_CONF',
+        refl:'Two sessions \u2014 down, or just different?',
+        narrative:'Two creative sessions logged, down from five the week before. The drop is real but the records are sparse, so the mirror warps: a dip and \u201ca different kind of week\u201d look identical from here.',
+        improved:[{t:'2 sessions still logged',src:'app \u00b7 session log'}],
+        degraded:[{t:'Down from 5 sessions last week',src:'app \u00b7 session log'}],
+        honesty:'The number dropped, but with so few records the mirror can\u2019t tell a slump from a deliberate pause. It shows the dip and stops there.',
+        prompt:'Two sessions, down from five \u2014 a dip, or a different kind of week?',
+        reasoning:['Session count fell, attested but low-volume.','Sparse records make interpretation ambiguous.','Warped mirror: trend shown, meaning withheld.'],
+        sources:[{title:'Creative session log',meta:'app \u00b7 TLS receipt',color:'#9b8cff',radius:'3px'},{title:'Prior-week baseline',meta:'normalized',color:'#9aa6c0',radius:'3px'}] },
+
+      obligations:{ lens:'DUTIES', clarity:'clear', conf:0.84, life:'Confirmed', trend:'mixed', window:'Jun 10\u201316', recordCount:'12 records \u00b7 3 sources', canonId:'rec_duties_w24', mode:'PAT \u00b7 weekly recap', resolver:'HIGHEST_CONF',
+        refl:'Five held, three slipped.',
+        narrative:'Most commitments held this week; three drifted overdue. The ledger is complete and attested, so the mirror is clear \u2014 it simply asks whether the three that slipped are still the right ones to carry.',
+        improved:[{t:'5 rituals held with attestation',src:'Ritual Circle \u00b7 completion log'}],
+        degraded:[{t:'3 obligations overdue',src:'Ritual Circle \u00b7 cracks'}],
+        prompt:'Five held, three slipped \u2014 are the three still the right commitments to keep?',
+        reasoning:['Completion records are attested and complete.','Both the held and the slipped are shown plainly.','Clear mirror; the only ambiguity is yours to weigh.'],
+        sources:[{title:'Ritual completion log',meta:'attested per occurrence',color:'#5fd39a',radius:'3px'},{title:'Obligation records',meta:'normalized \u00b7 confirmed',color:'#9b8cff',radius:'3px'}] }
+    };
+    this.ORDER=['health','work','relationships','money','mood','creative','obligations'];
+    this.NAV=['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lattice Vault','Resonance Atlas','Constellation Recall','Family Lantern Wall','Bounty Constellarium','Source Aquarium','Ritual Circle','Mirror Hall'];
+  }
+
+  themes={
+    obsidian:{ accent:'#c7b8e8', accent2:'#9b8cff', base:'#080610', bg1:'rgba(150,120,220,0.14)', bg2:'rgba(90,80,160,0.10)', glow:'rgba(199,184,232,0.30)' },
+    rose:    { accent:'#e8b8c8', accent2:'#ff9ec2', base:'#0e0810', bg1:'rgba(230,140,180,0.13)', bg2:'rgba(180,110,200,0.10)', glow:'rgba(232,184,200,0.30)' },
+    verdigris:{ accent:'#a8d8c8', accent2:'#6fd6c0', base:'#06100d', bg1:'rgba(110,200,180,0.13)', bg2:'rgba(90,150,200,0.10)', glow:'rgba(168,216,200,0.28)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.obsidian; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#5fd39a': c>=0.7?'#7fd99a': c>=0.55?'#e8c75a':'#ff9e57'; }
+  lifeColor(l){ return ({Confirmed:'#5fd39a',Watching:'#e8c75a',Disputed:'#c79bff'})[l]||'#9aa6c0'; }
+  clarityColor(c){ return ({clear:'#86e8c2',warped:'#c79bff',foggy:'#9aa6c0'})[c]; }
+
+  trendEl(trend){ const h=React.createElement;
+    if(trend==='up') return h('svg',{width:10,height:10,viewBox:'0 0 10 10'},h('path',{d:'M5 1 L9 8 H1 Z',fill:'#5fe0b0'}));
+    if(trend==='down') return h('svg',{width:10,height:10,viewBox:'0 0 10 10'},h('path',{d:'M5 9 L1 2 H9 Z',fill:'#ff9e57'}));
+    if(trend==='flat') return h('span',{style:{width:'10px',height:'2px',background:'#9aa6c0',borderRadius:'1px'}});
+    return h('span',{style:{display:'inline-flex',gap:'2px'}},
+      h('svg',{width:8,height:8,viewBox:'0 0 10 10'},h('path',{d:'M5 1 L9 8 H1 Z',fill:'#5fe0b0'})),
+      h('svg',{width:8,height:8,viewBox:'0 0 10 10'},h('path',{d:'M5 9 L1 2 H9 Z',fill:'#ff9e57'})));
+  }
+
+  renderVals(){
+    const t=this.cur(), L=this.LENSES, selId=this.state.sel, b=L[selId];
+    const pick=id=>()=>this.setState({sel:id});
+
+    const mirrors=this.ORDER.map(id=>{ const m=L[id], seld=id===selId, cCol=this.clarityColor(m.clarity), warped=m.clarity==='warped', foggy=m.clarity==='foggy';
+      const frameBright = m.clarity==='clear';
+      return { id, lens:m.lens, refl:m.refl, op:seld?1:(this.state.sel?0.82:0.96),
+        color:cCol, lifeColor:this.lifeColor(m.life),
+        warped, foggy,
+        reflFilter: m.clarity==='clear'?'none': m.clarity==='warped'?'blur(0.8px)':'blur(1.4px)',
+        reflColor: m.clarity==='foggy'?'rgba(238,235,247,0.55)':'rgba(238,235,247,0.86)',
+        reflStyle: m.clarity==='clear'?'normal':'italic',
+        frameBg: seld
+          ? 'linear-gradient(160deg, '+t.accent+', '+t.accent2+')'
+          : frameBright ? 'linear-gradient(160deg, rgba(210,205,230,0.7), rgba(120,114,150,0.5))'
+                        : 'linear-gradient(160deg, rgba(120,114,150,0.45), rgba(70,66,92,0.4))',
+        frameShadow: seld ? '0 0 0 1px '+t.accent+', 0 14px 34px rgba(0,0,0,0.55), 0 0 26px '+this.hexA(t.accent,0.4)
+                          : '0 10px 24px rgba(0,0,0,0.45)',
+        glassBg: foggy ? 'linear-gradient(180deg, rgba(120,124,150,0.22), rgba(30,28,44,0.5))'
+               : warped ? 'linear-gradient(180deg, rgba(90,84,120,0.2), rgba(24,20,38,0.55))'
+                        : 'linear-gradient(180deg, rgba(180,180,210,0.14), rgba(18,16,30,0.5))',
+        confLabel:'conf '+m.conf.toFixed(2), confColor:this.confColor(m.conf), confBg:this.hexA(this.confColor(m.conf),0.14),
+        trendEl:this.trendEl(m.trend),
+        floorTint:this.hexA(cCol,0.4),
+        onSelect:pick(id) }; });
+
+    const cl=b.clarity, cCol=this.clarityColor(cl);
+    const sel={
+      lensTitle: ({HEALTH:'Health',WORK:'Work',RELATE:'Relationships',MONEY:'Money',MOOD:'Mood',CREATE:'Creative life',DUTIES:'Obligations'})[b.lens]||b.lens,
+      color:cCol, clarityLabel: cl==='clear'?'clear mirror':cl==='warped'?'warped mirror':'fogged mirror', clarityColor:cCol, clarityBg:this.hexA(cCol,0.14),
+      life:b.life, lifeColor:this.lifeColor(b.life), lifeBg:this.hexA(this.lifeColor(b.life),0.16), headerBg:this.hexA(cCol,0.06),
+      narrative:b.narrative, honesty:b.honesty||null, improved:b.improved, degraded:b.degraded, tension:b.tension||null, prompt:b.prompt,
+      conf:b.conf.toFixed(2), confPct:Math.round(b.conf*100)+'%', confColor:this.confColor(b.conf),
+      reasoning:b.reasoning, sources:b.sources,
+      canonId:b.canonId, mode:b.mode, resolver:b.resolver, window:b.window, recordCount:b.recordCount
+    };
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Mirror Hall'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(238,235,247,0.95)':'rgba(238,235,247,0.6)', dot:active?'var(--accent)':'rgba(238,235,247,0.35)' }; });
+
+    const arcMarks=[
+      {subj:'Movement climbed',day:'Mon',leftPct:'9%',color:'#5fe0b0',ringColor:'rgba(255,255,255,0.3)',id:'health'},
+      {subj:'Focus, busy week',day:'Tue',leftPct:'26%',color:'#5fe0b0',ringColor:'rgba(255,255,255,0.3)',id:'work'},
+      {subj:'Family call missed',day:'Wed',leftPct:'43%',color:'#c79bff',ringColor:'#c79bff',id:'relationships'},
+      {subj:'Spend rose',day:'Fri',leftPct:'60%',color:'#ff9e57',ringColor:'#ff9e57',id:'money'},
+      {subj:'Creative dipped',day:'Sat',leftPct:'77%',color:'#c79bff',ringColor:'#c79bff',id:'creative'},
+      {subj:'Mood: too quiet to read',day:'Sun',leftPct:'93%',color:'#9aa6c0',ringColor:'#9aa6c0',id:'mood'}
+    ].map(m=>({ ...m, onSelect:pick(m.id) }));
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      dustSvg:this.buildDust(), arcSvg:this.buildArc(),
+      mirrors, sel, navItems, arcMarks
+    };
+  }
+
+  buildDust(){
+    const h=React.createElement, R=[]; let s=29; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<40;i++){ R.push(h('circle',{key:'d'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*560).toFixed(1),r:(rnd()*0.8+0.2).toFixed(2),fill:'#e8e0f5',opacity:(rnd()*0.16+0.03).toFixed(2),style:{animation:rnd()>0.6?('lwTwinkle '+(2+rnd()*3).toFixed(1)+'s ease-in-out infinite'):'none'}})); }
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+  buildArc(){
+    const h=React.createElement, vals=[0.55,0.6,0.34,0.30,0.40,0.26], n=vals.length;
+    const X=i=>i*(1000/(n-1)), Y=v=>52-v*44;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++) d+=' L '+X(i)+' '+Y(vals[i]);
+    const t=this.cur();
+    return h('svg',{viewBox:'0 0 1000 56',width:'100%',height:'100%',preserveAspectRatio:'none'},
+      h('path',{d:d+' L '+X(n-1)+' 56 L 0 56 Z',fill:this.hexA(t.accent,0.10)}),
+      h('path',{d:d,fill:'none',stroke:this.hexA(t.accent,0.5),strokeWidth:1.4}));
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#070a0e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  textarea,input{font-family:'IBM Plex Mono',monospace;} textarea:focus,input:focus{outline:none;}
+  @keyframes roToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="Rosetta" style="height:100vh; overflow:hidden; color:rgba(228,236,244,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 600px at 42% -16%, {{ bg1 }}, transparent 56%), radial-gradient(1000px 720px at 112% 120%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><rect x="4" y="6" width="8" height="16" rx="1.5" fill="none" stroke="var(--accent2)" stroke-width="1.3"></rect><rect x="16" y="6" width="8" height="16" rx="1.5" fill="none" stroke="var(--accent)" stroke-width="1.3"></rect><path d="M12 14 H16" stroke="#fff" stroke-width="1.2"></path><path d="M14.2 12 L16 14 L14.2 16" fill="none" stroke="var(--accent)" stroke-width="1.2"></path></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Rosetta</span>
+      <span style="font-size:10.5px; color:rgba(228,236,244,0.42);">Layer 0 · the transmuter · {{ modeSubtitle }}</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(228,236,244,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ recCount }} records</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid {{ statChipBorder }}; border-radius:7px; background:{{ statChipBg }}; color:{{ statChipColor }};"><span style="width:6px;height:6px;border-radius:50%;background:{{ statDot }};box-shadow:0 0 7px {{ statDot }};"></span>{{ statChip }}</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(228,236,244,0.42); font-family:'IBM Plex Mono',monospace;">ROSETTA · {{ modeShort }}</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="rosetta"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow:hidden; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:14px; left:50%; z-index:20; transform:translateX(-50%); animation:roToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(12,16,22,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:620px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(228,236,244,0.9);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <!-- mode + intake -->
+      <section style="flex:0 0 auto; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600;">Transform</span>
+          <div style="display:flex; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); border-radius:9px; padding:3px;">
+            <sc-for list="{{ modeTabs }}" as="mt" hint-placeholder-count="3">
+              <span onClick="{{ mt.onClick }}" style="font-size:10.5px; font-weight:600; padding:5px 12px; border-radius:6px; cursor:pointer; background:{{ mt.bg }}; color:{{ mt.txt }};">{{ mt.label }}</span>
+            </sc-for>
+          </div>
+          <span style="font-size:9.5px; color:rgba(228,236,244,0.42);">{{ modeHint }}</span>
+          <div style="flex:1;"></div>
+          <span onClick="{{ onSample }}" style="font-size:10px; font-weight:600; color:var(--accent2); cursor:pointer; padding:4px 10px; border-radius:7px; border:1px solid rgba(255,255,255,0.12);">Load sample</span>
+          <span onClick="{{ onClear }}" style="font-size:10px; color:rgba(228,236,244,0.6); cursor:pointer; padding:4px 10px; border-radius:7px; border:1px solid rgba(255,255,255,0.12);">Clear</span>
+        </div>
+        <sc-if value="{{ isRedact }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; align-items:center; gap:9px; padding:7px 11px; border-radius:9px; background:rgba(255,122,156,0.06); border:1px solid rgba(255,122,156,0.26);">
+            <span style="font-size:9.5px; font-weight:600; color:#ff9ab0; white-space:nowrap;">strip these terms</span>
+            <input value="{{ redactTerms }}" onChange="{{ onRedactTerms }}" spellcheck="false" style="flex:1; min-width:0; border:none; background:rgba(0,0,0,0.3); border-radius:7px; color:rgba(228,236,244,0.9); font-size:10.5px; padding:6px 9px;" />
+            <span style="font-size:9px; color:rgba(228,236,244,0.45); white-space:nowrap;">name · personas · places — scrubbed from every field</span>
+          </div>
+        </sc-if>
+        <textarea value="{{ rawText }}" onChange="{{ onRaw }}" spellcheck="false" style="width:100%; height:{{ textHeight }}; resize:none; border-radius:11px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:rgba(228,236,244,0.85); font-size:11px; line-height:1.5; padding:11px 13px;"></textarea>
+      </section>
+
+      <!-- records -->
+      <section style="flex:1; min-height:0; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600;">{{ listTitle }}</span>
+          <span style="font-size:9.5px; color:rgba(228,236,244,0.42);">{{ listSub }}</span>
+          <sc-if value="{{ isTest }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;"></div>
+            <span onClick="{{ onMarkAll }}" style="font-size:10px; font-weight:600; color:var(--accent); cursor:pointer; padding:4px 10px; border-radius:7px; border:1px solid rgba(255,255,255,0.12);">{{ markAllLabel }}</span>
+          </sc-if>
+        </div>
+        <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+          <sc-for list="{{ records }}" as="r" hint-placeholder-count="8">
+            <div onClick="{{ r.onSelect }}" style="display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:11px; cursor:pointer; background:{{ r.bg }}; border:1px solid {{ r.border }};">
+              <sc-if value="{{ r.showMark }}" hint-placeholder-val="{{ false }}">
+                <span onClick="{{ r.onMark }}" style="flex:0 0 auto; width:18px; height:18px; border-radius:5px; border:1.5px solid {{ r.markBorder }}; background:{{ r.markBg }}; display:flex; align-items:center; justify-content:center; cursor:pointer;">{{ r.markIcon }}</span>
+              </sc-if>
+              <span style="flex:0 0 auto; font-size:8.5px; font-family:'IBM Plex Mono',monospace; padding:3px 7px; border-radius:6px; background:{{ r.domBg }}; color:{{ r.domColor }};">{{ r.domain }}</span>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:12.5px; font-weight:600; color:rgba(228,236,244,0.95); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.subject }}</div>
+                <div style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(228,236,244,0.45); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.summary }}</div>
+              </div>
+              <span style="flex:0 0 auto; font-size:8.5px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:6px; background:{{ r.daqBg }}; color:{{ r.daqColor }};">{{ r.daq }}</span>
+              <span style="flex:0 0 auto; font-size:8.5px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:6px; background:{{ r.lifeBg }}; color:{{ r.lifeColor }};">{{ r.lifecycle }}</span>
+              <span style="flex:0 0 52px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ r.confColor }};">{{ r.conf }}</span>
+              <sc-if value="{{ r.flagged }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto; width:14px; height:14px; border-radius:50%; background:rgba(255,184,77,0.16); display:flex; align-items:center; justify-content:center; font-size:9px; color:#FFB84D;">!</span></sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:24px; text-align:center; font-size:11px; color:rgba(228,236,244,0.4);">Nothing to translate yet. Paste some lines, or press Load sample.</div>
+          </sc-if>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 358px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:13px 16px 12px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.domColor }}; box-shadow:0 0 8px {{ sel.domColor }};"></span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:14.5px; font-weight:600; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.subject }}</span>
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:6px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</span>
+        </div>
+        <div style="font-size:10px; color:rgba(228,236,244,0.5); margin-top:4px; font-family:'IBM Plex Mono',monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.ts }} · ALE v{{ sel.ver }} · lens {{ sel.lens }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:13px;">
+
+        <div>
+          <div style="font-size:9.5px; letter-spacing:0.12em; color:rgba(228,236,244,0.4); margin-bottom:6px;">ORIGINAL · VERBATIM</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; line-height:1.5; color:rgba(228,236,244,0.62); background:rgba(0,0,0,0.28); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:9px 10px; word-break:break-word;">{{ sel.raw }}</div>
+        </div>
+
+        <div>
+          <div style="font-size:9.5px; letter-spacing:0.12em; color:rgba(228,236,244,0.4); margin-bottom:7px;">THE MAPPING · OLD → SPEC</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <sc-for list="{{ sel.mapping }}" as="mp" hint-placeholder-count="6">
+              <div style="display:flex; align-items:center; gap:8px; padding:6px 9px; border-radius:8px; background:rgba(255,255,255,0.025); border:1px solid {{ mp.rowBorder }};">
+                <span style="flex:0 0 92px; font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(228,236,244,0.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ mp.token }}</span>
+                <svg width="12" height="8" viewBox="0 0 12 8" style="flex:0 0 auto;"><path d="M0 4 H9 M7 1.5 L10 4 L7 6.5" fill="none" stroke="rgba(228,236,244,0.35)" stroke-width="1"></path></svg>
+                <span style="flex:1; min-width:0;"><span style="font-size:11px; font-weight:500; color:rgba(228,236,244,0.9);">{{ mp.field }}</span> <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(228,236,244,0.45);">{{ mp.value }}</span></span>
+                <span style="flex:0 0 auto; font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:5px; background:{{ mp.tagBg }}; color:{{ mp.tagColor }};">{{ mp.tag }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.showTruth }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ sel.onMark }}" style="display:flex; align-items:center; gap:9px; padding:10px 12px; border-radius:10px; cursor:pointer; background:{{ sel.truthBg }}; border:1px solid {{ sel.truthBorder }};">
+            <span style="flex:0 0 auto; width:20px; height:20px; border-radius:6px; border:1.5px solid {{ sel.truthColor }}; display:flex; align-items:center; justify-content:center; color:{{ sel.truthColor }}; font-size:11px;">{{ sel.truthIcon }}</span>
+            <div style="flex:1; min-width:0;"><div style="font-size:11px; font-weight:600; color:{{ sel.truthColor }};">{{ sel.truthLabel }}</div><div style="font-size:9px; color:rgba(228,236,244,0.5); margin-top:1px;">attest this is a real log → becomes a graded test case</div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ sel.flagged }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,184,77,0.05); border:1px solid rgba(255,184,77,0.3); border-radius:10px; padding:10px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:#FFB84D;"></span><span style="font-size:10px; font-weight:600; color:#ffca7a;">FLAGGED FOR REVIEW</span></div>
+            <div style="font-size:10px; line-height:1.5; color:rgba(228,236,244,0.66);">{{ sel.flagNote }} Exports as <b style="color:#ffca7a;">proposed</b> — held for your confirmation, never auto-committed.</div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-size:9.5px; color:rgba(228,236,244,0.45); flex:0 0 96px;">mapping confidence</span>
+          <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+        </div>
+
+        <div>
+          <div style="font-size:9.5px; letter-spacing:0.12em; color:{{ sel.outLabelColor }}; margin-bottom:6px;">{{ sel.outLabel }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; line-height:1.55; color:rgba(228,236,244,0.78); background:rgba(0,0,0,0.34); border:1px solid {{ sel.outBorder }}; border-radius:9px; padding:11px 12px; white-space:pre-wrap; word-break:break-word; max-height:240px; overflow-y:auto;">{{ sel.json }}</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 70px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:0 18px; display:flex; align-items:center; gap:16px;">
+    <div style="flex:1; min-width:0;">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(228,236,244,0.62);">{{ footLine }}</div>
+      <div style="font-size:10px; color:rgba(228,236,244,0.4); margin-top:2px;">{{ footSub }}</div>
+    </div>
+    <div onClick="{{ onDownload }}" style="flex:0 0 auto; display:flex; align-items:center; gap:9px; padding:10px 16px; border-radius:11px; cursor:pointer; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 16px {{ glowSoft }};">
+      <svg width="15" height="15" viewBox="0 0 16 16"><path d="M8 2 V10 M5 7.5 L8 10.5 L11 7.5 M3 13 H13" fill="none" stroke="#0a0e12" stroke-width="1.5"></path></svg>
+      <span style="font-size:12px; font-weight:600; color:#0a0e12;">{{ downloadLabel }}</span>
+    </div>
+    <div style="flex:0 0 auto; text-align:right;">
+      <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--accent); line-height:1;">{{ outCount }}</div>
+      <div style="font-size:9px; color:rgba(228,236,244,0.5);">{{ outCountLabel }}</div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;rosetta&quot;,&quot;brass&quot;,&quot;violet&quot;],&quot;default&quot;:&quot;rosetta&quot;,&quot;tsType&quot;:&quot;'rosetta' | 'brass' | 'violet'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.SAMPLE=[
+      '2026-01-27T05:14:41,BIO-OBS-NRM,CULTIVATION-IRON-GARNET-LIFELIGHT,Steps_Log,8200,steps,Morning_Walk,1.1,01',
+      '2026-01-27T05:14:41,BIO-IN-NRM,MERCY-IRON-GARNET-LIFELIGHT,Supplement_Log,Vitamin_D,1000IU,Morning_Routine,1.1,01',
+      '2026-01-27T05:12:48,BIO-OBS-DEG,DEVOTION-GOLD-GARNET-LIFELIGHT,Pet_Care_Log,Checkup,Routine_Visit,Pip in for a routine checkup; all clear,1.1,01',
+      '2026-01-27T11:25:12,RES-OUT-NRM,ENDOWMENT-STEEL-GOLD-VOIDLIGHT,Financial_Log,Lunch_Purchase,12.50_USD,Lunch at a local deli,1.1,01',
+      '2026-01-27T10:56:29,ECO-OUT-NRM,VALOR-STEEL-AMETHYST-STORMLIGHT,Trip_Log,Lunch_Run,Start_Time,Departure for nutritional intake,1.1,01',
+      '2026-01-27T16:23:32,BIO-OUT-NRM,VALOR-STEEL-GARNET-LIFELIGHT,Activity_Log,Dog_Walk,2.50_Miles,Walked Pip in the park with Robin; easy pace,1.2,01',
+      '2026-01-27T17:35:10,COG-OBS-DEG,EMOTION-MONITOR-BIOMETRICS-CRITICAL,Mood_Log,Focused,Steady,Calm and on task,1.2,01',
+      '2026-01-27T16:05:00,DIG-MNT-OPT,VIRTUOSITY-TIN-DIAMOND-STORMLIGHT,Frontend_UI,UI_Design,Abstract_Layer,Design intuitive UI; hide metadata stamps,1.2,steward'
+    ].join('\n');
+    this.state={ raw:this.SAMPLE, sel:0, toast:null, mode:'translate', redactTerms:'Robin, Pip', truth:{} };
+
+    this.DOMAIN={ BIO:'HEALTH', DIG:'SYSTEM', RES:'HOME', ECO:'MOVEMENT', COG:'COGNITION' };
+    this.ACTION={ OBS:['observation','DATA_LOG'], IN:['intake','DATA_LOG'], OUT:['output','DATA_LOG'], MNT:['maintenance','SYSTEM_NOTE'] };
+    this.INTENT={ DOMINION:'control', WISDOM:'analysis', DEVOTION:'care', MERCY:'relief', CULTIVATION:'growth', PRESERVATION:'storage', AMBITION:'drive', HONOR:'integrity', VALOR:'exertion', ENDOWMENT:'assets', AUTONOMY:'self-governance', ODIUM:'distress', WHIMSY:'play', INVENTION:'creation', VIRTUOSITY:'mastery', RECOVERY:'recovery', PERFORMANCE:'performance', ENTROPY:'decay' };
+    this.METAL={ COPPER:0.62, BRONZE:0.62, TIN:0.66, ZINC:0.64, ALUMINUM:0.6, IRON:0.82, STEEL:0.82, PEWTER:0.8, BRASS:0.8, GOLD:0.9, ELECTRUM:0.9, DIAMOND:0.92 };
+    this.GEM={ TOPAZ:'system', GARNET:'body', EMERALD:'consumable', SAPPHIRE:'mind', ZIRCON:'asset', AMETHYST:'place', HELIODOR:'exertion', HELIDOR:'exertion', DIAMOND:'mastery', AMBER:'environment', SMOKESTONE:'shadow' };
+    this.LIGHT={ LIFELIGHT:['growth','Confirmed'], WARLIGHT:['conflict','Watching'], STORMLIGHT:['energy','Confirmed'], VOIDLIGHT:['depletion','Confirmed'], TOWERLIGHT:['structure','Confirmed'] };
+  }
+
+  themes={
+    rosetta:{ accent:'#46e0c8', accent2:'#9b8cff', base:'#070a0e', bg1:'rgba(40,190,200,0.13)', bg2:'rgba(150,120,255,0.10)', glow:'rgba(70,224,200,0.3)' },
+    brass:  { accent:'#ffd08a', accent2:'#f5b25a', base:'#0c0a08', bg1:'rgba(255,200,120,0.13)', bg2:'rgba(200,140,80,0.10)', glow:'rgba(255,208,138,0.3)' },
+    violet: { accent:'#9b8cff', accent2:'#ff7ad0', base:'#08070d', bg1:'rgba(150,120,255,0.14)', bg2:'rgba(255,122,208,0.10)', glow:'rgba(155,140,255,0.3)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.rosetta; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  domColor(d){ return ({HEALTH:'#46E08A',SYSTEM:'#56b8ff',HOME:'#ffb24d',MOVEMENT:'#9b8cff',COGNITION:'#ff7ad0'})[d]||'#9aa6c0'; }
+  daqColor(q){ return ({OPT:'#46E08A',NRM:'#7fd0ff',DEG:'#FFB84D'})[q]||'#9aa6c0'; }
+  lifeColor(l){ return ({Confirmed:'#46E08A',Watching:'#FFB84D',Contested:'#ff6b5e'})[l]||'#9aa6c0'; }
+  confColor(c){ return c>=0.85?'#46E08A': c>=0.7?'#7fd99a': c>=0.55?'#FFB84D':'#ff6b5e'; }
+
+  csvSplit(line){ const out=[]; let cur='', q=false; for(let i=0;i<line.length;i++){ const ch=line[i]; if(ch==='"'){ q=!q; } else if(ch===',' && !q){ out.push(cur.trim()); cur=''; } else cur+=ch; } out.push(cur.trim()); return out; }
+  redactTermsArr(){ return this.state.redactTerms.split(',').map(s=>s.trim()).filter(Boolean); }
+  redact(str){ if(!str) return str; let out=str; this.redactTermsArr().forEach(term=>{ const esc=term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); out=out.replace(new RegExp(esc,'gi'),'[redacted]'); }); return out; }
+
+  translate(line){
+    const f=this.csvSplit(line); if(f.length<6) return null;
+    const ts=f[0], ftc=(f[1]||'').toUpperCase(), rcs=(f[2]||'').toUpperCase(), subject=f[3]||'', v1=f[4]||'', v2=f[5]||'';
+    const persona=f[f.length-1]||'01', ver=f[f.length-2]||'1.1';
+    const notes=f.slice(6, Math.max(6,f.length-2)).join(' · ');
+    const fp=ftc.split('-'), rp=rcs.split('-'); const flags=[];
+    const domain=this.DOMAIN[fp[0]] || (flags.push('domain '+(fp[0]||'?')), 'GENERAL');
+    const actRaw=fp[1], act=this.ACTION[actRaw] || (flags.push('action '+(actRaw||'?')), ['note','DATA_LOG']);
+    const qual=['OPT','NRM','DEG'].includes(fp[2])?fp[2]:(flags.push('quality '+(fp[2]||'?')),'NRM');
+    const intent=this.INTENT[rp[0]] || (rp[0]?(flags.push('intent '+rp[0]),rp[0].toLowerCase()):'\u2014');
+    const metalKnown=this.METAL[rp[1]]!=null; const precision=metalKnown?this.METAL[rp[1]]:(rp[1]?(flags.push('metal '+rp[1]),0.6):0.7);
+    const klass=this.GEM[rp[2]] || (rp[2]?(flags.push('gem '+rp[2]),rp[2].toLowerCase()):'\u2014');
+    const lk=this.LIGHT[rp[3]]; const state=lk?lk[0]:(rp[3]?(flags.push('light '+rp[3]),rp[3].toLowerCase()):'\u2014');
+    let lifecycle=lk?lk[1]:'Watching';
+    if(qual==='DEG' && lifecycle==='Watching') lifecycle='Contested';
+    if(qual==='DEG' && lifecycle==='Confirmed') lifecycle='Watching';
+    const baseConf={OPT:0.9,NRM:0.8,DEG:0.64}[qual]||0.75;
+    const conf=Math.max(0.35, Math.min(0.97, (baseConf*0.5 + precision*0.5) - flags.length*0.12));
+    const io={observation:'obs',intake:'in',output:'out',maintenance:'mnt'}[act[0]]||'obs';
+    return { ts, domain, recordType:act[1], action:act[0], io, daq:qual, subject, v1, v2, intent, precision, klass, state, lifecycle,
+      conf, lens:persona, ver, notes, flags, raw:line, ftcParts:{dom:fp[0],act:actRaw,qual:fp[2]}, rcsParts:{intent:rp[0],metal:rp[1],gem:rp[2],light:rp[3]} };
+  }
+  parse(raw){ return raw.split('\n').map(l=>l.trim()).filter(l=>l && !l.toLowerCase().startsWith('global_timestamp')).map(l=>this.translate(l)).filter(Boolean); }
+
+  toJSON(r, mode){
+    const rd = mode==='redact';
+    const red=(s)=>rd?this.redact(s):s;
+    const obj={
+      ts:r.ts, domain_mode:r.domain, record_type:r.recordType, io_direction:r.io,
+      daq_quality:r.daq, subject:red(r.subject), value_primary:red(r.v1), value_secondary:red(r.v2),
+      truth:{ confidence:Math.round(r.conf*100)/100, lifecycle:r.lifecycle, mode:'INF' },
+      tags:{ intent:r.intent, precision:Math.round(r.precision*100)/100, class:r.klass, state:r.state },
+      source:{ origin: rd?'import-redacted':'import', system:'ALE_v'+r.ver, lens: rd?'[redacted]':r.lens },
+      mapping:{ confidence:Math.round(r.conf*100)/100, status:r.flags.length?'proposed':'mapped', flags:r.flags },
+      provenance:{ raw: red(r.raw) },
+      notes:red(r.notes)
+    };
+    if(rd) obj.redaction={ applied:this.redactTermsArr(), note:'PII stripped — safe to share or flag for output' };
+    return JSON.stringify(obj, null, 2);
+  }
+  fixture(r, i){
+    return JSON.stringify({
+      case_id:'rosetta_tc_'+String(i+1).padStart(3,'0'),
+      input:r.raw,
+      expect:{ domain_mode:r.domain, record_type:r.recordType, io_direction:r.io, daq_quality:r.daq, lifecycle:r.lifecycle,
+        tags:{ intent:r.intent, class:r.klass, state:r.state } },
+      ground_truth: !!this.state.truth[i],
+      attested_by: this.state.truth[i]?'user':'unverified',
+      mapping_status: r.flags.length?'proposed':'mapped',
+      unmapped_tokens: r.flags
+    }, null, 2);
+  }
+
+  onRaw(e){ this.setState({raw:e.target.value, sel:0}); }
+  onRedactTerms(e){ this.setState({redactTerms:e.target.value}); }
+  setMode(m){ const msg={ translate:null, redact:'Redact mode — your name, personas and places are stripped from every field. Output is safe to share or flag.', testcase:'Test-case mode — check the lines that are real, and export graded input\u2192expected fixtures. Your attested logs become the answer key.' }[m]; this.setState({mode:m, toast:msg}); this.bump(); }
+  toggleTruth(i){ this.setState(st=>{ const truth={...st.truth}; truth[i]=!truth[i]; return {truth, sel:i}; }); }
+  markAll(){ const recs=this.parse(this.state.raw); const allOn=recs.every((r,i)=>this.state.truth[i]); const truth={}; if(!allOn) recs.forEach((r,i)=>truth[i]=true); this.setState({truth, toast: allOn?'Cleared all attestations.':recs.length+' lines attested as real ground truth.'}); this.bump(); }
+  doSample(){ this.setState({raw:this.SAMPLE, sel:0, truth:{}, toast:'Sample loaded \u2014 eight real lines across health, money, movement, mood and system.'}); this.bump(); }
+  doClear(){ this.setState({raw:'', sel:0, truth:{}}); }
+  bump(){ clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200); }
+  download(){
+    try{
+      const recs=this.parse(this.state.raw), mode=this.state.mode; let content,name,n;
+      if(mode==='testcase'){ content=recs.map((r,i)=>this.fixture(r,i).replace(/\n\s*/g,' ')).join('\n'); name='rosetta-test-suite.jsonl'; n=recs.filter((r,i)=>this.state.truth[i]).length; }
+      else if(mode==='redact'){ content=recs.map(r=>this.toJSON(r,'redact').replace(/\n\s*/g,' ')).join('\n'); name='lightweave-ledger-redacted.jsonl'; n=recs.length; }
+      else { content=recs.map(r=>this.toJSON(r,'translate').replace(/\n\s*/g,' ')).join('\n'); name='lightweave-ledger.jsonl'; n=recs.length; }
+      const blob=new Blob([content],{type:'application/x-ndjson'}); const url=URL.createObjectURL(blob); const a=document.createElement('a');
+      a.href=url; a.download=name; document.body.appendChild(a); a.click();
+      setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); },100);
+      this.setState({toast: mode==='testcase'? (n+' attested test cases (of '+recs.length+') written to '+name+'.') : (recs.length+' records written to '+name+'.')});
+    }catch(err){ this.setState({toast:'Download blocked in this frame \u2014 the output is shown in the panel, copy-ready.'}); }
+    this.bump();
+  }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const t=this.cur(), recs=this.parse(this.state.raw), mode=this.state.mode, pick=i=>()=>this.setState({sel:i});
+    const isRedact=mode==='redact', isTest=mode==='testcase';
+    const navItems=['Prism Intake','Aurora Proof','Source Aquarium','Lattice Vault','Spectrum Recall','Distortion Clinic','The Governor','Iris','Leeches','Rosetta']
+      .map(l=>{ const on=l==='Rosetta'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,255,255,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(228,236,244,0.95)':'rgba(228,236,244,0.6)',dot:on?'var(--accent)':'rgba(228,236,244,0.35)'}; });
+
+    const records=recs.map((r,i)=>{ const on=i===this.state.sel, dc=this.domColor(r.domain), marked=!!this.state.truth[i];
+      let subj=r.subject, summ=r.intent+' · '+r.klass+' · '+(r.v1||'')+(r.v2?(' '+r.v2):'');
+      if(isRedact){ subj=this.redact(subj); summ=this.redact(summ); }
+      return { domain:r.domain, domColor:dc, domBg:this.hexA(dc,0.14), subject:subj, summary:summ,
+        daq:r.daq, daqColor:this.daqColor(r.daq), daqBg:this.hexA(this.daqColor(r.daq),0.14),
+        lifecycle:r.lifecycle, lifeColor:this.lifeColor(r.lifecycle), lifeBg:this.hexA(this.lifeColor(r.lifecycle),0.14),
+        conf:r.conf.toFixed(2), confColor:this.confColor(r.conf), flagged:r.flags.length>0,
+        showMark:isTest, markIcon:marked?'\u2713':'', markBorder:marked?'#46E08A':'rgba(255,255,255,0.25)', markBg:marked?this.hexA('#46E08A',0.18):'transparent',
+        bg:on?this.hexA(dc,0.08):'rgba(255,255,255,0.02)', border:on?this.hexA(dc,0.4):'rgba(255,255,255,0.06)',
+        onSelect:pick(i), onMark:()=>this.toggleTruth(i) }; });
+
+    const b=recs[this.state.sel]||recs[0]; const si=this.state.sel; let sel;
+    if(b){ const dc=this.domColor(b.domain), marked=!!this.state.truth[si];
+      const mapping=[
+        { token:b.ftcParts.dom+' (domain)', field:'domain_mode', value:b.domain, ...tagify(this,this.DOMAIN[b.ftcParts.dom]) },
+        { token:b.ftcParts.act+' (action)', field:'record_type', value:b.recordType+' · '+b.io, ...tagify(this,this.ACTION[b.ftcParts.act]) },
+        { token:b.ftcParts.qual+' (quality)', field:'daq_quality', value:b.daq, ...tagify(this,['OPT','NRM','DEG'].includes(b.ftcParts.qual)) },
+        { token:b.rcsParts.intent+' (intent)', field:'tags.intent', value:b.intent, ...tagify(this,this.INTENT[b.rcsParts.intent]) },
+        { token:b.rcsParts.metal+' (metal)', field:'tags.precision', value:b.precision.toFixed(2), ...tagify(this,this.METAL[b.rcsParts.metal]!=null) },
+        { token:b.rcsParts.gem+' (gem)', field:'tags.class', value:b.klass, ...tagify(this,this.GEM[b.rcsParts.gem]) },
+        { token:b.rcsParts.light+' (light)', field:'tags.state + lifecycle', value:b.state+' · '+b.lifecycle, ...tagify(this,this.LIGHT[b.rcsParts.light]) }
+      ];
+      const outLabel = isTest?'TEST FIXTURE · INPUT → EXPECTED' : isRedact?'REDACTED RECORD · SAFE TO SHARE' : 'LIGHTWEAVE RECORD · READY TO INGEST';
+      const json = isTest?this.fixture(b,si):this.toJSON(b, mode);
+      sel={ subject: isRedact?this.redact(b.subject):b.subject, ts:b.ts, ver:b.ver, lens:isRedact?'[redacted]':b.lens, domColor:dc, headerBg:this.hexA(dc,0.07),
+        lifecycle:b.lifecycle, lifeColor:this.lifeColor(b.lifecycle), lifeBg:this.hexA(this.lifeColor(b.lifecycle),0.16),
+        raw: isRedact?this.redact(b.raw):b.raw, mapping, flagged:b.flags.length>0,
+        flagNote: b.flags.length? ('Couldn\u2019t place: '+b.flags.join(', ')+'. Kept verbatim, not guessed.'):'',
+        conf:b.conf.toFixed(2), confPct:Math.round(b.conf*100)+'%', confColor:this.confColor(b.conf), json,
+        outLabel, outLabelColor: isTest?'#46E08A':isRedact?'#ff9ab0':'rgba(228,236,244,0.4)', outBorder: isTest?'rgba(70,224,136,0.3)':isRedact?'rgba(255,122,156,0.3)':'rgba(255,255,255,0.09)',
+        showTruth:isTest, onMark:()=>this.toggleTruth(si), truthIcon:marked?'\u2713':'\u25CB', truthColor:marked?'#46E08A':'rgba(228,236,244,0.6)',
+        truthLabel:marked?'Attested as real · ground truth':'Mark as real ground truth', truthBg:marked?this.hexA('#46E08A',0.08):'rgba(255,255,255,0.03)', truthBorder:marked?'rgba(70,224,136,0.4)':'rgba(255,255,255,0.1)' };
+    } else {
+      sel={ subject:'No record', ts:'\u2014', ver:'\u2014', lens:'\u2014', domColor:'#9aa6c0', headerBg:'transparent', lifecycle:'\u2014', lifeColor:'#9aa6c0', lifeBg:'rgba(255,255,255,0.05)', raw:'\u2014', mapping:[], flagged:false, flagNote:'', conf:'0.00', confPct:'0%', confColor:'#9aa6c0', json:'{ }', outLabel:'OUTPUT', outLabelColor:'rgba(228,236,244,0.4)', outBorder:'rgba(255,255,255,0.09)', showTruth:false, onMark:()=>{}, truthIcon:'\u25CB', truthColor:'#9aa6c0', truthLabel:'', truthBg:'transparent', truthBorder:'rgba(255,255,255,0.1)' };
+    }
+
+    const flagCount=recs.filter(r=>r.flags.length).length, truthCount=recs.filter((r,i)=>this.state.truth[i]).length;
+    const modeTabs=[['translate','Translate'],['redact','Redact'],['testcase','Test case']].map(m=>({ label:m[1], onClick:()=>this.setMode(m[0]),
+      bg: mode===m[0]?'linear-gradient(135deg, var(--accent), var(--accent2))':'transparent', txt: mode===m[0]?'#0a0e12':'rgba(228,236,244,0.6)' }));
+
+    const statChip = isTest? (truthCount+' attested') : isRedact? (this.redactTermsArr().length+' terms stripped') : (flagCount+' flagged');
+    const statColor = isTest?'#46E08A':isRedact?'#ff7a9c':'#FFB84D';
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow, glowSoft:this.hexA(t.accent,0.4),
+      navItems, records, sel, rawText:this.state.raw, redactTerms:this.state.redactTerms, empty:recs.length===0,
+      recCount:recs.length, flagCount, mode, isRedact, isTest, modeTabs,
+      textHeight: isRedact?'78px':'96px',
+      modeSubtitle: isTest?'attest real logs · mint graded test cases':isRedact?'strip the PII · keep the structure':'old ledger-tongue in, current spec out',
+      modeShort: isTest?'testcase':isRedact?'redact':'ingest',
+      modeHint: isTest?'check what\u2019s real — those become the answer key':isRedact?'names & places never reach the output':'header rows skipped automatically',
+      statChip, statChipColor:statColor, statDot:statColor, statChipBg:this.hexA(statColor,0.08), statChipBorder:this.hexA(statColor,0.3),
+      listTitle: isTest?'Pick your ground truth':isRedact?'Redacted to Lightweave spec':'Translated to Lightweave spec',
+      listSub: isTest?(truthCount+' of '+recs.length+' attested · check the real ones'):(recs.length+' records · select one to see the mapping'),
+      markAllLabel: recs.length && recs.every((r,i)=>this.state.truth[i])?'Clear all':'Mark all real',
+      onMarkAll:()=>this.markAll(),
+      noteTitle: isTest?'THE ANSWER KEY':isRedact?'SAFE TO SHARE':'KERNEL OVER SHELL',
+      noteBody: isTest?'You alone can attest a log is real. Checked lines export as ground_truth — the graded cases that prove the transform holds.':isRedact?'Names, personas and places are scrubbed from every field, including the verbatim line. The mapping logic stays intact — only the PII leaves.':'Your tags are the kernel; the lore shell was the interpreter. Rosetta keeps the kernel 1:1 and flags any token it can\u2019t place — never inventing meaning to fill a gap.',
+      noteBorder: isTest?'rgba(70,224,136,0.24)':isRedact?'rgba(255,122,156,0.24)':'rgba(255,255,255,0.1)',
+      noteBg: isTest?'rgba(70,224,136,0.05)':isRedact?'rgba(255,122,156,0.05)':'rgba(255,255,255,0.03)',
+      footLine: isTest?(truthCount+' attested test cases · '+recs.length+' parsed · '+flagCount+' flagged'):isRedact?(recs.length+' records redacted · '+this.redactTermsArr().length+' terms stripped from every field'):(recs.length+' records translated · '+flagCount+' flagged'),
+      footSub: isTest?'each case is input → expected · ground_truth marks the ones you swear are real':isRedact?'PII removed; logic identical · the structure is the test, not the name':'vocabulary changed, logic identical · the original line travels with every record · 0 meanings invented',
+      downloadLabel: isTest?'Download test-suite .jsonl':isRedact?'Download redacted .jsonl':'Download ledger .jsonl',
+      outCount: isTest?truthCount:recs.length,
+      outCountLabel: isTest?'attested cases':isRedact?'safe to share':'ready to pour in',
+      onRaw:(e)=>this.onRaw(e), onRedactTerms:(e)=>this.onRedactTerms(e), onSample:()=>this.doSample(), onClear:()=>this.doClear(), onDownload:()=>this.download(),
+      toast:this.state.toast
+    };
+  }
+}
+function tagify(self, known){ return known? { tag:'mapped', tagBg:self.hexA('#46E08A',0.16), tagColor:'#7fe8a6', rowBorder:'rgba(255,255,255,0.06)' } : { tag:'flagged', tagBg:self.hexA('#FFB84D',0.16), tagColor:'#ffca7a', rowBorder:'rgba(255,184,77,0.3)' }; }
+</script>
+</body>
+</html>

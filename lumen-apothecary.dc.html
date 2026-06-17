@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#06070e}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwRise{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-26px);opacity:0}}
+  @keyframes lwGlow{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes lwSway{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+  @keyframes lwSwirl{0%{transform:translateX(-3px)}50%{transform:translateX(3px)}100%{transform:translateX(-3px)}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+  @keyframes lwLift{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div data-screen-label="Lumen Apothecary" style="height:100vh; overflow:hidden; color:rgba(232,238,247,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 640px at 28% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 116% 122%, {{ bg2 }}, transparent 56%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><path d="M14 4 L14 24" stroke="var(--accent)" stroke-width="1.1" opacity="0.5"></path><path d="M5.5 9 L22.5 19 M5.5 19 L22.5 9" stroke="var(--accent2)" stroke-width="1.1" opacity="0.55"></path><circle cx="14" cy="14" r="2.6" fill="var(--accent2)"></circle></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Lumen Apothecary</span>
+      <span style="font-size:10.5px; color:rgba(232,238,247,0.42);">relabel the bottle all you like — the contents are canonical</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(232,238,247,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(70,224,180,0.3); border-radius:7px; background:rgba(70,224,180,0.06); color:#7fe0c0;"><svg width="11" height="11" viewBox="0 0 12 12"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="#7fe0c0" stroke-width="1"></rect><path d="M3.6 5 V3.7 a2.4 2.4 0 0 1 4.8 0 V5" fill="none" stroke="#7fe0c0" stroke-width="1"></path></svg>truth layer · locked</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ vialCount }} tinctures shelved</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,138,122,0.3); border-radius:7px; background:rgba(255,138,122,0.06); color:#ff9a8a;"><span style="width:6px;height:6px;border-radius:50%;background:#ff7a6a;box-shadow:0 0 7px #ff7a6a;"></span>{{ attentionCount }} cloudy or low</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Apothecary</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42); font-family:'IBM Plex Mono',monospace;">record owner</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0; position:relative;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="lumen-apothecary"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:0;">
+      <div style="flex:0 0 auto; padding:13px 18px 12px; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex; align-items:flex-end; gap:12px; margin-bottom:11px;">
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600;">The shelf wall</div>
+            <div style="font-size:12px; color:rgba(232,238,247,0.6); margin-top:3px;">Every vial is a real pattern, drawn from real sources. Lift one down to read the assay.</div>
+          </div>
+          <div style="flex:0 0 auto; display:flex; gap:6px;">
+            <sc-for list="{{ shelfTabs }}" as="st" hint-placeholder-count="2">
+              <span onClick="{{ st.onClick }}" style="cursor:pointer; font-size:11px; padding:7px 13px; border-radius:9px; background:{{ st.bg }}; border:1px solid {{ st.border }}; color:{{ st.txt }};">{{ st.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:9px; flex-wrap:wrap; padding:9px 11px; border:1px solid rgba(255,255,255,0.09); border-radius:11px; background:rgba(0,0,0,0.2);">
+          <span style="font-size:9px; letter-spacing:0.12em; color:rgba(232,238,247,0.45); margin-right:2px;">POTENCY &amp; CLARITY LEGEND</span>
+          <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="4">
+            <span style="display:inline-flex; align-items:center; gap:7px; padding:4px 10px 4px 4px; border-radius:20px; background:{{ lg.bg }}; border:1px solid {{ lg.border }};">
+              <span style="width:22px; height:34px; flex:0 0 auto;">{{ lg.glyph }}</span>
+              <span style="display:flex; flex-direction:column; line-height:1.2;"><span style="font-size:10.5px; font-weight:600; color:{{ lg.color }};">{{ lg.cue }}</span><span style="font-size:9px; color:rgba(232,238,247,0.55);">{{ lg.meaning }}</span></span>
+            </span>
+          </sc-for>
+          <span style="flex:1;"></span>
+          <span style="font-size:10px; color:rgba(232,238,247,0.5); font-style:italic;">Pour it into any glass. <span style="color:var(--accent2);">The measure doesn't change.</span></span>
+        </div>
+      </div>
+
+      <div style="flex:1; min-height:0; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:14px;">
+        <sc-for list="{{ shelves }}" as="sh" hint-placeholder-count="5">
+          <div style="border:1px solid {{ sh.border }}; border-radius:14px; background:{{ sh.bg }}; overflow:hidden;">
+            <div style="display:flex; align-items:center; gap:10px; padding:9px 14px; border-bottom:1px solid rgba(255,255,255,0.06); background:{{ sh.headBg }};">
+              <span style="width:9px; height:9px; border-radius:50%; background:{{ sh.color }}; box-shadow:0 0 8px {{ sh.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600;">{{ sh.title }}</span>
+              <span style="font-size:10.5px; color:rgba(232,238,247,0.5);">{{ sh.sub }}</span>
+              <div style="flex:1;"></div>
+              <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; color:rgba(232,238,247,0.5);">{{ sh.count }}</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; padding:12px 14px 6px;">
+              <sc-for list="{{ sh.vials }}" as="v" hint-placeholder-count="3">
+                <div onClick="{{ v.onSelect }}" style="cursor:pointer; width:108px; border-radius:12px; padding:8px 6px 4px; display:flex; flex-direction:column; align-items:center; gap:2px; background:{{ v.tileBg }}; border:1px solid {{ v.tileBorder }}; box-shadow:{{ v.tileRing }};">
+                  <div style="width:74px; height:104px;">{{ v.svg }}</div>
+                  <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; text-align:center; line-height:1.15;">{{ v.name }}</span>
+                  <span style="font-size:8.5px; color:rgba(232,238,247,0.5); text-align:center; line-height:1.2;">{{ v.realKind }}</span>
+                  <div style="display:flex; align-items:center; gap:5px; margin-top:2px;">
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:{{ v.confColor }};">{{ v.confStr }}</span>
+                    <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:{{ v.lifeBg }}; color:{{ v.lifeColor }};">{{ v.lifecycle }}</span>
+                  </div>
+                  <div style="height:11px; display:flex; align-items:center;">
+                    <sc-if value="{{ v.tended }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:#7fe0c0;">✓ tended</span></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="flex:1; min-width:60px; align-self:stretch; border-bottom:2px solid {{ sh.lip }}; margin:0 2px;"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </main>
+
+    <aside style="flex:0 0 374px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 17px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">The assay</span>
+          <span style="font-size:10px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.clarityBg }}; color:{{ sel.clarityColor }};">{{ sel.clarityLabel }}</span>
+        </div>
+        <div style="font-size:10.5px; color:rgba(232,238,247,0.45); margin-top:3px;">what's actually in the bottle — measured, not described</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:15px 17px 18px; display:flex; flex-direction:column; gap:14px;">
+
+        <div style="display:flex; gap:13px; align-items:center;">
+          <div style="flex:0 0 96px; height:120px; border-radius:14px; background:{{ sel.portraitBg }}; border:1px solid {{ sel.portraitBorder }}; display:flex; align-items:center; justify-content:center;">
+            <div style="width:78px; height:110px;">{{ sel.svg }}</div>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600;">{{ sel.name }}</div>
+            <div style="font-size:11px; color:rgba(232,238,247,0.6); margin-top:2px;">{{ sel.realKind }}</div>
+            <div style="font-size:10px; font-family:'IBM Plex Mono',monospace; color:var(--accent); margin-top:5px;">{{ sel.canonicalId }}</div>
+            <div style="font-size:10px; color:rgba(232,238,247,0.5); margin-top:6px;">last drawn {{ sel.drawn }}</div>
+          </div>
+        </div>
+
+        <div style="border-radius:11px; padding:11px 12px; background:{{ sel.transBg }}; border:1px solid {{ sel.transBorder }};">
+          <div style="font-size:9px; letter-spacing:0.1em; color:{{ sel.clarityColor }}; margin-bottom:6px;">APPEARANCE → MEANING</div>
+          <div style="font-size:11.5px; line-height:1.55; color:rgba(232,238,247,0.8); text-wrap:pretty;">{{ sel.translate }}</div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">POTENCY · CONFIDENCE</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.confColor }};">{{ sel.confStr }} · {{ sel.confWord }}</span>
+          </div>
+          <div style="height:8px; border-radius:6px; background:rgba(255,255,255,0.08); overflow:hidden;">
+            <div style="height:100%; width:{{ sel.confPct }}; background:linear-gradient(90deg, {{ sel.confColor }}, {{ sel.domainColor }}); border-radius:6px;"></div>
+          </div>
+          <sc-if value="{{ sel.confNote }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:9.5px; color:rgba(232,238,247,0.5); margin-top:5px;">{{ sel.confNote }}</div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">LIFECYCLE</div><div style="font-size:11.5px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">RESOLVER</div><div style="font-size:10px; font-weight:600; font-family:'IBM Plex Mono',monospace; color:rgba(232,238,247,0.85);">{{ sel.resolver }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:8px 10px;"><div style="font-size:9px; color:rgba(232,238,247,0.42);">WINDOW</div><div style="font-size:10px; font-weight:500; color:rgba(232,238,247,0.82);">{{ sel.window }}</div></div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">SOURCE DRAWS · PROVENANCE</div>
+          <div style="border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+            <sc-for list="{{ sel.sources }}" as="sr" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; padding:8px 11px; border-top:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.15);">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(232,238,247,0.85);">{{ sr.rec }}</span><span style="font-size:9px; color:rgba(232,238,247,0.45);">{{ sr.kind }} · {{ sr.draw }}</span></span>
+                <span style="flex:0 0 58px; font-size:10px; color:rgba(232,238,247,0.6);">{{ sr.source }}</span>
+                <span style="flex:0 0 34px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ sr.confColor }};">{{ sr.confStr }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.contradiction }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,107,138,0.06); border:1px solid rgba(255,107,138,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="5" cy="6" r="4" fill="#ffd9a0"></circle><circle cx="7.4" cy="6" r="4" fill="#1a0f14" stroke="#ff6b8a" stroke-width="0.8"></circle></svg>
+              <span style="font-size:11px; font-weight:600;">{{ sel.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.a.color }};">{{ sel.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ sel.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(232,238,247,0.55);">{{ sel.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:{{ sel.contradiction.b.color }};">{{ sel.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:rgba(232,238,247,0.4);">{{ sel.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10px; color:rgba(232,238,247,0.5); margin-top:9px; line-height:1.5;">{{ sel.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="rp" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(232,238,247,0.72);">{{ rp }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.4); margin-bottom:9px;">CANONICAL RECORD LINK</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">id</span><span style="color:{{ sel.domainColor }};">{{ sel.canonicalId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">visibility</span><span>{{ sel.visibility }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">governance</span><span>{{ sel.governance }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(232,238,247,0.45);">records</span><span>{{ sel.records }} canonical</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+            <span style="font-size:10px; letter-spacing:0.12em; color:rgba(232,238,247,0.45);">CARE ACTIONS</span>
+            <span style="font-size:9.5px; color:rgba(232,238,247,0.42);">recommended: <span style="color:var(--accent2); font-weight:600;">{{ sel.recLabel }}</span></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ sel.careActions }}" as="ca" hint-placeholder-count="2">
+              <div onClick="{{ ca.onClick }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:10px; background:{{ ca.bg }}; border:1px solid {{ ca.border }}; box-shadow:{{ ca.ring }};">
+                <span style="flex:1; min-width:0;">
+                  <span style="display:flex; align-items:center; gap:6px;"><span style="font-size:12px; font-weight:600; color:{{ ca.labelColor }};">{{ ca.label }}</span><sc-if value="{{ ca.recommended }}" hint-placeholder-val="{{ false }}"><span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:1px 5px; border-radius:4px; background:rgba(70,224,180,0.16); color:#7fe0c0;">REC</span></sc-if></span>
+                  <span style="display:block; font-size:9.5px; line-height:1.35; color:rgba(232,238,247,0.5); margin-top:3px;">{{ ca.help }}</span>
+                </span>
+                <span style="flex:0 0 auto; font-size:9px; font-family:'IBM Plex Mono',monospace; color:{{ ca.writesColor }};">{{ ca.writes }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:9px; padding-top:9px; border-top:1px solid rgba(255,255,255,0.06);">
+            <svg width="12" height="12" viewBox="0 0 12 12" style="flex:0 0 auto;"><rect x="2.5" y="5" width="7" height="5.2" rx="1" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></rect><path d="M4 5 V3.6 a2 2 0 0 1 4 0 V5" fill="none" stroke="rgba(232,238,247,0.5)" stroke-width="1"></path></svg>
+            <span style="font-size:10px; color:rgba(232,238,247,0.55); line-height:1.4;">Every care action annotates the projection. The liquid in the bottle is never touched.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 132px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; gap:16px; min-height:0;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:11px; margin-bottom:8px; flex:0 0 auto;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:rgba(232,238,247,0.7);">Draw log &amp; ledger trace</span>
+        <span style="font-size:10px; color:rgba(232,238,247,0.42);">when each vial was last filled from source · and every annotation you've made</span>
+      </div>
+      <div style="flex:1; min-height:0; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ ledger }}" as="lg" hint-placeholder-count="6">
+          <div style="flex:0 0 auto; min-width:176px; display:flex; gap:9px; align-items:flex-start; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ lg.color }}; box-shadow:0 0 6px {{ lg.color }}; margin-top:3px;"></span>
+            <div style="min-width:0;">
+              <div style="font-size:10.5px; color:rgba(232,238,247,0.82); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:148px;">{{ lg.title }}</div>
+              <div style="font-size:9px; color:rgba(232,238,247,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:148px;">{{ lg.detail }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ lg.writesColor }}; margin-top:1px;">{{ lg.writes }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 240px; display:flex; align-items:center; gap:12px; background:rgba(70,224,180,0.05); border:1px solid rgba(70,224,180,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:#7fe0c0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px;">drops added to any bottle</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:rgba(232,238,247,0.92); line-height:1;">{{ annotationCount }}</div>
+        <div style="font-size:9.5px; color:rgba(232,238,247,0.55); margin-top:3px; line-height:1.3;">annotations · the zero is the one that matters</div>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; bottom:148px; left:50%; z-index:40; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(16,22,32,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:560px;">
+      <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+      <span style="font-size:11.5px; line-height:1.45; color:rgba(232,238,247,0.9);">{{ toast }}</span>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;lumen&quot;,&quot;amber&quot;,&quot;dusk&quot;],&quot;default&quot;:&quot;lumen&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;livingMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.DOM = {
+      body:  { color:'#46e0b4', light:'#9ff0d4' },
+      means: { color:'#f0c45a', light:'#ffe0a0' },
+      focus: { color:'#9b8cff', light:'#c9c0ff' },
+      hearth:{ color:'#ff7aa8', light:'#ffc0d4' },
+      split: { color:'#9b8cff', light:'#6fd0ff' }
+    };
+    this.VIALS = [
+      { id:'dawndraught', name:'Dawndraught', dom:'body', realKind:'Morning energy', canonicalId:'pat_en_021', conf:0.86, lifecycle:'Confirmed', resolver:'HIGHEST_CONF', window:'May 19 – Jun 15', records:18, drawn:'2 days ago', freshDays:2, clarity:'clear', shelf:'body',
+        translate:'Brimful and glowing → 0.86, confirmed across 18 records. The shine is freshness; the level is the truth, and it\u2019s nearly to the lip.',
+        sources:[{rec:'rec_en_22',kind:'Energy check',source:'Self',draw:'2d ago',conf:0.84},{rec:'rec_band_hr',kind:'Resting HR',source:'Wearable',draw:'2d ago',conf:0.88}],
+        reasoning:['Two reliable sources agree on the morning rise.','No open contradictions; confidence has held 9 days.','Lifecycle confirmed — a healthy, full vial.'], contradiction:null, actions:['decant','seal'], rec:'decant' },
+      { id:'stillwater', name:'Stillwater', dom:'body', realKind:'Sleep regularity', canonicalId:'pat_sl_088', conf:0.74, lifecycle:'Watching', resolver:'LATEST', window:'May 22 – Jun 14', records:21, drawn:'3 days ago', freshDays:3, clarity:'clear', shelf:'body',
+        translate:'Three-quarters full, steady glow → 0.74, still Watching. Clear liquid: no conflict. Not yet confirmed, and the vial shows it honestly.',
+        sources:[{rec:'rec_sl_band',kind:'Sleep · band',source:'Wearable',draw:'3d ago',conf:0.79},{rec:'rec_sl_self',kind:'Sleep · self',source:'Journal',draw:'4d ago',conf:0.62}],
+        reasoning:['Bed/wake times cluster within a 30-min band.','Self-log is sparser than the band, capping confidence.','Held at Watching until coverage tightens.'], contradiction:null, actions:['decant','seal'], rec:'seal' },
+      { id:'emberdrop', name:'Emberdrop', dom:'body', realKind:'Hydration baseline', canonicalId:'pat_hy_044', conf:0.51, lifecycle:'Watching', resolver:'LATEST', window:'Apr 28 – Jun 4', records:6, drawn:'11 days ago', freshDays:11, clarity:'clear', shelf:'body',
+        translate:'Half-empty and dim → not weak, stale. No fresh draw in 11 days; potency has settled to 0.51. The low glow is the gap, drawn honestly.',
+        sources:[{rec:'rec_hy_old',kind:'Hydration log',source:'Self',draw:'11d ago',conf:0.55}],
+        reasoning:['Last contributing record is 11 days old.','No new evidence — potency decays on schedule, not on mood.','A fresh draw is the honest fix; faking a full bottle is not.'], contradiction:null, actions:['draw','decant'], rec:'draw' },
+      { id:'tidefoot', name:'Tidefoot Tincture', dom:'body', realKind:'Steps on active days', canonicalId:'pat_st_063', conf:0.77, lifecycle:'Watching', resolver:'HIGHEST_CONF', window:'May 30 – Jun 15', records:12, drawn:'2 days ago', freshDays:2, clarity:'clear', shelf:'body',
+        translate:'Bright cyan, well-filled → 0.77, fresh. A clean read of movement; clear liquid means no source is fighting another.',
+        sources:[{rec:'rec_steps',kind:'Step count',source:'Wearable',draw:'2d ago',conf:0.82},{rec:'rec_cal_3',kind:'Calendar',source:'Calendar',draw:'1d ago',conf:0.80}],
+        reasoning:['Step counts couple cleanly with active-day markers.','Both sources fresh within 2 days.','Watching only because the window is short.'], contradiction:null, actions:['decant','seal'], rec:'decant' },
+      { id:'goldleaf', name:'Goldleaf Cordial', dom:'means', realKind:'On-time payments', canonicalId:'pat_pay_30', conf:0.91, lifecycle:'Confirmed', resolver:'GOVERNED', window:'Mar 1 – Jun 14', records:34, drawn:'1 day ago', freshDays:1, clarity:'clear', shelf:'means',
+        translate:'Full to the cork, radiant → 0.91, confirmed. Bank-grade sources, freshly drawn. The brightest bottle on the shelf, and it earned every lumen.',
+        sources:[{rec:'rec_pay_1',kind:'Payment',source:'Bank feed',draw:'1d ago',conf:0.96},{rec:'rec_pay_2',kind:'Payment',source:'Bank feed',draw:'1d ago',conf:0.95}],
+        reasoning:['34 settled payments, none late in the window.','Reliable bank sources, no contradictions.','Governed lifecycle — confirmed and stable.'], contradiction:null, actions:['decant','seal'], rec:'decant' },
+      { id:'driftcoin', name:'Driftcoin', dom:'means', realKind:'Late-night spending', canonicalId:'pat_sw_077', conf:0.64, lifecycle:'Watching', resolver:'LATEST', window:'May 16 – Jun 14', records:9, drawn:'5 days ago', freshDays:5, clarity:'clear', shelf:'means',
+        translate:'Past the half-mark but dimming → peaked at 0.71, now 0.64 and cooling. The fading glow is real decay, not a mood. Clear liquid: no conflict, just age.',
+        sources:[{rec:'rec_tx_1',kind:'Transaction',source:'Bank feed',draw:'5d ago',conf:0.96},{rec:'rec_late',kind:'Timestamp',source:'Device',draw:'5d ago',conf:0.84}],
+        reasoning:['Six of nine recent buys were late, but the slope is downward.','Bank records solid; the late-hour read leans on device clocks.','A fresh draw will confirm whether the effect is truly cooling.'], contradiction:null, actions:['draw','decant'], rec:'draw' },
+      { id:'clearmind', name:'Clearmind Tonic', dom:'focus', realKind:'Deep-work blocks', canonicalId:'pat_fo_133', conf:0.83, lifecycle:'Confirmed', resolver:'HIGHEST_CONF', window:'May 19 – Jun 15', records:18, drawn:'2 days ago', freshDays:2, clarity:'clear', shelf:'focus',
+        translate:'Tall violet column, steady → 0.83, confirmed. Clear and bright: focus blocks are consistent and uncontested.',
+        sources:[{rec:'rec_fo_22',kind:'Focus block',source:'Timer',draw:'2d ago',conf:0.88},{rec:'rec_cal_3',kind:'Calendar',source:'Calendar',draw:'1d ago',conf:0.80}],
+        reasoning:['Median focus block 58 min, low variance.','Timer and calendar agree.','Confirmed and steady for over a week.'], contradiction:null, actions:['decant','seal'], rec:'decant' },
+      { id:'flicker', name:'Flicker Elixir', dom:'focus', realKind:'Context switching', canonicalId:'pat_cs_052', conf:0.69, lifecycle:'Watching', resolver:'LATEST', window:'May 28 – Jun 15', records:14, drawn:'4 days ago', freshDays:4, clarity:'clear', shelf:'focus',
+        translate:'Just under two-thirds, gentle shimmer → 0.69, Watching. Clear read of how often attention jumps; honest mid-level potency.',
+        sources:[{rec:'rec_sw_1',kind:'App switches',source:'Device',draw:'4d ago',conf:0.72},{rec:'rec_fo_19',kind:'Focus block',source:'Timer',draw:'4d ago',conf:0.85}],
+        reasoning:['Switch frequency derived from device + timer overlap.','Reasonable coverage, no contradictions.','Held at Watching pending another week of data.'], contradiction:null, actions:['decant','seal'], rec:'seal' },
+      { id:'warmth', name:'Warmth Distillate', dom:'hearth', realKind:'Social connection', canonicalId:'pat_so_041', conf:0.38, lifecycle:'Uncertain', resolver:'LATEST', window:'May 24 – Jun 13', records:3, drawn:'9 days ago', freshDays:9, clarity:'clear', shelf:'hearth',
+        translate:'A thin finger of liquid, faint → only 3 records in 30 days. 0.38, below the assertion floor. The near-empty vial is the honest picture: too little to pour.',
+        sources:[{rec:'rec_soc_1',kind:'Social note',source:'Journal',draw:'9d ago',conf:0.55},{rec:'rec_soc_2',kind:'Social note',source:'Journal',draw:'12d ago',conf:0.50}],
+        reasoning:['Coverage is 3 of 30 days — a hint, not a pattern.','Confidence held below the floor on purpose.','Request a fresh draw or mark it unclear; do not pretend the vial is full.'], contradiction:null, actions:['draw','unclear'], rec:'draw' },
+      { id:'kinship', name:'Kinship Cordial', dom:'hearth', realKind:'Family contact cadence', canonicalId:'pat_kn_017', conf:0.66, lifecycle:'Watching', resolver:'LATEST', window:'May 10 – Jun 14', records:11, drawn:'3 days ago', freshDays:3, clarity:'clear', shelf:'hearth',
+        translate:'Two-thirds rose, soft glow → 0.66, Watching. Clear liquid; a steady-enough cadence with room to firm up.',
+        sources:[{rec:'rec_call_1',kind:'Call log',source:'Device',draw:'3d ago',conf:0.70},{rec:'rec_msg_1',kind:'Message cadence',source:'Device',draw:'3d ago',conf:0.66}],
+        reasoning:['Contact events cluster weekly with mild variance.','Device sources fresh and consistent.','Watching until the cadence proves stable.'], contradiction:null, actions:['decant','seal'], rec:'seal' },
+      { id:'split', name:'Split Tincture', dom:'split', realKind:'Sleep ↔ Mood', canonicalId:'pat_ef_092', conf:0.40, lifecycle:'Contested', resolver:'HIGHEST_CONF', window:'Jun 2 – Jun 16', records:9, drawn:'1 day ago', freshDays:1, clarity:'cloudy', shelf:'unsettled',
+        translate:'Cloudy and two-toned, refusing to mix → two sources disagree on the same nights. Contested, capped at 0.40. The swirl is a skin over a real conflict; the liquid won\u2019t clear until the conflict does.',
+        sources:[{rec:'rec_sl_band',kind:'Sleep · band',source:'Wearable',draw:'1d ago',conf:0.92},{rec:'rec_sl_self',kind:'Sleep · self',source:'Journal',draw:'2d ago',conf:0.60},{rec:'rec_md_11',kind:'Mood check',source:'Self',draw:'1d ago',conf:0.70}],
+        reasoning:['Band and self-report disagree on duration for 2 of 9 nights.','HIGHEST_CONF would hide the conflict — so it stays contested.','Potency cannot rise while contested. Send to clinic to settle it honestly.'],
+        contradiction:{ title:'TWO SOURCES DISAGREE · 2 OF 9 NIGHTS', a:{label:'Device band',val:'6.2 h',conf:'conf 0.92',color:'#6fb6ff'}, b:{label:'Self-report',val:'5.0 h',conf:'conf 0.60',color:'#f0a85c'}, note:'Identical nights, different numbers. The resolver will not silently pick a winner, so the tincture stays cloudy under every theme.' }, actions:['clinic','unclear'], rec:'clinic' },
+      { id:'twinned', name:'Twinned Phial', dom:'means', realKind:'Duplicate transaction', canonicalId:'rec_tx_dup', conf:0.60, lifecycle:'Watching', resolver:'GOVERNED', window:'Jun 11', records:2, drawn:'6 days ago', freshDays:6, clarity:'sediment', shelf:'unsettled',
+        translate:'Sediment resting at the bottom → one purchase counted twice. The reading looks fat (0.68); the true figure is ~0.60. Inclusion is governed — settle it through QC, don\u2019t just shake the bottle.',
+        sources:[{rec:'tx_9921 · feed A',kind:'Transaction',source:'Bank A',draw:'6d ago',conf:0.96},{rec:'tx_9921 · feed B',kind:'Transaction',source:'Bank B',draw:'6d ago',conf:0.95}],
+        reasoning:['Two records share amount, merchant, and timestamp exactly.','High-confidence duplicate — but confidence is not permission to delete.','Record inclusion is governed; the apothecary flags, QC resolves.'],
+        contradiction:{ title:'SAME EVENT · TWO FEEDS', a:{label:'Feed A · tx_9921',val:'$42.10',conf:'conf 0.96',color:'#4fd0e0'}, b:{label:'Feed B · tx_9921',val:'$42.10',conf:'conf 0.95',color:'#f0a85c'}, note:'Almost certainly one event ingested twice. The apothecary cannot pour out a canonical record — governance decides inclusion.' }, actions:['clinic','unclear'], rec:'clinic' }
+    ];
+    this.VMAP={}; this.VIALS.forEach(v=>this.VMAP[v.id]=v);
+    this.SHELVES = [
+      { key:'body',      title:'Body',      sub:'vitality & movement', color:'#46e0b4' },
+      { key:'means',     title:'Means',     sub:'finances',            color:'#f0c45a' },
+      { key:'focus',     title:'Focus',     sub:'attention',           color:'#9b8cff' },
+      { key:'hearth',    title:'Hearth',    sub:'people & home',       color:'#ff7aa8' },
+      { key:'unsettled', title:'Unsettled', sub:'cloudy & sedimented — needs a human', color:'#ff6b8a' }
+    ];
+    this.CARE = {
+      decant: {label:'Decant to dashboard', help:'Pour a copy onto your dashboard. Writes an annotation.', writes:'+1 annotation'},
+      seal:   {label:'Seal & set down',     help:'Healthy. Looking is free — writes nothing.',           writes:'read-only'},
+      draw:   {label:'Request fresh draw',  help:'Ask the source for a new sample to refill potency.',    writes:'+1 annotation'},
+      clinic: {label:'Send to clinic',      help:'Escalate the cloud or sediment to the Distortion Clinic.', writes:'→ clinic · +1 annotation'},
+      unclear:{label:'Mark unclear',        help:'Honest label: not enough to read. Logged, not hidden.', writes:'+1 annotation'}
+    };
+    this.TOASTS = {
+      decant:'Decanted to your dashboard. Logged as an annotation — the bottle on the shelf is untouched.',
+      seal:'Sealed and set down. No annotations written — a full, fresh vial doesn\u2019t need tending.',
+      draw:'Fresh draw requested from the source. Potency will update only when real data arrives.',
+      clinic:'Sent to the Distortion Clinic. A human reads the conflict; not a drop of the record changes.',
+      unclear:'Marked unclear. An honest \u201ctoo little to read\u201d beats a confident pour from an empty vial.'
+    };
+    this.state = { sel:'split', shelfMode:'shelf', cared:{}, toast:null,
+      log:[ {title:'Wearable draw', detail:'fresh sample · body vials', writes:'source draw', color:'#46e0b4'},
+            {title:'Bank draw', detail:'tx_9921 · two feeds · possible dup', writes:'source draw', color:'#f0c45a'},
+            {title:'Journal draw', detail:'11d since last hydration entry', writes:'source draw', color:'#ff7aa8'} ] };
+  }
+
+  cur(){ return this.VMAP[this.state.sel] || this.VIALS[0]; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#7fd99a': c>=0.5?'#e8c75a': c>=0.4?'#ff9e57':'#ff6b5e'; }
+  confWord(c){ return c>=0.85?'high': c>=0.7?'solid': c>=0.5?'fair': c>=0.4?'low':'very low'; }
+  lifeColor(l){ return l==='Confirmed'?'#39e0a6': l==='Watching'?'#e8c75a': l==='Contested'?'#ff6b8a':'#9aa6c0'; }
+  motionOn(){ return this.props.livingMotion!==false; }
+
+  // ---------- vial art (viewBox 0 0 80 120) ----------
+  vial(v){
+    const h=React.createElement, m=this.motionOn(), d=this.DOM[v.dom], col=d.color, lt=d.light;
+    const isSplit=v.dom==='split', col2=isSplit?'#46c8ff':col;
+    const freshA = v.freshDays<=2?0.42: v.freshDays<=4?0.28: v.freshDays<=7?0.16:0.08;
+    const seal=this.lifeColor(v.lifecycle);
+    const interiorTop=34, interiorBot=106, ih=interiorBot-interiorTop;
+    const fillTop = interiorBot - v.conf*ih;
+    const bodyPath='M33 12 L33 26 C33 26 19 33 19 45 L19 102 Q19 112 30 112 L50 112 Q61 112 61 102 L61 45 C61 33 47 26 47 26 L47 12 Z';
+    const G=[];
+
+    // glow halo (freshness)
+    G.push(h('ellipse',{key:'glow',cx:40,cy:74,rx:34,ry:40,fill:this.hexA(lt,freshA),filter:'url(#vb)',style:(m&&v.freshDays<=2)?{animation:'lwGlow 2.6s ease-in-out infinite'}:undefined}));
+
+    // liquid (clipped)
+    const liquid=[];
+    if(isSplit){
+      liquid.push(h('rect',{key:'lq1',x:16,y:fillTop,width:48,height:(interiorBot-fillTop)/2+1,fill:this.hexA(col,0.7)}));
+      liquid.push(h('rect',{key:'lq2',x:16,y:fillTop+(interiorBot-fillTop)/2,width:48,height:(interiorBot-fillTop)/2,fill:this.hexA(col2,0.7)}));
+      liquid.push(h('path',{key:'sw',d:'M16 '+(fillTop+10)+' q 16 -8 32 0 q 16 8 32 0',fill:'none',stroke:this.hexA('#ffffff',0.25),strokeWidth:3,style:m?{animation:'lwSwirl 2.4s ease-in-out infinite'}:undefined}));
+    } else {
+      liquid.push(h('rect',{key:'lq',x:16,y:fillTop,width:48,height:interiorBot-fillTop+2,fill:this.hexA(col,0.62)}));
+      liquid.push(h('rect',{key:'lq2',x:16,y:fillTop,width:48,height:(interiorBot-fillTop)*0.42,fill:this.hexA(lt,0.18)}));
+    }
+    if(v.clarity==='cloudy'){
+      liquid.push(h('ellipse',{key:'cl1',cx:34,cy:fillTop+20,rx:14,ry:8,fill:this.hexA('#ffffff',0.16),style:m?{animation:'lwSwirl 3s ease-in-out infinite'}:undefined}));
+      liquid.push(h('ellipse',{key:'cl2',cx:48,cy:interiorBot-14,rx:12,ry:7,fill:this.hexA('#1a0f14',0.22)}));
+    }
+    if(v.clarity==='sediment'){
+      let s=v.id.length*5+9; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+      for(let i=0;i<8;i++){ liquid.push(h('circle',{key:'sd'+i,cx:(24+rnd()*32).toFixed(0),cy:(interiorBot-2-rnd()*9).toFixed(0),r:(rnd()*1.4+0.8).toFixed(1),fill:this.hexA('#3a2a14',0.85)})); }
+    }
+    // bubbles (fresh + motion)
+    if(m && v.freshDays<=3 && v.conf>0.45){
+      [30,40,50].forEach((bx,i)=>liquid.push(h('circle',{key:'bb'+i,cx:bx,cy:interiorBot-8,r:1.6,fill:this.hexA('#ffffff',0.6),style:{animation:'lwRise '+(2.2+i*0.6)+'s ease-in infinite',animationDelay:(i*0.5)+'s'}})));
+    }
+    // meniscus
+    liquid.push(h('ellipse',{key:'men',cx:40,cy:fillTop,rx:21,ry:2.6,fill:this.hexA(lt,0.85)}));
+    G.push(h('g',{key:'liquid',clipPath:'url(#vc'+v.id+')'},liquid));
+
+    // glass body stroke + highlight
+    G.push(h('path',{key:'glass',d:bodyPath,fill:'none',stroke:this.hexA(lt,0.5),strokeWidth:1.4}));
+    G.push(h('path',{key:'sheen',d:'M26 40 Q23 60 26 96',fill:'none',stroke:this.hexA('#ffffff',0.2),strokeWidth:2,strokeLinecap:'round'}));
+    // etched domain code
+    G.push(h('text',{key:'code',x:40,y:fillTop>92?52:98,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:7,fill:this.hexA(lt,0.5),letterSpacing:'1'},v.canonicalId.slice(0,6)));
+    // cork + wax seal (lifecycle)
+    G.push(h('rect',{key:'cork',x:32,y:5,width:16,height:9,rx:2,fill:'#6b4a2e'}));
+    G.push(h('path',{key:'wax',d:'M30 12 Q40 9 50 12 L50 17 Q46 21 40 19 Q34 21 30 17 Z',fill:seal}));
+    G.push(h('circle',{key:'waxd',cx:40,cy:15,r:1.6,fill:this.hexA('#ffffff',0.35)}));
+
+    return h('svg',{viewBox:'0 0 80 120',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block',overflow:'visible'}},
+      h('defs',null,
+        h('filter',{id:'vb',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'6'})),
+        h('clipPath',{id:'vc'+v.id},h('path',{d:bodyPath}))),
+      h('g',{style:(m&&v.clarity==='cloudy')?{animation:'lwSway 4s ease-in-out infinite',transformOrigin:'40px 110px'}:undefined},G));
+  }
+  miniVial(spec){ return this.vial({id:'lg_'+spec.id, dom:spec.dom, conf:spec.conf, lifecycle:spec.life, freshDays:spec.fresh, clarity:spec.clarity, canonicalId:'legend'}); }
+
+  select(id){ this.setState({sel:id}); }
+  setShelfMode(mvalue){ this.setState({shelfMode:mvalue}); }
+  takeCare(id,key){
+    const v=this.VMAP[id], ca=this.CARE[key];
+    this.setState(st=>{
+      const cared={...st.cared}; if(key!=='seal') cared[id]=key;
+      let log=st.log;
+      if(key!=='seal'){ log=[{title:ca.label+' · '+v.name, detail:v.realKind, writes:ca.writes, color:this.DOM[v.dom].color}, ...st.log].slice(0,8); }
+      return { cared, log, toast:this.TOASTS[key] };
+    });
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),3800);
+  }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+
+  renderVals(){
+    const pal = this.props.palette==='amber'?{accent:'#f0b75a',accent2:'#7fe0c0'}: this.props.palette==='dusk'?{accent:'#c89bff',accent2:'#6fd0c0'}:{accent:'#7fd0e0',accent2:'#9b8cff'};
+
+    const navItems = ['Prism Intake','Spectrum Recall','Verdant Harmonics','Weatherglass Flux','Tide Room','Lumen Apothecary','Resonance Atlas','Signal Menagerie','Distortion Clinic']
+      .map(l=>{ const on=l==='Lumen Apothecary'; return {label:l, weight:on?'600':'400', bg:on?'rgba(255,255,255,0.07)':'transparent', bar:on?'inset 2px 0 0 var(--accent)':'none', txt:on?'rgba(232,238,247,0.95)':'rgba(232,238,247,0.6)', dot:on?'var(--accent)':'rgba(232,238,247,0.32)'}; });
+
+    const legend = [
+      { id:'pot', dom:'body',  conf:0.9, life:'Confirmed', fresh:2, clarity:'clear', cue:'Fill = confidence', meaning:'how full it sits', color:'#7fe0c0' },
+      { id:'fr',  dom:'means', conf:0.7, life:'Watching',  fresh:2, clarity:'clear', cue:'Glow = freshness', meaning:'recently drawn', color:'#ffe0a0' },
+      { id:'cl',  dom:'split', conf:0.4, life:'Contested', fresh:1, clarity:'cloudy', cue:'Cloudy = contested', meaning:'sources disagree', color:'#ff9ec2' },
+      { id:'sd',  dom:'means', conf:0.6, life:'Watching',  fresh:6, clarity:'sediment', cue:'Sediment = contradiction', meaning:'duplicate / conflict', color:'#f0c45a' }
+    ].map(s=>({ cue:s.cue, meaning:s.meaning, color:s.color, bg:this.hexA(s.color,0.07), border:this.hexA(s.color,0.3), glyph:this.miniVial(s) }));
+
+    const mkVial=(v)=>{ const on=v.id===this.state.sel, life=this.lifeColor(v.lifecycle);
+      return { name:v.name, realKind:v.realKind, svg:this.vial(v), onSelect:()=>this.select(v.id),
+        confStr:v.conf.toFixed(2), confColor:this.confColor(v.conf), lifecycle:v.lifecycle, lifeColor:life, lifeBg:this.hexA(life,0.14),
+        tended:!!this.state.cared[v.id], tileBg:on?this.hexA(this.DOM[v.dom].color,0.1):'rgba(255,255,255,0.022)', tileBorder:on?this.hexA(this.DOM[v.dom].color,0.5):'rgba(255,255,255,0.07)', tileRing:on?'0 0 0 1px '+this.hexA(this.DOM[v.dom].color,0.4):'none' }; };
+
+    let shelves;
+    if(this.state.shelfMode==='rank'){
+      const sorted=[...this.VIALS].sort((a,b)=>a.conf-b.conf);
+      shelves=[{ title:'By potency', sub:'lowest first — what needs you most', color:pal.accent, border:'rgba(255,255,255,0.08)', bg:'rgba(255,255,255,0.015)', headBg:'rgba(255,255,255,0.025)', lip:this.hexA(pal.accent,0.25), count:this.VIALS.length+' vials', vials:sorted.map(mkVial) }];
+    } else {
+      shelves=this.SHELVES.map(s=>{ const list=this.VIALS.filter(v=>v.shelf===s.key);
+        return { title:s.title, sub:s.sub, color:s.color, border:this.hexA(s.color,0.22), bg:this.hexA(s.color,0.03), headBg:this.hexA(s.color,0.06), lip:this.hexA(s.color,0.3), count:list.length+(list.length===1?' vial':' vials'), vials:list.map(mkVial) }; });
+    }
+
+    const shelfTabs=[['shelf','By domain'],['rank','By potency']].map(g=>{ const on=this.state.shelfMode===g[0];
+      return { label:g[1], onClick:()=>this.setShelfMode(g[0]), bg:on?this.hexA(pal.accent,0.16):'rgba(255,255,255,0.03)', border:on?this.hexA(pal.accent,0.5):'rgba(255,255,255,0.1)', txt:on?'#fff':'rgba(232,238,247,0.65)' }; });
+
+    const v=this.cur(), d=this.DOM[v.dom];
+    const clarityMeta = v.clarity==='cloudy'?{label:'CLOUDY · CONTESTED',color:'#ff6b8a',bg:'rgba(255,107,138,0.14)'}
+      : v.clarity==='sediment'?{label:'SEDIMENT · CONTRADICTION',color:'#ff9e57',bg:'rgba(255,158,87,0.14)'}
+      : v.conf<0.5?{label:'LOW · CLEAR',color:'#f0c45a',bg:'rgba(240,196,90,0.14)'}
+      : {label:'CLEAR',color:'#7fe0c0',bg:'rgba(70,224,180,0.14)'};
+
+    const careActions=v.actions.map(k=>{ const ca=this.CARE[k], rec=k===v.rec, taken=this.state.cared[v.id]===k;
+      return { label:ca.label, help:ca.help, writes:ca.writes, recommended:rec, onClick:()=>this.takeCare(v.id,k),
+        bg:taken?this.hexA(pal.accent2,0.14):(rec?this.hexA(pal.accent2,0.08):'rgba(255,255,255,0.03)'),
+        border:taken?this.hexA(pal.accent2,0.55):(rec?this.hexA(pal.accent2,0.4):'rgba(255,255,255,0.1)'),
+        ring:rec?'0 0 0 1px '+this.hexA(pal.accent2,0.3):'none', labelColor:rec?'#bfe9e0':'rgba(232,238,247,0.9)',
+        writesColor:ca.writes==='read-only'?'rgba(232,238,247,0.4)':'#7fe0c0' }; });
+
+    const sel={ name:v.name, realKind:v.realKind, canonicalId:v.canonicalId, svg:this.vial(v), drawn:v.drawn,
+      clarityLabel:clarityMeta.label, clarityColor:clarityMeta.color, clarityBg:clarityMeta.bg,
+      portraitBg:this.hexA(d.color,0.06), portraitBorder:this.hexA(d.color,0.3), domainColor:d.color,
+      transBg:this.hexA(clarityMeta.color,0.05), transBorder:this.hexA(clarityMeta.color,0.26), translate:v.translate,
+      confStr:v.conf.toFixed(2), confColor:this.confColor(v.conf), confWord:this.confWord(v.conf), confPct:Math.round(v.conf*100)+'%',
+      confNote:v.lifecycle==='Contested'?'Capped while contested — cannot rise until the conflict resolves.':(v.freshDays>7?'Decaying — no fresh draw in '+v.freshDays+' days.':null),
+      lifecycle:v.lifecycle, lifeColor:this.lifeColor(v.lifecycle), resolver:v.resolver, window:v.window, visibility:'Private', governance:v.resolver==='GOVERNED'?'Governed':'User-owned', records:v.records,
+      sources:v.sources.map(s=>({rec:s.rec, kind:s.kind, source:s.source, draw:s.draw, confStr:s.conf.toFixed(2), confColor:this.confColor(s.conf)})),
+      contradiction:v.contradiction, reasoning:v.reasoning, careActions, recLabel:this.CARE[v.rec].label };
+
+    const ledger=this.state.log.map(l=>({ title:l.title, detail:l.detail, writes:l.writes, color:l.color, writesColor:l.writes==='source draw'?'rgba(232,238,247,0.45)':'#7fe0c0' }));
+    const annotationCount=Object.keys(this.state.cared).length;
+
+    return {
+      accent:pal.accent, accent2:pal.accent2, base:'#06070e', bg1:this.hexA(pal.accent,0.16), bg2:this.hexA(pal.accent2,0.09), glow:this.hexA(pal.accent,0.3),
+      navItems, legend, shelves, shelfTabs, sel, ledger, annotationCount,
+      vialCount:this.VIALS.length, attentionCount:this.VIALS.filter(v=>v.clarity!=='clear'||v.conf<0.5).length,
+      toast:this.state.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

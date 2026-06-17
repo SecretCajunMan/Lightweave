@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#07080f}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwDrift{0%{transform:translateX(0)}100%{transform:translateX(26px)}}
+  @keyframes lwFlash{0%,92%,100%{opacity:.85}94%{opacity:.25}96%{opacity:1}}
+  @keyframes lwPulse{0%,100%{opacity:.45}50%{opacity:.9}}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(255,255,255,0.16);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 10px var(--accent)}
+</style>
+</helmet>
+<div data-screen-label="Weatherglass Flux" style="height:100vh; overflow:hidden; color:rgba(238,241,251,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --pad:{{ pad }}; --glow:{{ glow }}; background:radial-gradient(1200px 640px at 28% -16%, var(--bg1), transparent 60%), radial-gradient(950px 720px at 104% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><polygon points="14,3 25,23 3,23" fill="none" stroke="var(--accent)" stroke-width="1.6"></polygon><line x1="2" y1="14" x2="14" y2="13" stroke="#fff" stroke-width="1.4"></line><line x1="14" y1="13" x2="26" y2="8" stroke="var(--accent2)" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="14" stroke="#ff9e57" stroke-width="1.2"></line><line x1="14" y1="13" x2="26" y2="20" stroke="#ff7aa8" stroke-width="1.2"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Weatherglass Flux</span>
+      <span style="font-size:10.5px; color:rgba(238,241,251,0.42);">Projection · Layer 7 · pattern weather</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(238,241,251,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#ffb454;box-shadow:0 0 7px #ffb454;"></span>system: unsettled</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">read-only projection</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>ledger synced</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(238,241,251,0.42); font-family:'IBM Plex Mono',monospace;">FORECAST · 08:36 MT</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="weatherglass-flux"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:14px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:11px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="position:relative; width:56px; height:56px; border-radius:50%; --h:{{ projRing }}; background:conic-gradient(var(--accent) var(--h), rgba(255,255,255,0.07) 0); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">
+          <div style="width:43px; height:43px; border-radius:50%; background:#0a0c14; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">{{ projConf }}</span></div>
+        </div>
+        <div style="flex:0 0 auto;"><div style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">PROJECTION CONFIDENCE</div><div style="font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:{{ projConfColor }};">{{ projConfLabel }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">forecast reliability, not a fact</div></div>
+        <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;"><span style="font-size:9.5px; letter-spacing:0.1em; color:rgba(238,241,251,0.4);">SEASONAL ARC · 8 WEEKS</span><span style="font-size:9.5px; color:rgba(238,241,251,0.35);">system pressure trend</span></div>
+          <div style="height:30px;">{{ seasonSvg }}</div>
+        </div>
+        <div style="flex:0 0 auto; text-align:right;"><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">dominant front</div><div style="font-size:13px; font-weight:600; color:#8aa0ff;">Deadline pressure</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">peaks Fri</div></div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px;">
+          <div style="flex:1; min-height:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:radial-gradient(120% 100% at 80% 90%, rgba(127,208,255,0.10), transparent 50%), radial-gradient(90% 90% at 30% 20%, rgba(108,140,255,0.12), transparent 55%), linear-gradient(160deg, #0c1426, #0a0f1e 60%, #0b1020);">
+            <div style="position:absolute; inset:0;">{{ mapSvg }}</div>
+            <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(238,241,251,0.7);">Pattern weather map</span>
+              <span style="font-size:10px; color:rgba(238,241,251,0.4);">every front traces to records</span>
+            </div>
+            <!-- domain weather stations -->
+            <sc-for list="{{ stations }}" as="st" hint-placeholder-count="8">
+              <div onClick="{{ st.onSelect }}" style="position:absolute; left:{{ st.leftPct }}; top:{{ st.topPct }}; transform:translate(-50%,-50%); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:4px; z-index:{{ st.z }};">
+                <div style="display:flex; align-items:center; gap:7px; padding:5px 9px 5px 6px; border-radius:11px; background:{{ st.pillBg }}; border:1px solid {{ st.pillBorder }}; box-shadow:{{ st.pillShadow }}; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);">
+                  <span style="width:22px; height:22px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;">{{ st.glyph }}</span>
+                  <div style="line-height:1.1;">
+                    <div style="font-size:11.5px; font-weight:600; white-space:nowrap;">{{ st.name }}</div>
+                    <div style="font-size:9px; color:{{ st.color }}; white-space:nowrap;">{{ st.weatherLabel }}</div>
+                  </div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:rgba(238,241,251,0.55); background:rgba(8,10,18,0.6); padding:1px 6px; border-radius:5px; white-space:nowrap;">{{ st.metric }}</div>
+              </div>
+            </sc-for>
+            <!-- legend -->
+            <div style="position:absolute; bottom:11px; left:14px; display:flex; gap:11px; flex-wrap:wrap; max-width:70%;">
+              <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="6">
+                <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.55);"><span style="width:9px; height:9px; border-radius:3px; background:{{ lg.color }}; box-shadow:0 0 7px {{ lg.color }};"></span>{{ lg.label }}</span>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="flex:0 0 auto; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:11px 14px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600;">7-day forecast</span>
+              <span style="font-size:10px; color:rgba(238,241,251,0.4);">confidence fades into the future — Lightweave will not pretend to see far</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <sc-for list="{{ forecast }}" as="f" hint-placeholder-count="7">
+                <div onClick="{{ f.onSelect }}" style="flex:1; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; padding:9px 4px; border-radius:11px; background:{{ f.bg }}; border:1px solid {{ f.border }};">
+                  <span style="font-size:9.5px; color:rgba(238,241,251,0.5); font-weight:500;">{{ f.day }}</span>
+                  <span style="width:30px; height:30px; display:flex; align-items:center; justify-content:center;">{{ f.glyph }}</span>
+                  <span style="font-size:9.5px; color:{{ f.color }}; white-space:nowrap;">{{ f.label }}</span>
+                  <div style="display:flex; align-items:center; gap:4px;"><div style="width:30px; height:3px; border-radius:2px; background:rgba(255,255,255,0.1); overflow:hidden;"><div style="height:100%; width:{{ f.confPct }}; background:{{ f.confColor }};"></div></div></div>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4);">{{ f.confPct }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:0 0 244px; display:flex; flex-direction:column; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 13px; min-height:0;">
+          <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px; flex:0 0 auto;">
+            <svg width="13" height="13" viewBox="0 0 14 14"><path d="M3 9 a3 3 0 0 1 0 -6 a3.5 3.5 0 0 1 7 1 a2.5 2.5 0 0 1 -1 5 z" fill="none" stroke="var(--accent)" stroke-width="1"></path></svg>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:500;">Domain weather</span>
+          </div>
+          <div style="flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:7px;">
+            <sc-for list="{{ stations }}" as="st" hint-placeholder-count="8">
+              <div onClick="{{ st.onSelect }}" style="cursor:pointer; display:flex; align-items:center; gap:9px; padding:9px 10px; border-radius:10px; background:{{ st.rowBg }}; border:1px solid {{ st.rowBorder }};">
+                <span style="width:24px; height:24px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;">{{ st.glyph }}</span>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:12px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ st.name }}</div>
+                  <div style="font-size:10px; color:{{ st.color }};">{{ st.weatherLabel }}</div>
+                </div>
+                <div style="text-align:right; flex:0 0 auto;">
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.6);">{{ st.metric }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:{{ st.confColor }};">conf {{ st.confLabel }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <aside style="flex:0 0 372px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.018); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ selected.headerBg }};">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 16 16"><path d="M2 10 a3 3 0 0 1 0 -6 a4 4 0 0 1 8 1 a2.6 2.6 0 0 1 -1 5 z" fill="none" stroke="var(--accent)" stroke-width="1.1"></path></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;">Storm explanation</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:11px;">
+          <span style="width:36px; height:36px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;">{{ selected.glyph }}</span>
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:15px; font-weight:600; color:{{ selected.color }};">{{ selected.headline }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.45);">{{ selected.name }} region · severity {{ selected.severity }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:16px;">
+
+        <div style="background:{{ selected.headerBg }}; border:1px solid {{ selected.softBorder }}; border-radius:11px; padding:12px 13px;">
+          <div style="font-size:13px; line-height:1.55; color:rgba(238,241,251,0.9);">{{ selected.meaning }}</div>
+          <div style="display:flex; align-items:center; gap:9px; margin-top:10px;">
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">forecast window</span>
+            <span style="font-size:11px; color:rgba(238,241,251,0.85);">{{ selected.window }}</span>
+            <div style="flex:1;"></div>
+            <span style="font-size:9.5px; color:rgba(238,241,251,0.45);">event conf</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ selected.eventConfColor }};">{{ selected.eventConf }}</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">SOURCE PROVENANCE · {{ selected.sourceCount }} DRIVING</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <sc-for list="{{ selected.sources }}" as="src" hint-placeholder-count="2">
+              <div style="display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.07); border-radius:9px;">
+                <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ src.color }}; box-shadow:0 0 7px {{ src.color }};"></span>
+                <div style="flex:1; min-width:0;"><div style="font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ src.label }}</div><div style="font-size:9.5px; color:rgba(238,241,251,0.4);">{{ src.role }}</div></div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(238,241,251,0.55);">{{ src.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">WHAT BUILDS THIS SYSTEM</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.build }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="flex:0 0 100px; font-size:11px; color:rgba(238,241,251,0.6);">{{ b.label }}</span>
+                <div style="flex:1; height:7px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden;"><div style="height:100%; width:{{ b.widthPct }}; background:{{ b.color }}; box-shadow:0 0 8px {{ b.color }};"></div></div>
+                <span style="flex:0 0 auto; min-width:28px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ b.color }};">{{ b.valLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ selected.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:12px; line-height:1.5; color:rgba(238,241,251,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ selected.contradiction }}" hint-placeholder-val="{{ true }}">
+          <div style="background:rgba(255,107,94,0.06); border:1px solid rgba(255,107,94,0.3); border-radius:12px; padding:12px 13px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:10px;">
+              <svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 1 l-4 7 l3 0 l-2 5 l6 -8 l-3 0 l3 -4 z" fill="#ffd24a"></path></svg>
+              <span style="font-size:11px; font-weight:600; letter-spacing:0.05em;">{{ selected.contradiction.title }}</span>
+            </div>
+            <div style="display:flex; gap:9px;">
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.a.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.a.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:{{ selected.contradiction.a.color }};">{{ selected.contradiction.a.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">conf {{ selected.contradiction.a.conf }}</div></div>
+              <div style="flex:1; border-radius:9px; border:1px solid {{ selected.contradiction.b.color }}; padding:9px;"><div style="font-size:10px; color:rgba(238,241,251,0.55);">{{ selected.contradiction.b.label }}</div><div style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; color:{{ selected.contradiction.b.color }};">{{ selected.contradiction.b.val }}</div><div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(238,241,251,0.4);">conf {{ selected.contradiction.b.conf }}</div></div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:9px; line-height:1.5;">{{ selected.contradiction.note }}</div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:8px;">LINKED RECORDS</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <sc-for list="{{ selected.records_list }}" as="rec" hint-placeholder-count="3">
+              <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; font-family:'IBM Plex Mono',monospace; padding:5px 9px; border-radius:7px; background:rgba(86,184,255,0.07); border:1px solid rgba(86,184,255,0.2); color:rgba(238,241,251,0.78);"><span style="width:5px; height:5px; border-radius:50%; background:#56b8ff;"></span>{{ rec }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(238,241,251,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">projection</span><span style="color:{{ selected.color }};">{{ selected.weatherLabel }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">derives_from</span><span>{{ selected.records }} records</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">truth.mode</span><span>INF · forecast</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(238,241,251,0.45);">schema</span><span>contract_v1.5</span></div>
+          </div>
+          <div style="font-size:10.5px; color:rgba(238,241,251,0.5); margin-top:10px; line-height:1.45;">{{ selected.canonicalNote }}</div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d16; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">View {{ selected.records }} records</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(238,241,251,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Boring view</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 100px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); padding:11px 18px; display:flex; flex-direction:column;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(238,241,251,0.6);">Ledger trace · barometric events</span>
+      <span style="font-size:10px; color:rgba(238,241,251,0.38);">last 14 days · ordered by time_event</span>
+      <div style="flex:1;"></div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#6c8cff;"></span>front</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#46e0b4;"></span>tailwind</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-size:10px; color:rgba(238,241,251,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#ffd24a;"></span>lightning</span>
+    </div>
+    <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(255,255,255,0.015), rgba(108,140,255,0.06)); border:1px solid rgba(255,255,255,0.07); overflow:hidden;">
+      <div style="position:absolute; left:0; right:0; top:50%; height:1px; background:rgba(255,255,255,0.09);"></div>
+      <div style="position:absolute; left:90%; top:0; bottom:0; width:1px; background:repeating-linear-gradient(rgba(255,210,74,0.5) 0 4px, transparent 4px 8px);"></div>
+      <span style="position:absolute; left:90%; top:3px; transform:translateX(-50%); font-size:8px; color:rgba(255,210,74,0.7); font-family:'IBM Plex Mono',monospace;">Fri front</span>
+      <sc-for list="{{ trace }}" as="t" hint-placeholder-count="6">
+        <div onClick="{{ t.onSelect }}" style="position:absolute; left:{{ t.leftPct }}; top:0; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; width:80px;">
+          <div style="font-size:9px; color:rgba(238,241,251,0.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:80px; text-align:center; margin-bottom:3px;">{{ t.subj }}</div>
+          <div style="width:10px; height:10px; border-radius:50%; background:{{ t.color }}; box-shadow:0 0 9px {{ t.color }}; border:2px solid {{ t.ringColor }};"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:8px; color:rgba(238,241,251,0.4); margin-top:3px; white-space:nowrap;">{{ t.date }}</div>
+        </div>
+      </sc-for>
+      <span style="position:absolute; right:8px; bottom:4px; font-size:8.5px; color:rgba(238,241,251,0.3); font-family:'IBM Plex Mono',monospace;">today</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prism&quot;,&quot;tide&quot;,&quot;verdant&quot;],&quot;default&quot;:&quot;prism&quot;,&quot;tsType&quot;:&quot;'prism' | 'tide' | 'verdant'&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { selectedId:'projects', layers:{fronts:true,winds:true,fog:true,isobars:true,lightning:true} };
+    let seed=29; const rnd=()=>{ seed=(seed*9301+49297)%233280; return seed/233280; };
+    this.rain = Array.from({length:22},()=>({x:(rnd()*220-110),y:(rnd()*70),len:(rnd()*8+5)}));
+  }
+  themes = {
+    prism:   { accent:'#9b8cff', accent2:'#34e1b4', base:'#07080f', bg1:'rgba(124,90,255,0.20)', bg2:'rgba(40,200,170,0.12)', glow:'rgba(124,90,255,0.30)' },
+    tide:    { accent:'#46c8ff', accent2:'#6fe0c8', base:'#05080f', bg1:'rgba(40,130,210,0.22)', bg2:'rgba(40,210,190,0.12)', glow:'rgba(70,200,255,0.30)' },
+    verdant: { accent:'#5fd39a', accent2:'#cfe06a', base:'#060a07', bg1:'rgba(70,170,100,0.20)', bg2:'rgba(180,205,90,0.12)', glow:'rgba(95,211,154,0.30)' }
+  };
+  WX = {
+    storm:{label:'Storm Front',color:'#6c8cff'},
+    storm_cell:{label:'Storm Cell',color:'#8c7cff'},
+    drought:{label:'Drought',color:'#e0a35a'},
+    momentum:{label:'Momentum Winds',color:'#46e0b4'},
+    calm:{label:'Calm Zone',color:'#7fd0ff'},
+    fog:{label:'Fog Bank',color:'#9aa6c0'},
+    lightning:{label:'Lightning',color:'#ffd24a'}
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.prism; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#e8c75a': c>=0.5?'#ff9e57':'#ff6b5e'; }
+
+  glyph(type, size){
+    const h=React.createElement, s=size||22, sc=s/24;
+    const wrap=(ch)=> h('svg',{width:s,height:s,viewBox:'0 0 24 24'},ch);
+    const c=this.WX[type].color;
+    if(type==='storm'||type==='storm_cell'){
+      return wrap([h('path',{key:'c',d:'M6 13 a4 4 0 0 1 0 -8 a5 5 0 0 1 9 1 a3.2 3.2 0 0 1 -1 6 z',fill:'none',stroke:c,strokeWidth:1.4}), h('line',{key:'r1',x1:8,y1:16,x2:6,y2:20,stroke:c,strokeWidth:1.3}), h('line',{key:'r2',x1:13,y1:16,x2:11,y2:21,stroke:c,strokeWidth:1.3}), h('line',{key:'r3',x1:17,y1:16,x2:15,y2:20,stroke:c,strokeWidth:1.3})]);
+    }
+    if(type==='drought'){
+      return wrap([h('circle',{key:'s',cx:12,cy:9,r:5,fill:'none',stroke:c,strokeWidth:1.4}), h('path',{key:'g',d:'M4 18 q4 -3 8 0 t8 0',fill:'none',stroke:c,strokeWidth:1.3}), h('path',{key:'k',d:'M9 18 l1 4 M14 18 l-1 4',stroke:c,strokeWidth:1,opacity:0.7})]);
+    }
+    if(type==='momentum'){
+      return wrap([h('path',{key:'w1',d:'M3 8 h11 a2.4 2.4 0 1 0 -2.4 -2.4',fill:'none',stroke:c,strokeWidth:1.4}), h('path',{key:'w2',d:'M3 13 h15 a2.4 2.4 0 1 1 -2.4 2.4',fill:'none',stroke:c,strokeWidth:1.4}), h('path',{key:'w3',d:'M3 18 h8',fill:'none',stroke:c,strokeWidth:1.4})]);
+    }
+    if(type==='calm'){
+      return wrap([h('circle',{key:'s',cx:12,cy:12,r:4.4,fill:'none',stroke:c,strokeWidth:1.5}), ...[0,45,90,135,180,225,270,315].map((a,i)=>{ const r=a*Math.PI/180; return h('line',{key:'ray'+i,x1:12+Math.cos(r)*7,y1:12+Math.sin(r)*7,x2:12+Math.cos(r)*9.5,y2:12+Math.sin(r)*9.5,stroke:c,strokeWidth:1.3}); })]);
+    }
+    if(type==='fog'){
+      return wrap([h('line',{key:'f1',x1:4,y1:8,x2:20,y2:8,stroke:c,strokeWidth:1.4,opacity:0.5}), h('line',{key:'f2',x1:5,y1:12,x2:19,y2:12,stroke:c,strokeWidth:1.4,opacity:0.8}), h('line',{key:'f3',x1:4,y1:16,x2:18,y2:16,stroke:c,strokeWidth:1.4,opacity:0.5}), h('line',{key:'f4',x1:7,y1:20,x2:20,y2:20,stroke:c,strokeWidth:1.4,opacity:0.35})]);
+    }
+    if(type==='lightning'){
+      return wrap(h('path',{key:'l',d:'M13 2 l-7 12 l5 0 l-3 8 l9 -13 l-5 0 l5 -7 z',fill:c,stroke:'#ff6b5e',strokeWidth:0.6}));
+    }
+    return wrap(h('circle',{cx:12,cy:12,r:5,fill:c}));
+  }
+
+  data(){
+    return [
+      { id:'projects', name:'Projects', weather:'storm', x:486, y:236, z:7, severity:'moderate', metric:'988 mb · rising', conf:0.78, eventConf:0.74, records:11, sourceCount:1, window:'Now → Fri Jun 19',
+        headline:'Storm Front · deadline pressure',
+        meaning:'11 open obligations with 2 already past due are converging before Friday — a pressure front building over the Projects region.',
+        sources:[{label:'Obligation log · self',role:'11 open · 2 overdue',conf:'0.78',color:'#9ad06a'}],
+        build:[{k:'Open load',v:0.86},{k:'Overdue items',v:0.62,c:'#ff6b5e'},{k:'Time-to-deadline',v:0.74,c:'#ffb454'},{k:'Source breadth',v:0.40,c:'#ffb454'}],
+        reasoning:['A storm = concentration of near-due obligations, not a mood reading.','2 obligations past due_date raise the front\u2019s severity.','Forecast confidence is moderate — it depends on you logging progress.'],
+        contradiction:null, records_list:['rec_a4d90 38e','rec_f0b21c99','rec_71aa0e2d'],
+        canonicalNote:'A forecast derived from 11 canonical OBLIGATION_LOG records. The records are the truth; this front is a reading of them.' },
+
+      { id:'sleep', name:'Sleep', weather:'drought', x:228, y:392, z:5, severity:'elevated', metric:'recovery 46%', conf:0.70, eventConf:0.70, records:26, sourceCount:2, window:'Past 7 days',
+        headline:'Drought · recovery depleted',
+        meaning:'7-day mean sleep is 5.4 h against a 6.8 h baseline. Recovery reserves are running dry across the Sleep region.',
+        sources:[{label:'Sleep band · device',role:'26 nightly measurements',conf:'0.92',color:'#2fe0a8'},{label:'Self-report',role:'9 corroborating notes',conf:'0.60',color:'#9b8cff'}],
+        build:[{k:'Sleep deficit',v:0.70,c:'#ffb454'},{k:'Consistency',v:0.55,c:'#ffb454'},{k:'Source quality',v:0.92},{k:'Dispute drag',v:0.20,c:'#ff6b5e'}],
+        reasoning:['Drought reflects a measured deficit against your own baseline.','Device-sourced, so the reading is high confidence.','2 disputed nights are held aside — they do not inflate the deficit.'],
+        contradiction:null, records_list:['rec_6b14ace0','rec_b2f0a6c8'],
+        canonicalNote:'Derived from 26 canonical sleep DATA_LOGs plus a baseline. No night is invented.' },
+
+      { id:'movement', name:'Movement', weather:'momentum', x:716, y:166, z:5, severity:'positive', metric:'tailwind +18%', conf:0.88, eventConf:0.82, records:14, sourceCount:2, window:'Past 14 days',
+        headline:'Momentum Winds · strong tailwinds',
+        meaning:'14 workouts with device and self-report agreeing — a steady tailwind pushing against the sleep drought.',
+        sources:[{label:'Activity tracker · device',role:'14 sessions',conf:'0.88',color:'#2fe0a8'},{label:'Self-report',role:'11 matching notes',conf:'0.84',color:'#9b8cff'}],
+        build:[{k:'Trend slope',v:0.80},{k:'Corroboration',v:0.88},{k:'Consistency',v:0.78},{k:'Source breadth',v:0.85}],
+        reasoning:['A tailwind = a corroborated positive trend, not a single good day.','Two agreeing sources keep confidence high.','Surfaced as a counter-force to the drought, not merged into it.'],
+        contradiction:null, records_list:['rec_2a77b0e1','rec_5c10df93'],
+        canonicalNote:'Derived from 14 canonical activity records.' },
+
+      { id:'finances', name:'Finances', weather:'calm', x:802, y:402, z:4, severity:'settled', metric:'clear', conf:0.83, eventConf:0.80, records:21, sourceCount:2, window:'Past 30 days',
+        headline:'Calm Zone · clarity and flow',
+        meaning:'21 records logged with one document-verified bill. No pressure systems detected over Finances — clear and steady.',
+        sources:[{label:'Transaction log · self',role:'19 entries',conf:'0.80',color:'#ffd166'},{label:'Utility statement · document',role:'1 verified bill',conf:'0.97',color:'#f5c252'}],
+        build:[{k:'Coverage',v:0.80},{k:'Verification',v:0.83},{k:'Volatility',v:0.18,c:'#39e0a6'},{k:'Source breadth',v:0.80}],
+        reasoning:['Calm = absence of detected pressure, backed by good coverage.','A document-verified record raises confidence above self-report alone.','Calm is reported because the evidence supports it — never to reassure.'],
+        contradiction:null, records_list:['rec_7c41be09','rec_2b0099aa'],
+        canonicalNote:'Derived from 21 canonical financial records.' },
+
+      { id:'focus', name:'Focus', weather:'fog', x:300, y:168, z:4, severity:'low visibility', metric:'visibility low', conf:0.52, eventConf:0.50, records:7, sourceCount:1, window:'Past 30 days',
+        headline:'Fog Bank · low source confidence',
+        meaning:'7 sparse self-reports with no corroboration. Visibility over the Focus region is low — the projection openly cannot see clearly here.',
+        sources:[{label:'Focus check-in · self',role:'7 occasional notes',conf:'0.52',color:'#56b8ff'}],
+        build:[{k:'Coverage',v:0.40,c:'#ffb454'},{k:'Source breadth',v:0.30,c:'#ff6b5e'},{k:'Confidence',v:0.52,c:'#ffb454'},{k:'Recency',v:0.45,c:'#ffb454'}],
+        reasoning:['Fog = low confidence, shown honestly rather than guessed away.','A single sparse source cannot support a clear forecast.','The projection will not brighten beyond the evidence.'],
+        contradiction:null, records_list:['rec_a01ffe22','rec_b7720dd0'],
+        canonicalNote:'Derived from 7 canonical focus records. The fog is the honest reading of thin data.' },
+
+      { id:'mood', name:'Mood', weather:'storm_cell', x:556, y:404, z:5, severity:'building', metric:'load high', conf:0.72, eventConf:0.66, records:18, sourceCount:1, window:'Past 9 days',
+        headline:'Storm Cell · emotional load',
+        meaning:'3 low-mood check-ins cluster on the days after short-sleep nights — a secondary cell forming over Mood, downwind of the drought.',
+        sources:[{label:'Mood check-in · self',role:'18 reports · 3 low',conf:'0.85',color:'#9b8cff'}],
+        build:[{k:'Low-day cluster',v:0.64,c:'#ffb454'},{k:'Sleep coupling',v:0.70,c:'#ffb454'},{k:'Source breadth',v:0.40,c:'#ffb454'},{k:'Confidence',v:0.85}],
+        reasoning:['A cell forms where low days cluster — correlation, not diagnosis.','Coupling to the sleep drought is shown, not asserted as cause (Law 3).','Single-source self-report caps the event confidence.'],
+        contradiction:null, records_list:['rec_d51a3f08','rec_77be0c2a'],
+        canonicalNote:'Derived from 18 canonical mood records. The cell is a pattern reading, not a stored fact.' },
+
+      { id:'relationships', name:'Relationships', weather:'fog', x:150, y:250, z:3, severity:'low visibility', metric:'sparse', conf:0.55, eventConf:0.48, records:3, sourceCount:1, window:'Past 30 days',
+        headline:'Fog · sparse signal',
+        meaning:'3 records in 30 days. Visibility is too low to forecast — the region is shown as fog, deliberately not as a calm zone.',
+        sources:[{label:'Social note · self',role:'3 scattered entries',conf:'0.55',color:'#ff7aa8'}],
+        build:[{k:'Coverage',v:0.22,c:'#ff6b5e'},{k:'Source breadth',v:0.30,c:'#ff6b5e'},{k:'Confidence',v:0.55,c:'#ffb454'},{k:'Recency',v:0.40,c:'#ffb454'}],
+        reasoning:['Empty data is shown as fog, never smoothed into false calm.','3 records cannot support any trend or reassurance.','The honest forecast is: we cannot see this clearly.'],
+        contradiction:null, records_list:['rec_4410ab09','rec_99c2de14'],
+        canonicalNote:'Derived from 3 canonical records. The gap is real and labeled.' },
+
+      { id:'contradiction', name:'Sleep dispute', weather:'lightning', x:430, y:330, z:8, severity:'high-risk', metric:'high-risk', conf:0.60, eventConf:0.60, records:2, sourceCount:2, window:'Jun 11 · overnight',
+        headline:'Lightning · urgent contradiction',
+        meaning:'A disputed sleep night sits at the storm core: self-report 5.0 h against the band\u2019s 6.2 h. A high-risk distortion is flagged where the fronts collide.',
+        sources:[{label:'Self-report · 5.0 h',role:'human estimate',conf:'0.60',color:'#ff9e57'},{label:'Sleep band · 6.2 h',role:'device measurement',conf:'0.92',color:'#56b8ff'}],
+        build:[{k:'Source conflict',v:0.90,c:'#ff6b5e'},{k:'Magnitude',v:0.45,c:'#ffb454'},{k:'Affects drought',v:0.60,c:'#ffb454'},{k:'Resolved',v:0.0,c:'#ff6b5e'}],
+        reasoning:['Lightning marks an unresolved, high-risk contradiction.','Resolver LATEST_VERIFIED prefers the device, but neither overwrites the other (Law 2).','Held for manual reconciliation — the theme cannot resolve it.'],
+        contradiction:{title:'CONTRADICTION · 1 NIGHT', a:{label:'Self-report',val:'5.0 h',conf:'0.60',color:'#ff9e57'}, b:{label:'Device band',val:'6.2 h',conf:'0.92',color:'#56b8ff'}, note:'Truth is not skinnable. The weather may dramatize the strike, but it cannot pick a winner — only you can reconcile the two readings.'},
+        records_list:['rec_b2f0a6c8','rec_91de44a2'],
+        canonicalNote:'Two canonical records in conflict. View both and reconcile; the lightning persists until you do.' }
+    ];
+  }
+
+  buildMap(L, selId){
+    const h=React.createElement, kids=[];
+    kids.push(h('defs',{key:'d'},
+      h('filter',{id:'wblur',x:'-40%',y:'-40%',width:'180%',height:'180%'},h('feGaussianBlur',{stdDeviation:'9'})),
+      h('filter',{id:'wglow',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'4',result:'b'}),h('feMerge',null,h('feMergeNode',{in:'b'}),h('feMergeNode',{in:'SourceGraphic'}))),
+      h('radialGradient',{id:'wsun',cx:'50%',cy:'50%',r:'50%'},h('stop',{offset:'0%',stopColor:'rgba(127,208,255,0.45)'}),h('stop',{offset:'100%',stopColor:'rgba(127,208,255,0)'})),
+      h('radialGradient',{id:'wstorm',cx:'50%',cy:'40%',r:'60%'},h('stop',{offset:'0%',stopColor:'rgba(108,140,255,0.34)'}),h('stop',{offset:'100%',stopColor:'rgba(108,140,255,0)'}))
+    ));
+    if(L.isobars){ for(let i=0;i<6;i++){ const o=i*24; kids.push(h('path',{key:'iso'+i,d:'M '+(70+o)+' 30 C '+(280+o)+' '+(130+i*8)+' '+(330+o)+' '+(430-i*7)+' '+(600+o)+' 510',stroke:'rgba(150,170,255,0.09)',strokeWidth:1,fill:'none'})); } }
+    kids.push(h('circle',{key:'calmglow',cx:805,cy:405,r:140,fill:'url(#wsun)'}));
+    kids.push(h('circle',{key:'stormglow',cx:480,cy:250,r:200,fill:'url(#wstorm)'}));
+    if(L.fog){ kids.push(h('rect',{key:'fog1',x:70,y:120,width:330,height:200,rx:50,fill:'rgba(154,166,192,0.20)',filter:'url(#wblur)'})); }
+    kids.push(h('ellipse',{key:'drought',cx:228,cy:402,rx:150,ry:74,fill:'rgba(224,163,90,0.13)'}));
+    [[170,392],[240,418],[290,388]].forEach((p,i)=> kids.push(h('path',{key:'crack'+i,d:'M '+p[0]+' '+p[1]+' l8 16 l-5 4',stroke:'rgba(224,163,90,0.4)',strokeWidth:1.2,fill:'none'})));
+    if(L.winds){ for(let i=0;i<4;i++){ const y=110+i*24; const op=0.55-i*0.09; kids.push(h('path',{key:'wd'+i,d:'M 560 '+y+' q 80 -15 150 0 t 150 0',stroke:'rgba(70,224,180,'+op+')',strokeWidth:2.4,fill:'none',strokeLinecap:'round',filter:'url(#wglow)'})); kids.push(h('path',{key:'wa'+i,d:'M 858 '+y+' l-13 -5 m13 5 l-13 5',stroke:'rgba(70,224,180,'+op+')',strokeWidth:2.2,fill:'none'})); } }
+    if(L.fronts){
+      kids.push(h('path',{key:'front',d:'M 360 50 C 430 190 450 320 540 510',stroke:'#6c8cff',strokeWidth:3,fill:'none',opacity:0.85,filter:'url(#wglow)'}));
+      [[386,118],[410,210],[452,320],[500,420]].forEach((p,i)=> kids.push(h('path',{key:'tri'+i,d:'M '+p[0]+' '+p[1]+' l13 -5 l1 14 z',fill:'#6c8cff',opacity:0.85})));
+    }
+    // storm rain under center cloud
+    this.rain.forEach((r,i)=> kids.push(h('line',{key:'rn'+i,x1:480+r.x,y1:300+r.y,x2:478+r.x,y2:310+r.y+r.len,stroke:'rgba(108,140,255,0.4)',strokeWidth:1.4})));
+    if(L.lightning){ kids.push(h('path',{key:'bolt',d:'M 452 296 l-20 50 l15 0 l-12 40 l40 -60 l-17 0 l14 -32 z',fill:'#ffd24a',opacity:0.95,filter:'url(#wglow)',style:{animation:'lwFlash 4s ease-in-out infinite'}})); }
+    return h('svg',{viewBox:'0 0 960 540',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid slice',style:{display:'block'}},kids);
+  }
+
+  buildSeason(){
+    const h=React.createElement, vals=[0.40,0.46,0.44,0.52,0.58,0.55,0.66,0.72], n=vals.length;
+    const X=i=>4+i*(220/(n-1)), Y=v=>26-(v-0.35)*52;
+    let d='M '+X(0)+' '+Y(vals[0]); for(let i=1;i<n;i++){ d=d+' L '+X(i)+' '+Y(vals[i]); }
+    const kids=[h('path',{key:'a',d:d+' L '+X(n-1)+' 30 L '+X(0)+' 30 Z',fill:'#8aa0ff',opacity:0.12}), h('path',{key:'l',d:d,fill:'none',stroke:'#8aa0ff',strokeWidth:1.6})];
+    vals.forEach((v,i)=> kids.push(h('circle',{key:'c'+i,cx:X(i),cy:Y(v),r:i===n-1?3:1.7,fill:i===n-1?'#ffd24a':'rgba(255,255,255,0.5)'})));
+    return h('svg',{viewBox:'0 0 230 30',width:'100%',height:'100%',preserveAspectRatio:'none'},kids);
+  }
+
+  renderVals(){
+    const t=this.cur(), L=this.state.layers;
+    const all=this.data();
+    const byId=id=>()=>this.setState({selectedId:id});
+    const stations=all.map(d=>{
+      const wx=this.WX[d.weather], selected=d.id===this.state.selectedId;
+      return { ...d, weatherLabel:wx.label, color:wx.color, glyph:this.glyph(d.weather,22),
+        leftPct:(d.x/960*100)+'%', topPct:(d.y/540*100)+'%',
+        confLabel:d.conf.toFixed(2), confColor:this.confColor(d.conf),
+        pillBg:selected?'rgba(18,22,38,0.92)':'rgba(12,16,28,0.78)',
+        pillBorder:selected?wx.color:'rgba(255,255,255,0.12)',
+        pillShadow:selected?'0 0 0 1px '+wx.color+', 0 10px 28px rgba(0,0,0,0.5)':'0 6px 18px rgba(0,0,0,0.4)',
+        rowBg:selected?'rgba(255,255,255,0.07)':'rgba(255,255,255,0.02)',
+        rowBorder:selected?wx.color:'rgba(255,255,255,0.07)',
+        onSelect:byId(d.id) };
+    });
+    const sel=all.find(d=>d.id===this.state.selectedId)||all[0];
+    const selWx=this.WX[sel.weather];
+    const selView={ ...sel, weatherLabel:selWx.label, color:selWx.color, glyph:this.glyph(sel.weather,36),
+      headerBg:'rgba('+(sel.weather==='lightning'?'255,210,74':sel.weather==='drought'?'224,163,90':sel.weather==='calm'?'127,208,255':sel.weather==='momentum'?'70,224,180':sel.weather==='fog'?'154,166,192':'108,140,255')+',0.07)',
+      softBorder:selWx.color+'44',
+      eventConf:sel.eventConf.toFixed(2), eventConfColor:this.confColor(sel.eventConf),
+      build:sel.build.map(b=>({label:b.k, widthPct:Math.round(b.v*100)+'%', valLabel:Math.round(b.v*100), color:b.c||'#46e0b4'})) };
+    const legend=['storm','momentum','drought','calm','fog','lightning'].map(k=>({label:this.WX[k].label, color:this.WX[k].color}));
+    const layerToggles=[
+      {key:'fronts',label:'Storm fronts'},{key:'winds',label:'Momentum winds'},{key:'fog',label:'Fog banks'},{key:'isobars',label:'Isobars'},{key:'lightning',label:'Lightning'}
+    ].map(o=>({ label:o.label, onToggle:()=>this.setState(st=>({layers:{...st.layers,[o.key]:!st.layers[o.key]}})),
+      bg:L[o.key]?'var(--accent)':'rgba(255,255,255,0.16)', knob:L[o.key]?'15px':'2px', txt:L[o.key]?'rgba(238,241,251,0.92)':'rgba(238,241,251,0.45)' }));
+    const fdays=['Today','Wed','Thu','Fri','Sat','Sun','Mon'];
+    const ftypes=['storm_cell','storm','storm','storm','calm','momentum','calm'];
+    const flabels=['Load building','Front nears','Pressure','Peak · deadline','Clearing','Tailwind','Calm'];
+    const fconf=[0.82,0.74,0.66,0.58,0.46,0.40,0.34];
+    const forecast=fdays.map((day,i)=>({ day, glyph:this.glyph(ftypes[i],26), label:flabels[i], color:this.WX[ftypes[i]].color,
+      confPct:Math.round(fconf[i]*100)+'%', confColor:this.confColor(fconf[i]),
+      bg:i===3?'rgba(108,140,255,0.10)':'rgba(255,255,255,0.02)', border:i===3?'rgba(108,140,255,0.35)':'rgba(255,255,255,0.07)',
+      onSelect:i<=3?byId('projects'):byId('movement') }));
+    const navItems=[
+      {label:'Prism Intake'},{label:'Spectrum Recall'},{label:'Observatory'},{label:'Verdant Harmonics'},{label:'Weatherglass Flux',active:true},{label:'Bounty Board'}
+    ].map(n=>({label:n.label, weight:n.active?'600':'400', bg:n.active?'rgba(255,255,255,0.07)':'transparent', bar:n.active?'inset 2px 0 0 var(--accent)':'none', txt:n.active?'rgba(238,241,251,0.95)':'rgba(238,241,251,0.6)', dot:n.active?'var(--accent)':'rgba(238,241,251,0.35)'}));
+    const trace=[
+      {id:'contradiction',subj:'Sleep dispute',date:'Jun 11',leftPct:'30%',color:'#ffd24a',ringColor:'#ff6b5e'},
+      {id:'sleep',subj:'Short night',date:'Jun 12',leftPct:'42%',color:'#e0a35a',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'movement',subj:'Workout',date:'Jun 13',leftPct:'54%',color:'#46e0b4',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'mood',subj:'Low mood',date:'Jun 14',leftPct:'66%',color:'#8c7cff',ringColor:'rgba(255,255,255,0.3)'},
+      {id:'projects',subj:'Obligation due',date:'Jun 17',leftPct:'80%',color:'#6c8cff',ringColor:'rgba(255,255,255,0.3)'}
+    ].map(x=>({...x, onSelect:byId(x.id)}));
+    const projConf=0.71;
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      pad:(this.props.density==='compact')?'10px':'14px',
+      mapSvg:this.buildMap(L, sel.id), seasonSvg:this.buildSeason(),
+      stations, selected:selView, legend, layerToggles, forecast, navItems, trace,
+      projConf:projConf.toFixed(2), projRing:Math.round(projConf*100)+'%', projConfColor:this.confColor(projConf), projConfLabel:'Moderate · unsettled'
+    };
+  }
+}
+</script>
+</body>
+</html>

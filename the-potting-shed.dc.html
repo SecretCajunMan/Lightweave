@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#061310}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(57,232,131,0.18);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes lwBreathe{0%,100%{opacity:.5}50%{opacity:.9}}
+  @keyframes lwSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+  @keyframes lwBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @keyframes lwMote{0%{transform:translateY(6px);opacity:0}25%{opacity:.85}100%{transform:translateY(-26px);opacity:0}}
+  @keyframes lwPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
+  @keyframes lwFlow{to{stroke-dashoffset:-40}}
+  @keyframes lwToast{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div data-screen-label="The Potting Shed" style="height:100vh; overflow:hidden; color:rgba(226,245,236,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 600px at 22% -16%, {{ bg1 }}, transparent 58%), radial-gradient(1000px 720px at 112% 120%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(57,232,131,0.1); background:rgba(8,24,20,0.5);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M14 24 C14 16, 8 14, 6 9 C12 10, 14 14, 14 18 C14 13, 18 10, 23 9 C21 15, 14 16, 14 24 Z" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round"></path><line x1="14" y1="18" x2="14" y2="25" stroke="var(--accent2)" stroke-width="1.4" stroke-linecap="round"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(57,232,131,0.18);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">The Potting Shed</span>
+      <span style="font-size:10.5px; color:rgba(226,245,236,0.45);">Layer 3 · the tending bench · care, not compliance</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(226,245,236,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(57,232,131,0.18); border-radius:7px; background:rgba(57,232,131,0.05);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);"></span>{{ needsCare }} want tending</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">vitality {{ vitality }} · {{ season }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#46E08A;box-shadow:0 0 7px #46E08A;"></span>no streaks · ledger read-only</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(57,232,131,0.18);"></div>
+    <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="the-potting-shed"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow-y:auto; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:14px; left:50%; z-index:20; transform:translateX(-50%); animation:lwToast 0.25s ease-out; display:flex; align-items:center; gap:10px; background:rgba(8,22,18,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.5); max-width:560px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(226,245,236,0.9);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:1; min-height:300px; position:relative; border:1px solid rgba(57,232,131,0.14); border-radius:16px; overflow:hidden; background:radial-gradient(120% 80% at 50% 105%, rgba(38,240,208,0.1), transparent 55%), linear-gradient(180deg, #07201a, #061310 70%);">
+        <div style="position:absolute; inset:0;">{{ shedSvg }}</div>
+        <div style="position:absolute; top:11px; left:14px; display:flex; align-items:center; gap:9px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(226,245,236,0.74);">The tending bench</span>
+          <span style="font-size:10px; color:rgba(226,245,236,0.42);">each plant is a domain · its glow is how it's doing · pick one to see what it's asking for</span>
+        </div>
+      </section>
+
+      <section style="flex:0 0 auto; display:flex; gap:9px;">
+        <sc-for list="{{ careCards }}" as="cc" hint-placeholder-count="6">
+          <div onClick="{{ cc.onSelect }}" style="flex:1; min-width:0; cursor:pointer; border-radius:13px; padding:10px 11px; background:{{ cc.cardBg }}; border:1px solid {{ cc.cardBorder }}; border-top:2px solid {{ cc.actionColor }};">
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:7px;">
+              <span style="width:18px; height:18px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:{{ cc.actionBg }}; flex:0 0 auto;">{{ cc.glyph }}</span>
+              <span style="font-size:10px; font-weight:600; color:{{ cc.actionColor }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ cc.action }}</span>
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; margin-bottom:4px;">{{ cc.domain }}</div>
+            <div style="font-size:9.5px; line-height:1.4; color:rgba(226,245,236,0.55); min-height:26px; max-height:42px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; text-wrap:pretty;">{{ cc.why }}</div>
+            <div style="display:flex; align-items:center; gap:6px; margin-top:8px;">
+              <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; padding:2px 6px; border-radius:5px; background:{{ cc.urgencyBg }}; color:{{ cc.urgencyColor }};">{{ cc.urgency }}</span>
+              <div style="flex:1;"></div>
+              <span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ cc.confColor }};">{{ cc.conf }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 378px; display:flex; flex-direction:column; border-left:1px solid rgba(57,232,131,0.1); background:rgba(8,24,20,0.4); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:15px 18px 14px; border-bottom:1px solid rgba(57,232,131,0.1); background:{{ sel.headerBg }};">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="width:18px; height:18px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:{{ sel.actionBg }};">{{ sel.glyph }}</span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px;">{{ sel.domain }}</span>
+          <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.actionBg }}; color:{{ sel.actionColor }};">{{ sel.action }}</span>
+        </div>
+        <div style="font-size:12.5px; line-height:1.55; color:rgba(226,245,236,0.82); margin-top:9px; text-wrap:pretty;">{{ sel.why }}</div>
+      </div>
+
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:9px 10px;"><div style="font-size:9px; color:rgba(226,245,236,0.42);">{{ sel.metricLabel }}</div><div style="display:flex; align-items:center; gap:6px; margin-top:4px;"><div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.metricPct }}; background:{{ sel.actionColor }};"></div></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ sel.actionColor }};">{{ sel.metricVal }}</span></div></div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1; background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:8px 10px;"><div style="font-size:9px; color:rgba(226,245,236,0.42);">CONFIDENCE</div><div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:{{ sel.confColor }};">{{ sel.conf }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:8px 10px;"><div style="font-size:9px; color:rgba(226,245,236,0.42);">LIFECYCLE</div><div style="font-size:12px; font-weight:600; color:{{ sel.lifeColor }};">{{ sel.lifecycle }}</div></div>
+          <div style="flex:1; background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:8px 10px;"><div style="font-size:9px; color:rgba(226,245,236,0.42);">WINDOW</div><div style="font-size:10px; font-weight:500; color:rgba(226,245,236,0.82);">{{ sel.window }}</div></div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(226,245,236,0.4); margin-bottom:8px;">WHY THIS CARD EXISTS · {{ sel.records }} RECORDS</div>
+          <div style="border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+            <sc-for list="{{ sel.evidence }}" as="ev" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; padding:8px 11px; border-top:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.15);">
+                <span style="flex:1; min-width:0; display:flex; flex-direction:column;"><span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(226,245,236,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ ev.rec }}</span><span style="font-size:9px; color:rgba(226,245,236,0.45);">{{ ev.kind }}</span></span>
+                <span style="flex:0 0 58px; font-size:9.5px; color:rgba(226,245,236,0.6);">{{ ev.source }}</span>
+                <span style="flex:0 0 34px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; color:{{ ev.confColor }};">{{ ev.conf }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(226,245,236,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(226,245,236,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.flag }}" hint-placeholder-val="{{ false }}">
+          <div style="background:{{ sel.flagBg }}; border:1px solid {{ sel.flagBorder }}; border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:{{ sel.flagColor }};"></span><span style="font-size:10.5px; font-weight:600; color:{{ sel.flagColor }};">{{ sel.flagTitle }}</span></div>
+            <div style="font-size:10.5px; line-height:1.5; color:rgba(226,245,236,0.6);">{{ sel.flagNote }}</div>
+          </div>
+        </sc-if>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(226,245,236,0.4); margin-bottom:9px;">CANONICAL · ROOT CELLAR</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(226,245,236,0.45);">pattern</span><span style="color:{{ sel.actionColor }};">{{ sel.pattern }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(226,245,236,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(226,245,236,0.45);">records</span><span>{{ sel.records }} canonical</span></div>
+          </div>
+          <div style="font-size:10px; color:rgba(226,245,236,0.5); margin-top:9px; line-height:1.45;">The garden is the story. The cellar is the receipt. Tending writes neither — it proposes.</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(226,245,236,0.4); margin-bottom:8px;">THE TENDING</div>
+          <div style="display:flex; gap:7px;">
+            <span onClick="{{ sel.onTend }}" style="flex:1; text-align:center; font-size:12px; font-weight:600; color:#062018; background:linear-gradient(135deg, {{ sel.actionColor }}, {{ sel.actionColor2 }}); padding:11px; border-radius:10px; cursor:pointer; box-shadow:0 0 16px {{ sel.actionGlow }};">{{ sel.tendLabel }}</span>
+            <span onClick="{{ sel.onSnooze }}" style="flex:0 0 auto; text-align:center; font-size:12px; color:rgba(226,245,236,0.8); border:1px solid rgba(255,255,255,0.14); padding:11px 14px; border-radius:10px; cursor:pointer;">Let it be</span>
+          </div>
+          <div style="font-size:9px; color:rgba(226,245,236,0.45); margin-top:8px; text-align:center; line-height:1.45;">{{ sel.safetyNote }}</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 110px; border-top:1px solid rgba(57,232,131,0.1); background:rgba(8,24,20,0.5); padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(226,245,236,0.6);">Tending log · what you've tended today</span>
+        <span style="font-size:10px; color:rgba(226,245,236,0.38);">gentle steps, all reversible, none of them touched a record</span>
+      </div>
+      <div style="flex:1; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ tendLog }}" as="lg" hint-placeholder-count="4">
+          <div style="flex:0 0 auto; min-width:188px; display:flex; gap:9px; align-items:flex-start; background:rgba(57,232,131,0.04); border:1px solid rgba(57,232,131,0.12); border-radius:9px; padding:8px 11px;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:{{ lg.color }}; box-shadow:0 0 6px {{ lg.color }}; margin-top:3px;"></span>
+            <div style="min-width:0;">
+              <div style="font-size:10.5px; color:rgba(226,245,236,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:150px;">{{ lg.head }}</div>
+              <div style="font-size:9px; color:rgba(226,245,236,0.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:150px;">{{ lg.sub }}</div>
+              <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:#7fe6b0; margin-top:1px;">{{ lg.when }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 248px; display:flex; align-items:center; gap:12px; background:rgba(70,224,138,0.05); border:1px solid rgba(70,224,138,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#7fe6b0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(226,245,236,0.55); margin-top:3px;">records edited</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:rgba(226,245,236,0.92); line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(226,245,236,0.55); margin-top:3px; line-height:1.3;">streaks to break · the garden keeps no scorecard</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;biolume&quot;,&quot;wisteria&quot;,&quot;sunfruit&quot;],&quot;default&quot;:&quot;biolume&quot;,&quot;tsType&quot;:&quot;'biolume' | 'wisteria' | 'sunfruit'&quot;},&quot;gardenMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showThriving&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.ACTIONS = {
+      water:{ label:'Deep Water', color:'#69B7FF', color2:'#26F0D0', verb:'Water it', glyph:'water' },
+      prune:{ label:'Prune', color:'#A879FF', color2:'#FF6FB7', verb:'Prune it', glyph:'shears' },
+      fertilize:{ label:'Fertilize', color:'#39E883', color2:'#26F0D0', verb:'Feed it', glyph:'spark' },
+      weed:{ label:'Weed', color:'#FF5C4D', color2:'#FFB84D', verb:'Name the weed', glyph:'weed' },
+      reinforce:{ label:'Reinforce Trellis', color:'#FF6FB7', color2:'#A879FF', verb:'Reinforce it', glyph:'tie' },
+      none:{ label:'Thriving', color:'#FFB84D', color2:'#39E883', verb:'Just enjoy it', glyph:'check' }
+    };
+    this.TASKS = {
+      sleep:{ domain:'Sleep', plant:'moonvine', plantColor:'#A6B4FF', action:'water', state:'thirsty', x:96,
+        urgency:'Soon', conf:0.81, lifecycle:'Confirmed', records:14, window:'last 14 days', pattern:'pat_lm_204', resolver:'HIGHEST_CONF',
+        why:'Three nights with no bedtime record — the moonvine has gone dry where the data should be.',
+        metricLabel:'HYDRATION · data freshness', metric:0.42,
+        reasoning:['Bedtime logs are missing for Jun 13\u201315 — a freshness gap, not a verdict.','The vine\u2019s underlying pattern (pat_lm_204) is strong at 0.81; it\u2019s the recent water that\u2019s low.','Watering = adding a bedtime note. It feeds the projection; it never rewrites past nights.'],
+        evidence:[{rec:'rec_sl_band',kind:'Sleep · band',source:'Wearable',conf:0.92},{rec:'gap_pm_bedtime',kind:'Coverage gap · 3 nights',source:'System',conf:0.9},{rec:'rec_sl_self',kind:'Sleep · self',source:'Journal',conf:0.60}],
+        flag:null, safety:'Tending proposes a note. It never edits a past record and never grades your sleep.' },
+      projects:{ domain:'Projects', plant:'lattice', plantColor:'#C9A6FF', action:'prune', state:'overgrown', x:248,
+        urgency:'Worth it', conf:0.76, lifecycle:'Watching', records:6, window:'last 30 days', pattern:'pat_pr_088', resolver:'LATEST',
+        why:'Six obligations piled up unresolved. Projects aren\u2019t dead \u2014 they\u2019re overgrown. Different mess, different shears.',
+        metricLabel:'OVERGROWTH · unresolved load', metric:0.74,
+        reasoning:['Six open obligations carry due dates that have slipped past the window.','The lattice still has healthy growth underneath; it\u2019s the tangle that\u2019s the problem.','Pruning = closing or deferring two stale obligations, logged as your choice.'],
+        evidence:[{rec:'obl_proj_12',kind:'Obligation · overdue',source:'Tasks',conf:0.95},{rec:'obl_proj_09',kind:'Obligation · overdue',source:'Tasks',conf:0.93},{rec:'obl_proj_04',kind:'Obligation · stale',source:'Tasks',conf:0.88}],
+        flag:null, safety:'Pruning defers or closes obligations. The records stay; only their status moves, with your note.' },
+      movement:{ domain:'Movement', plant:'fern', plantColor:'#39E883', action:'fertilize', state:'underfed', x:400,
+        urgency:'Gentle', conf:0.72, lifecycle:'Confirmed', records:11, window:'last 7 days', pattern:'pat_gl_118', resolver:'HIGHEST_CONF',
+        why:'Activity logs are thin this week \u2014 the fern\u2019s hungry. On past form, a short walk feeds a calmer evening too.',
+        metricLabel:'BLOOM · recent input', metric:0.46,
+        reasoning:['Three of seven days have no movement record; the fern\u2019s growth has flattened.','Movement\u2192calmer-evening (pat_gl_118) held across 11 days at 0.72 \u2014 a gentle, real nudge.','Feeding = a short walk. The suggestion is evidence-shaped, not a quota.'],
+        evidence:[{rec:'rec_act_low',kind:'Activity · low week',source:'Wearable',conf:0.90},{rec:'rec_hr_low',kind:'Resting HR',source:'Wearable',conf:0.91},{rec:'rec_calm',kind:'Evening note',source:'Journal',conf:0.62}],
+        flag:null, safety:'A suggestion, not a target. No streak, no quota, no judgment if today isn\u2019t the day.' },
+      distractions:{ domain:'Distractions', plant:'starweed', plantColor:'#69B7FF', action:'weed', state:'weeds', x:552,
+        urgency:'Worth watching', conf:0.58, lifecycle:'Watching', records:9, window:'last 21 days', pattern:'pat_dx_055', resolver:'LATEST',
+        why:'A screen-time \u2194 rough-evening correlation keeps creeping back through the starflowers.',
+        metricLabel:'WILT · recurring drag', metric:0.62,
+        reasoning:['Late screen-time co-occurs with lower-rated evenings on 6 of 9 logged days.','Co-occurrence, not cause \u2014 the weed is a pattern to notice, not a verdict to obey.','Weeding = naming it so it stops hiding among the blooms; nothing is auto-blocked.'],
+        evidence:[{rec:'rec_screen_pm',kind:'Screen time · evening',source:'Device',conf:0.86},{rec:'rec_mood_pm',kind:'Evening rating',source:'Self',conf:0.62},{rec:'rec_screen_2',kind:'Screen time',source:'Device',conf:0.85}],
+        flag:{ title:'CORRELATION, NOT CAUSE', note:'These records line up; that is all the garden claims. A confounder (a hard week, poor sleep) could drive both. Worth watching, not worth a guilt trip.', color:'#FFB84D' },
+        safety:'Observation only. The weed is a prompt to notice a pattern \u2014 not a diagnosis and not a rule.' },
+      relationships:{ domain:'Relationships', plant:'trellis', plantColor:'#FF6FB7', action:'reinforce', state:'loose', x:704,
+        urgency:'Gentle', conf:0.38, lifecycle:'Uncertain', records:3, window:'last 30 days', pattern:'pat_od_041', resolver:'LATEST',
+        why:'An unanswered thread from nine days ago \u2014 one tie on the trellis has come loose. No pressure; this bed is thinly mapped.',
+        metricLabel:'ROOT STRENGTH · coverage', metric:0.3,
+        reasoning:['Only three connection records exist this month \u2014 the trellis is barely sketched.','Confidence is honestly low (0.38). The garden won\u2019t pretend a sparse bed is a strong signal.','Reinforcing = a nudge to reconnect, offered softly because the data is thin.'],
+        evidence:[{rec:'rec_thread_09',kind:'Unanswered thread',source:'Journal',conf:0.55},{rec:'rec_soc_1',kind:'Social note',source:'Journal',conf:0.50},{rec:'rec_soc_2',kind:'Social note',source:'Journal',conf:0.48}],
+        flag:{ title:'LOW COVERAGE · 3 RECORDS', note:'Three records in thirty days is a rumor, not a trend. Shown as a faint, gentle nudge \u2014 never as an obligation, never as a score.', color:'#69B7FF' },
+        safety:'A soft nudge from thin data. No pressure, no streak \u2014 relationships aren\u2019t a metric to win.' },
+      nutrition:{ domain:'Nutrition', plant:'citrus', plantColor:'#FFB84D', action:'none', state:'thriving', x:856,
+        urgency:'Thriving', conf:0.66, lifecycle:'Confirmed', records:12, window:'last 21 days', pattern:'pat_nu_071', resolver:'HIGHEST_CONF',
+        why:'Breakfast consistency is up and the citrus is fruiting. Nothing to fix here \u2014 not everything in the garden is a chore.',
+        metricLabel:'BLOOM · positive trend', metric:0.78,
+        reasoning:['Breakfast logged 18 of the last 21 days \u2014 a real, upward trend.','This is here to be seen, not solved. A thriving plant is data too.','No action proposed. Beauty without a to-do is allowed.'],
+        evidence:[{rec:'rec_meal_bf',kind:'Breakfast log',source:'Self',conf:0.72},{rec:'receipt_044',kind:'Grocery receipt',source:'Document',conf:0.9},{rec:'rec_meal_bf2',kind:'Breakfast log',source:'Self',conf:0.70}],
+        flag:null, safety:'Nothing to tend. Logged as thriving \u2014 the garden notices what\u2019s going right, too.' }
+    };
+    this.ORDER = ['sleep','projects','movement','distractions','relationships','nutrition'];
+    this.state = { sel:'projects', filter:'all', toast:null,
+      log:[ {head:'Watered · Hydration', sub:'logged a bedtime note', when:'8:10', color:'#69B7FF'},
+            {head:'Pruned · Focus', sub:'deferred 1 obligation', when:'Yesterday', color:'#A879FF'} ] };
+  }
+
+  themes = {
+    biolume:  { accent:'#26F0D0', accent2:'#39E883', base:'#061310', bg1:'rgba(38,240,208,0.12)', bg2:'rgba(57,232,131,0.1)', glow:'rgba(38,240,208,0.3)' },
+    wisteria: { accent:'#A879FF', accent2:'#FF6FB7', base:'#0b0a1b', bg1:'rgba(168,121,255,0.14)', bg2:'rgba(255,111,183,0.1)', glow:'rgba(168,121,255,0.3)' },
+    sunfruit: { accent:'#FFB84D', accent2:'#39E883', base:'#0f0c08', bg1:'rgba(255,184,77,0.13)', bg2:'rgba(57,232,131,0.1)', glow:'rgba(255,184,77,0.3)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.biolume; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.8?'#46E08A': c>=0.65?'#7fd99a': c>=0.55?'#FFE28A': c>=0.45?'#FFB84D':'#FF5C4D'; }
+  lifeColor(l){ return l==='Confirmed'?'#46E08A': l==='Watching'?'#FFE28A': l==='Contested'?'#FF5C4D':'#9aa6c0'; }
+  urgencyStyle(u){ return u==='Thriving'?{c:'#46E08A'}: u==='Gentle'?{c:'#69B7FF'}: u==='Soon'?{c:'#FFB84D'}: u==='Worth it'?{c:'#A879FF'}:{c:'#FF8A6A'}; }
+
+  glyphSvg(type,col,sz){
+    const h=React.createElement, s=sz||13, S={width:s,height:s,viewBox:'0 0 14 14'};
+    if(type==='water') return h('svg',S,h('path',{d:'M7 1.5 C7 5, 11 6, 11 9 a4 4 0 0 1 -8 0 C3 6, 7 5, 7 1.5 Z',fill:'none',stroke:col,strokeWidth:1.2}));
+    if(type==='shears') return h('svg',S,h('circle',{cx:4,cy:10,r:1.8,fill:'none',stroke:col,strokeWidth:1.1}),h('circle',{cx:10,cy:10,r:1.8,fill:'none',stroke:col,strokeWidth:1.1}),h('path',{d:'M5.2 8.6 L11 2 M8.8 8.6 L3 2',stroke:col,strokeWidth:1.1,strokeLinecap:'round'}));
+    if(type==='spark') return h('svg',S,h('path',{d:'M7 1 L8.2 5 L12 6 L8.2 7 L7 11 L5.8 7 L2 6 L5.8 5 Z',fill:col,opacity:0.9}));
+    if(type==='weed') return h('svg',S,h('path',{d:'M7 12 L7 5 M7 7 C5 6, 4 4, 4 3 M7 6 C9 5, 10 3.5, 10 2.5 M7 8 C5.6 7.6, 5 6.6, 5 6',fill:'none',stroke:col,strokeWidth:1.1,strokeLinecap:'round'}));
+    if(type==='tie') return h('svg',S,h('path',{d:'M3 3 L11 11 M11 3 L3 11',stroke:col,strokeWidth:1.1,strokeLinecap:'round'}),h('circle',{cx:7,cy:7,r:1.6,fill:col}));
+    return h('svg',S,h('path',{d:'M3 7.5 L6 10.5 L11 4',fill:'none',stroke:col,strokeWidth:1.4,strokeLinecap:'round',strokeLinejoin:'round'}));
+  }
+
+  drawPlant(t,on){
+    const h=React.createElement, ac=this.ACTIONS[t.action], col=t.plantColor, gcol=ac.color, x=t.x+30, by=362, motion=this.props.gardenMotion!==false, R=[];
+    // glow halo
+    R.push(h('circle',{key:'halo',cx:x,cy:by-70,r:on?72:56,fill:this.hexA(gcol,on?0.22:0.13),style:motion?{transformOrigin:x+'px '+(by-70)+'px',animation:'lwBreathe '+(3+(t.x%5))+'s ease-in-out infinite'}:undefined}));
+    // pot
+    R.push(h('path',{key:'pot',d:'M '+(x-26)+' '+(by-34)+' L '+(x+26)+' '+(by-34)+' L '+(x+20)+' '+by+' L '+(x-20)+' '+by+' Z',fill:'#1d2a1e',stroke:this.hexA(gcol,0.4),strokeWidth:1.2}));
+    R.push(h('rect',{key:'rim',x:x-29,y:by-38,width:58,height:7,rx:3,fill:'#26331f',stroke:this.hexA(gcol,0.4),strokeWidth:1}));
+    R.push(h('ellipse',{key:'soil',cx:x,cy:by-33,rx:24,ry:4,fill:t.state==='thirsty'?'#3a2f1c':'#241a12'}));
+    if(t.state==='thirsty'){ R.push(h('path',{key:'crack',d:'M '+(x-10)+' '+(by-33)+' l 6 1 l -3 1 M '+(x+4)+' '+(by-34)+' l 5 1',stroke:'rgba(255,184,77,0.5)',strokeWidth:0.8})); }
+    // plant body
+    const stem=(d,w,c,o)=>h('path',{d:d,fill:'none',stroke:c||col,strokeWidth:w||2,strokeLinecap:'round',opacity:o==null?1:o});
+    const g=[];
+    if(t.plant==='moonvine'){
+      g.push(stem('M '+x+' '+(by-36)+' C '+(x-18)+' '+(by-80)+' '+(x-22)+' '+(by-118)+' '+(x-6)+' '+(by-126),2.2,col));
+      g.push(stem('M '+x+' '+(by-36)+' C '+(x+16)+' '+(by-78)+' '+(x+24)+' '+(by-104)+' '+(x+14)+' '+(by-120),2,col));
+      [[x-6,by-126],[x+14,by-120],[x-18,by-92]].forEach((p,i)=>{ g.push(h('circle',{key:'bl'+i,cx:p[0],cy:p[1],r:6-i,fill:this.hexA('#dfe4ff',0.9),filter:undefined})); g.push(h('circle',{key:'blc'+i,cx:p[0],cy:p[1],r:2.4,fill:gcol})); });
+    } else if(t.plant==='lattice'){
+      for(let i=0;i<4;i++){ g.push(stem('M '+(x-24+i*16)+' '+(by-36)+' L '+(x-24+i*16)+' '+(by-118),1,this.hexA('#5a4a2a',0.7))); }
+      for(let i=0;i<3;i++){ g.push(stem('M '+(x-24)+' '+(by-50-i*26)+' L '+(x+24)+' '+(by-50-i*26),1,this.hexA('#5a4a2a',0.7))); }
+      g.push(stem('M '+(x-22)+' '+(by-40)+' C '+(x-30)+' '+(by-80)+' '+(x+30)+' '+(by-90)+' '+(x+8)+' '+(by-128),2.4,col,0.95));
+      g.push(stem('M '+(x+18)+' '+(by-44)+' C '+(x+30)+' '+(by-86)+' '+(x-28)+' '+(by-96)+' '+(x-12)+' '+(by-124),2.2,this.hexA(col,0.8)));
+      [[x+8,by-128],[x-12,by-124],[x-2,by-104],[x+16,by-92]].forEach((p,i)=>g.push(h('circle',{key:'lf'+i,cx:p[0],cy:p[1],r:4,fill:this.hexA(col,0.85)})));
+    } else if(t.plant==='fern'){
+      for(let k=-2;k<=2;k++){ const ang=k*14; const ex=x+Math.sin(ang*Math.PI/180)*30, ey=by-118; g.push(stem('M '+x+' '+(by-36)+' Q '+(x+k*10)+' '+(by-86)+' '+ex+' '+ey,1.8,col,0.9));
+        for(let s=1;s<=4;s++){ const px=x+(ex-x)*s/5, py=(by-36)+(ey-(by-36))*s/5; g.push(stem('M '+px+' '+py+' l '+(k>=0?5:-5)+' -4',1,col,0.7)); } }
+      [[x-14,by-96],[x+12,by-104],[x+2,by-112]].forEach((p,i)=>g.push(h('circle',{key:'mt'+i,cx:p[0],cy:p[1],r:1.8,fill:'#FFE28A',opacity:0.9,style:motion?{animation:'lwPulse '+(2+i*0.5)+'s ease-in-out infinite'}:undefined})));
+    } else if(t.plant==='starweed'){
+      [[x-12,by-110,col],[x+10,by-118,'#dff0ff'],[x+2,by-94,col]].forEach((p,i)=>{ g.push(stem('M '+x+' '+(by-36)+' Q '+(x+(p[0]-x)/2)+' '+(by-80)+' '+p[0]+' '+p[1],1.6,'#3a6a55',0.8));
+        for(let a=0;a<5;a++){ const an=a*72*Math.PI/180; g.push(stem('M '+p[0]+' '+p[1]+' L '+(p[0]+Math.cos(an)*6)+' '+(p[1]+Math.sin(an)*6),1.4,p[2])); } g.push(h('circle',{key:'sc'+i,cx:p[0],cy:p[1],r:2,fill:'#fff'})); });
+      g.push(stem('M '+(x-2)+' '+(by-34)+' C '+(x+14)+' '+(by-70)+' '+(x-16)+' '+(by-90)+' '+(x+6)+' '+(by-116),2,gcol,0.9));
+      [[x+6,by-116],[x-6,by-80]].forEach((p,i)=>g.push(h('path',{key:'wd'+i,d:'M '+p[0]+' '+p[1]+' l 5 -3 m -5 3 l -4 -4',stroke:gcol,strokeWidth:1.2,strokeLinecap:'round'})));
+    } else if(t.plant==='trellis'){
+      g.push(stem('M '+(x-16)+' '+(by-36)+' L '+(x-10)+' '+(by-120),1.4,this.hexA('#6a4a32',0.8)));
+      g.push(stem('M '+(x+16)+' '+(by-36)+' L '+(x+10)+' '+(by-120),1.4,this.hexA('#6a4a32',0.8)));
+      [0,1,2,3].forEach(i=>g.push(stem('M '+(x-14+i)+' '+(by-52-i*22)+' L '+(x+14-i)+' '+(by-52-i*22),1, i===1?this.hexA('#6a4a32',0.35):this.hexA('#6a4a32',0.8))));
+      [[x-10,by-110],[x+8,by-96],[x-2,by-72],[x+4,by-120]].forEach((p,i)=>{ g.push(h('circle',{key:'rs'+i,cx:p[0],cy:p[1],r:5-i*0.3,fill:this.hexA(col,0.85)})); g.push(h('circle',{key:'rsc'+i,cx:p[0],cy:p[1],r:1.6,fill:'#fff',opacity:0.7})); });
+    } else {
+      g.push(stem('M '+x+' '+(by-36)+' L '+x+' '+(by-70),3,'#5a4a2a'));
+      g.push(h('circle',{key:'bush',cx:x,cy:by-100,r:34,fill:this.hexA('#2e7d4a',0.5),stroke:this.hexA('#39E883',0.5),strokeWidth:1}));
+      for(let i=0;i<7;i++){ const an=i/7*Math.PI*2; g.push(h('ellipse',{key:'lf'+i,cx:x+Math.cos(an)*26,cy:by-100+Math.sin(an)*22,rx:8,ry:4,fill:this.hexA('#39E883',0.55),transform:'rotate('+(an*57)+' '+(x+Math.cos(an)*26)+' '+(by-100+Math.sin(an)*22)+')'})); }
+      [[x-12,by-106],[x+14,by-96],[x+2,by-118]].forEach((p,i)=>{ g.push(h('circle',{key:'fr'+i,cx:p[0],cy:p[1],r:7,fill:this.hexA('#FFB84D',0.9)})); g.push(h('circle',{key:'frg'+i,cx:p[0],cy:p[1],r:10,fill:this.hexA('#FFB84D',0.2)})); });
+    }
+    R.push(h('g',{key:'plant',style:motion?{transformOrigin:x+'px '+by+'px',animation:(on?'lwBob 3s ':'lwSway 6s ')+'ease-in-out infinite'}:undefined},g));
+    // tending glyph above
+    const gy=by-152;
+    R.push(h('circle',{key:'gg',cx:x,cy:gy,r:13,fill:this.hexA(gcol,0.16),stroke:this.hexA(gcol,0.5),strokeWidth:1,style:motion&&t.action!=='none'?{transformOrigin:x+'px '+gy+'px',animation:'lwPulse 2.4s ease-in-out infinite'}:undefined}));
+    R.push(h('g',{key:'ggl',transform:'translate('+(x-6.5)+' '+(gy-6.5)+')'},this.glyphSvg(ac.glyph,gcol,13)));
+    // selected ring + label
+    if(on) R.push(h('ellipse',{key:'selr',cx:x,cy:by-2,rx:34,ry:9,fill:'none',stroke:this.hexA(gcol,0.6),strokeWidth:1.4}));
+    R.push(h('text',{key:'nm',x:x,y:by+24,textAnchor:'middle',fontFamily:'Space Grotesk, sans-serif',fontSize:on?13:11.5,fontWeight:600,fill:on?'rgba(226,245,236,0.95)':'rgba(226,245,236,0.6)'},t.domain));
+    R.push(h('text',{key:'ac',x:x,y:by+37,textAnchor:'middle',fontFamily:'IBM Plex Mono, monospace',fontSize:8.5,fill:this.hexA(gcol,on?0.95:0.6)},ac.label));
+    return h('g',{key:t.x,onClick:()=>this.setState({sel:this.ORDER.find(k=>this.TASKS[k].x===t.x)}),style:{cursor:'pointer'}},R);
+  }
+
+  buildShed(){
+    const h=React.createElement, t=this.cur(), motion=this.props.gardenMotion!==false, R=[], by=362;
+    R.push(h('defs',{key:'d'},h('filter',{id:'sg',x:'-60%',y:'-60%',width:'220%',height:'220%'},h('feGaussianBlur',{stdDeviation:'4'}))));
+    // glasshouse ribs
+    for(let i=0;i<7;i++){ const x=70+i*145; R.push(h('path',{key:'rib'+i,d:'M '+x+' 30 Q '+(x)+' 10 '+(x+30)+' 8',fill:'none',stroke:'rgba(120,200,170,0.05)',strokeWidth:1})); R.push(h('line',{key:'rv'+i,x1:x,y1:30,x2:x,y2:340,stroke:'rgba(120,200,170,0.035)',strokeWidth:1})); }
+    // pollen motes
+    let s=29; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<26;i++){ const x=(rnd()*1000).toFixed(0), y=(60+rnd()*260).toFixed(0); R.push(h('circle',{key:'po'+i,cx:x,cy:y,r:(rnd()*1.4+0.6).toFixed(2),fill:rnd()<0.4?'#FFE28A':t.accent,opacity:0.6,style:motion?{transformOrigin:x+'px '+y+'px',animation:'lwMote '+(3+rnd()*4).toFixed(1)+'s ease-in-out infinite '+(rnd()*3).toFixed(1)+'s'}:undefined})); }
+    // bench
+    R.push(h('rect',{key:'bench',x:0,y:by,width:1000,height:14,fill:'#26180f'}));
+    R.push(h('rect',{key:'bench2',x:0,y:by+14,width:1000,height:26,fill:'#1a1009'}));
+    R.push(h('line',{key:'bl',x1:0,y1:by,x2:1000,y2:by,stroke:this.hexA(t.accent,0.3),strokeWidth:1}));
+    // water channel
+    R.push(h('line',{key:'wc',x1:0,y1:by+7,x2:1000,y2:by+7,stroke:this.hexA('#69B7FF',0.5),strokeWidth:2,strokeDasharray:'10 8',style:motion?{animation:'lwFlow 3s linear infinite'}:undefined}));
+    // plants
+    this.ORDER.forEach(k=>{ R.push(this.drawPlant(this.TASKS[k], k===this.state.sel)); });
+    return h('svg',{viewBox:'0 0 1000 440',width:'100%',height:'100%',preserveAspectRatio:'xMidYMid meet',style:{display:'block'}},R);
+  }
+
+  fireToast(msg){ this.setState({toast:msg}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200); }
+  componentWillUnmount(){ clearTimeout(this._tt); }
+  tend(k){ const t=this.TASKS[k], ac=this.ACTIONS[t.action];
+    const msg = t.action==='none' ? 'Noticed: '+t.domain+' is thriving. Logged as a good thing, not a task. No action taken, none needed.'
+      : ac.label+' \u2192 '+t.domain+'. A gentle step is proposed and logged. Zero records edited, zero streaks involved.';
+    this.setState(st=>({ log:[{head:ac.label+' \u00b7 '+t.domain, sub:'tended gently', when:'now', color:ac.color},...st.log].slice(0,8), toast:msg }));
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200);
+  }
+
+  renderVals(){
+    const t=this.cur(), selKey=this.state.sel, task=this.TASKS[selKey], ac=this.ACTIONS[task.action], filter=this.state.filter;
+    const navItems=['Prism Intake','Verdant Harmonics','Lumen Apothecary','Source Aquarium','Lantern Desk','Tide Room','Resonance Atlas','Distortion Clinic','Iris','The Potting Shed']
+      .map(l=>{ const on=l==='The Potting Shed'; return {label:l,weight:on?'600':'400',bg:on?'rgba(57,232,131,0.1)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(226,245,236,0.95)':'rgba(226,245,236,0.6)',dot:on?'var(--accent)':'rgba(226,245,236,0.35)'}; });
+
+    const inFilter=(k)=>{ const a=this.TASKS[k].action; if(filter==='all')return true; if(filter==='now')return this.TASKS[k].urgency==='Soon'||this.TASKS[k].urgency==='Worth it'; if(filter==='gentle')return this.TASKS[k].urgency==='Gentle'; if(filter==='thriving')return a==='none'; return true; };
+    const filters=[['all','All beds'],['now','Wants it soon'],['gentle','Gentle'],['thriving','Thriving']];
+    const filterChips=filters.map(f=>({ label:f[1], count:this.ORDER.filter(k=>{ const sv=this.state.filter; this.state.filter=f[0]; const r=inFilter(k); this.state.filter=sv; return r; }).length,
+      color:f[0]==='thriving'?'#46E08A':f[0]==='now'?'#FFB84D':f[0]==='gentle'?'#69B7FF':t.accent,
+      onSelect:()=>this.setState({filter:f[0]}), bg:this.state.filter===f[0]?'rgba(57,232,131,0.08)':'transparent', txt:this.state.filter===f[0]?'rgba(226,245,236,0.95)':'rgba(226,245,236,0.62)' }));
+
+    const careCards=this.ORDER.filter(k=>inFilter(k)).map(k=>{ const c=this.TASKS[k], a=this.ACTIONS[c.action], on=k===selKey, us=this.urgencyStyle(c.urgency);
+      return { domain:c.domain, why:c.why, action:a.label, actionColor:a.color, actionBg:this.hexA(a.color,0.16), glyph:this.glyphSvg(a.glyph,a.color,12),
+        urgency:c.urgency, urgencyColor:us.c, urgencyBg:this.hexA(us.c,0.14), conf:c.conf.toFixed(2), confColor:this.confColor(c.conf),
+        onSelect:()=>this.setState({sel:k}), cardBg:on?this.hexA(a.color,0.08):'rgba(255,255,255,0.025)', cardBorder:on?this.hexA(a.color,0.45):'rgba(255,255,255,0.08)' }; });
+
+    const us=this.urgencyStyle(task.urgency);
+    const sel={ domain:task.domain, why:task.why, action:ac.label, actionColor:ac.color, actionColor2:ac.color2, actionBg:this.hexA(ac.color,0.16), actionGlow:this.hexA(ac.color,0.4),
+      glyph:this.glyphSvg(ac.glyph,ac.color,13), headerBg:this.hexA(ac.color,0.06),
+      metricLabel:task.metricLabel, metricVal:task.metric.toFixed(2), metricPct:Math.round(task.metric*100)+'%',
+      conf:task.conf.toFixed(2), confColor:this.confColor(task.conf), lifecycle:task.lifecycle, lifeColor:this.lifeColor(task.lifecycle), window:task.window,
+      records:task.records, pattern:task.pattern, resolver:task.resolver,
+      evidence:task.evidence.map(e=>({rec:e.rec,kind:e.kind,source:e.source,conf:e.conf.toFixed(2),confColor:this.confColor(e.conf)})),
+      reasoning:task.reasoning,
+      flag:!!task.flag, flagTitle:task.flag?task.flag.title:'', flagNote:task.flag?task.flag.note:'', flagColor:task.flag?task.flag.color:'#FFB84D',
+      flagBg:task.flag?this.hexA(task.flag.color,0.06):'transparent', flagBorder:task.flag?this.hexA(task.flag.color,0.28):'transparent',
+      tendLabel:ac.verb, safetyNote:task.safety, onTend:()=>this.tend(selKey),
+      onSnooze:()=>this.fireToast('Left as-is. The '+task.domain.toLowerCase()+' bed waits without nagging — it\u2019ll still be here, and so will the proof.') };
+
+    const needsCare=this.ORDER.filter(k=>this.TASKS[k].action!=='none').length;
+    const vitality=Math.round(this.ORDER.reduce((a,k)=>a+(this.TASKS[k].action==='none'?0.9:this.TASKS[k].metric*0.4+this.TASKS[k].conf*0.5),0)/this.ORDER.length*100);
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      navItems, filterChips, careCards, shedSvg:this.buildShed(), sel, toast:this.state.toast,
+      tendLog:this.state.log, needsCare, vitality:vitality+'%', season:'late spring'
+    };
+  }
+}
+</script>
+</body>
+</html>

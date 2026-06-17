@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#090B0E}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes ccFlow{to{stroke-dashoffset:-40}}
+  @keyframes ccPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.12;transform:scale(1.7)}}
+  @keyframes ccTwinkle{0%,100%{opacity:.25}50%{opacity:.6}}
+</style>
+</helmet>
+<div data-screen-label="Carbs &amp; Consequences" style="height:100vh; overflow:hidden; color:rgba(236,240,244,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --bg1:{{ bg1 }}; --bg2:{{ bg2 }}; --base:{{ base }}; --glow:{{ glow }}; background:radial-gradient(1100px 620px at 48% -16%, var(--bg1), transparent 60%), radial-gradient(950px 700px at 110% 120%, var(--bg2), transparent 55%), var(--base);">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 18 Q9 8 14 16 Q19 24 24 12" fill="none" stroke="var(--accent)" stroke-width="1.6"></path><circle cx="14" cy="16" r="1.8" fill="#FF554D"></circle><line x1="9" y1="22" x2="9" y2="25" stroke="#A879FF" stroke-width="1.4"></line><line x1="19" y1="22" x2="19" y2="25" stroke="#A879FF" stroke-width="1.4"></line></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Carbs &amp; Consequences</span>
+      <span style="font-size:10.5px; color:rgba(236,240,244,0.42);">Shelf Life · meal &amp; glucose storyboard · the soup is not on trial, the timestamp is</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(236,240,244,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,184,77,0.32); border-radius:7px; background:rgba(255,184,77,0.08); color:#ffca7a;"><span style="width:6px;height:6px;border-radius:50%;background:#FFB84D;box-shadow:0 0 7px #FFB84D;"></span>observation only</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(102,199,255,0.3); border-radius:7px; background:rgba(102,199,255,0.08); color:#9bd3ff;">device + self, kept distinct</span>
+      <span style="padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);">no dosing, ever</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(236,240,244,0.42); font-family:'IBM Plex Mono',monospace;">SHELF · Tue Jun 17</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="carbs-and-consequences"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 16px; overflow:hidden;">
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:18px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:13px 16px; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);">
+        <div style="min-width:0; flex:1;">
+          <div style="font-size:9.5px; letter-spacing:0.16em; color:rgba(236,240,244,0.42); margin-bottom:4px;">TUESDAY · 06:00 → MIDNIGHT · GLUCOSE WEATHER</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; line-height:1.2; color:rgba(236,240,244,0.97);">Three steady meals, one heroic act of crackers, and a pasta that left a mark.</div>
+          <div style="font-size:11.5px; color:rgba(236,240,244,0.52); margin-top:5px; line-height:1.5;">Records show a late dinner aligned with a high-glucose flag — the fourth time in three weeks. Co-occurrence, not a verdict. Bring the graph, not vibes.</div>
+        </div>
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:13px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,240,244,0.4);">TIME IN RANGE</span>
+            <div style="position:relative; width:46px; height:46px; border-radius:50%; background:conic-gradient(#46E08A 72%, rgba(255,255,255,0.08) 0); display:flex; align-items:center; justify-content:center;"><div style="width:35px; height:35px; border-radius:50%; background:#10130f; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;">72%</span></div></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,240,244,0.4);">HIGH FLAGS</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,85,77,0.12); border:1px solid rgba(255,85,77,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#FF554D; box-shadow:0 0 7px #FF554D;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ff8077;">1</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,240,244,0.4);">PATTERN WATCH</span>
+            <div style="display:flex; align-items:center; gap:6px; padding:5px 11px; border-radius:8px; background:rgba(255,184,77,0.12); border:1px solid rgba(255,184,77,0.32);"><span style="width:7px; height:7px; border-radius:50%; background:#FFB84D; box-shadow:0 0 7px #FFB84D;"></span><span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:#ffca7a;">1</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:220px; display:flex; gap:11px; min-width:0;">
+
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, #11150f, #0c0f0b 60%, #090b08);">
+          <div style="position:absolute; inset:0;">{{ chartSvg }}</div>
+
+          <!-- y axis labels -->
+          <sc-for list="{{ yLabels }}" as="y" hint-placeholder-count="3">
+            <div style="position:absolute; left:8px; top:{{ y.top }}; transform:translateY(-50%); font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.4);">{{ y.label }}</div>
+          </sc-for>
+          <div style="position:absolute; left:34px; right:14px; top:10px; display:flex; align-items:center; gap:10px; z-index:5;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.06em; color:rgba(236,240,244,0.6);">GLUCOSE RIBBON</span>
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.4);">device CGM · mg/dL · in-range band 70–180</span>
+            <div style="flex:1;"></div>
+            <span style="display:inline-flex; align-items:center; gap:5px; font-size:8.5px; color:rgba(236,240,244,0.5);"><span style="width:14px; height:5px; border-radius:2px; background:rgba(70,224,138,0.4);"></span>in range</span>
+          </div>
+
+          <!-- meal events on the curve -->
+          <sc-for list="{{ meals }}" as="m" hint-placeholder-count="4">
+            <div onClick="{{ m.onSelect }}" style="position:absolute; left:{{ m.left }}; top:{{ m.top }}; transform:translate(-50%,-50%); cursor:pointer; z-index:{{ m.z }};">
+              <div style="position:absolute; left:50%; top:50%; width:13px; height:13px; transform:translate(-50%,-50%); border-radius:50%; background:{{ m.dot }}; box-shadow:0 0 10px {{ m.dot }}; border:2px solid #11150f;"></div>
+              <div style="position:absolute; left:{{ m.cardLeft }}; bottom:14px; transform:{{ m.cardTransform }}; white-space:nowrap; padding:5px 9px; border-radius:9px; background:{{ m.cardBg }}; border:1px solid {{ m.cardBorder }}; box-shadow:{{ m.shadow }};">
+                <div style="display:flex; align-items:center; gap:6px;"><span style="font-size:11px; font-weight:600; color:rgba(236,240,244,0.95);">{{ m.name }}</span><span style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.5);">{{ m.time }}</span></div>
+                <div style="font-size:8.5px; color:{{ m.peakColor }}; font-family:'IBM Plex Mono',monospace; margin-top:1px;">{{ m.peakLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+
+          <!-- pattern bracket -->
+          <div style="position:absolute; left:{{ pattern.left }}; top:14%; width:{{ pattern.width }}; z-index:4; pointer-events:none;">
+            <div style="height:18px; border:1.5px solid rgba(255,85,77,0.5); border-bottom:none; border-radius:9px 9px 0 0;"></div>
+            <div onClick="{{ pattern.onSelect }}" style="margin-top:5px; display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:8px; background:rgba(255,85,77,0.12); border:1px solid rgba(255,85,77,0.4); cursor:pointer; pointer-events:auto;">
+              <span style="width:6px; height:6px; border-radius:50%; background:#FF554D; box-shadow:0 0 7px #FF554D;"></span>
+              <span style="font-size:9px; font-weight:600; color:#ff9088;">late dinner → high flag · within 90 min</span>
+            </div>
+          </div>
+
+          <!-- lower lane: insulin ticks + symptom flags -->
+          <div style="position:absolute; left:34px; right:14px; bottom:30px; height:1px; background:rgba(255,255,255,0.12);"></div>
+          <div style="position:absolute; left:34px; bottom:34px; font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.4);">logged events</div>
+          <sc-for list="{{ marks }}" as="k" hint-placeholder-count="4">
+            <div onClick="{{ k.onSelect }}" style="position:absolute; left:{{ k.left }}; bottom:{{ k.bottom }}; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; z-index:6;">
+              <sc-if value="{{ k.isInsulin }}" hint-placeholder-val="{{ false }}"><span style="width:3px; height:16px; border-radius:2px; background:#A879FF; box-shadow:0 0 7px #A879FF;"></span></sc-if>
+              <sc-if value="{{ k.isSymptom }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 1 V13 M3 2 H11 L9 5 L11 8 H3" fill="none" stroke="#FF72B6" stroke-width="1.2"></path></svg></sc-if>
+              <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:{{ k.color }}; white-space:nowrap; background:rgba(9,11,8,0.7); padding:0 3px; border-radius:3px;">{{ k.label }}</span>
+            </div>
+          </sc-for>
+
+          <!-- time axis -->
+          <sc-for list="{{ xLabels }}" as="x" hint-placeholder-count="6">
+            <div style="position:absolute; left:{{ x.left }}; bottom:10px; transform:translateX(-50%); font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.4);">{{ x.label }}</div>
+          </sc-for>
+        </div>
+
+        <aside style="flex:0 0 376px; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.08); border-radius:16px; background:rgba(255,255,255,0.018); overflow:hidden;">
+          <div style="flex:0 0 auto; padding:14px 16px 13px; border-bottom:1px solid rgba(255,255,255,0.07); background:{{ sel.headerBg }};">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:{{ sel.color }}; box-shadow:0 0 9px {{ sel.color }};"></span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.title }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:5px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+            </div>
+            <div style="font-size:10.5px; color:rgba(236,240,244,0.5); margin-top:5px; font-family:'IBM Plex Mono',monospace;">Label Proof · {{ sel.kind }} · {{ sel.window }}</div>
+          </div>
+
+          <div style="flex:1; overflow-y:auto; padding:13px 16px 16px; display:flex; flex-direction:column; gap:14px;">
+
+            <div style="font-size:12.5px; color:rgba(236,240,244,0.85); line-height:1.55; padding:11px 12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.09); border-radius:11px;">
+              <span style="font-size:9px; letter-spacing:0.1em; color:rgba(236,240,244,0.42); display:block; margin-bottom:5px;">WHAT THE RECORDS SHOW</span>
+              {{ sel.statement }}
+            </div>
+
+            <sc-if value="{{ sel.professional }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; gap:9px; align-items:flex-start; padding:10px 12px; background:rgba(255,184,77,0.07); border:1px solid rgba(255,184,77,0.34); border-radius:11px;">
+                <svg width="15" height="15" viewBox="0 0 14 14" style="flex:0 0 auto; margin-top:1px;"><path d="M7 1 L13 12 H1 Z" fill="none" stroke="#FFB84D" stroke-width="1.1"></path><line x1="7" y1="5" x2="7" y2="8.5" stroke="#FFB84D" stroke-width="1.1"></line><circle cx="7" cy="10.4" r="0.7" fill="#FFB84D"></circle></svg>
+                <div><div style="font-size:10.5px; font-weight:600; color:#ffca7a;">Observation only — professional review recommended</div><div style="font-size:10px; color:rgba(236,240,244,0.6); line-height:1.45; margin-top:3px;">{{ sel.professional }}</div></div>
+              </div>
+            </sc-if>
+
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="font-size:9.5px; color:rgba(236,240,244,0.45); flex:0 0 70px;">confidence</span>
+              <div style="flex:1; height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden;"><div style="height:100%; width:{{ sel.confPct }}; background:{{ sel.confColor }}; box-shadow:0 0 8px {{ sel.confColor }};"></div></div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ sel.confColor }};">{{ sel.conf }}</span>
+            </div>
+
+            <div>
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,240,244,0.4); margin-bottom:8px;">SOURCE TRACE · DEVICE vs SELF</div>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <sc-for list="{{ sel.sources }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:center; gap:9px; padding:7px 9px; border-radius:8px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">
+                    <span style="font-size:8px; font-family:'IBM Plex Mono',monospace; padding:2px 6px; border-radius:5px; background:{{ s.stampBg }}; color:{{ s.stampColor }}; flex:0 0 auto;">{{ s.stamp }}</span>
+                    <span style="font-size:11px; color:rgba(236,240,244,0.82); flex:1; min-width:0;">{{ s.title }}</span>
+                    <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.45);">{{ s.meta }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:5px; padding:11px 12px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:11px;">
+              <div style="font-size:10px; letter-spacing:0.12em; color:rgba(236,240,244,0.42); margin-bottom:3px;">TIMELINE OF THIS LINK</div>
+              <sc-for list="{{ sel.sequence }}" as="q" hint-placeholder-count="3">
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:rgba(236,240,244,0.55); flex:0 0 52px;">{{ q.time }}</span>
+                  <span style="width:7px; height:7px; border-radius:50%; background:{{ q.color }}; box-shadow:0 0 6px {{ q.color }}; flex:0 0 auto;"></span>
+                  <span style="font-size:10.5px; color:rgba(236,240,244,0.78);">{{ q.label }}</span>
+                </div>
+              </sc-for>
+              <div style="font-size:9px; color:rgba(236,240,244,0.42); margin-top:4px; font-style:italic;">{{ sel.sequenceNote }}</div>
+            </div>
+
+            <sc-if value="{{ sel.hasConfounders }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(102,199,255,0.05); border:1px solid rgba(102,199,255,0.28); border-radius:11px; padding:10px 12px;">
+                <div style="display:flex; align-items:center; gap:7px; margin-bottom:8px;"><svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#66C7FF" stroke-width="1"></circle><path d="M6 3.4 V6.4 M6 8.2 V8.4" stroke="#66C7FF" stroke-width="1"></path></svg><span style="font-size:10px; letter-spacing:0.08em; color:#9bd3ff;">WHAT COULD MUDDY THIS</span></div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <sc-for list="{{ sel.confounders }}" as="cf" hint-placeholder-count="2">
+                    <div style="font-size:10.5px; color:rgba(236,240,244,0.66); line-height:1.4; display:flex; gap:7px;"><span style="color:#66C7FF;">•</span><span>{{ cf }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sel.missing }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:10.5px; color:rgba(236,240,244,0.6); line-height:1.45; padding:9px 11px; background:rgba(113,113,122,0.08); border:1px dashed rgba(113,113,122,0.5); border-radius:10px;">
+                <span style="font-size:9px; letter-spacing:0.08em; color:#aab2c0; display:block; margin-bottom:3px;">MISSING FROM THE SHELF</span>{{ sel.missing }}
+              </div>
+            </sc-if>
+
+            <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+              <div style="font-size:10px; letter-spacing:0.13em; color:rgba(236,240,244,0.4); margin-bottom:9px;">BACK LABEL · CANONICAL</div>
+              <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,240,244,0.45);">record</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,240,244,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,240,244,0.45);">action.gate</span><span style="color:#A879FF;">{{ sel.gate }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,240,244,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(236,240,244,0.45);">window</span><span>{{ sel.window }}</span></div>
+              </div>
+              <div style="display:flex; gap:7px; margin-top:11px;">
+                <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#0b0d09; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Export for clinician</span>
+                <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(236,240,244,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Back Label</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+  </div>
+
+  <footer style="flex:0 0 124px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); display:flex; flex-direction:column;">
+    <div style="flex:1; padding:11px 18px 8px; display:flex; flex-direction:column; min-height:0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:7px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(236,240,244,0.6);">Pattern recurrence · last 21 days</span>
+        <span style="font-size:10px; color:rgba(236,240,244,0.38);">how often this late-dinner→high-flag sequence has shown up — co-occurrence, never cause</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(236,240,244,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#FF554D;"></span>matched</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:9px; color:rgba(236,240,244,0.45);"><span style="width:7px; height:7px; border-radius:50%; background:#46E08A;"></span>clear</span>
+      </div>
+      <div style="flex:1; position:relative; border-radius:10px; background:linear-gradient(90deg, rgba(255,85,77,0.05), rgba(255,184,77,0.05)); border:1px solid rgba(255,255,255,0.07); overflow:hidden; min-height:0; display:flex; align-items:center; padding:0 14px; gap:5px;">
+        <sc-for list="{{ recurrence }}" as="d" hint-placeholder-count="21">
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;">
+            <div style="width:100%; height:{{ d.h }}; border-radius:3px; background:{{ d.color }}; box-shadow:{{ d.glow }};"></div>
+            <span style="font-size:7px; font-family:'IBM Plex Mono',monospace; color:rgba(236,240,244,0.3);">{{ d.day }}</span>
+          </div>
+        </sc-for>
+        <div style="position:absolute; right:14px; top:8px; font-size:9px; font-family:'IBM Plex Mono',monospace; color:#ff9088;">4 / 21 days · conf 0.78</div>
+      </div>
+    </div>
+    <div style="flex:0 0 30px; display:flex; align-items:center; justify-content:center; gap:10px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.18);">
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 7px var(--accent);"></span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:0.16em; color:rgba(236,240,244,0.66);">CO-OCCURRENCE IS NOT CAUSALITY · BRING THE GRAPH, NOT VIBES</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:var(--accent2); box-shadow:0 0 7px var(--accent2);"></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;shelflife&quot;,&quot;midnight&quot;,&quot;ember&quot;],&quot;default&quot;:&quot;shelflife&quot;,&quot;tsType&quot;:&quot;'shelflife' | 'midnight' | 'ember'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { sel:'pattern' };
+
+    // glucose readings (hour, mg/dL) across 6:00 -> 24:00
+    this.READINGS=[[6,110],[7,108],[7.5,118],[8,150],[9,138],[10,120],[11,112],[12,118],[12.75,160],[14,140],[15,108],[15.6,96],[16.5,74],[17.5,102],[18.7,176],[19.3,238],[20,212],[21,165],[22,132],[23,118],[24,112]];
+    this.LO=50; this.HI=262; this.BANDLO=70; this.BANDHI=180;
+
+    this.MEALS={
+      breakfast:{ name:'Oatmeal', time:'7:15', hour:7.25, gl:118, peak:'peak ~150', peakState:'ok',
+        title:'Breakfast · oatmeal', kind:'meal log', life:'Trusted', conf:0.85, window:'this day',
+        statement:'Logged at 7:15. A modest rise to about 150 followed within the hour and settled back into range. Unremarkable, which is the goal. The oatmeal has stopped looking abandoned.',
+        sources:[{stamp:'HUM',title:'Meal self-log',meta:'7:15 \u00b7 self'},{stamp:'DEV',title:'CGM reading',meta:'device \u00b7 import'}],
+        sequence:[{time:'7:15',label:'Oatmeal logged',color:'#FFB84D'},{time:'~8:00',label:'Glucose rose to ~150 (in range)',color:'#66C7FF'}],
+        sequenceNote:'Aligned with, not caused by. A normal post-meal rise.',
+        professional:null, hasConfounders:false, missing:null,
+        canonId:'meal_b_017', mode:'DATA_LOG', gate:'\u2014', resolver:'LATEST', confounders:[] },
+      lunch:{ name:'Sandwich', time:'12:30', hour:12.5, gl:160, peak:'peak ~165', peakState:'ok',
+        title:'Lunch · sandwich', kind:'meal log', life:'Trusted', conf:0.82, window:'this day',
+        statement:'Logged at 12:30. Glucose tracked up to the mid-160s and eased down by mid-afternoon. Within the lines, if briefly flirting with the edge.',
+        sources:[{stamp:'HUM',title:'Meal self-log',meta:'12:30 \u00b7 self'},{stamp:'DEV',title:'CGM reading',meta:'device \u00b7 import'}],
+        sequence:[{time:'12:30',label:'Sandwich logged',color:'#FFB84D'},{time:'~13:00',label:'Glucose to ~165, then eased',color:'#66C7FF'}],
+        sequenceNote:'Co-occurred with a mild rise. Nothing flagged.',
+        professional:null, hasConfounders:false, missing:null,
+        canonId:'meal_l_021', mode:'DATA_LOG', gate:'\u2014', resolver:'LATEST', confounders:[] },
+      snack:{ name:'Crackers', time:'3:40', hour:15.67, gl:96, peak:'a personality choice', peakState:'ok',
+        title:'Snack · crackers', kind:'meal log', life:'Observed', conf:0.7, window:'this day',
+        statement:'Logged at 3:40, shortly before a low-ish dip near 74. The shelf is not saying the crackers caused the low \u2014 it is saying they showed up to the same scene. Crackers as dinner remains a hypothesis the body keeps testing.',
+        sources:[{stamp:'HUM',title:'Meal self-log',meta:'3:40 \u00b7 self'},{stamp:'DEV',title:'CGM reading',meta:'device \u00b7 import'}],
+        sequence:[{time:'15:40',label:'Crackers logged',color:'#FFB84D'},{time:'16:30',label:'Glucose dipped to ~74 (low-ish)',color:'#66C7FF'},{time:'16:30',label:'\u201cshaky\u201d symptom noted',color:'#FF72B6'}],
+        sequenceNote:'Preceded a low and a symptom. Order is recorded; cause is not claimed.',
+        professional:'A logged low with a symptom nearby is worth a mention to someone qualified \u2014 especially if it repeats.',
+        hasConfounders:true, confounders:['No activity log this afternoon \u2014 a walk could explain the dip.','Lunch was on the larger side; timing overlaps.'],
+        missing:'No activity or insulin-timing log between lunch and the dip.',
+        canonId:'meal_s_033', mode:'DATA_LOG', gate:'\u2014', resolver:'LATEST' },
+      dinner:{ name:'Pasta', time:'6:42', hour:18.7, gl:176, peak:'peak 238 · high flag', peakState:'high',
+        title:'Dinner · pasta', kind:'meal log', life:'Trusted', conf:0.86, window:'this day',
+        statement:'Logged at 6:42. Within ninety minutes glucose climbed to 238 and tripped a high flag before easing overnight. The pasta is not on trial \u2014 the timestamp is. This is the meal feeding today\u2019s pattern watch.',
+        sources:[{stamp:'HUM',title:'Meal self-log',meta:'6:42 \u00b7 self'},{stamp:'DEV',title:'CGM reading',meta:'device \u00b7 signed import'},{stamp:'HUM',title:'Insulin log',meta:'6:50 \u00b7 logged only'}],
+        sequence:[{time:'18:42',label:'Pasta logged',color:'#FFB84D'},{time:'18:50',label:'Insulin dose logged (observation)',color:'#A879FF'},{time:'19:18',label:'Glucose flag: 238 (high)',color:'#FF554D'},{time:'~22:00',label:'Eased back toward range',color:'#46E08A'}],
+        sequenceNote:'Followed by a high flag within the window. Co-occurrence, recorded in order.',
+        professional:'A repeated post-dinner high is exactly the kind of pattern a clinician can actually act on. This shelf only points; it does not prescribe.',
+        hasConfounders:true, confounders:['Insulin timing relative to the meal is logged but not verified.','Portion size estimated from a photo, not weighed.','A late, low-activity evening may amplify the rise.'],
+        missing:'No evening activity log; insulin amount self-entered, not device-confirmed.',
+        canonId:'meal_d_044', mode:'DATA_LOG', gate:'\u2014', resolver:'LATEST' }
+    };
+
+    this.MARKS={
+      ins_am:{ type:'insulin', hour:8, bottom:'58px', label:'dose', title:'Morning insulin · logged', kind:'insulin log', life:'Trusted', conf:0.8, window:'this day',
+        statement:'A morning insulin dose, logged at 8:00. Shown because it was recorded \u2014 not because anything here advises a dose. This pantry does not do pharmacology.',
+        sources:[{stamp:'HUM',title:'Insulin log',meta:'8:00 \u00b7 self-entered'}],
+        sequence:[{time:'8:00',label:'Dose logged',color:'#A879FF'}], sequenceNote:'Logged observation only.',
+        professional:'Insulin timing and amounts belong with your clinician. Lightweave only preserves what you logged.',
+        hasConfounders:false, missing:'Amount is self-entered, not device-confirmed.',
+        canonId:'ins_am_07', mode:'DATA_LOG', gate:'PROPOSE_ONLY', resolver:'LATEST_VERIFIED', confounders:[] },
+      ins_pm:{ type:'insulin', hour:18.83, bottom:'58px', label:'dose', title:'Dinner insulin · logged', kind:'insulin log', life:'Trusted', conf:0.8, window:'this day',
+        statement:'A dinner-time insulin dose, logged at 6:50, eight minutes after the pasta. Recorded, not recommended. The timing is part of the dinner pattern\u2019s evidence \u2014 nothing more.',
+        sources:[{stamp:'HUM',title:'Insulin log',meta:'6:50 \u00b7 self-entered'}],
+        sequence:[{time:'18:50',label:'Dose logged',color:'#A879FF'},{time:'19:18',label:'High flag still followed',color:'#FF554D'}], sequenceNote:'Logged near the meal; the high flag followed anyway.',
+        professional:'Whether the timing matters is a clinical question, not one this shelf will answer.',
+        hasConfounders:false, missing:'Amount self-entered; not device-confirmed.',
+        canonId:'ins_pm_07', mode:'DATA_LOG', gate:'PROPOSE_ONLY', resolver:'LATEST_VERIFIED', confounders:[] },
+      sym_am:{ type:'symptom', hour:7, bottom:'58px', label:'rough am', title:'Symptom · rough morning', kind:'symptom note', life:'Observed', conf:0.6, window:'this day',
+        statement:'A \u201crough morning\u201d note at 7:00, before breakfast. Self-reported, no device behind it. The shelf keeps it as a data point, not a diagnosis.',
+        sources:[{stamp:'HUM',title:'Symptom note',meta:'7:00 \u00b7 self'}],
+        sequence:[{time:'7:00',label:'\u201crough morning\u201d noted',color:'#FF72B6'},{time:'7:15',label:'Breakfast followed',color:'#FFB84D'}], sequenceNote:'Preceded the meal. No glucose flag attached.',
+        professional:'Recurring rough mornings are worth raising with someone qualified.',
+        hasConfounders:true, confounders:['Sleep the night before was not logged.'], missing:'No sleep or overnight glucose record to sit beside it.',
+        canonId:'sym_am_11', mode:'DATA_LOG', gate:'\u2014', resolver:'LATEST' },
+      sym_low:{ type:'symptom', hour:16.5, bottom:'58px', label:'shaky', title:'Symptom · shaky / low-ish', kind:'symptom note', life:'Observed', conf:0.62, window:'this day',
+        statement:'A \u201cshaky, low-ish\u201d note at 4:30, co-occurring with a CGM dip near 74. Two records, same moment, pointing the same direction \u2014 which is more than vibes, less than proof.',
+        sources:[{stamp:'HUM',title:'Symptom note',meta:'4:30 \u00b7 self'},{stamp:'DEV',title:'CGM low reading',meta:'~74 \u00b7 device'}],
+        sequence:[{time:'15:40',label:'Crackers logged',color:'#FFB84D'},{time:'16:30',label:'CGM dip to ~74',color:'#66C7FF'},{time:'16:30',label:'\u201cshaky\u201d noted',color:'#FF72B6'}], sequenceNote:'Symptom co-occurred with a device-confirmed low.',
+        professional:'A symptomatic low with device agreement is worth flagging to a clinician, especially if recurrent.',
+        hasConfounders:true, confounders:['No afternoon activity log \u2014 movement can drive lows.'], missing:'No activity record around the dip.',
+        canonId:'sym_low_12', mode:'DATA_LOG', gate:'\u2014', resolver:'LATEST' }
+    };
+
+    this.PATTERN={ title:'Late dinner \u2192 high glucose flag', kind:'pattern watch', life:'Interpreted', conf:0.78, window:'21 days',
+      statement:'Records show four evenings in the last twenty-one where a dinner after 6:30pm was followed by a high-glucose flag within ninety minutes. This is a temporal alignment the records keep repeating \u2014 an observation worth a conversation, not a conclusion. Causality remains above this pantry\u2019s pay grade.',
+      sources:[{stamp:'HUM',title:'Meal self-logs \u00d74',meta:'dinners \u00b7 self'},{stamp:'DEV',title:'CGM high flags \u00d74',meta:'device \u00b7 signed'},{stamp:'HUM',title:'Insulin logs \u00d74',meta:'logged only'}],
+      sequence:[{time:'pattern',label:'Dinner logged after 6:30pm',color:'#FFB84D'},{time:'+0\u201390m',label:'CGM high flag follows',color:'#FF554D'},{time:'\u00d74/21',label:'Same sequence, four days',color:'#ff9088'}],
+      sequenceNote:'\u201cFollowed by,\u201d never \u201ccaused.\u201d The resolver leaves the conflict open for a human.',
+      professional:'Four repeats is enough to stop being cute. This is exactly the kind of pattern to bring \u2014 with the graph \u2014 to a clinician who can actually act on it. Lightweave does not adjust insulin, recommend doses, or call any food safe or unsafe.',
+      hasConfounders:true, confounders:['Evening activity is not logged \u2014 a missing walk could change everything.','Insulin timing is logged but unverified.','Stress and sleep are plausible confounders with no records here.'],
+      missing:'No evening activity logs; no verified insulin timing. The pattern rests on meals + CGM + symptom notes only.',
+      canonId:'pat_dinner_glucose', mode:'INF', gate:'PROPOSE_ONLY', resolver:'MANUAL', color:'#FF554D' };
+
+    this.NAV=['Prism Intake','Lumen Apothecary','Carbs & Consequences','Source Aquarium','Ritual Circle','Mirror Hall','Family Lantern Wall','Iris','Signal Menagerie','Distortion Clinic','Aurora Proof','Lattice Vault'];
+  }
+
+  themes={
+    shelflife:{ accent:'#FFB84D', accent2:'#36F2D2', base:'#090B0E', bg1:'rgba(255,184,77,0.12)', bg2:'rgba(54,242,210,0.10)', glow:'rgba(255,184,77,0.30)' },
+    midnight: { accent:'#66C7FF', accent2:'#A879FF', base:'#080a10', bg1:'rgba(102,199,255,0.14)', bg2:'rgba(168,121,255,0.10)', glow:'rgba(102,199,255,0.30)' },
+    ember:    { accent:'#FF8A3A', accent2:'#FF554D', base:'#0d0908', bg1:'rgba(255,138,58,0.14)', bg2:'rgba(255,85,77,0.10)', glow:'rgba(255,138,58,0.30)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.shelflife; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#46E08A': c>=0.7?'#9fd99a': c>=0.55?'#FFB84D':'#FF554D'; }
+  lifeColor(l){ return ({Trusted:'#46E08A',Interpreted:'#FFB84D',Observed:'#66C7FF',Disputed:'#FF554D'})[l]||'#9aa6c0'; }
+  stampColor(s){ return ({DEV:'#36F2D2',HUM:'#FFB84D',DOC:'#A879FF',SYS:'#66C7FF'})[s]||'#9aa6c0'; }
+
+  // geometry: time 6..24 -> x; mg/dL LO..HI -> chart band (chart occupies y 16%..72% of canvas)
+  xOf(hour){ return ((hour-6)/18)*100; }
+  yOf(val){ const top=16, h=56; const f=(val-this.LO)/(this.HI-this.LO); return top + (1-f)*h; }
+
+  buildChart(){
+    const h=React.createElement, R=[], t=this.cur(), W=1000, top=16/100*560, band=56/100*560;
+    const X=hr=>(hr-6)/18*W, Y=v=>top + (1-(v-this.LO)/(this.HI-this.LO))*band;
+    // faint twinkle dust
+    let s=19; const rnd=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+    for(let i=0;i<30;i++){ R.push(h('circle',{key:'d'+i,cx:(rnd()*1000).toFixed(1),cy:(rnd()*120+10).toFixed(1),r:(rnd()*0.7+0.2).toFixed(2),fill:'#cfe0d8',opacity:(rnd()*0.12+0.03).toFixed(2)})); }
+    // in-range band
+    R.push(h('rect',{key:'band',x:0,y:Y(this.BANDHI),width:W,height:Y(this.BANDLO)-Y(this.BANDHI),fill:'rgba(70,224,138,0.08)'}));
+    R.push(h('line',{key:'bh',x1:0,y1:Y(this.BANDHI),x2:W,y2:Y(this.BANDHI),stroke:'rgba(70,224,138,0.3)',strokeWidth:1,strokeDasharray:'4 6'}));
+    R.push(h('line',{key:'bl',x1:0,y1:Y(this.BANDLO),x2:W,y2:Y(this.BANDLO),stroke:'rgba(70,224,138,0.3)',strokeWidth:1,strokeDasharray:'4 6'}));
+    // hour gridlines
+    for(let hr=6;hr<=24;hr+=3){ R.push(h('line',{key:'g'+hr,x1:X(hr),y1:top,x2:X(hr),y2:top+band,stroke:'rgba(255,255,255,0.05)',strokeWidth:1})); }
+    // ribbon path
+    const pts=this.READINGS.map(r=>[X(r[0]),Y(r[1])]);
+    let d='M '+pts[0][0]+' '+pts[0][1]; for(let i=1;i<pts.length;i++){ const a=pts[i-1], b=pts[i], mx=(a[0]+b[0])/2; d+=' C '+mx+' '+a[1]+', '+mx+' '+b[1]+', '+b[0]+' '+b[1]; }
+    R.push(h('path',{key:'area',d:d+' L '+pts[pts.length-1][0]+' '+(top+band)+' L '+pts[0][0]+' '+(top+band)+' Z',fill:this.hexA(t.accent,0.08)}));
+    R.push(h('path',{key:'glow',d:d,fill:'none',stroke:this.hexA('#FFB84D',0.5),strokeWidth:6,strokeLinecap:'round',opacity:0.4,style:{filter:'blur(3px)'}}));
+    R.push(h('path',{key:'line',d:d,fill:'none',stroke:'#FFD089',strokeWidth:2.4,strokeLinecap:'round'}));
+    R.push(h('path',{key:'flow',d:d,fill:'none',stroke:'#fff',strokeWidth:1,opacity:0.5,strokeDasharray:'2 14',style:{animation:'ccFlow 3s linear infinite'}}));
+    // spike + low markers
+    this.READINGS.forEach((r,i)=>{ if(r[1]>this.BANDHI){ R.push(h('circle',{key:'sp'+i,cx:X(r[0]),cy:Y(r[1]),r:3.4,fill:'#FF554D',style:{filter:'drop-shadow(0 0 5px #FF554D)'}})); } else if(r[1]<this.BANDLO){ R.push(h('circle',{key:'lo'+i,cx:X(r[0]),cy:Y(r[1]),r:3.4,fill:'#66C7FF',style:{filter:'drop-shadow(0 0 5px #66C7FF)'}})); } });
+    return h('svg',{viewBox:'0 0 1000 560',width:'100%',height:'100%',preserveAspectRatio:'none',style:{display:'block'}},R);
+  }
+
+  renderVals(){
+    const t=this.cur(), selId=this.state.sel, pick=id=>()=>this.setState({sel:id});
+    const SEL = selId==='pattern' ? this.PATTERN : (this.MEALS[selId] || this.MARKS[selId] || this.PATTERN);
+    const selColor = selId==='pattern' ? '#FF554D' : (this.MEALS[selId] ? (this.MEALS[selId].peakState==='high'?'#FF554D':'#FFB84D') : (this.MARKS[selId] && this.MARKS[selId].type==='insulin' ? '#A879FF' : '#FF72B6'));
+
+    const meals=Object.keys(this.MEALS).map(id=>{ const m=this.MEALS[id], seld=selId===id, dotC=m.peakState==='high'?'#FF554D':'#FFB84D';
+      const lx=this.xOf(m.hour); let cardLeft='50%', cardTransform='translateX(-50%)'; if(lx<14){ cardLeft='0'; cardTransform='translateX(-14px)'; } else if(lx>86){ cardLeft='100%'; cardTransform='translateX(calc(-100% + 14px))'; }
+      return { id, name:m.name, time:m.time, left:this.xOf(m.hour)+'%', top:this.yOf(m.gl)+'%', z:seld?12:8, cardLeft, cardTransform,
+        dot:dotC, peakLabel:m.peak, peakColor:m.peakState==='high'?'#ff9088':'rgba(236,240,244,0.5)',
+        cardBg:seld?this.hexA(dotC,0.16):'rgba(17,21,15,0.9)', cardBorder:seld?dotC:'rgba(255,255,255,0.14)',
+        shadow:seld?('0 0 0 1px '+dotC+', 0 8px 20px rgba(0,0,0,0.5)'):'0 4px 12px rgba(0,0,0,0.4)',
+        onSelect:pick(id) }; });
+
+    const marks=Object.keys(this.MARKS).map(id=>{ const k=this.MARKS[id], seld=selId===id;
+      return { id, isInsulin:k.type==='insulin', isSymptom:k.type==='symptom', left:this.xOf(k.hour)+'%', bottom:k.bottom,
+        label:k.label, color: seld ? (k.type==='insulin'?'#c4a6ff':'#ff9ec8') : (k.type==='insulin'?'#A879FF':'#FF72B6'),
+        onSelect:pick(id) }; });
+
+    const pattern={ left:this.xOf(18.5)+'%', width:(this.xOf(19.5)-this.xOf(18.5))+'%', onSelect:pick('pattern') };
+
+    const yLabels=[ {label:'260', top:this.yOf(260)+'%'}, {label:'180', top:this.yOf(180)+'%'}, {label:'70', top:this.yOf(70)+'%'} ];
+    const xLabels=[ {label:'6a',left:this.xOf(6)+'%'},{label:'9a',left:this.xOf(9)+'%'},{label:'12p',left:this.xOf(12)+'%'},{label:'3p',left:this.xOf(15)+'%'},{label:'6p',left:this.xOf(18)+'%'},{label:'9p',left:this.xOf(21)+'%'},{label:'12a',left:this.xOf(24)+'%'} ];
+
+    const sel={
+      title:SEL.title, color:selColor, life:SEL.life, lifeColor:this.lifeColor(SEL.life), lifeBg:this.hexA(this.lifeColor(SEL.life),0.16), headerBg:this.hexA(selColor,0.07),
+      kind:SEL.kind, window:SEL.window, statement:SEL.statement,
+      professional:SEL.professional||null,
+      conf:SEL.conf.toFixed(2), confPct:Math.round(SEL.conf*100)+'%', confColor:this.confColor(SEL.conf),
+      sources:SEL.sources.map(s=>({ ...s, stampColor:this.stampColor(s.stamp), stampBg:this.hexA(this.stampColor(s.stamp),0.16) })),
+      sequence:SEL.sequence, sequenceNote:SEL.sequenceNote,
+      hasConfounders:!!SEL.hasConfounders, confounders:SEL.confounders||[], missing:SEL.missing||null,
+      canonId:SEL.canonId, mode:SEL.mode, gate:SEL.gate, resolver:SEL.resolver
+    };
+
+    const navItems=this.NAV.map(name=>{ const active=name==='Carbs & Consequences'; return { label:name, weight:active?'600':'400', radius:active?'50%':'2px', bg:active?'rgba(255,255,255,0.07)':'transparent', bar:active?'inset 2px 0 0 var(--accent)':'none', txt:active?'rgba(236,240,244,0.95)':'rgba(236,240,244,0.6)', dot:active?'var(--accent)':'rgba(236,240,244,0.35)' }; });
+
+    // 21-day recurrence bars (4 matched)
+    const matched={2:1,7:1,13:1,18:1};
+    const recurrence=[]; for(let i=0;i<21;i++){ const m=matched[i]; recurrence.push({ day:(i+1), h:m?'70%':(20+((i*37)%26))+'%', color:m?'#FF554D':'rgba(70,224,138,0.4)', glow:m?'0 0 7px #FF554D':'none' }); }
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      chartSvg:this.buildChart(),
+      meals, marks, pattern, yLabels, xLabels, sel, navItems, recurrence
+    };
+  }
+}
+</script>
+</body>
+</html>

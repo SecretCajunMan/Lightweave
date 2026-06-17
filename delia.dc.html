@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./lw-site.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./fonts.css">
+<style>
+  *{box-sizing:border-box} html,body{margin:0;padding:0} body{background:#0c0608}
+  ::-webkit-scrollbar{height:8px;width:8px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes dlReel{to{transform:rotate(360deg)}}
+  @keyframes dlRec{0%,100%{opacity:1}50%{opacity:.25}}
+  @keyframes dlWave{0%,100%{transform:scaleY(0.3)}50%{transform:scaleY(1)}}
+  @keyframes dlCaret{0%,100%{opacity:1}50%{opacity:0}}
+  @keyframes dlGrain{0%,100%{opacity:.05}50%{opacity:.11}}
+  @keyframes dlHum{0%,100%{opacity:.5}50%{opacity:.85}}
+</style>
+</helmet>
+<div data-screen-label="Delia" style="height:100vh; overflow:hidden; color:rgba(243,231,226,0.92); font-family:'IBM Plex Sans',system-ui,sans-serif; display:flex; flex-direction:column; --accent:{{ accent }}; --accent2:{{ accent2 }}; --glow:{{ glow }}; background:radial-gradient(1100px 600px at 50% -16%, {{ bg1 }}, transparent 56%), radial-gradient(1000px 720px at 112% 120%, {{ bg2 }}, transparent 55%), {{ base }};">
+
+  <header style="flex:0 0 56px; display:flex; align-items:center; gap:16px; padding:0 18px; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(20,8,10,0.55);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="26" height="26" viewBox="0 0 28 28"><circle cx="9" cy="14" r="5" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><circle cx="19" cy="14" r="5" fill="none" stroke="var(--accent)" stroke-width="1.4"></circle><circle cx="9" cy="14" r="1.3" fill="var(--accent2)"></circle><circle cx="19" cy="14" r="1.3" fill="var(--accent2)"></circle><path d="M5 9 H23" stroke="var(--accent2)" stroke-width="1.2"></path></svg>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:0.14em; font-size:14px;">LIGHTWEAVE</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; flex-direction:column; line-height:1.15;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13.5px;">Delia</span>
+      <span style="font-size:10.5px; color:rgba(243,231,226,0.42);">Layer 1 · the night desk · say it plain and she keeps it — exactly, no more</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(243,231,226,0.55);">
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid {{ recChipBorder }}; border-radius:7px; background:{{ recChipBg }}; color:{{ recChipColor }};"><span style="width:6px;height:6px;border-radius:50%;background:{{ recDotColor }};box-shadow:0 0 7px {{ recDotColor }};{{ recDotAnim }}"></span>{{ recLabel }}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border:1px solid rgba(255,255,255,0.09); border-radius:7px; background:rgba(255,255,255,0.02);"><span style="width:6px;height:6px;border-radius:50%;background:#39e0a6;box-shadow:0 0 7px #39e0a6;"></span>transcribed, not interpreted</span>
+    </div>
+    <div style="width:1px; height:22px; background:rgba(255,255,255,0.12);"></div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+        <span style="font-size:12px; font-weight:500;">Field Analyst</span>
+        <span style="font-size:10px; color:rgba(243,231,226,0.42); font-family:'IBM Plex Mono',monospace;">DELIA · Tue 11:58 pm</span>
+      </div>
+      <div style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 12px var(--glow);"></div>
+    </div>
+  </header>
+
+  <div style="flex:1; display:flex; min-height:0;">
+
+    <nav style="flex:0 0 212px; display:flex; flex-direction:column; border-right:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); min-height:0;"><lw-rail active="delia"></lw-rail></nav>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column; gap:11px; padding:13px 15px; overflow:hidden; position:relative;">
+
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:14px; left:50%; z-index:20; transform:translateX(-50%); display:flex; align-items:center; gap:10px; background:rgba(24,10,12,0.96); border:1px solid var(--accent); border-radius:11px; padding:10px 14px; box-shadow:0 8px 30px rgba(0,0,0,0.55); max-width:600px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:var(--accent2); box-shadow:0 0 8px var(--accent2); flex:0 0 auto;"></span>
+          <span style="font-size:11.5px; line-height:1.45; color:rgba(243,231,226,0.9);">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <section style="flex:0 0 auto; display:flex; align-items:center; gap:14px;">
+        <div style="display:flex; flex-direction:column; line-height:1.2;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600;">Tuesday, the 17th</span>
+          <span style="font-size:10.5px; color:rgba(243,231,226,0.45);">a little before midnight · two coffees in · the morning holds</span>
+        </div>
+        <div style="width:1px; height:30px; background:rgba(255,255,255,0.12);"></div>
+        <div style="display:flex; align-items:center; gap:14px; flex:1;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:1px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:#ff9e8a;">{{ openCount }}</span><span style="font-size:8.5px; letter-spacing:0.08em; color:rgba(243,231,226,0.42);">STILL OPEN</span></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:1px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:var(--accent2);">{{ memoCount }}</span><span style="font-size:8.5px; letter-spacing:0.08em; color:rgba(243,231,226,0.42);">REELS TODAY</span></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:1px;"><span style="font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:#39e0a6;">0</span><span style="font-size:8.5px; letter-spacing:0.08em; color:rgba(243,231,226,0.42);">RECORDS EDITED</span></div>
+        </div>
+      </section>
+
+      <section style="flex:1; min-height:0; display:flex; flex-direction:column; gap:11px;">
+
+        <!-- TODAY strip -->
+        <div style="flex:0 0 auto; display:flex; flex-direction:column; gap:7px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600;">Today</span>
+            <span style="font-size:9.5px; color:rgba(243,231,226,0.45);">plan &amp; the things owed</span>
+            <span style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.1),transparent);"></span>
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:rgba(243,231,226,0.4);">{{ openCount }} owed</span>
+          </div>
+          <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;">
+            <sc-for list="{{ today }}" as="ti" hint-placeholder-count="7">
+              <div onClick="{{ ti.onSelect }}" style="flex:0 0 auto; min-width:150px; display:flex; gap:8px; align-items:flex-start; padding:8px 10px; border-radius:11px; cursor:pointer; background:{{ ti.bg }}; border:1px solid {{ ti.border }};">
+                <div style="flex:0 0 auto; width:8px; height:8px; border-radius:{{ ti.dotRadius }}; background:{{ ti.dotColor }}; box-shadow:0 0 6px {{ ti.dotGlow }}; margin-top:3px;"></div>
+                <div style="min-width:0;">
+                  <div style="font-size:11px; font-weight:500; color:rgba(243,231,226,0.92); line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:118px;">{{ ti.title }}</div>
+                  <div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:{{ ti.metaColor }}; margin-top:2px;">{{ ti.time }} · {{ ti.meta }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- the desk: dictaphone -->
+        <div style="flex:1; min-width:0; position:relative; border:1px solid rgba(226,58,82,0.18); border-radius:16px; overflow:hidden; background:radial-gradient(120% 80% at 50% 12%, rgba(255,178,77,0.10), transparent 50%), radial-gradient(120% 120% at 50% 120%, rgba(110,15,30,0.5), transparent 60%), linear-gradient(180deg, #1a0a0e, #120709);">
+          <div style="position:absolute; inset:0; pointer-events:none; opacity:0.5; background:repeating-linear-gradient(90deg, rgba(226,58,82,0.05) 0 2px, transparent 2px 26px);"></div>
+          <div style="position:absolute; left:0; bottom:0; width:100%; height:42px; pointer-events:none; opacity:0.5; background:repeating-linear-gradient(135deg, rgba(243,231,226,0.10) 0 16px, rgba(20,8,10,0.4) 16px 32px);"></div>
+          <div style="position:absolute; inset:0; pointer-events:none; animation:dlGrain 0.6s steps(2) infinite; background:radial-gradient(circle at 20% 30%, rgba(255,255,255,0.04) 0 1px, transparent 1px), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.03) 0 1px, transparent 1px); background-size:7px 7px, 11px 11px;"></div>
+
+          <div style="position:relative; height:100%; display:flex; flex-direction:column; padding:14px 16px 12px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:'Space Grotesk',sans-serif; font-size:12.5px; font-weight:600; color:rgba(243,231,226,0.74);">The reel</span>
+              <span style="font-size:10px; color:rgba(243,231,226,0.42);">press record. talk to her like she's listening — because the tape is.</span>
+            </div>
+
+            <!-- deck -->
+            <div style="flex:0 0 auto; display:flex; justify-content:center; padding:8px 0 4px;">{{ deckSvg }}</div>
+
+            <!-- waveform -->
+            <div style="flex:0 0 auto; height:34px; display:flex; align-items:center; justify-content:center; gap:3px; margin:2px 0 8px;">
+              <sc-for list="{{ wave }}" as="wv" hint-placeholder-count="28">
+                <span style="width:3px; height:22px; border-radius:2px; background:{{ wv.color }}; transform-origin:center; transform:scaleY({{ wv.scale }}); {{ wv.anim }}"></span>
+              </sc-for>
+            </div>
+
+            <!-- transcript -->
+            <div style="flex:1; min-height:0; overflow-y:auto; border:1px solid rgba(255,255,255,0.08); border-radius:12px; background:rgba(8,4,5,0.5); padding:13px 15px;">
+              <div style="font-size:9px; letter-spacing:0.14em; color:rgba(243,231,226,0.4); margin-bottom:7px;">{{ transcriptHead }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.7; color:{{ transcriptColor }}; white-space:pre-wrap;">{{ transcriptText }}<sc-if value="{{ recording }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block; width:8px; height:16px; background:var(--accent); margin-left:2px; vertical-align:-3px; animation:dlCaret 1s step-end infinite;"></span></sc-if></div>
+            </div>
+
+            <!-- controls + reels strip -->
+            <div style="flex:0 0 auto; display:flex; align-items:center; gap:11px; margin-top:10px;">
+              <div onClick="{{ onRecord }}" style="display:flex; align-items:center; gap:9px; padding:9px 16px; border-radius:11px; cursor:pointer; background:{{ recBtnBg }}; border:1px solid {{ recBtnBorder }}; box-shadow:{{ recBtnGlow }};">
+                <span style="width:12px; height:12px; border-radius:{{ recBtnIconRadius }}; background:{{ recBtnIcon }}; box-shadow:0 0 8px {{ recBtnIcon }};"></span>
+                <span style="font-size:12px; font-weight:600; color:{{ recBtnTxt }};">{{ recBtnLabel }}</span>
+              </div>
+              <div style="flex:1; min-width:0; display:flex; gap:7px; overflow-x:auto;">
+                <sc-for list="{{ reels }}" as="rl" hint-placeholder-count="3">
+                  <div onClick="{{ rl.onSelect }}" style="flex:0 0 auto; display:flex; align-items:center; gap:7px; padding:6px 10px; border-radius:9px; cursor:pointer; background:{{ rl.bg }}; border:1px solid {{ rl.border }};">
+                    <svg width="13" height="13" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="{{ rl.color }}" stroke-width="1.2"></circle><circle cx="7" cy="7" r="1.4" fill="{{ rl.color }}"></circle></svg>
+                    <div style="line-height:1.15;"><div style="font-size:10px; font-weight:600; color:rgba(243,231,226,0.9); white-space:nowrap;">{{ rl.title }}</div><div style="font-size:8px; font-family:'IBM Plex Mono',monospace; color:rgba(243,231,226,0.42);">{{ rl.meta }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside style="flex:0 0 330px; display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.07); background:rgba(20,8,10,0.4); overflow:hidden;">
+      <div style="flex:0 0 auto; padding:14px 18px 13px; border-bottom:1px solid rgba(255,255,255,0.07);">
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">Proof &amp; provenance</span>
+        <div style="font-size:10.5px; color:rgba(243,231,226,0.45); margin-top:3px;">where the words go — and what they don't become on their own</div>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:14px 18px 18px; display:flex; flex-direction:column; gap:15px;">
+
+        <div style="background:{{ sel.headerBg }}; border:1px solid {{ sel.softBorder }}; border-radius:12px; padding:12px 13px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:10px; height:10px; border-radius:3px; background:{{ sel.color }}; box-shadow:0 0 8px {{ sel.color }};"></span>
+            <span style="font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ sel.title }}</span>
+            <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; padding:2px 8px; border-radius:6px; background:{{ sel.lifeBg }}; color:{{ sel.lifeColor }};">{{ sel.life }}</span>
+          </div>
+          <div style="font-size:11.5px; line-height:1.5; color:rgba(243,231,226,0.72); margin-top:8px; text-wrap:pretty;">{{ sel.statement }}</div>
+          <div style="font-size:9.5px; color:rgba(243,231,226,0.42); margin-top:8px; font-family:'IBM Plex Mono',monospace;">{{ sel.kindLine }}</div>
+        </div>
+
+        <sc-if value="{{ sel.isMemo }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(8,4,5,0.5); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+            <div style="font-size:10px; letter-spacing:0.12em; color:rgba(243,231,226,0.45); margin-bottom:8px;">THE TRANSCRIPT · VERBATIM</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-height:1.65; color:rgba(243,231,226,0.82); white-space:pre-wrap;">{{ sel.transcript }}</div>
+            <div style="display:flex; gap:7px; margin-top:11px;">
+              <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(243,231,226,0.45);">DURATION</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(243,231,226,0.85);">{{ sel.duration }}</div></div>
+              <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(243,231,226,0.45);">TRANSCRIBE</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.transConfColor }};">{{ sel.transConf }}</div></div>
+              <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(243,231,226,0.45);">SOURCE</div><div style="font-size:11px; font-weight:600; color:var(--accent2);">voice · self</div></div>
+            </div>
+          </div>
+          <div style="background:rgba(255,178,77,0.05); border:1px solid rgba(255,178,77,0.26); border-radius:11px; padding:11px 12px;">
+            <div style="display:flex; align-items:center; gap:7px; margin-bottom:6px;"><span style="width:7px; height:7px; border-radius:2px; background:#ffb24d;"></span><span style="font-size:10.5px; font-weight:600; color:#ffcf8a;">PROPOSED — NOT YET CLASSIFIED</span></div>
+            <div style="font-size:10.5px; line-height:1.5; color:rgba(243,231,226,0.62);">{{ sel.proposes }}</div>
+            <div style="display:flex; gap:7px; margin-top:9px;">
+              <span style="flex:1; text-align:center; font-size:11px; font-weight:600; color:#160a0c; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:8px; border-radius:8px; cursor:pointer;">Send to Prism Intake</span>
+              <span style="flex:0 0 auto; text-align:center; font-size:11px; color:rgba(243,231,226,0.8); border:1px solid rgba(255,255,255,0.14); padding:8px 11px; border-radius:8px; cursor:pointer;">Keep as note</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ sel.isPlan }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:12px 13px;">
+            <div style="font-size:10px; letter-spacing:0.12em; color:rgba(243,231,226,0.45); margin-bottom:9px;">THE RECORD BEHIND IT</div>
+            <div style="display:flex; gap:7px; margin-bottom:9px;">
+              <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(243,231,226,0.45);">CONFIDENCE</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:{{ sel.confColor }};">{{ sel.conf }}</div></div>
+              <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(243,231,226,0.45);">STATUS</div><div style="font-size:11px; font-weight:600; color:{{ sel.dueColor }};">{{ sel.due }}</div></div>
+              <div style="flex:1; text-align:center; padding:7px 4px; border-radius:8px; background:rgba(255,255,255,0.04);"><div style="font-size:8.5px; color:rgba(243,231,226,0.45);">RECORDS</div><div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(243,231,226,0.85);">{{ sel.records }}</div></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(243,231,226,0.55);"><span style="color:rgba(243,231,226,0.4);">provenance</span><span>{{ sel.provenance }}</span></div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(243,231,226,0.4); margin-bottom:8px;">REASONING PATH</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ sel.reasoning }}" as="step" hint-placeholder-count="3">
+              <div style="display:flex; gap:9px; align-items:flex-start;">
+                <span style="flex:0 0 auto; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:6px; box-shadow:0 0 7px var(--accent);"></span>
+                <span style="font-size:11.5px; line-height:1.5; color:rgba(243,231,226,0.72);">{{ step }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.22); border:1px solid rgba(255,255,255,0.09); border-radius:11px; padding:11px 12px;">
+          <div style="font-size:10px; letter-spacing:0.13em; color:rgba(243,231,226,0.4); margin-bottom:9px;">CANONICAL TRACE</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(243,231,226,0.45);">record</span><span style="color:{{ sel.color }};">{{ sel.canonId }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(243,231,226,0.45);">truth.mode</span><span>{{ sel.mode }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(243,231,226,0.45);">resolver</span><span>{{ sel.resolver }}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:rgba(243,231,226,0.45);">captured</span><span>{{ sel.captured }}</span></div>
+          </div>
+          <div style="display:flex; gap:7px; margin-top:11px;">
+            <span style="flex:1; text-align:center; font-size:11.5px; font-weight:500; color:#160a0c; background:linear-gradient(135deg, var(--accent), var(--accent2)); padding:9px; border-radius:8px; cursor:pointer;">Open canonical record</span>
+            <span style="flex:0 0 auto; text-align:center; font-size:11.5px; color:rgba(243,231,226,0.8); border:1px solid rgba(255,255,255,0.14); padding:9px 12px; border-radius:8px; cursor:pointer;">Play</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:0 0 100px; border-top:1px solid rgba(255,255,255,0.07); background:rgba(20,8,10,0.5); padding:11px 18px; display:flex; gap:16px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:rgba(243,231,226,0.6);">The day's tape · every reel and every task</span>
+        <span style="font-size:10px; color:rgba(243,231,226,0.38);">she keeps the order they came in</span>
+      </div>
+      <div style="flex:1; display:flex; gap:8px; overflow-x:auto;">
+        <sc-for list="{{ tape }}" as="tp" hint-placeholder-count="5">
+          <div onClick="{{ tp.onSelect }}" style="flex:0 0 auto; min-width:150px; display:flex; gap:9px; align-items:flex-start; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:9px; padding:7px 11px; cursor:pointer;">
+            <span style="flex:0 0 auto; width:7px; height:7px; border-radius:{{ tp.radius }}; background:{{ tp.color }}; box-shadow:0 0 6px {{ tp.color }}; margin-top:3px;"></span>
+            <div style="min-width:0;"><div style="font-size:10px; color:rgba(243,231,226,0.85); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:130px;">{{ tp.head }}</div><div style="font-size:8.5px; font-family:'IBM Plex Mono',monospace; color:rgba(243,231,226,0.45);">{{ tp.when }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:0 0 252px; display:flex; align-items:center; gap:12px; background:rgba(57,224,166,0.05); border:1px solid rgba(57,224,166,0.2); border-radius:11px; padding:11px 14px;">
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:#5fe0b0; line-height:1;">0</div>
+        <div style="font-size:9.5px; color:rgba(243,231,226,0.55); margin-top:3px;">records edited by Delia</div>
+      </div>
+      <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.1);"></div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:rgba(243,231,226,0.92); line-height:1;">{{ memoCount }}</div>
+        <div style="font-size:9.5px; color:rgba(243,231,226,0.55); margin-top:3px; line-height:1.3;">memos appended as proposed records · your words, kept whole</div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;crimson&quot;,&quot;sodium&quot;,&quot;noir&quot;],&quot;default&quot;:&quot;crimson&quot;,&quot;tsType&quot;:&quot;'crimson' | 'sodium' | 'noir'&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.TODAY = {
+      wake:{ title:'The morning holds', time:'6:40', type:'block', life:'Confirmed', conf:0.9, due:'kept', records:3, provenance:'routine · band', mode:'DATA_LOG', resolver:'SCHEDULE', captured:'6:41 am', canonId:'plan_wake_17',
+        statement:'A morning block — woke, moved, first light. Logged, unremarkable, the way good mornings are.',
+        reasoning:['A recurring morning block with a clean record.','Device and routine agree on the time.','Nothing owed here — it simply happened.'] },
+      coffee:{ title:'First coffee, black', time:'7:05', type:'block', life:'Observed', conf:0.7, due:'kept', records:1, provenance:'self', mode:'DATA_LOG', resolver:'LATEST', captured:'7:06 am', canonId:'plan_coffee_17',
+        statement:'A small ritual, self-noted. A good cup. The day asked for two; it got two.',
+        reasoning:['Self-reported, low stakes, kept anyway.','No second source — confidence stays modest.','A note, not an obligation.'] },
+      call:{ title:'Return the call', time:'10:00', type:'oblig', life:'Overdue', conf:0.84, due:'overdue 1d', records:2, provenance:'call log · note', mode:'OBLIGATION_LOG', resolver:'DEADLINE', captured:'flagged', canonId:'obl_call_31',
+        statement:'A call owed since yesterday. The ledger keeps it open — overdue, not forgotten. It will keep asking, gently, until it\u2019s done.',
+        reasoning:['A dated obligation now one day past.','Surfaced as overdue; the record is unchanged.','Closing it needs a real call, not a wish.'] },
+      forms:{ title:'Sign the forms', time:'13:00', type:'oblig', life:'Watching', conf:0.8, due:'due today', records:1, provenance:'document', mode:'OBLIGATION_LOG', resolver:'DEADLINE', captured:'due', canonId:'obl_forms_22',
+        statement:'Papers due today. Still open. No drama — just ink that hasn\u2019t happened yet.',
+        reasoning:['A one-off obligation due today.','Document on file; signature pending.','Watching until it\u2019s done or it slips.'] },
+      meet:{ title:'The 3:30 — keep it short', time:'15:30', type:'appt', life:'Confirmed', conf:0.92, due:'on the calendar', records:1, provenance:'calendar · OAuth', mode:'DATA_LOG', resolver:'LATEST', captured:'synced', canonId:'plan_meet_17',
+        statement:'An appointment, provider-attested. On the books, hard to misremember. Keep it short and the evening opens up.',
+        reasoning:['Calendar block imported over OAuth.','Provider-attested — high confidence.','Fixed point in the day.'] },
+      package:{ title:'Mail the package', time:'17:00', type:'oblig', life:'Watching', conf:0.78, due:'open', records:1, provenance:'note', mode:'OBLIGATION_LOG', resolver:'NONE', captured:'open', canonId:'obl_pkg_09',
+        statement:'A small errand, still open. Low stakes, easy to let drift. The ledger holds it so it doesn\u2019t.',
+        reasoning:['An open obligation with no hard deadline.','Self-noted; modest confidence.','Kept visible so it isn\u2019t lost.'] },
+      evening:{ title:'The long evening', time:'21:00', type:'block', life:'Observed', conf:0.65, due:'now', records:2, provenance:'self · band', mode:'DATA_LOG', resolver:'LATEST', captured:'now', canonId:'plan_eve_17',
+        statement:'The quiet hours. This is where the reels usually fill up. The desk is warm. The tape is patient.',
+        reasoning:['An evening block, lightly recorded.','Where most memos get made.','Observation only — the night keeps its own counsel.'] }
+    };
+    this.TODAY_ORDER=['wake','coffee','call','forms','meet','package','evening'];
+
+    this.state = {
+      sel:'memo_2', recording:false, draftShown:'', draftIdx:-1,
+      memos:[
+        { id:'memo_1', title:'Reel 01', time:'7:12 am', duration:'0:18', transConf:0.91,
+          transcript:'Delia — it\u2019s a little after seven. Two things I don\u2019t want to lose: the call I keep dodging, and the forms on the table. Write them down. I\u2019ll pretend I forgot otherwise.',
+          proposes:'Reads like two obligations — \u201cthe call\u201d and \u201cthe forms.\u201d Held as a proposed note; nothing filed until you say so.' },
+        { id:'memo_2', title:'Reel 02', time:'3:48 pm', duration:'0:11', transConf:0.86,
+          transcript:'Note to the tape. The meeting ran short, the way I asked it to. Felt like the room exhaled. Don\u2019t read anything into it. Just glad.',
+          proposes:'A mood note, self-reported. Proposed as an observation only — no pattern claimed, no classification made.' },
+        { id:'memo_3', title:'Reel 03', time:'9:31 pm', duration:'0:23', transConf:0.79,
+          transcript:'It\u2019s late, Delia. There\u2019s a hum in the house I can\u2019t place. Probably the refrigerator. Probably. Anyway — tomorrow, the package, before noon. Say it back to me when I ask.',
+          proposes:'One actionable line (\u201cthe package, before noon\u201d) inside a longer note. Proposed; the rest is kept verbatim, uninterpreted.' }
+      ],
+      log:[
+        { head:'Reel 03 · the hum', sub:'proposed · 1 actionable line', when:'9:31 pm', color:'#ffb24d', kind:'memo', id:'memo_3' },
+        { head:'Sign the forms', sub:'obligation · due today', when:'1:00 pm', color:'#e8c75a', kind:'plan', id:'forms' },
+        { head:'Reel 02 · the room exhaled', sub:'proposed · observation', when:'3:48 pm', color:'#ffb24d', kind:'memo', id:'memo_2' },
+        { head:'Return the call', sub:'obligation · overdue', when:'10:00 am', color:'#ff6b5e', kind:'plan', id:'call' }
+      ]
+    };
+    this.DRAFTS=[
+      { full:'Delia. Past midnight now. The list can wait till the light. But write this down: I meant the call. I did. Tomorrow it gets made.', proposes:'One intention (\u201cthe call, tomorrow\u201d). Proposed; nothing closed by saying it.' },
+      { full:'Note to the tape. Rain started. The street\u2019s gone the color of a nickel. Nothing owed in that — just keeping you company.', proposes:'A plain note, no action. Proposed as an observation, kept whole.' },
+      { full:'Delia, before I forget — the package goes out before noon, and I owe somebody a kinder answer than the one I gave. Hold both.', proposes:'Two items \u2014 an errand and a soft reminder. Proposed; you decide what they become.' }
+    ];
+  }
+
+  themes={
+    crimson:{ accent:'#e23a52', accent2:'#ffb24d', base:'#0c0608', bg1:'rgba(180,20,40,0.16)', bg2:'rgba(255,178,77,0.08)', glow:'rgba(226,58,82,0.32)' },
+    sodium: { accent:'#ffb24d', accent2:'#ff7a52', base:'#0d0a06', bg1:'rgba(255,178,77,0.15)', bg2:'rgba(200,60,40,0.10)', glow:'rgba(255,178,77,0.32)' },
+    noir:   { accent:'#7fb0c8', accent2:'#c89bff', base:'#070a0c', bg1:'rgba(90,140,170,0.14)', bg2:'rgba(150,120,200,0.10)', glow:'rgba(127,176,200,0.30)' }
+  };
+  cur(){ return this.themes[this.props.theme] || this.themes.crimson; }
+  hexA(hex,a){ const c=hex.replace('#',''); const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+  confColor(c){ return c>=0.85?'#39e0a6': c>=0.7?'#7fd99a': c>=0.55?'#e8c75a':'#ff9e57'; }
+  lifeColor(l){ return ({Confirmed:'#39e0a6',Observed:'#7fb0c8',Watching:'#e8c75a',Overdue:'#ff6b5e',Proposed:'#ffb24d'})[l]||'#9aa6c0'; }
+
+  buildDeck(){
+    const h=React.createElement, t=this.cur(), rec=this.state.recording, R=[];
+    const reel=(x)=>{ const spokes=[]; for(let i=0;i<6;i++){ const a=i*60*Math.PI/180; spokes.push(h('line',{key:'sp'+x+i,x1:x,y1:34,x2:x+Math.cos(a)*20,y2:34+Math.sin(a)*20,stroke:this.hexA(t.accent2,0.5),strokeWidth:2})); }
+      return h('g',{key:'reel'+x,style:rec?{transformOrigin:x+'px 34px',animation:'dlReel '+(x<60?'1.6s':'1.6s')+' linear infinite'}:undefined},
+        h('circle',{cx:x,cy:34,r:26,fill:'none',stroke:this.hexA('#f3e7e2',0.25),strokeWidth:2}),
+        h('circle',{cx:x,cy:34,r:23,fill:this.hexA(t.accent,0.12)}),
+        ...spokes,
+        h('circle',{cx:x,cy:34,r:6,fill:'url(#hub)'})); };
+    R.push(h('defs',{key:'d'},h('radialGradient',{id:'hub',cx:'40%',cy:'36%',r:'70%'},h('stop',{offset:'0%',stopColor:'#fff'}),h('stop',{offset:'60%',stopColor:t.accent2}),h('stop',{offset:'100%',stopColor:'#7a3a1a'}))));
+    // body plate
+    R.push(h('rect',{key:'plate',x:14,y:6,width:212,height:64,rx:12,fill:'rgba(12,6,8,0.6)',stroke:this.hexA(t.accent,0.25),strokeWidth:1}));
+    // tape across
+    R.push(h('path',{key:'tape',d:'M40 16 Q120 6 200 16',fill:'none',stroke:this.hexA('#f3e7e2',0.3),strokeWidth:1.4}));
+    R.push(reel(40)); R.push(reel(200));
+    // capstan + head
+    R.push(h('rect',{key:'head',x:114,y:24,width:12,height:20,rx:2,fill:'none',stroke:this.hexA(t.accent2,0.6),strokeWidth:1.4}));
+    // rec light
+    R.push(h('circle',{key:'rl',cx:120,cy:60,r:4,fill:rec?'#ff3b3b':this.hexA('#ff3b3b',0.3),style:rec?{animation:'dlRec 1s ease-in-out infinite'}:undefined}));
+    R.push(h('text',{key:'rt',x:132,y:63,fontFamily:'IBM Plex Mono, monospace',fontSize:8,fill:rec?'#ff8a7a':'rgba(243,231,226,0.4)'},rec?'REC':'STOP'));
+    return h('svg',{viewBox:'0 0 240 76',width:'320',height:'101',style:{display:'block',maxWidth:'100%'}},R);
+  }
+
+  onRecord(){
+    if(this.state.recording){
+      const d=this.DRAFTS[this.state.draftIdx] || this.DRAFTS[0];
+      clearInterval(this._typer);
+      const n=this.state.memos.length+1, id='memo_live_'+Date.now();
+      const memo={ id, title:'Reel '+String(n).padStart(2,'0'), time:'11:59 pm', duration:'0:'+(14+(n*3)%30), transConf:0.83, transcript:d.full, proposes:d.proposes };
+      this.setState(st=>({ recording:false, memos:[...st.memos, memo], sel:id, draftShown:'',
+        log:[{head:memo.title+' · just now', sub:'proposed · kept verbatim', when:'11:59 pm', color:'#ffb24d', kind:'memo', id}, ...st.log].slice(0,8),
+        toast:'Logged to the tape as a proposed record. Delia transcribes — she doesn\u2019t decide. Records edited: 0.' }));
+      clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),4200);
+    } else {
+      const idx=(this.state.draftIdx+1)%this.DRAFTS.length, full=this.DRAFTS[idx].full;
+      this.setState({ recording:true, draftIdx:idx, draftShown:'', sel:null, toast:null });
+      clearInterval(this._typer); let i=0;
+      this._typer=setInterval(()=>{ i+=2; this.setState({ draftShown: full.slice(0,i) }); if(i>=full.length){ clearInterval(this._typer); } },45);
+    }
+  }
+  componentWillUnmount(){ clearInterval(this._typer); clearTimeout(this._tt); }
+
+  renderVals(){
+    const t=this.cur(), st=this.state, rec=st.recording;
+    const memoById=id=>st.memos.find(m=>m.id===id);
+    const navItems=['Prism Intake','Lantern Desk','Tide Room','Ritual Circle','Bounty Constellarium','Family Lantern Wall','Iris','The Governor','Mirror Hall','Delia']
+      .map(l=>{ const on=l==='Delia'; return {label:l,weight:on?'600':'400',bg:on?'rgba(255,255,255,0.07)':'transparent',bar:on?'inset 2px 0 0 var(--accent)':'none',txt:on?'rgba(243,231,226,0.95)':'rgba(243,231,226,0.6)',dot:on?'var(--accent)':'rgba(243,231,226,0.35)'}; });
+
+    const today=this.TODAY_ORDER.map(k=>{ const it=this.TODAY[k], on=st.sel===k;
+      const col = it.type==='oblig' ? (it.life==='Overdue'?'#ff6b5e':'#e8c75a') : it.type==='appt' ? '#7fb0c8' : t.accent2;
+      return { title:it.title, time:it.time, meta: it.type==='oblig'?it.due:(it.type==='appt'?'appointment':'block'),
+        metaColor: it.life==='Overdue'?'#ff8a7a':'rgba(243,231,226,0.42)',
+        dotColor:col, dotGlow:this.hexA(col,0.7), dotRadius: it.type==='oblig'?'2px':'50%',
+        bg:on?this.hexA(col,0.1):'rgba(255,255,255,0.02)', border:on?this.hexA(col,0.4):'rgba(255,255,255,0.06)',
+        onSelect:()=>this.setState({sel:k}) }; });
+
+    const reels=st.memos.map(m=>{ const on=st.sel===m.id; return { title:m.title, meta:m.time+' · '+m.duration, color:t.accent2,
+      bg:on?this.hexA(t.accent2,0.12):'rgba(255,255,255,0.03)', border:on?this.hexA(t.accent2,0.4):'rgba(255,255,255,0.08)',
+      onSelect:()=>{ clearInterval(this._typer); this.setState({sel:m.id, recording:false}); } }; });
+
+    // waveform bars
+    const wave=[]; for(let i=0;i<28;i++){ const base=0.3+Math.abs(Math.sin(i*1.3))*0.7;
+      wave.push({ color: rec?this.hexA(t.accent,0.85):this.hexA(t.accent2,0.3), scale: rec?1:base.toFixed(2),
+        anim: rec?('animation:dlWave '+(0.5+(i%5)*0.12).toFixed(2)+'s ease-in-out infinite; animation-delay:'+(i*0.03).toFixed(2)+'s;'):'' }); }
+
+    // selection / proof
+    let sel; const selId=st.sel; const memo=selId?memoById(selId):null;
+    if(rec){ sel={ isMemo:false, isPlan:false, title:'Recording\u2026', color:'#ff3b3b', life:'Live', lifeColor:'#ff8a7a', lifeBg:'rgba(255,59,59,0.16)', headerBg:'rgba(255,59,59,0.07)', softBorder:'rgba(255,59,59,0.26)',
+        statement:'The tape is running. Whatever you say lands verbatim — Delia won\u2019t tidy it, won\u2019t guess at it. Stop when you\u2019re done and it becomes a proposed record.',
+        kindLine:'live capture · nothing filed yet', reasoning:['Audio is captured as a source, not a conclusion.','Transcription happens on stop, with a confidence score.','Nothing is classified until you send it on.'],
+        canonId:'\u2014', mode:'capture', resolver:'\u2014', captured:'now' };
+    } else if(memo){ sel={ isMemo:true, isPlan:false, title:memo.title, color:t.accent2, life:'Proposed', lifeColor:this.lifeColor('Proposed'), lifeBg:this.hexA('#ffb24d',0.16), headerBg:this.hexA(t.accent2,0.07), softBorder:this.hexA(t.accent2,0.26),
+        statement:'A voice memo, transcribed verbatim and held as a proposed record. Your words are kept whole; what they mean is yours to assign.',
+        kindLine:'source: voice · self · '+memo.time, transcript:memo.transcript, duration:memo.duration,
+        transConf:memo.transConf.toFixed(2), transConfColor:this.confColor(memo.transConf), proposes:memo.proposes,
+        reasoning:['Captured as a self-reported voice source.','Transcribed at '+memo.transConf.toFixed(2)+' confidence — the score travels with it.','Proposed only: never auto-classified, never overwriting canon.'],
+        canonId:memo.id, mode:'DATA_LOG · proposed', resolver:'PROPOSE_ONLY', captured:memo.time };
+    } else { const k=selId&&this.TODAY[selId]?selId:'evening'; const it=this.TODAY[k];
+      const col = it.type==='oblig' ? (it.life==='Overdue'?'#ff6b5e':'#e8c75a') : it.type==='appt' ? '#7fb0c8' : t.accent2;
+      sel={ isMemo:false, isPlan:true, title:it.title, color:col, life:it.life, lifeColor:this.lifeColor(it.life), lifeBg:this.hexA(this.lifeColor(it.life),0.16), headerBg:this.hexA(col,0.07), softBorder:this.hexA(col,0.26),
+        statement:it.statement, kindLine:(it.type==='oblig'?'obligation':it.type==='appt'?'appointment':'day block')+' · '+it.time,
+        conf:it.conf.toFixed(2), confColor:this.confColor(it.conf), due:it.due, dueColor: it.life==='Overdue'?'#ff8a7a':'rgba(243,231,226,0.85)', records:String(it.records), provenance:it.provenance,
+        reasoning:it.reasoning, canonId:it.canonId, mode:it.mode, resolver:it.resolver, captured:it.captured }; }
+
+    const tape=st.log.map(l=>({ head:l.head, when:l.when, color:l.color, radius:l.kind==='memo'?'50%':'2px',
+      onSelect:()=>{ clearInterval(this._typer); this.setState({sel:l.id, recording:false}); } }));
+
+    const openCount=this.TODAY_ORDER.filter(k=>this.TODAY[k].type==='oblig').length;
+
+    return {
+      accent:t.accent, accent2:t.accent2, base:t.base, bg1:t.bg1, bg2:t.bg2, glow:t.glow,
+      navItems, today, reels, wave, tape, sel,
+      deckSvg:this.buildDeck(),
+      recording:rec, memoCount:st.memos.length, openCount,
+      transcriptHead: rec?'LIVE · VERBATIM':(memo?memo.title+' · '+memo.time:'STANDBY'),
+      transcriptText: rec? st.draftShown : (memo?memo.transcript:'Press record. Say it plain.\nDelia keeps the words exactly — she never fills in what you didn\u2019t say.'),
+      transcriptColor: rec?'rgba(243,231,226,0.95)':(memo?'rgba(243,231,226,0.85)':'rgba(243,231,226,0.4)'),
+      recLabel: rec?'recording':'standby', recDotColor: rec?'#ff3b3b':'#7c8596', recDotAnim: rec?'animation:dlRec 1s ease-in-out infinite;':'',
+      recChipBg: rec?'rgba(255,59,59,0.1)':'rgba(255,255,255,0.02)', recChipBorder: rec?'rgba(255,59,59,0.4)':'rgba(255,255,255,0.09)', recChipColor: rec?'#ff8a7a':'rgba(243,231,226,0.55)',
+      onRecord:()=>this.onRecord(),
+      recBtnLabel: rec?'Stop · log it':'Record', recBtnBg: rec?'rgba(255,59,59,0.14)':'linear-gradient(135deg, var(--accent), var(--accent2))',
+      recBtnBorder: rec?'rgba(255,59,59,0.5)':'transparent', recBtnGlow: rec?'none':'0 0 18px '+this.hexA(t.accent,0.4),
+      recBtnTxt: rec?'#ff8a7a':'#160a0c', recBtnIcon: rec?'#ff3b3b':'#160a0c', recBtnIconRadius: rec?'2px':'50%',
+      toast:st.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
